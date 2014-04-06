@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
 
 	<!-- this page specific styles -->
-
+ 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/wizard.css">
 	<!-- google font libraries -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
@@ -288,43 +288,151 @@
 					</div>
 				</section>
 			</div>
+			
+
 			<div class="col-md-10 col-sm-11" id="content-wrapper">
 				<div class="row">
 					<div class="col-lg-12">
-						
-						<h1>Usuarios</h1>
-						
+						<h1>Usuario</h1>
+
 						<div class="row">
-							<div class="col-lg-12">
-								<div class="main-box clearfix">
-									<h2>Creación de Usuario</h1>
-		                            <div class="row">
-		                                <div class="col-lg-6">
-		                                    <form role="form" action="" id="form">
-		                                        <div class="form-group">
-		                                            <label>Nombre</label>
-		                                            <input type="text" id="nombre" name="nombre" class="form-control">
-		                                        </div>
-		                                        <div class="form-group">
-		                                            <label>Apellido</label>
-		                                            <input type="text" id="apellido" name="apellido" class="form-control">
-		                                        </div>
-		                                        <div class="form-group">
-		                                            <label>Correo</label>
-		                                            <input type="text" id="correo" name="correo" class="form-control">
-		                                        </div>
-		                                            <button type="button" class="btn btn-default" id="guardarCambios">Crear Usuario</button>
-		                                    </form>
-		                                </div>
-		                                <!-- /.col-lg-6 (nested) -->
-		                            </div>
-		                            <!-- /.row (nested) -->
+							<div class="col-lg-6">
+								<div class="main-box" style="min-height: 800px;">
+									<h2>Crear Usuario</h2>
+									
+									<div id="myWizard" class="wizard">
+										<div class="wizard-inner">
+											<ul class="steps">
+												<li data-target="#step1" class="active"><span class="badge badge-primary">1</span>Step 1<span class="chevron"></span></li>
+												<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+											</ul>
+											<div class="actions">
+												<button type="button" class="btn btn-default btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+												<button type="button" class="btn btn-success btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+											</div>
+										</div>
+										<div class="step-content">
+										    <div class="col-lg-12">	
+											<div class="step-pane active" id="step1">
+												<br/>
+												<h4>Datos Personales</h4>
+
+												<div class="form-group">
+													<label for="nombreUsuario">Nombres Completos</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-user"></i></span>
+														<input type="nombreUsuario" class="form-control" id="nombreUsuario">
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<label for="apellidoUsuario">Apellidos Completos</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-user"></i></span>
+														<input type="apellidoUsuario" class="form-control" id="apellidoUsuario">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="correoInstitucional">Correo Institucional</label>
+													<div class="input-group">
+														<span class="input-group-addon">@</span>
+														<input type="correoInstitucional" class="form-control" id="correoInstitucional">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="correoAlterno">Correo Alterno</label>
+													<div class="input-group">
+														<span class="input-group-addon">@</span>
+														<input type="correoAlterno" class="form-control" id="correoAlterno">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="numeroCelular">Numero Celular</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+														<input type="numeroCelular" class="form-control" id="numeroCelular">
+													</div>
+												</div>
+
+
+												<div class="form-group">
+													<label for="numeroTelefonico">Numero Telefonico Alterno</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+														<input type="numeroTelefonico" class="form-control" id="numeroTelefonico">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="cuentaSkype">Cuenta Skype</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-cloud"></i></span>
+														<input type="cuentaSkype" class="form-control" id="cuentaSkype">
+													</div>
+												</div>
+											</div>
+											
+											<div class="step-pane" id="step2">
+												
+											<div class="step-pane" id="step3">
+												<br/>
+												<h4>This is step 3</h4>
+												
+												<div class="form-group">
+													<label for="maskedDate">Date</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+														<input type="text" class="form-control" id="maskedDate">
+													</div>
+													<span class="help-block">ex. 99/99/9999</span>
+												</div>
+											
+												<div class="form-group">
+													<label for="maskedPhone">Phone</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+														<input type="text" class="form-control" id="maskedPhone">
+													</div>
+													<span class="help-block">ex. (999) 999-9999</span>
+												</div>
+												
+												<div class="form-group">
+													<label for="maskedPhoneExt">Phone + Ext</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+														<input type="text" class="form-control" id="maskedPhoneExt">
+													</div>
+													<span class="help-block">ex. (999) 999-9999? x99999</span>
+												</div>
+											</div>	
+
+
+
+
+											</div>
+											
+										</div>
+										</div>
+									</div>
+									
+									
+								</div>
+
 							</div>
 						</div>
 						
 					</div>
 				</div>
 			</div>
+
+
+
+
+
+
 		</div>
 	</div>
 	<footer id="footer-bar">
