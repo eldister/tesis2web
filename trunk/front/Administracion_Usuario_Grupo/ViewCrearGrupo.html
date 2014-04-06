@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ProCal-ProSer</title>
+	
+	<!-- bootstrap -->
+	<link href="../../template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+
+	<!-- libraries -->
+	<link href="../../template/css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
+
+	<!-- this page specific styles -->
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
+	<![endif]-->
+</head>
+<body>
+	<header class="navbar" id="header-navbar">
+		<div class="container">
+			<a href="index.html" id="logo" class="navbar-brand col-md-3 col-sm-4 col-xs-12">
+				<img src="../../template/img/logo.png" alt=""/> ProCal-ProSer
+			</a>
+			
+			<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="fa fa-bars"></span>
+			</button>
+			
+			<div class="nav-no-collapse pull-right" id="header-nav">
+				<ul class="nav navbar-nav pull-right">
+					<li class="mobile-search">
+						<a class="btn">
+							<i class="fa fa-search"></i>
+						</a>
+						
+						<div class="drowdown-search">
+							<form role="search">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Búsqueda básica...">
+									<i class="fa fa-search nav-search-icon"></i>
+								</div>
+							</form>
+						</div>
+						
+					</li>
+					<li class="dropdown hidden-xs">
+						<a class="btn dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-cog"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fa fa-search"></i>Búsqueda Avanzada</a></li>
+							<li><a href="#"><i class="fa fa-search-plus"></i>Búsqueda Progresiva</a></li>
+						</ul>
+					<li>
+					<li class="dropdown profile-dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="../../template/img/samples/profile-photo.png" alt=""/>
+							<span class="hidden-xs">Usuario Prueba</span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fa fa-user"></i>Ver Cuenta</a></li>
+							<li><a href="#"><i class="fa fa-cog"></i>Editar Cuenta</a></li>
+							<li><a href="#"><i class="fa fa-power-off"></i>Salir</a></li>
+						</ul>
+					</li>
+					<li class="hidden-xxs">
+						<a class="btn">
+							<i class="fa fa-power-off"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2" id="nav-col">
+				<section id="col-left">
+					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
+						<ul class="nav nav-pills nav-stacked">
+							<li class="active">
+								<a href="index.html">
+									<i class="fa fa-home"></i>
+									<span>Principal</span>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-book"></i>
+									<span>Publicaciones</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Publicaciones
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Publicación
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-file-text"></i>
+									<span>F. Bibliográficas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Fichas
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-users"></i>
+									<span>Usuarios</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Usuarios
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Usuarios
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-comments"></i>
+									<span>Grupos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Grupos
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Crear Grupo
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-pencil-square-o"></i>
+									<span>Autores</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Autores
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Autor
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-globe"></i>
+									<span>Idiomas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Idiomas
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Idioma
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-star"></i>
+									<span>Etiquetas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Etiquetas
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Etiqueta
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-files-o"></i>
+									<span>Maestros</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Tipo de Publicaciones
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Ver Tipo de Fichas Bibliograficas
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-link"></i>
+									<span>Generar Enlaces</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Enlaces con lecturas asignadas
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Modificar enlaces con lecturas asignadas
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-key"></i>
+									<span>Perfiles</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Perfil
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Crear Perfil
+										</a>
+								</ul>
+							</li>
+							
+						</ul>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-10 col-sm-11" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="main-box clearfix">
+									<h1 class="page-header">Grupos</h1>
+				                     <div class="panel panel-default">
+				                        <div class="panel-heading">
+				                            Creación de Grupo
+				                        </div>
+				                        <div class="panel-body">
+				                            <div class="row">
+				                                <div class="col-lg-6">
+				                                    <form role="form" action="" id="form">
+				                                        <div class="form-group">
+				                                            <label>Nombre de Grupo</label>
+				                                            <input type="text" id="nombreGrupo" name="nombreGrupo" class="form-control">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Descripción</label>
+				                                            <textarea class="form-control" id="descripcion" rows="3"></textarea>
+				                                        </div>
+				                                        <div class="form-group form-group-select2">
+				                                            <label>Agregar Usuarios</label>
+											<select style="width:300px" id="sel2Multi" multiple>
+												<option value="user1">Albert Liberato</option> 
+												<option value="user2">Nadya Marcial</option> 
+												<option value="user3">Abraham Davila</option>  
+											</select>
+				                                        </div>
+				                                            <button type="button" class="btn btn-default" id="guardarCambios">Crear Grupo</button>
+				                                    </form>
+				                                </div>
+				                                <!-- /.col-lg-6 (nested) -->
+				                            </div>
+				                            <!-- /.row (nested) -->
+				                        </div>
+				                        <!-- /.panel-body -->
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">TESIS</a>. Powered by Nadya - Albert
+		</p>
+	</footer>
+	
+	<!-- global scripts -->
+	<script src="../../template/js/jquery.js"></script>
+	<script src="../../template/js/bootstrap.js"></script>
+	
+	<!-- this page specific scripts -->
+	<script src="../../template/js/select2.min.js"></script>
+
+	<!-- theme scripts -->
+	<script src="../../template/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+	<script>
+	$(function($) {
+
+		//nice select boxes
+		$('#sel2').select2();
+		
+		$('#sel2Multi').select2({
+			placeholder: 'Seleccione un usuario',
+			allowClear: true
+		});
+	});
+	</script>
+</body>
+</html>
