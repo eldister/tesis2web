@@ -324,7 +324,7 @@
 
 												<div class="form-group">
 													<div class="filter-block pull-left">
-														<a href="" class="btn btn-primary pull-left">
+														<a href="#myModal" class="btn btn-primary pull-left" data-toggle="modal">
 															<i class="fa fa-plus-circle fa-lg"></i>
 															<span>Agregar Idioma</span>
 														</a>
@@ -342,8 +342,55 @@
 
 										</div>
 
+
+
+										<!--MODAL DE CREACION DE IDIOMA-->
+										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+																<h3 class="modal-title"><span>Crear Nuevo Idioma</span></h3>
+															</div>
+														<div class="modal-body">
+															<form role="form">
+																<div class="form-group">
+																	<label for="nombreUsuario">Idioma</label>
+																	<div class="input-group">
+																		<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+																		<input type="nombreUsuario" class="form-control" id="nombreUsuario" >
+																	</div>
+																</div>
+																
+																<div class="form-group">
+																	<label for="apellidoUsuario">Observacion</label>
+																	<div class="input-group">
+																		<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+																		<input type="apellidoUsuario" class="form-control" id="apellidoUsuario" >
+																	</div>
+																</div>
+															</form>
+															
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+															<button type="button" class="btn btn-primary">Registrar Idioma</button>
+														</div>
+													</div><!-- /.modal-content -->
+												</div><!-- /.modal-dialog -->
+											</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
 										<div class="col-lg-12" style="padding-left: 360px;">
-											<button type="button" class="btn btn-default" id="guardarUsuario">
+											<button type="button" class="btn btn-default" id="guardarEtiqueta">
 												Registrar Eiqueta
 											</button>
 											<button type="button" class="btn btn-default" >
