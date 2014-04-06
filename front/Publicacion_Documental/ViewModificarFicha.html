@@ -15,8 +15,10 @@
 	<!-- global styles -->
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
 
 	<!-- this page specific styles -->
+	<link rel="stylesheet" type="text/css" href="../../template/css/libs/dropzone.css">
 
 	<!-- google font libraries -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
@@ -164,7 +166,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="#">
+										<a href="ViewCrearGrupo.html">
 											Crear Grupo
 										</a>
 									</li>
@@ -291,153 +293,94 @@
 			<div class="col-md-10 col-sm-11" id="content-wrapper">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>Publicaciones</h1>
+						<h1>Fichas Bibliográficas</h1>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
-									<h2 class="pull-left">Lista de Publicaciones</h1>
-									<div class="filter-block pull-right">
-										<div class="form-group pull-left">
-											<input type="text" class="form-control" placeholder="Buscar publicación...">
-											<i class="fa fa-search search-icon"></i>
-										</div>										
-										<a href="ViewCrearPublicacion.html" class="btn btn-primary pull-right">
-											<i class="fa fa-plus-circle fa-lg"></i> 
-											<span>Agregar Publicacion</span>
-										</a>
-									</div>
-									<div class="table-responsive">
-										<table class="table user-list">
-											<thead>	
-												<tr>
-													<th class="text-center">
-														<span>Título</span>
-													</th>
-													<th class="text-center">
-														<span>Fecha Registro</span>
-													</th>
-													<th class="text-center">
-														<span>Tipo de Publicación</span>
-													</th>
-													<th class="text-center">
-														<span>Idioma</span>
-													</th>
-													<th class="text-center">
-														<span>Agregar Ficha</span>
-													</th>
-												</tr>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="text-center">
-														<span>Publicacion 1</span>
-													</td>
-													<td class="text-center"	>
-														<span >06/04/2014</span>
-													</td>
-													<td class="text-center"	>
-														<span >Artículo</span>
-													</td>
-													<td class="text-center"	>
-														<span >Español</span>
-													</td>
-													<td class="text-center"	>
-														<a href="ViewCrearFicha.html" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-file-o fa-stack-1x fa-inverse"></i>
-															</span>
+									<!--<form role="form"  action="" id="form">-->
+									<h2>Modificar Ficha Bibliográfica</h2>
+									<h3><span>Datos de Publicación</span></h3>
+		                            <div class="row">		                            	
+		                                <div class="col-lg-6">		                                    
+	                                        <div class="form-group">
+	                                            <label>Título</label>
+	                                            <textarea class="form-control" id="titulo" rows="1" readonly>publicacion 1</textarea>
+	                                        </div>
+	                                        <div class="form-group">
+	                                            <label>Idioma</label>
+	                                            <input class="form-control" id="idioma" value="Español" readonly></input>
+	                                        </div>	                                    
+		                                </div>
+		                                <div class="col-lg-6">	
+		                                	<div class="form-group">
+	                                            <label>Tipo</label>
+	                                            <input class="form-control" id="tipoPub" value="Tesis Pre-Grado" readonly></input>
+	                                        </div>
+	                                      	<div class="form-group">
+	                                            <label>Fecha de registro</label>
+	                                            <input class="form-control" id="fechaRegistro" value="30/01/2014" readonly></input>
+	                                        </div>
+		                                </div>
+		                            </div>
+		                            <h3><span>Datos de Ficha Bibliográfica</span></h3>
+		                            <div class="row">		                            	
+		                                <div class="col-lg-6">		                                    
+	                                        <div class="form-group">
+	                                            <label>Encabezado</label>
+	                                            <textarea class="form-control" id="encabezado" rows="3" value="Encabezado 1"></textarea>
+	                                        </div>
+	                                       	<div class="form-group">
+												<label>Tipo de Ficha</label>
+												<select class="form-control">
+													<option>Artículo</option>
+													<option>Revista</option>
+													<option>Periódico</option>
+													<option>Presentación</option>
+													<option>Tesis Maestria</option>
+												</select>
+											</div>
+
+		                                </div>
+		                                <div class="col-lg-6">	
+	                                        <div class="form-group">
+	                                            <label>Título abreviado</label>
+	                                            <input class="form-control" id="tituloAbreviado" value="Titulo 1"></input>
+	                                        </div>
+	                                        <div class="form-group">
+	                                            <label>Contenido</label>
+	                                            <textarea class="form-control" id="contenido" rows="3" value="contenido"></textarea>
+	                                        </div>
+		                                </div>
+		                            </div>
+		                            <h3><span>Agregar más etiquetas</span></h3>		                            
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                    	<label>Etiquetas</label>
+	                                    	<div class="row">
+	                                    		<div class="col-md-6">
+			                                        <div class="form-group form-group-select2">
+														<select style="width:525px" id="sel2Multi3" multiple>
+															<option value="eti1">Etiqueta 1</option> 
+															<option value="eti2">Etiqueta 2</option> 
+															<option value="eti3">Etiqueta 3</option>  
+														</select>
+			                                        </div>
+			                                    </div>
+			                                    <div class="col-md-6">
+													<div class="filter-block pull-left" >								
+														<a href="#" class="btn btn-primary pull-left">
+															<i class="fa fa-plus-circle fa-lg"></i> 
+															<span>Agregar Etiqueta</span>
 														</a>
-													</td>
-													<td>
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#" class="table-link" >
-															<span class="fa-stack" >
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#myModal" class="table-link danger" data-toggle="modal">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-															<div class="modal-dialog">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																		<h3 class="modal-title"><span class="text-left">Eliminar Publicación</span></h3>
-																	</div>
-																	<div class="modal-body">
-																		<div class="form-group">
-																			<label for="titulo">Título</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="titulo" class="form-control" id="titulo" readonly >
-																			</div>
-																		</div>
-																		<div class="form-group">
-																			<label for="tipoPublicacion">Tipo de Publicación</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="tipoPublicacion" class="form-control" id="tipoPublicacion" readonly >
-																			</div>
-																		</div>
-																		<div class="form-group">
-																			<label for="anioPub">Año de Publicación</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="tipoPublicacion" class="form-control" id="anioPub" readonly >
-																			</div>
-																		</div>
-																		<div class="form-group">
-																			<label for="anioPub">Mes de Publicación</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="tipoPublicacion" class="form-control" id="anioPub" readonly >
-																			</div>
-																		</div>													
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-																		<button type="button" class="btn btn-primary">Eliminar</button>
-																	</div>
-																</div><!-- /.modal-content -->
-															</div><!-- /.modal-dialog -->
-														</div><!-- /.modal -->
-													</td>
-												</tr>
-											</tbody>											
-										</table>
-										<ul class="pagination pull-right">
-											<li>
-												<a href="#">
-													<i class="fa fa-chevron-left"></i>
-												</a>
-											</li>
-											<li>
-												<a href="#">1</a>
-											</li>
-											<li>
-												<a href="#">
-													<i class="fa fa-chevron-right"></i>
-												</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								</div>
+													</div>
+												</div>
+                                    		</div>
+                                    	</div>
+		                            </div>    	
+                    		<button type="button" class="btn btn-default" id="guardarCambios">Modificar Ficha Bibliográfica</button>
+                        	</form>							
 							</div>
-						</div>
-						
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -454,11 +397,34 @@
 	<script src="../../template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-	
+	<script src="../../template/js/select2.min.js"></script>
+	<script src="../../template/js/dropzone.js"></script>
+
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
-	
+	<script>
+	$(function($) {
+
+		//nice select boxes
+		$('#sel2').select2();
+		
+		$('#sel2Multi').select2({
+			placeholder: 'Seleccione las carpetas donde estará contenida la publicación',
+			allowClear: true
+		});
+
+	    $('#sel2Multi2').select2({
+			placeholder: 'Seleccione un autor',
+			allowClear: true
+		});
+
+	    $('#sel2Multi3').select2({
+			placeholder: 'Seleccione una etiqueta',
+			allowClear: true
+		});
+	});
+	</script>
 </body>
 </html>

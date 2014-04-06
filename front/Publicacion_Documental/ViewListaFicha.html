@@ -291,39 +291,35 @@
 			<div class="col-md-10 col-sm-11" id="content-wrapper">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>Publicaciones</h1>
+						<h1>Fichas Bibliograficas</h1>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
-									<h2 class="pull-left">Lista de Publicaciones</h1>
+									<h2 class="pull-left">Lista de Fichas Bibliográficas</h1>
 									<div class="filter-block pull-right">
 										<div class="form-group pull-left">
-											<input type="text" class="form-control" placeholder="Buscar publicación...">
+											<input type="text" class="form-control" placeholder="Buscar ficha...">
 											<i class="fa fa-search search-icon"></i>
 										</div>										
-										<a href="ViewCrearPublicacion.html" class="btn btn-primary pull-right">
-											<i class="fa fa-plus-circle fa-lg"></i> 
-											<span>Agregar Publicacion</span>
-										</a>
 									</div>
 									<div class="table-responsive">
 										<table class="table user-list">
 											<thead>	
 												<tr>
 													<th class="text-center">
-														<span>Título</span>
-													</th>
-													<th class="text-center">
 														<span>Fecha Registro</span>
 													</th>
 													<th class="text-center">
-														<span>Tipo de Publicación</span>
+														<span>Encabezado</span>
 													</th>
 													<th class="text-center">
-														<span>Idioma</span>
+														<span>Título</span>
 													</th>
 													<th class="text-center">
-														<span>Agregar Ficha</span>
+														<span>Tipo</span>
+													</th>
+												    <th class="text-center">
+														<span>Publicación de origen</span>
 													</th>
 												</tr>
 												</tr>
@@ -331,24 +327,19 @@
 											<tbody>
 												<tr>
 													<td class="text-center">
-														<span>Publicacion 1</span>
+														<span>30/01/2014</span>
 													</td>
 													<td class="text-center"	>
-														<span >06/04/2014</span>
+														<span >Encabezado 1</span>
 													</td>
 													<td class="text-center"	>
-														<span >Artículo</span>
+														<span >Articulo</span>
 													</td>
 													<td class="text-center"	>
-														<span >Español</span>
+														<span >Título 1</span>
 													</td>
 													<td class="text-center"	>
-														<a href="ViewCrearFicha.html" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-file-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
+														<span >Publicacion 1</span>
 													</td>
 													<td>
 														<a href="#" class="table-link">
@@ -374,35 +365,28 @@
 																<div class="modal-content">
 																	<div class="modal-header">
 																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																		<h3 class="modal-title"><span class="text-left">Eliminar Publicación</span></h3>
+																		<h3 class="modal-title"><span class="text-left">Eliminar Ficha Bibliográfica</span></h3>
 																	</div>
 																	<div class="modal-body">
 																		<div class="form-group">
-																			<label for="titulo">Título</label>
+																			<label for="encabezado">Encabezado</label>
+																			<div class="input-group">
+																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+																				<input type="encabezado" class="form-control" id="encabezado" readonly >
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<label for="tipoPublicacion">Título</label>
 																			<div class="input-group">
 																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
 																				<input type="titulo" class="form-control" id="titulo" readonly >
 																			</div>
 																		</div>
 																		<div class="form-group">
-																			<label for="tipoPublicacion">Tipo de Publicación</label>
+																			<label for="anioPub">Tipo</label>
 																			<div class="input-group">
 																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="tipoPublicacion" class="form-control" id="tipoPublicacion" readonly >
-																			</div>
-																		</div>
-																		<div class="form-group">
-																			<label for="anioPub">Año de Publicación</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="tipoPublicacion" class="form-control" id="anioPub" readonly >
-																			</div>
-																		</div>
-																		<div class="form-group">
-																			<label for="anioPub">Mes de Publicación</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="tipoPublicacion" class="form-control" id="anioPub" readonly >
+																				<input type="tipo" class="form-control" id="tipo" readonly >
 																			</div>
 																		</div>													
 																	</div>
