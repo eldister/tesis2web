@@ -293,44 +293,30 @@
 			<div class="col-md-10 col-sm-11" id="content-wrapper">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>Fichas Bibliográficas</h1>
+						<h1>Publicaciones</h1>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
 									<!--<form role="form"  action="" id="form">-->
-									<h2>Crear Ficha Bibliográfica</h2>
-									<h3><span>Datos de Publicación</span></h3>
-		                            <div class="row">		                            	
+									<h2>Modificar Publicación</h2>
+									<h3><span>Datos Básicos</span></h3>
+		                            <div class="row">
+		                            	
 		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">
 	                                            <label>Título</label>
-	                                            <textarea class="form-control" id="titulo" rows="1" readonly>publicacion 1</textarea>
+	                                            <textarea class="form-control" id="titulo" rows="3" value="Titulo 1"></textarea>
 	                                        </div>
 	                                        <div class="form-group">
-	                                            <label>Idioma</label>
-	                                            <input class="form-control" id="idioma" value="Español" readonly></input>
-	                                        </div>	                                    
-		                                </div>
-		                                <div class="col-lg-6">	
-		                                	<div class="form-group">
-	                                            <label>Tipo</label>
-	                                            <input class="form-control" id="tipoPub" value="Tesis Pre-Grado" readonly></input>
+	                                            <label>Fuente</label>
+	                                            <textarea class="form-control" id="fuente" rows="3" placeholder="Nombre y/o descripción del congreso, revista, editorial u otra fuente"></textarea>
 	                                        </div>
 	                                      	<div class="form-group">
-	                                            <label>Fecha de registro</label>
-	                                            <input class="form-control" id="fechaRegistro" value="30/01/2014" readonly></input>
+	                                            <label>Obtenido</label>
+	                                            <textarea class="form-control" id="obtenido" rows="3" placeholder="Nombre y/o descripción de ACM, IEEE u otra base de datos"></textarea>
 	                                        </div>
-		                                </div>
-		                            </div>
-		                            <h3><span>Datos de Ficha Bibliográfica</span></h3>
-		                            <div class="row">		                            	
-		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">
-	                                            <label>Encabezado</label>
-	                                            <textarea class="form-control" id="encabezado" rows="3" ></textarea>
-	                                        </div>
-	                                       	<div class="form-group">
-												<label>Tipo de Ficha</label>
+												<label>Tipo de Publicación</label>
 												<select class="form-control">
 													<option>Artículo</option>
 													<option>Revista</option>
@@ -338,21 +324,85 @@
 													<option>Presentación</option>
 													<option>Tesis Maestria</option>
 												</select>
-											</div>
-
+											</div>		                                    
 		                                </div>
 		                                <div class="col-lg-6">	
-	                                        <div class="form-group">
-	                                            <label>Título abreviado</label>
-	                                            <input class="form-control" id="tituloAbreviado" ></input>
-	                                        </div>
-	                                        <div class="form-group">
-	                                            <label>Contenido</label>
-	                                            <textarea class="form-control" id="contenido" rows="3" ></textarea>
-	                                        </div>
+		                                	<div class="form-group">
+		                                        <label>Año de Publicación</label>
+		                                        <input type="text" id="anioPublicacion" name="anioPublicacion" value="2014" class="form-control">
+		                                    </div>
+		                                  	<div class="form-group">
+		                                        <label>Mes de Publicación</label>
+		                                        <input type="text" id="mesPublicacion" name="mesPublicacion" value="marzo" class="form-control">
+		                                    </div>
+
+											<div class="form-group">
+		                                        <label>Páginas</label>
+		                                        <input type="text" id="paginas" name="paginas" value="50" class="form-control">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>Volumen</label>
+		                                        <input type="text" id="volumen" name="volumen" value="4" class="form-control">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>DOI</label>
+		                                        <input type="text" id="doi" name="doi" class="form-control"  placeholder=" Identificación de material digital">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>ISSN</label>
+		                                        <input type="text" id="issn" name="issn" class="form-control" placeholder="Número internacional normalizado de publicaciones seriadas">
+		                                    </div>
 		                                </div>
 		                            </div>
-		                            <h3><span>Agregar Etiquetas</span></h3>		                            
+		                            <h3><span>Carpetas, autores y etiquetas</span></h3>
+		                            <div class="row">
+		                            	<div class="col-md-12">
+		                            		<label>Carpetas</label>
+		                            		<div class="row">
+				                            	<div class="col-md-6">
+			                            			<div class="form-group form-group-select2">        
+														<select style="width:525px" id="sel2Multi" multiple>
+															<option value="carp1" selected>Carpeta 1</option> 
+															<option value="carp2">Carpeta 2</option> 
+															<option value="carp3">Carpeta 3</option>  
+														</select>
+			                                        </div>								
+			                                     </div>
+			                                     <div class="col-md-6">
+			                                     		<div class="filter-block pull-left" >								
+															<a href="#" class="btn btn-primary pull-left">
+																<i class="fa fa-plus-circle fa-lg"></i> 
+																<span>Agregar Carpeta</span>
+															</a>
+														</div>
+			                                     </div>
+		                                 	</div>
+	                                     </div>
+	                                </div>
+	                                <div class="row">
+	                                     <div class="col-md-12">
+		                                     <label>Autores</label>
+		                                     <div class="row">
+					                            <div class="col-md-6">
+			                                        <div class="form-group form-group-select2">
+														<select style="width:525px" id="sel2Multi2" multiple>
+															<option value="aut1">Autor 1</option> 
+															<option value="aut2">Autor 2</option> 
+															<option value="aut3" selected>Autor 3</option>  
+														</select>
+			                                        </div>
+		                                   		</div>
+		                                    	<div class="col-md-6">
+		                                    		<div class="filter-block pull-left" >								
+														<a href="#" class="btn btn-primary pull-left">
+															<i class="fa fa-plus-circle fa-lg"></i> 
+															<span>Agregar Autor</span>
+														</a>
+													</div>
+		                                    	</div>
+	                                		</div>
+	                                	</div>
+	                                </div>
 	                                <div class="row">
 	                                    <div class="col-md-12">
 	                                    	<label>Etiquetas</label>
@@ -360,8 +410,8 @@
 	                                    		<div class="col-md-6">
 			                                        <div class="form-group form-group-select2">
 														<select style="width:525px" id="sel2Multi3" multiple>
-															<option value="eti1">Etiqueta 1</option> 
-															<option value="eti2">Etiqueta 2</option> 
+															<option value="eti1" selected>Etiqueta 1</option> 
+															<option value="eti2" selected>Etiqueta 2</option> 
 															<option value="eti3">Etiqueta 3</option>  
 														</select>
 			                                        </div>
@@ -376,11 +426,23 @@
 												</div>
                                     		</div>
                                     	</div>
-		                            </div>    	
-                    		<button type="button" class="btn btn-default" id="guardarCambios">Crear Ficha Bibliográfica</button>
+		                            </div>
+		                     <h3><span>Subida de Archivos digitales (PENDIENTE)</span></h3>
+		                     <!--pendiente puede ser como popup
+		                     	<div class="row">
+		                     	<div id="dropzone">
+									<form id="demo-upload" class="dropzone dz-clickable" action="#">
+										<div class="dz-default dz-message">
+											<span>Arrastre los archivos de las publicaciones</span>
+										</div>
+									</form>
+								</div>
+		                     </div>-->      	
+                    		<button type="button" class="btn btn-default" id="guardarCambios">Crear Publicacion</button>
                         	</form>							
 							</div>
-						</div>						
+						</div>
+						
 					</div>
 				</div>
 			</div>
