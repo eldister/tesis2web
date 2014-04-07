@@ -297,7 +297,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
-									<!--<form role="form"  action="" id="form">-->
+								<form role="form"  action="" id="form">
 									<h2>Crear Publicación</h2>
 									<h3><span>Datos Básicos</span></h3>
 		                            <div class="row">
@@ -354,7 +354,7 @@
 		                                    </div>
 		                                </div>
 		                            </div>
-		                            <h3><span>Carpetas, autores y etiquetas</span></h3>
+		                            <h3><span>Carpetas, autores, etiquetas y archivos</span></h3>
 		                            <div class="row">
 		                            	<div class="col-md-12">
 		                            		<label>Carpetas</label>
@@ -370,7 +370,7 @@
 			                                     </div>
 			                                     <div class="col-md-6">
 			                                     		<div class="filter-block pull-left" >								
-															<a href="#" class="btn btn-primary pull-left">
+															<a href="#myModalCarpeta" class="btn btn-primary pull-left" data-toggle="modal">
 																<i class="fa fa-plus-circle fa-lg"></i> 
 																<span>Agregar Carpeta</span>
 															</a>
@@ -394,7 +394,7 @@
 		                                   		</div>
 		                                    	<div class="col-md-6">
 		                                    		<div class="filter-block pull-left" >								
-														<a href="#" class="btn btn-primary pull-left" style="width: 155px;">
+														<a href="#myModalAutor" class="btn btn-primary pull-left" style="width: 155px;" data-toggle="modal">
 															<i class="fa fa-plus-circle fa-lg"></i> 
 															<span>Agregar Autor</span>
 														</a>
@@ -426,75 +426,182 @@
 												</div>
                                     		</div>
                                     	</div>
-		                            </div>
-		                     <h3><span>Subida de Archivos digitales (PENDIENTE)</span></h3>
-
-
-
-		                     <div class="modal fade" id="myModalEtiqueta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																<h3 class="modal-title"><span>Agregar Etiqueta</span></h3>
-															</div>
-														<div class="modal-body">
-															<form role="form">
-																<div class="form-group">
-																	<label for="etiqueta">Etiqueta</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-																		<input type="etiqueta" class="form-control" id="etiqueta"  >
-																	</div>
-																</div>
-																
-																<div class="form-group">
-																	<label for="Idioma">Idioma</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-																		<select type="Idioma" class="form-control" id="Idioma">
-																			<option>Ingles</option>
-																			<option>Español</option>
-																			<option>Portugues</option>
+		                            </div>	
+			                     	<div class="row">
+			                     		<div class="col-md-12">
+			                     			<div class="row">
+	                                    		<div class="col-md-6">
+						                        	 <div class="filter-block pull-left" >								
+														<a href="#myModalSubirArchivos" class="btn btn-primary pull-left"  data-toggle="modal">
+															<i class="fa fa-plus-circle fa-lg"></i> 
+															<span>Subir Archivos</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>   	
+			                        </div>	
+			                     <!--MODAL ETIQUETA-->   	                     
+		                     	<div class="modal fade" id="myModalEtiqueta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title"><span>Agregar Etiqueta</span></h3>
+											</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-group">
+													<label for="etiqueta">Etiqueta</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+														<input type="etiqueta" class="form-control" id="etiqueta"  >
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<label for="Idioma">Idioma</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+														<select type="Idioma" class="form-control" id="Idioma">
+															<option>Ingles</option>
+															<option>Español</option>
+															<option>Portugues</option>
 														</select>
-																	</div>
-																</div>
+													</div>
+												</div>
 
-																<div class="form-group">
-																	<label for="apellidoUsuario">Observacion</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-																		<input type="apellidoUsuario" class="form-control" id="apellidoUsuario"  >
-																	</div>
-																</div>
+												<div class="form-group">
+													<label for="apellidoUsuario">Observacion</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+														<input type="apellidoUsuario" class="form-control" id="apellidoUsuario"  >
+													</div>
+												</div>
 
-															</form>
-															
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-															<button type="button" class="btn btn-primary">Registrar Etiqueta</button>
-														</div>
-													</div><!-- /.modal-content -->
-												</div><!-- /.modal-dialog -->
-								</div><!-- /.modal -->
-
-
-
-
-
-
-
-		                     <!--pendiente puede ser como popup
-		                     	<div class="row">
-		                     	<div id="dropzone">
-									<form id="demo-upload" class="dropzone dz-clickable" action="#">
-										<div class="dz-default dz-message">
-											<span>Arrastre los archivos de las publicaciones</span>
+											</form>
+											
 										</div>
-									</form>
-								</div>
-		                     </div>-->      	
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+											<button type="button" class="btn btn-primary">Registrar Etiqueta</button>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+							<!--FIN MODAL ETIQUETA--> 
+							<!--MODAL AUTOR--> 
+							<div class="modal fade" id="myModalAutor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title"><span>Agregar Autor</span></h3>
+											</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-group">
+													<label for="autor">Autor (Nombre y Apellidos)</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+														<input type="autor" class="form-control" id="autor">
+													</div>
+												</div>												
+												<div class="form-group">
+													<label for="pagweb">Página Web</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+														<input type="pagweb" class="form-control" id="pagweb">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="institucion">Institución</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+														<input type="institucion" class="form-control" id="institucion">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="trabajo">Trabajo</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+														<input type="trabajo" class="form-control" id="trabajo">
+													</div>
+												</div>
+
+											</form>
+											
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+											<button type="button" class="btn btn-primary">Registrar Autor</button>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+							<!--FIN MODAL AUTOR-->
+							<!--MODAL CARPETAS-->  
+							<div class="modal fade" id="myModalCarpeta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title"><span>Agregar Carpeta</span></h3>
+											</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-group">
+													<label for="nombreCarpeta">Nombre de Carpeta</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+														<input type="carpeta" class="form-control" id="carpeta"  >
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="descripcion">Descripción</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+														<input type="descripcion" class="form-control" id="descripcion"  >
+													</div>
+												</div>
+
+											</form>
+											
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+											<button type="button" class="btn btn-primary">Registrar Etiqueta</button>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+							<!--FIN MODAL CARPETAS-->
+							<!--MODAL SUBIR ARCHIVOS-->
+							<div class="modal fade" id="myModalSubirArchivos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title"><span>Subir Archivos para publicación</span></h3>
+											</div>
+										<div class="modal-body">
+											<div id="dropzone">
+												<form id="demo-upload" class="dropzone dz-clickable" action="#">
+													<div class="dz-default dz-message">
+														<span>Arrastre los archivos de las publicaciones</span>
+													</div>
+												</form>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+											<button type="button" class="btn btn-primary">Agregar Archivos</button>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+							<!--FIN MODAL SUBIR ARCHIVOS-->
+		                     <br><br>      	
                     		<button type="button" class="btn btn-default" id="guardarCambios">Crear Publicacion</button>
                         	</form>							
 							</div>
