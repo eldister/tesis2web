@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ProCal-ProSer</title>
+	
+	<!-- bootstrap -->
+	<link href="template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+
+	<!-- libraries -->
+	<link href="template/css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="template/css/compiled/layout.css">
+	<link rel="stylesheet" type="text/css" href="template/css/compiled/elements.css">
+
+	<!-- this page specific styles -->
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
+	<![endif]-->
+</head>
+<body id="login-page">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="login-box">
+					<div class="row">
+						<div class="col-xs-12 clearfix" id="login-box-header">
+							<div class="login-box-header-blue"></div>
+							<div class="login-box-header-blue"></div>
+							<div class="login-box-header-blue"></div>
+							<div class="login-box-header-blue"></div>
+							<div class="login-box-header-blue"></div>
+							<div class="login-box-header-blue"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div id="login-box-inner">
+								<!-- <img src="img/logo-login.png" alt="SuperheroAdmin" class="img-responsive" id="login-logo"/> -->
+								<div id="login-logo">
+									<img src="template/img/logos/logoPCPS.jpg" alt=""/> 
+								</div>								
+								<form role="form" action="">
+									<div class="input-group input-group-lg">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+										<input class="form-control" type="text" id="userID" placeholder="Usuario">
+									</div>
+									<div class="input-group input-group-lg">
+										<span class="input-group-addon"><i class="fa fa-key"></i></span>
+										<input type="password" class="form-control" id="passID" placeholder="Password">
+									</div>
+									<br><br>
+									<div class="row">
+										<div class="col-sm-6 col-xs-12 col-sm-push-6">
+											<button type="submit" class="btn btn-success col-xs-12">Ingresar</button>
+										</div>
+										<a href="#myModal" id="login-forget-link" class="col-sm-6 col-xs-12 col-sm-pull-6" data-toggle="modal">
+											¿Olvidó su contraseña?
+										</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title"><span>Recuperar Contraseña</span></h3>
+									</div>
+								<div class="modal-body">
+									<form role="form">
+										<div class="form-group">
+											<label for="correo">Correo Electrónico</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-user"></i></span>
+												<input type="correo" class="form-control" id="correo" placeholder="Correo que registró" >
+											</div>
+										</div>										
+									</form>									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" class="btn btn-primary">Recuperar Contraseña</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->				
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- global scripts -->
+	<script src="template/js/jquery.js"></script>
+	<script src="template/js/bootstrap.js"></script>
+	
+	<!-- this page specific scripts -->
+
+	
+	<!-- theme scripts -->
+	<script src="template/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+	
+</body>
+</html>

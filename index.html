@@ -29,134 +29,158 @@
 		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
 	<![endif]-->
 </head>
-<body id="login-page-full">
+<body>
 	<header class="navbar hidden-xs hidden-sm" id="header-navbar">
 		<div class="container">
-			<a href="index.html" id="logo" class="navbar-brand col-md-3 col-sm-4 col-xs-12">
-				<img src="template/img/logo.png" alt=""/> ProCal-ProSer
-			</a>
-			<div class="pull-right text-right login-full-create">
-				¿No eres miembro? <a href="#">Solicita una cuenta</a>
-			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<a href="index.html" id="logo">
+						<img src="template/img/logos/logoPCPS_mini.jpg" alt=""/> 
+					</a>
+				</div>
+				<div class="col-xs-6" align="right">
+					<h5><a href="login.html">Ingresar</a>,¿No es un miembro? <a href="viewRegistroPersonas.html">Solicite una cuenta</a></h5>
+				</div>		
+			</div>	
 		</div>
 	</header>
-	
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 hidden-sm hidden-xs" id="login-full-left">
-				<h1>ProCal-ProSer</h1>
-				<p class="text-center">
-					Because some men aren't looking for anything logical, like money. They can't be bought, bullied, reasoned, 
-					or negotiated with. Some men just want to watch the world burn.
-				</p>
-				<h2>Awesome features</h2>
-				<p class="text-center">
-					"Iron Man". That's kind of catchy. It's got a nice ring to it.
-				</p>
-				<ul class="login-full-features center-block">
-					<li>
-						<i class="fa fa-dashboard red"></i>
-						<span>Dashboard</span>
-					</li>
-					<li>
-						<i class="fa fa-bar-chart-o emerald"></i>
-						<span>Charts</span>
-					</li>
-					<li>
-						<i class="fa fa-list-ul yellow"></i>
-						<span>Forms</span>
-					</li>
-					<li>
-						<i class="fa fa-users green"></i>
-						<span>Users</span>
-					</li>
-					<li>
-						<i class="fa fa-calendar gray"></i>
-						<span>Calendar</span>
-					</li>
-					<li>
-						<i class="fa fa-inbox purple"></i>
-						<span>Messages</span>
-					</li>
-				</ul>
-				
-				<h2>Fully responsive</h2>
-				<p class="text-center">
-					You will give the people an ideal to strive towards. They will race behind you, they will stumble, they will fall. 
-					But in time, they will join you in the sun. In time, you will help them accomplish wonders.
-				</p>
-				<p class="text-center login-full-devices">
-					<img src="template/img/samples/admin-devices.png" alt="" class="img-responsive center-block" />
-				</p>
+			<div class="col-md-2" id="nav-col">
+				<section id="col-left">
+					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
+						<ul class="nav nav-pills nav-stacked">
+							<li class="active">
+								<a href="#" id="presentacionContent">
+									<i class="fa fa-home"></i>
+									<span>Presentacion</span>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle" id="lineaContent">
+									<i class="fa fa-book"></i>
+									<span>Lineas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li><a href="#">Desarrollo</a></li>
+									<li><a href="#">Servicios</a></li>
+									<li><a href="#">Factores</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-file-text"></i>
+									<span>Modelos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li><a href="#">ISO/IEC 29110</a></li>
+									<li><a href="#">MOPROSOFT</a></li>
+									<li><a href="#">ISO/IEC 12207</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-users"></i>
+									<span>Investigadores</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li><a href="#">Equipo</a></li>
+									<li><a href="#">Equipo PUCP</a></li>
+									<li><a href="#">Equipo UNSA</a></li>
+									<li><a href="#">Equipo UPN</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-comments"></i>
+									<span>Actividades</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li><a href="#">CONF 2014 ABRIL</a></li>
+									<li><a href="#">CONF LANZAMIENTO</a></li>
+									<li><a href="#">PARA PUBLICAR</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-pencil-square-o"></i>
+									<span>Cursos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li><a href="#">FUND PROC SW</a></li>
+									<li><a href="#">P BAS DESA SW</a></li>
+									<li><a href="#">CONSTANCIAS</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-globe"></i>
+									<span>Incorporación</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li><a href="viewRegistroPersonas.html">REG PERSONAS</a></li>
+									<li><a href="#">REG UNIVERSIDADES</a></li>
+									<li><a href="#">REG EMPRESA</a></li>
+									<li><a href="#">REG ORGANIZACIÓN</a></li>	
+								</ul>
+							</li>			
+						</ul>
+					</div>
+				</section>
 			</div>
-			<div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-xs-12">
-				<div id="login-box">
-					<div class="row">
-						<div class="col-xs-12 clearfix" id="login-box-header">
-							<div class="login-box-header-red"></div>
-							<div class="login-box-header-green"></div>
-							<div class="login-box-header-yellow"></div>
-							<div class="login-box-header-purple"></div>
-							<div class="login-box-header-blue"></div>
-							<div class="login-box-header-gray"></div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-12">
-							<div id="login-box-inner">
-								<!-- <img src="img/logo-login.png" alt="SuperheroAdmin" class="img-responsive" id="login-logo"/> -->
-								<div id="login-logo" class="hidden-lg hidden-md">
-									<img src="img/logo-login.png" alt=""/>ProCal-ProSer
+			<div class="col-md-10 col-sm-11" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">						
+						<h1>Gestion de Contenidos</h1>
+						<div class="main-box clearfix">
+							<h2>Contenido</h2>
+							<div class="row">
+								<div class="col-lg-12">
+									<p id="contenido"></p>
 								</div>
-								
-								<form role="form" action="index.html">
-									<div class="input-group input-group-lg">
-										<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										<input class="form-control" type="text" placeholder="Usuario">
-									</div>
-									<div class="input-group input-group-lg">
-										<span class="input-group-addon"><i class="fa fa-key"></i></span>
-										<input type="password" class="form-control" placeholder="Contraseña">
-									</div>
-									<div class="form-group">
-										<div class="checkbox">
-											<label>
-												<input type="checkbox"> Remember me
-											</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-6 col-xs-12 col-sm-push-6">
-											<button type="submit" class="btn btn-success col-xs-12">Ingresar</button>
-										</div>
-										<a href="#" id="login-forget-link" class="col-sm-6 col-xs-12 col-sm-pull-6">
-											Olvidó su contraseña
-										</a>
-									</div>
-								</form>
 							</div>
-						</div>
+						</div>						
 					</div>
-				</div>
-				
-				<div class="text-center login-create">
-					Not a member? <a href="#">Register now</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">TESIS</a>. Powered by Nadya - Albert
+		</p>
+	</footer>
 	
 	<!-- global scripts -->
 	<script src="template/js/jquery.js"></script>
 	<script src="template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-
+	<script src="javascript/pruebaArqui/principal.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
-	
+	<script>
+	$(document).ready(function() {
+
+		//PRUEBA DE REEMPLAZO DE CONTENIDO POR LO QUE ESTA EN BD
+		$('#lineaContent').click(function(){ colocaContenido(); return false; });
+
+		var data="En ProCal-Proser buscamos desarrollar un modelo de factores que influyen en la adopción de modelos de procesos para organizaciones que desarrollan software y/u ofrecen servicios software como actividades principales. Para desarrollar este modelo se hace necesario trabajar con dos sub-programas de proyectos y utilizar Investigación-Acción (Actión-Research) de modo que modelos que nos interesan se puedan probar en un contexto real en la industria. Un modelo será tomado como base para el desarrollo de software y otro será desarrollado para gestión de servicios alineados totalmente a la ISO/IEC 29110.";
+
+		function colocaContenido(){
+			$('#contenido').replaceWith(data);
+		}
+	});
+	</script>
+
 </body>
 </html>

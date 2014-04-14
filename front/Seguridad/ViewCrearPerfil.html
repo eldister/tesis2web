@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ProCal-ProSer</title>
+	
+	<!-- bootstrap -->
+	<link href="../../template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+
+	<!-- libraries -->
+	<link href="../../template/css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
+
+	<!-- this page specific styles -->
+
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
+	<![endif]-->
+</head>
+<body>
+	<header class="navbar" id="header-navbar">
+		<div class="container">
+			<a href="index.html" id="logo" class="navbar-brand col-md-3 col-sm-4 col-xs-12">
+				<img src="../../template/img/logo.png" alt=""/> ProCal-ProSer
+			</a>
+			
+			<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="fa fa-bars"></span>
+			</button>
+			
+			<div class="nav-no-collapse pull-right" id="header-nav">
+				<ul class="nav navbar-nav pull-right">
+					<li class="mobile-search">
+						<a class="btn">
+							<i class="fa fa-search"></i>
+						</a>
+						
+						<div class="drowdown-search">
+							<form role="search">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Búsqueda básica...">
+									<i class="fa fa-search nav-search-icon"></i>
+								</div>
+							</form>
+						</div>
+						
+					</li>
+					<li class="dropdown hidden-xs">
+						<a class="btn dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-cog"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fa fa-search"></i>Búsqueda Avanzada</a></li>
+							<li><a href="#"><i class="fa fa-search-plus"></i>Búsqueda Progresiva</a></li>
+						</ul>
+					<li>
+					<li class="dropdown profile-dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="../../template/img/samples/profile-photo.png" alt=""/>
+							<span class="hidden-xs">Usuario Prueba</span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fa fa-user"></i>Ver Cuenta</a></li>
+							<li><a href="#"><i class="fa fa-cog"></i>Editar Cuenta</a></li>
+							<li><a href="#"><i class="fa fa-power-off"></i>Salir</a></li>
+						</ul>
+					</li>
+					<li class="hidden-xxs">
+						<a class="btn">
+							<i class="fa fa-power-off"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2" id="nav-col">
+				<section id="col-left">
+					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
+						<ul class="nav nav-pills nav-stacked">
+							<li class="active">
+								<a href="index.html">
+									<i class="fa fa-home"></i>
+									<span>Principal</span>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-book"></i>
+									<span>Publicaciones</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Publicaciones
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Publicación
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-file-text"></i>
+									<span>F. Bibliográficas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Fichas
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-users"></i>
+									<span>Usuarios</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Usuarios
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Usuarios
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-comments"></i>
+									<span>Grupos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Grupos
+										</a>
+									</li>
+									<li>
+										<a href="ViewCrearGrupo.html">
+											Crear Grupo
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-pencil-square-o"></i>
+									<span>Autores</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Autores
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Autor
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-globe"></i>
+									<span>Idiomas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Idiomas
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Idioma
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-star"></i>
+									<span>Etiquetas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Etiquetas
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Registrar Etiqueta
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-files-o"></i>
+									<span>Maestros</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Tipo de Publicaciones
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Ver Tipo de Fichas Bibliograficas
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-link"></i>
+									<span>Generar Enlaces</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Enlaces con lecturas asignadas
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Modificar enlaces con lecturas asignadas
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-key"></i>
+									<span>Perfiles</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i>
+								</a>
+								<ul class="submenu">
+									<li>
+										<a href="#">
+											Ver Perfil
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											Crear Perfil
+										</a>
+								</ul>
+							</li>
+							
+						</ul>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-10 col-sm-11" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1>Perfiles</h1>
+							<div class="main-box clearfix">
+							<h2>Crear Perfil</h2>
+							<form role="form"  action="" id="form">							
+							<h3><span>Datos de Perfil</span></h3>
+	                            <div class="row">		                            	
+	                                <div class="col-lg-6">		                                    
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input class="form-control" id="nombre"></input>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Descripción</label>
+                                            <input class="form-control" id="descripcion"></input>
+                                        </div>	                                    
+	                                </div>
+	                            </div>
+		                    <h3><span>Elegir funcionalidades de Perfil</span></h3>
+	                    		<div id="nestable-menu">
+									<button type="button" class="btn btn-primary" data-action="expand-all">Expandir todo</button>
+									<button type="button" class="btn btn-danger" data-action="collapse-all">Colapsar todo</button>
+								</div>
+		                        <div class="row cf nestable-lists">
+			                        <div class="col-md-6 dd" id="nestable2">
+										<ol class="dd-list dd-nodrag">
+											<li class="dd-item" data-id="pub">												
+												<div class="dd-handle"><p>Publicaciones</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="pub-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="pub-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="pub-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="pub-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="pub-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="pub-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="pub-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="pub-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>											
+											<li class="dd-item" data-id="fib">
+												<div class="dd-handle dd-nodrag"><p>Fichas Bibliográficas</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="fib-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Fichas Bibliográficas
+															<div class="nested-links">
+																<input type="checkbox" id="fib-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="fib-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Registrar Fichas Bibliográficas
+															<div class="nested-links">
+																<input type="checkbox" id="fib-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="fib-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Fichas Bibliográficas
+															<div class="nested-links">
+																<input type="checkbox" id="fib-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="fib-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Fichas Bibliográficas
+															<div class="nested-links">
+																<input type="checkbox" id="fib-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+											<li class="dd-item" data-id="usr">
+												<div class="dd-handle"><p>Usuarios</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="usr-ver">
+														<div class="dd-handle-list dd-nodrag"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle dd-nodrag">Ver Usuarios
+															<div class="nested-links">
+																<input type="checkbox" id="usr-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="usr-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Usuarios
+															<div class="nested-links">
+																<input type="checkbox" id="usr-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="usr-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Usuarios
+															<div class="nested-links">
+																<input type="checkbox" id="usr-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="usr-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Usuarios
+															<div class="nested-links">
+																<input type="checkbox" id="usr-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+											<li class="dd-item" data-id="grp">
+												<div class="dd-handle"><p>Grupos</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="grp-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Grupos
+															<div class="nested-links">
+																<input type="checkbox" id="grp-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="grp-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Grupos
+															<div class="nested-links">
+																<input type="checkbox" id="grp-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="grp-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Grupos
+															<div class="nested-links">
+																<input type="checkbox" id="grp-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="grp-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Grupos
+															<div class="nested-links">
+																<input type="checkbox" id="grp-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+											<li class="dd-item" data-id="aut">
+												<div class="dd-handle"><p>Autores</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="aut-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Autores
+															<div class="nested-links">
+																<input type="checkbox" id="aut-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="aut-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Autores
+															<div class="nested-links">
+																<input type="checkbox" id="aut-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="aut-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Autores
+															<div class="nested-links">
+																<input type="checkbox" id="aut-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="aut-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Autores
+															<div class="nested-links">
+																<input type="checkbox" id="aut-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+										</ol>
+									</div>
+									<div class="col-md-6 dd" id="nestable">
+										<ol class="dd-list">
+											<li class="dd-item" data-id="idi">
+												<div class="dd-handle"><p>Idiomas</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="idi-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Idiomas
+															<div class="nested-links">
+																<input type="checkbox" id="idi-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="idi-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Idiomas
+															<div class="nested-links">
+																<input type="checkbox" id="idi-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="idi-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Idiomas
+															<div class="nested-links">
+																<input type="checkbox" id="idi-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="idi-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Idiomas
+															<div class="nested-links">
+																<input type="checkbox" id="idi-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>											
+											<li class="dd-item" data-id="eti">
+												<div class="dd-handle"><p>Fichas Bibliográficas</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="eti-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Etiquetas
+															<div class="nested-links">
+																<input type="checkbox" id="eti-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="eti-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Registrar Etiquetas
+															<div class="nested-links">
+																<input type="checkbox" id="eti-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="eti-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Etiquetas
+															<div class="nested-links">
+																<input type="checkbox" id="fib-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="eti-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Etiquetas
+															<div class="nested-links">
+																<input type="checkbox" id="eti-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+											<li class="dd-item" data-id="mtr">
+												<div class="dd-handle"><p>Maestros</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="mtr-pub-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Tipo de Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-pub-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="mtr-pub-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Tipo de Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-pub-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="mtr-pub-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Tipo de Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-pub-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="mtr-pub-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Tipo de Publicaciones
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-pub-del">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="mtr-fib-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Ver Tipo de Fichas
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-pub-del">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="mtr-fib-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Tipo de Fichas
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-fib-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="mtr-fib-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Tipo de Fichas
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-fib-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="mtr-fib-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Tipo de Fichas
+															<div class="nested-links">
+																<input type="checkbox" id="mtr-fib-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+											<li class="dd-item" data-id="enl">
+												<div class="dd-handle"><p>Generar Enlaces de Lecturas Asignadas</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="enl-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Enlaces
+															<div class="nested-links">
+																<input type="checkbox" id="enl-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="enl-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Enlaces
+															<div class="nested-links">
+																<input type="checkbox" id="enl-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="enl-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Enlaces
+															<div class="nested-links">
+																<input type="checkbox" id="enl-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="enl-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Enlaces
+															<div class="nested-links">
+																<input type="checkbox" id="enl-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+											<li class="dd-item" data-id="per">
+												<div class="dd-handle"><p>Perfiles</p></div>
+												<ol class="dd-list">
+													<li class="dd-item dd-item-list" data-id="per-ver">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver Perfiles
+															<div class="nested-links">
+																<input type="checkbox" id="per-ver">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="per-reg">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar Perfiles
+															<div class="nested-links">
+																<input type="checkbox" id="per-reg">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="per-mod">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Modificar Perfiles
+															<div class="nested-links">
+																<input type="checkbox" id="per-mod">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" data-id="per-del">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar Perfiles
+															<div class="nested-links">
+																<input type="checkbox" id="per-del">
+															</div>
+														</div>
+													</li>
+												</ol>
+											</li>
+										</ol>
+
+									</div>								    	
+								</div>
+								<div class="row">
+									<div class="col-md-5">
+									</div>
+									<div class="col-md-3">
+									<button type="button" class="btn btn-default" id="guardarCambios">Guardar Perfil</button>
+									<div>
+								</div>
+                        	</form>
+                        	<!--<p><b>Serialised Output (per list)</b></p>							
+								<textarea id="nestable2-output" class="form-control" rows="3"></textarea>-->							
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">TESIS</a>. Powered by Nadya - Albert
+		</p>
+	</footer>
+	
+	<!-- global scripts -->
+	<script src="../../template/js/jquery.js"></script>
+	<script src="../../template/js/bootstrap.js"></script>
+	
+	<!-- this page specific scripts -->
+	<script src="../../template/js/jquery.nestable.js"></script>
+
+	<!-- theme scripts -->
+	<script src="../../template/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+	<script>
+	$(document).ready(function() {
+		var updateOutput = function(e){
+			var list   = e.length ? e : $(e.target),
+				output = list.data('output');
+			if (window.JSON) {
+				output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+			} 
+			else {
+				output.val('JSON browser support required for this demo.');
+			}
+		};
+	
+		// activate Nestable for list 1
+		$('#nestable').nestable({
+			group: 1
+		})
+		.on('change', updateOutput);
+		
+		// activate Nestable for list 2
+		$('#nestable2').nestable({
+			group: 1
+		})
+		.on('change', updateOutput);
+	
+		// output initial serialised data
+		updateOutput($('#nestable').data('output', $('#nestable-output')));
+		updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+	
+		$('#nestable-menu').on('click', function(e){
+			var target = $(e.target),
+				action = target.data('action');
+			if (action === 'expand-all') {
+				$('.dd').nestable('expandAll');
+			}
+			if (action === 'collapse-all') {
+				$('.dd').nestable('collapseAll');
+			}
+		});
+	});
+	</script>
+</body>
+</html>
