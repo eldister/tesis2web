@@ -9,7 +9,7 @@ function getListaIdioma(){
 		$request = \Slim\Slim::getInstance()->request();
 		$con=getConnection();
 		
-		$pstmt = $con->prepare("SELECT I.NOMBRE,I.OBSERVACION FROM IDIOMA I WHERE I.ESTADO =1");
+		$pstmt = $con->prepare("SELECT I.IDIDIOMA,I.NOMBRE,I.OBSERVACION FROM IDIOMA I WHERE I.ESTADO =1");
 		$pstmt->execute();
 
 		$listaIdioma = array();
@@ -17,6 +17,19 @@ function getListaIdioma(){
 			$listaIdioma[] = $req;
 		}
 		echo json_encode($listaIdioma);
-	}
+}
+
+function getIdioma($id){
+
+    //$request = \Slim\Slim::getInstance()->request();
+   /// $val = $request->params();
+   // $idReq= $val["ididioma"];
+    $con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT I.IDIDIOMA,I.NOMBRE,I.OBSERVACION FROM IDIOMA I WHERE I.IDIDIOMA=?");
+	$pstmt->execute(array($id));
+	$idioma = $pstmt->fetch(PDO::FETCH_ASSOC);
+	echo json_encode($idioma);
+}
 
 ?>
