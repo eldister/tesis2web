@@ -301,12 +301,12 @@
 											<input type="text" class="form-control" placeholder="Buscar idiomas...">
 											<i class="fa fa-search search-icon"></i>
 										</div>										
-										<a href="ViewListaIdioma.html" class="btn btn-primary pull-right">
+										<a href="ViewListaIdioma.html" class="btn btn-primary pull-right" id="agregar">
 											<i class="fa fa-plus-circle fa-lg"></i> 
 											<span>Agregar Idioma</span>
 										</a>
 									</div>
-									<div class="table-responsive">
+									<div class="table-responsive" >
 
 										<table class="table user-list">
 											<thead>	
@@ -321,84 +321,47 @@
 											</thead>
 
 
-											<tbody>
-												<tr>
-													
-													<td class="text-center"	>
-														<span >Ingles</span>
-													</td>
-													<td class="text-center">
-														<span>Observacion Ingles</span>
-													</td>
-													<td style="width: 23%;padding-left: 30px;">
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-
-														<a href="#myModal" class="table-link danger" data-toggle="modal">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-
-													</td>
-												</tr>
-
-												
-												<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																<h3 class="modal-title"><span>Eliminar Idioma</span></h3>
-															</div>
-														<div class="modal-body">
-															<form role="form">
-																<div class="form-group">
-																	<label for="nombreUsuario">Idioma</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																		<input type="nombreUsuario" class="form-control" id="nombreUsuario" readonly >
-																	</div>
-																</div>
-																
-																<div class="form-group">
-																	<label for="apellidoUsuario">Observacion</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																		<input type="apellidoUsuario" class="form-control" id="apellidoUsuario" readonly >
-																	</div>
-																</div>
-															</form>
-															
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-															<button type="button" class="btn btn-primary">Eliminar</button>
-														</div>
-													</div><!-- /.modal-content -->
-												</div><!-- /.modal-dialog -->
-											</div><!-- /.modal -->
-
-
-
-
-
-
+											<tbody class="table-responsive" id="listaIdioma">
 											</tbody>
-
-											
 										</table>
+
+				<div class="modal fade" id="detalleIdioma" tabindex="-1" role="dialog" aria-labelledby="detalleIdioma" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title" id="tituloModal"></h3>
+								</div>
+
+								<div class="modal-body">
+									<form role="form">
+										<div class="form-group">
+											<label for="NOMBRE">Idioma</label>
+												<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+														<input type="NOMBRE" class="form-control" id="NOMBRE"  >
+												</div>
+										</div>
+																
+										<div class="form-group">
+											<label for="OBSERVACION">Observacion</label>
+												<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+													<input type="OBSERVACION" class="form-control" id="OBSERVACION"  >
+												</div>
+										</div>
+									</form>
+								</div>
+														
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardarDatos" class="btn btn-primary">Guardar</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+	
+										
 
 										<ul class="pagination pull-right">
 												<li>
@@ -437,7 +400,7 @@
 	<script src="../../template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-	<script src="javascript/pruebaArqui/principal.js"></script>
+	<script src="../../javascript/Publicacion_Documental/idioma.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
