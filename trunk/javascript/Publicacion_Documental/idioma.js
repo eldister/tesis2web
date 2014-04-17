@@ -18,6 +18,7 @@ function cargaListaIdioma(data){
 		//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		fila+= '<a class="modificar-idioma" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
 
+
 		fila += '</td></tr>';
 		$('#listaIdioma').append(fila);
 	}
@@ -75,6 +76,7 @@ function modifica(data){
 
 function inserta(data){
 	$('#detalleIdioma').modal('hide');
+
 	// var fila = "<tr>";
 	// for(key in data){
 	// 	fila += "<td>"+data[key]+"</td>";
@@ -143,6 +145,7 @@ function insertaCambiosFront(){
 	$('#tituloBoton').html("Agregar");
 	$('#detalleIdioma').addClass('insertar');
 	$('#detalleIdioma').modal('show');
+
 }
 
 $(document).ready(function(){
