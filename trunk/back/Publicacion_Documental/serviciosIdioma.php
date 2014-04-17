@@ -52,10 +52,16 @@ function registraIdioma(){
 	$pstmt = $con->prepare("INSERT INTO IDIOMA (NOMBRE,OBSERVACION,ESTADO) VALUES (?,?,1)");
 	$pstmt->execute(array($data->{"NOMBRE"},$data->{"OBSERVACION"}));
 
-	$IDIDIOMA = $con->lastInsertId();
+	$lastInsertId = $con->lastInsertId();
 
-	echo getIdioma($IDIDIOMA);
+	$array=array(
+			array('IDIDIOMA'=>$lastInsertId),
+			array('NOMBRE'=>$data->{"NOMBRE"}),
+			array('OBSERVACION'=> $data->{"OBSERVACION"})
+		);
+
 	//echo $request->getBody();
+	echo json_encode($array);
 
 }
 
