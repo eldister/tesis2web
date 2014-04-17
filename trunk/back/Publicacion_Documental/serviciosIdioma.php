@@ -21,15 +21,25 @@ function getListaIdioma(){
 
 function getIdioma($id){
 
-    //$request = \Slim\Slim::getInstance()->request();
-   /// $val = $request->params();
-   // $idReq= $val["ididioma"];
     $con=getConnection();
  
 	$pstmt = $con->prepare("SELECT I.IDIDIOMA,I.NOMBRE,I.OBSERVACION FROM IDIOMA I WHERE I.IDIDIOMA=?");
 	$pstmt->execute(array($id));
 	$idioma = $pstmt->fetch(PDO::FETCH_ASSOC);
 	echo json_encode($idioma);
+}
+
+function modificaIdioma(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+
+	$con= getConnection();
+	$pstmt = $con->prepare("UPDATE IDIOMA I SET I.NOMBRE=?,I.OBSERVACION=? WHERE I.IDIDIOMA=?");
+	$pstmt->execute(array($data->{"NOMBRE"},$data->{"OBSERVACION"},$data->{"IDIDIOMA"}));
+
+	echo $request->getBody();
+	//echo json_encode($val); 
 }
 
 ?>
