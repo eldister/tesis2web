@@ -301,7 +301,7 @@
 											<input type="text" class="form-control" placeholder="Buscar idiomas...">
 											<i class="fa fa-search search-icon"></i>
 										</div>										
-										<a href="ViewListaIdioma.html" class="btn btn-primary pull-right" id="agregar">
+										<a class="btn btn-primary pull-right" id="agregar">
 											<i class="fa fa-plus-circle fa-lg"></i> 
 											<span>Agregar Idioma</span>
 										</a>
@@ -337,17 +337,19 @@
 
 								<div class="modal-body">
 									<div class="container">
-										<input type="hidden" id="IDIDIOMA" class="form-control" />
+
+										<!--<input type="hidden" id="IDIDIOMA" class="form-control" />-->
 
 										 <form action="" id="form-idioma">
-											<div class="row">
+										 	<input type="hidden" id="IDIDIOMA" class="form-control" />
+												<div class="row">
 												<label for="NOMBRE">Idioma</label>
 													<div class="input-group">
 															<span class="input-group-addon"><i class="fa fa-globe"></i></span>
 															<input type="NOMBRE" class="form-control" id="NOMBRE"  >
 													</div>
 											</div>
-																	
+													
 											<div class="row">
 												<label for="OBSERVACION">Observacion</label>
 													<div class="input-group">
@@ -360,8 +362,10 @@
 								</div>
 														
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-									<button type="button" id="guardar" class="btn btn-primary">Guardar</button>
+									<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardar" class="btn btn-primary">
+										<span id="tituloBoton"></span>
+									</button>
 								</div>
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
