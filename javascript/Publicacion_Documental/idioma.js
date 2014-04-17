@@ -73,36 +73,37 @@ function modifica(data){
 }
 
 function guardarCambios(){
-	
 	var data = $(".form-control");
 	var obj = {};
 	for(var i=0; i < data.length; i++){
-		//if($(data[i]).hasClass("archivo"))continue;
 		obj[data[i]["IDIDIOMA"]]=data[i]["value"];
 	}
-	obj["IDIDIOMA"]= IDIDIOMA;
+	obj["IDIDIOMA"]= IDIDIOMA.value;//hardcode!
 	var ruta = "";
 	var callback;
+	/*if($('#detalleRequisito').hasClass("insertar")){
+		ruta = "../../api/AL_insertaRequisito";
+		callback = inserta;
+	}*/
 
 	if($('#detalleIdioma').hasClass("modificar")){
-		ruta = "../../api/PD_modificaIdioma";
+		ruta = "../../api/AL_modificaIdioma";
 		callback = modifica;
-		obj["NOMBRE"] = $('#NOMBRE option:selected').text();
-		obj["OBSERVACION"] = $('#OBSERVACION option:selected').text();
+		obj["NOMBRE"] = $('#NOMBRE').val();
+		obj["OBSERVACION"] = $('#OBSERVACION').val();
+		//obj["NOMBRE"] ="HARCODE 1";
+		//obj["OBSERVACION"]="HARCODE2";
 	}
 	$.ajax({
 		type: 'POST',
 		url : ruta,
 		dataType: "json",
+		//data: obj,
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: callback
 	});
 }
-
-
-
-
 
 $(document).ready(function(){
 	$.ajax({
@@ -112,5 +113,6 @@ $(document).ready(function(){
 		contentType: "application/json; charset=utf-8",
 		success: cargaListaIdioma
 	});
+	
 	$("#guardar").click(guardarCambios);
 });
