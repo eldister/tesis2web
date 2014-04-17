@@ -42,4 +42,18 @@ function modificaIdioma(){
 	//echo json_encode($val); 
 }
 
+
+function registraIdioma(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+
+	$con= getConnection();
+	$pstmt = $con->prepare("INSERT INTO IDIOMA (NOMBRE,OBSERVACION,ESTADO) VALUES (?,?,1)");
+	$pstmt->execute(array($data->{"NOMBRE"},$data->{"OBSERVACION"}));
+
+	echo $request->getBody();
+
+}
+
 ?>
