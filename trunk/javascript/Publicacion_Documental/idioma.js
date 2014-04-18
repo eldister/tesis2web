@@ -58,11 +58,8 @@ function modificarIdioma(){
 
 
 function resetForm(){
-	//$('#NOMBRE').attr('readOnly',false);
-	//$('#DESCRIPCION').attr('readOnly',false);
 	$('#OBSERVACION').prop('readOnly',false)
 	$('#NOMBRE').prop('readOnly',false)
-	
 	$("input.form-control").val("");
 	$(".alert").remove();
 }
