@@ -14,6 +14,7 @@ include ("../back/Publicacion_Documental/serviciosIdioma.php");
 
 //ALBERT
 include ("../back/Publicacion_Documental/serviciosTipoPublicacion.php");
+include ("../back/Publicacion_Documental/serviciosTipoFicha.php");
 
 $app->run();
 //echo 'slim cargado';
