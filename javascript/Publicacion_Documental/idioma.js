@@ -38,11 +38,6 @@ function modificarIdioma(){
 		//data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
-			for(key in data){
-				if($('#'+key).is("select"))continue;
-				$('#'+key).html(data[key]);
-				$('#'+key).val(data[key]);
-			}
 			$('#NOMBRE').val(data["NOMBRE"]);
 			$('#OBSERVACION').val(data["OBSERVACION"]);
 		}
