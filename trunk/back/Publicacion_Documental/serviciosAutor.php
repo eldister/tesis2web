@@ -1,7 +1,7 @@
 <?php
    // header("Content-type: text/html; charset=utf8");
 	include('routesAutor.php');
-	include ('modelAutor.php');
+	//include ('modelAutor.php');
 	include_once '../back/conexion.php';
 
 
@@ -36,7 +36,7 @@ function modificaAutor(){
 
 	$con= getConnection();
 	$pstmt = $con->prepare("UPDATE AUTOR A SET A.NOM_APE=?,A.PAGINA_WEB=?,A.INSTITUCION=?,A.TRABAJO=? WHERE A.IDAUTOR=?");
-	$pstmt->execute(array($data->{"NOM_APE"},$data->{"PAGINA_WEB"},$data->{"INSTITUCION"},$data->{"TRABAJO"},$data->{"IDAUTOR"));
+	$pstmt->execute(array($data->{"NOM_APE"},$data->{"PAGINA_WEB"},$data->{"INSTITUCION"},$data->{"TRABAJO"},$data->{"IDAUTOR"}));
 
 	echo $request->getBody();
 }
@@ -56,8 +56,8 @@ function registraAutor(){
 	$array=array(
 			array('IDAUTOR'=>$lastInsertId),
 			array('NOM_APE'=>$data->{"NOM_APE"}),
-			array('PAGINA_WEB'=> $data->{"PAGINA_WEB"})
-			array('INSTITUCION'=> $data->{"INSTITUCION"})
+			array('PAGINA_WEB'=> $data->{"PAGINA_WEB"}),
+			array('INSTITUCION'=> $data->{"INSTITUCION"}),
 			array('TRABAJO'=> $data->{"TRABAJO"})
 		);
 
@@ -74,8 +74,8 @@ function eliminaAutor(){
 	$array=array(
 		array('IDAUTOR'=>$data->{"IDIDIOMA"}),
 		array('NOM_APE'=>$data->{"NOMBRE"}),
-		array('PAGINA_WEB'=> $data->{"PAGINA_WEB"})
-		array('INSTITUCION'=> $data->{"INSTITUCION"})
+		array('PAGINA_WEB'=> $data->{"PAGINA_WEB"}),
+		array('INSTITUCION'=> $data->{"INSTITUCION"}),
 		array('TRABAJO'=> $data->{"TRABAJO"})
 		);
 	echo json_encode($array);
