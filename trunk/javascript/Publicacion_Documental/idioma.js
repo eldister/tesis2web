@@ -12,12 +12,8 @@ function cargaListaIdioma(data){
 		}
 
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
-		//fila+= '<a class="table-link" href="ViewModificarIdioma.html?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-		//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a  class="modificar-idioma" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a  class="eliminar-idioma" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  class="modificar-idioma table-link" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  class="eliminar-idioma table-link danger" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 
 
 		fila += '</td></tr>';
@@ -62,6 +58,11 @@ function modificarIdioma(){
 
 
 function resetForm(){
+	//$('#NOMBRE').attr('readOnly',false);
+	//$('#DESCRIPCION').attr('readOnly',false);
+	$('#OBSERVACION').prop('readOnly',false)
+	$('#NOMBRE').prop('readOnly',false)
+	
 	$("input.form-control").val("");
 	$(".alert").remove();
 }
@@ -76,12 +77,8 @@ function inserta(data){
 	fila += '<td class="text-center">'+data[2]["OBSERVACION"]+'</td>';
 
 	fila+= '<td style="width: 23%;padding-left: 30px;">'
-	//fila+= '<a class="table-link" href="ViewModificarIdioma.html?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-	//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-	//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-	//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-	fila+= '<a class="modificar-idioma" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-	fila+= '<a  class="eliminar-idioma" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+	fila+= '<a class="modificar-idioma table-link" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+	fila+= '<a  class="eliminar-idioma table-link danger" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 	fila += '</tr>';
 	$('#listaIdioma').append(fila);
 
@@ -108,8 +105,8 @@ function eliminarIdioma(){
 			$('#OBSERVACION').val(data["OBSERVACION"]);
 		}
 	});
-	$('#NOMBRE').attr('readOnly',true);
-	$('#OBSERVACION').attr('readOnly',true);
+	$('#NOMBRE').prop('readOnly',true);
+	$('#OBSERVACION').prop('readOnly',true);
 	$('#detalleIdioma').removeClass('insertar');
 	$('#detalleIdioma').removeClass('modificar');
 	$('#detalleIdioma').removeClass('eliminar');
