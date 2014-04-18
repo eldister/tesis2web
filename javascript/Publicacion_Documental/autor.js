@@ -12,8 +12,8 @@ function cargaListaAutor(data){
 		}
 
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
-		fila+= '<a  class="modificar-autor" IDAUTOR='+data[i]["IDAUTOR"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a  class="eliminar-autor" IDAUTOR='+data[i]["IDAUTOR"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  class="modificar-autor table-link " IDAUTOR='+data[i]["IDAUTOR"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  class="eliminar-autor table-link danger" IDAUTOR='+data[i]["IDAUTOR"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 
 
 		fila += '</td></tr>';
@@ -72,12 +72,8 @@ function inserta(data){
 	fila += '<td class="text-center">'+data[2]["OBSERVACION"]+'</td>';
 
 	fila+= '<td style="width: 23%;padding-left: 30px;">'
-	//fila+= '<a class="table-link" href="ViewModificarIdioma.html?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-	//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-	//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-	//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-	fila+= '<a class="modificar-idioma" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-	fila+= '<a  class="eliminar-idioma" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+	fila+= '<a class="modificar-idioma table-link" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+	fila+= '<a  class="eliminar-idioma table-link danger" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 	fila += '</tr>';
 	$('#listaIdioma').append(fila);
 
