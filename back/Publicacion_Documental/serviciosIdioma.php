@@ -65,4 +65,19 @@ function registraIdioma(){
 
 }
 
+function eliminaIdioma(){
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+	$data = json_decode($request->getBody());
+	$con= getConnection();
+	$pstmt = $con->prepare("UPDATE IDIOMA T SET T.ESTADO = 0 WHERE T.IDIDIOMA=?");
+	$pstmt->execute(array($data->{"IDIDIOMA"}));
+
+	$array=array(
+		array('IDIDIOMA'=>$data->{"IDIDIOMA"}),
+		array('NOMBRE'=>$data->{"NOMBRE"}),
+		array('OBSERVACION'=> $data->{"OBSERVACION"})
+		);
+	echo json_encode($array);
+}
+
 ?>
