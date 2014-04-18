@@ -2,7 +2,7 @@
 function cargaListaIdioma(data){
 	
 	for(var i=0; i < data.length ; i++){
-		var fila = "<tr>";
+		var fila = '<tr id=fila-'+ data[i]["IDIDIOMA"] +'>';
 		for(key in data[i]){
 				if(key==="IDIDIOMA"){
 					fila+='<td style="display:none;">'
@@ -16,14 +16,15 @@ function cargaListaIdioma(data){
 		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a class="modificar-idioma" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  class="modificar-idioma" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  class="eliminar-idioma" ididioma='+data[i]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 
 
 		fila += '</td></tr>';
 		$('#listaIdioma').append(fila);
 	}
 	$(document).on('click', '.modificar-idioma', modificarIdioma);
-	//$(document).on('click', '.eliminar-requisito', eliminarRequisito);
+	$(document).on('click', '.eliminar-idioma', eliminarIdioma);
 }
 
 
@@ -52,6 +53,7 @@ function modificarIdioma(){
 	});
 	$('#detalleIdioma').removeClass('insertar');
 	$('#detalleIdioma').removeClass('modificar');
+	$('#detalleIdioma').removeClass('eliminar');
 	$('#tituloModal').html("Modificar Idioma");
 	$('#tituloBoton').html("Modificar");
 	$('#detalleIdioma').addClass('modificar');
@@ -64,20 +66,11 @@ function resetForm(){
 	$(".alert").remove();
 }
 
-function modifica(data){
-	var fila = $(".selected")[0];
-	var campos = $(fila).children();
-	$(campos[0]).html(data["IDIDIOMA"]);
-	$(campos[1]).html(data["NOMBRE"]);
-	$(campos[2]).html(data["OBSERVACION"]);
-	$('#detalleIdioma').modal('hide');
-	resetForm();
-}
 
 function inserta(data){
 
 	$('#detalleIdioma').modal('hide');
-	var fila = "<tr>";
+	var fila = '<tr id=fila-'+ data[0]["IDIDIOMA"] +'>'; //TENGO EL PARCHE XD PA K DURE INFINITO
 	fila+='<td style="display:none;">'
 	fila += '<td class="text-center">'+data[1]["NOMBRE"]+'</td>';
 	fila += '<td class="text-center">'+data[2]["OBSERVACION"]+'</td>';
@@ -88,12 +81,59 @@ function inserta(data){
 	//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 	//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 	fila+= '<a class="modificar-idioma" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+	fila+= '<a  class="eliminar-idioma" ididioma='+data[0]["IDIDIOMA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 	fila += '</tr>';
 	$('#listaIdioma').append(fila);
 
 	resetForm();
 
 	$(document).on('click', '.modificar-idioma', modificarIdioma);
+}
+
+function eliminarIdioma(){
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	var IDIDIOMA=this.getAttribute("IDIDIOMA");
+	var obj;
+
+	$.ajax({
+		type: 'GET',
+		url : '../../api/PD_getIdioma/'+ IDIDIOMA,
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+
+			$('#IDIDIOMA').val(IDIDIOMA);
+			$('#NOMBRE').val(data["NOMBRE"]);
+			$('#OBSERVACION').val(data["OBSERVACION"]);
+		}
+	});
+	$('#NOMBRE').attr('readOnly',true);
+	$('#OBSERVACION').attr('readOnly',true);
+	$('#detalleIdioma').removeClass('insertar');
+	$('#detalleIdioma').removeClass('modificar');
+	$('#detalleIdioma').removeClass('eliminar');
+	$('#tituloBoton').html("Eliminar");
+	$('#tituloModal').html("Eliminar Idioma");
+	$('#detalleIdioma').addClass('eliminar');
+	$('#detalleIdioma').modal('show');
+}
+
+function elimina(data){
+	$('#detalleIdioma').modal('hide');	
+	resetForm();
+	$('#fila-'+data[0]["IDIDIOMA"]+'').remove();
+	return false;
+}
+
+function modifica(data){
+	var fila = $(".selected")[0];
+	var campos = $(fila).children();
+	$(campos[0]).html(data["IDIDIOMA"]);
+	$(campos[1]).html(data["NOMBRE"]);
+	$(campos[2]).html(data["OBSERVACION"]);
+	$('#detalleIdioma').modal('hide');
+	resetForm();
 }
 
 function guardarCambios(){
@@ -112,11 +152,19 @@ function guardarCambios(){
 	}
 
 	if($('#detalleIdioma').hasClass("modificar")){
-		ruta = "../../api/AL_modificaIdioma";
+		ruta = "../../api/PD_modificaIdioma";
 		callback = modifica;
 		obj["NOMBRE"] = $('#NOMBRE').val();
 		obj["OBSERVACION"] = $('#OBSERVACION').val();
 	}
+
+	if($('#detalleIdioma').hasClass("eliminar")){
+		ruta = "../../api/PD_eliminaIdioma";
+		callback = elimina;
+		obj["NOMBRE"] = $('#NOMBRE').val();
+		obj["OBSERVACION"] = $('#OBSERVACION').val();
+	}
+
 	$.ajax({
 		type: 'POST',
 		url : ruta,
@@ -141,6 +189,7 @@ function cargaElementos(){
 function insertaCambiosFront(){
 	$('#IDIDIOMA').html("");
 	$('#detalleIdioma').removeClass('insertar');
+	$('#detalleIdioma').removeClass('eliminar');
 	$('#detalleIdioma').removeClass('modificar');
 	$('#tituloModal').html("Agregar Idioma");
 	$('#tituloBoton').html("Agregar");
