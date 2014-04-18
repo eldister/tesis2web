@@ -20,6 +20,7 @@ function cargaElementos(data){
 		fila+= '<a class="eliminar-tipoPublicacion table-link danger" idtipopublicacion='+data[i]["IDTIPOPUBLICACION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		fila += '</td></tr>';
 		$('#listaTipoPublicacion').append(fila);
+		$('table#tabla').trigger("update");
 	}
 	$(document).on('click', '.modificar-tipoPublicacion', modificarTipoPublicacion);
 	$(document).on('click', '.eliminar-tipoPublicacion', eliminarTipoPublicacion);
@@ -42,7 +43,8 @@ function inserta(data){
 	fila+= '<a class="eliminar-tipoPublicacion table-link danger" idtipopublicacion='+data[0]["IDTIPOPUBLICACION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 	fila += '</tr>';
 	$('#listaTipoPublicacion').append(fila);
-
+	$('#listaTipoPublicacion').trigger("update");
+	
 	resetForm();
 
 	$(document).on('click', '.modificar-tipoPublicacion', modificarTipoPublicacion);
@@ -137,6 +139,7 @@ function elimina(data){
 	$('#detalleTipoPublicacion').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDTIPOPUBLICACION"]+'').remove();
+	$('table#tabla').trigger("update");
 	return false;
 }
 
@@ -188,6 +191,9 @@ function cargaListaTipoPublicacion(){
 		contentType: "application/json; charset=utf-8",
 		success: cargaElementos
 	});
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
+
 }
 
 function insertaCambiosFront(){
@@ -208,5 +214,7 @@ $(document).ready(function(){
 	$("#guardar").click(guardarCambios);
 	$("#cerrar").click(resetForm);
 	$("#agregar").click(insertaCambiosFront);
+
+
 
 });
