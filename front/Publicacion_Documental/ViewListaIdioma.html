@@ -295,17 +295,20 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
-									<h2 class="pull-left">Lista de Idiomas</h1>
-									<div class="filter-block pull-right">
-										<div class="form-group pull-left">
-											<input type="text" class="form-control" placeholder="Buscar idiomas...">
-											<i class="fa fa-search search-icon"></i>
-										</div>										
-										<a class="btn btn-primary pull-right" id="agregar">
-											<i class="fa fa-plus-circle fa-lg"></i> 
-											<span>Agregar Idioma</span>
-										</a>
-									</div>
+									<div class="clearfix">
+										<h2 class="pull-left">Lista de Idiomas</h1>
+										<div class="filter-block pull-right">
+											<div class="form-group pull-left">
+												<input type="text" class="form-control" placeholder="Buscar idiomas...">
+												<i class="fa fa-search search-icon"></i>
+											</div>										
+											<a class="btn btn-primary pull-right" id="agregar">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Idioma</span>
+											</a>
+										</div>
+									</div>	
+
 									<div class="table-responsive" >
 
 										<table class="table user-list">
@@ -325,6 +328,22 @@
 											</tbody>
 										</table>
 
+										<ul class="pagination pull-right">
+												<li>
+													<a href="#">
+														<i class="fa fa-chevron-left"></i>
+													</a>
+												</li>
+												<li>
+													<a href="#">1</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fa fa-chevron-right"></i>
+													</a>
+												</li>
+										</ul>
+									</div>
 
 
 				<div class="modal fade" id="detalleIdioma" tabindex="-1" role="dialog" aria-labelledby="detalleIdioma" aria-hidden="true">
@@ -334,13 +353,8 @@
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 									<h3 class="modal-title" id="tituloModal"></h3>
 								</div>
-
 								<div class="modal-body">
-									<div class="container">
-
-										<!--<input type="hidden" id="IDIDIOMA" class="form-control" />-->
-
-										 <form action="" id="form-idioma">
+									<div class="container"> <form action="" id="form-idioma">
 										 	<input type="hidden" id="IDIDIOMA" class="form-control" />
 												<div class="row">
 												<label for="NOMBRE">Idioma</label>
@@ -370,25 +384,8 @@
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
-	
-										
 
-										<ul class="pagination pull-right">
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-left"></i>
-													</a>
-												</li>
-												<li>
-													<a href="#">1</a>
-												</li>
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-right"></i>
-													</a>
-												</li>
-										</ul>
-									</div>
+
 								</div>
 								</div>
 							</div>
