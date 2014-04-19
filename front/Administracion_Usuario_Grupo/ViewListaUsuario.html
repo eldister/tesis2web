@@ -295,16 +295,18 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
-									<h2 class="pull-left">Lista de Usuarios</h1>
-									<div class="filter-block pull-right">
-										<div class="form-group pull-left">
-											<input type="text" class="form-control" placeholder="Buscar usuarios...">
-											<i class="fa fa-search search-icon"></i>
-										</div>										
-										<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
-											<i class="fa fa-plus-circle fa-lg"></i> 
-											<span>Agregar Usuario</span>
-										</a>
+									<div class="clearfix">
+										<h2 class="pull-left">Lista de Usuarios</h1>
+										<div class="filter-block pull-right">
+											<div class="form-group pull-left">
+												<input type="text" class="form-control" placeholder="Buscar usuarios...">
+												<i class="fa fa-search search-icon"></i>
+											</div>										
+											<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Usuario</span>
+											</a>
+										</div>
 									</div>
 									<div class="table-responsive">
 
@@ -313,6 +315,9 @@
 												<tr>
 													<th class="text-center">
 														<span>Nombre</span>
+													</th>
+													<th class="text-center">
+														<span>Apellidos</span>
 													</th>
 													<th class="text-center">
 														<span>Tipo de Participante</span>
@@ -326,138 +331,76 @@
 												</tr>
 											</thead>
 
-
-											<tbody>
-												<tr>
-													<td>
-														<img src="../../template/img/samples/user-profile-1.png" alt>
-														<a href="#" class="user-link">Mila Kunis Barrido</a>
-													</td>
-													<td class="text-center"	>
-														<span >Investigador</span>
-													</td>
-													<td class="text-center">
-														<span>PUCP</span>
-													</td>	
-													<td  >
-														<a href="#" class="user-link">mila.kunis@gmail.com</a>
-													</td>
-													<td style="width: 23%;padding-left: 40px;">
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="ViewModificarUsuario.html" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#myModal" class="table-link danger" data-toggle="modal">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-
-												<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																<h3 class="modal-title"><span>Eliminar Usuario</span></h3>
-															</div>
-														<div class="modal-body">
-															<form role="form">
-																<div class="form-group">
-																	<label for="nombreUsuario">Nombres Completos</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																		<input type="nombreUsuario" class="form-control" id="nombreUsuario" readonly >
-																	</div>
-																</div>
-																
-																<div class="form-group">
-																	<label for="apellidoUsuario">Apellidos Completos</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																		<input type="apellidoUsuario" class="form-control" id="apellidoUsuario" readonly >
-																	</div>
-																</div>
-
-
-																<div class="form-group">
-																	<label for="tipoPraticante">Tipo Practicante</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																		<input type="tipoPraticante" class="form-control" id="tipoPraticante" readonly >
-																	</div>
-																</div>
-
-
-																<div class="form-group">
-																	<label for="institucion">Institucion</label>
-																	<div class="input-group">
-																		<span class="input-group-addon"><i class="fa fa-home"></i></span>
-																		<input type="institucion" class="form-control" id="institucion" readonly >
-																	</div>
-																</div>
-															</form>
-															
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-															<button type="button" class="btn btn-primary">Eliminar</button>
-														</div>
-													</div><!-- /.modal-content -->
-												</div><!-- /.modal-dialog -->
-											</div><!-- /.modal -->
-
-													</td>
-												</tr>
-
-												<tr>
-													<td>
-														<img src="../../template/img/samples/george.png" alt>
-														<a href="#" class="user-link">Fernando Sanchez Puente</a>
-													</td>
-													<td class="text-center"	>
-														<span >Estudiante</span>
-													</td>
-													<td class="text-center">
-														<span>PUCP</span>
-													</td>	
-													<td  >
-														<a href="#" class="user-link">fernando.san@gmail.com</a>
-													</td>
-													<td style="width: 23%;padding-left: 40px;">
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="ViewModificarUsuario.html" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#myModal" class="table-link danger" data-toggle="modal">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-													</td>
-												</tr>
-
+											<tbody class="table-responsive" id="listaUsuario">
 											</tbody>
-
-											
 										</table>
+
+					<div class="modal fade" id="detalleUsuario" tabindex="-1" role="dialog" aria-labelledby="detalleUsuario" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title" id="tituloModal"></h3>
+									</div>
+
+								<div class="modal-body">
+									<div class="container"> <form action="" id="form-usuario">
+										<form role="form">
+											<div class="form-group">
+
+												<input type="hidden" id="IDUSUARIO" class="form-control" />
+												<input type="hidden" id="CORREO_INSTITUCIONAL" class="form-control" />
+												<input type="hidden" id="CORREO_ALTERNO" class="form-control" />
+												<input type="hidden" id="NUMERO_CELULAR" class="form-control" />
+												<input type="hidden" id="NUMERO_TEL_ALTERNO" class="form-control" />
+												<input type="hidden" id="CUENTA_SKYPE" class="form-control" />
+												<input type="hidden" id="MESES_TERMINAR" class="form-control" />
+												<input type="hidden" id="COMPROMISO" class="form-control" />
+
+												<div class="row">
+													<label for="NOMBRES">Nombres</label>
+													<div class="input-group">
+															<span class="input-group-addon"><i class="fa fa-user"></i></span>
+															<input type="NOMBRES" class="form-control" id="NOMBRES"  >
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="APELLIDOS">Apellidos</label>
+													<div class="input-group">
+															<span class="input-group-addon"><i class="fa fa-user"></i></span>
+															<input type="APELLIDOS" class="form-control" id="APELLIDOS"  >
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="NOMBRE">Tipo Practicante</label>
+													<div class="input-group">
+															<span class="input-group-addon"><i class="fa fa-user"></i></span>
+															<input type="NOMBRE" class="form-control" id="NOMBRE"  >
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="INSTITUCION">Tipo Institucion</label>
+													<div class="input-group">
+															<span class="input-group-addon"><i class="fa fa-home"></i></span>
+															<input type="INSTITUCION" class="form-control" id="INSTITUCION"  >
+													</div>
+												</div>											
+										</form>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardar" class="btn btn-primary">
+										<span id="tituloBoton"></span>
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+
 
 										<ul class="pagination pull-right">
 												<li>
@@ -496,7 +439,7 @@
 	<script src="../../template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-	<script src="javascript/pruebaArqui/principal.js"></script>
+	<script src="../../javascript/Administracion_Usuario_Grupo/usuario.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
