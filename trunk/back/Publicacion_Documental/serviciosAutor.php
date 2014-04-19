@@ -72,8 +72,8 @@ function eliminaAutor(){
 	$pstmt->execute(array($data->{"IDAUTOR"}));
 
 	$array=array(
-		array('IDAUTOR'=>$data->{"IDIDIOMA"}),
-		array('NOM_APE'=>$data->{"NOMBRE"}),
+		array('IDAUTOR'=>$data->{"IDAUTOR"}),
+		array('NOM_APE'=>$data->{"NOM_APE"}),
 		array('PAGINA_WEB'=> $data->{"PAGINA_WEB"}),
 		array('INSTITUCION'=> $data->{"INSTITUCION"}),
 		array('TRABAJO'=> $data->{"TRABAJO"})
