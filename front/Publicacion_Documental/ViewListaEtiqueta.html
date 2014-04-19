@@ -295,20 +295,21 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
-									<h2 class="pull-left">Lista de Etiquetas</h1>
-									<div class="filter-block pull-right">
-										<div class="form-group pull-left">
-											<input type="text" class="form-control" placeholder="Buscar etiqueta...">
-											<i class="fa fa-search search-icon"></i>
-										</div>										
-										<a href="ViewCrearEtiqueta.html" class="btn btn-primary pull-right">
-											<i class="fa fa-plus-circle fa-lg"></i> 
-											<span>Agregar Etiqueta</span>
-										</a>
+									<div class="clearfix">
+										<h2 class="pull-left">Lista de Etiquetas</h1>
+										<div class="filter-block pull-right">
+											<div class="form-group pull-left">
+												<input type="text" class="form-control" placeholder="Buscar etiqueta...">
+												<i class="fa fa-search search-icon"></i>
+											</div>										
+											<a class="btn btn-primary pull-right" id="agregar">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Etiqueta</span>
+											</a>
+										</div>
 									</div>
 									<div class="table-responsive">
-
-										<table class="table user-list">
+										<table class="table tablesorter" id="tabla">
 											<thead>	
 												<tr>
 													<th class="text-center">
@@ -317,93 +318,76 @@
 													<th class="text-center">
 														<span>Idioma</span>
 													</th>
-
 													<th class="text-center">
 														<span>Observacion</span>
 													</th>
 												</tr>
 											</thead>
-
-
-											<tbody>
-												<tr>
-													<td class="text-center"	>
-														<span >CMMI</span>
-													</td>
-													<td class="text-center">
-														<span>Ingles</span>
-													</td>	
-
-													<td class="text-center">
-														<span>Capability Maturity Model Integration</span>
-													</td>
-
-													<td  style="width: 23%;padding-left: 80px;">
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-													</td>
-												</tr>
-
-												<tr>
-													<td class="text-center"	>
-														<span >Cobit 5</span>
-													</td>
-													<td class="text-center">
-														<span>Ingles</span>
-													</td>	
-
-													<td class="text-center">
-														<span>Un marco de la mejora estrategica</span>
-													</td>
-
-													<td style="width: 23%;padding-left: 80px;">
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-													</td>
-												</tr>
-
-
-
-											</tbody>
-
-											
+											<tbody id="listaEtiqueta">												
+											</tbody>											
 										</table>
-
-										<ul class="pagination pull-right">
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-left"></i>
-													</a>
-												</li>
-												<li>
-													<a href="#">1</a>
-												</li>
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-right"></i>
-													</a>
-												</li>
-										</ul>
+						<div class="modal fade" id="detalleEtiqueta" tabindex="-1" role="dialog" aria-labelledby="detalleEtiqueta" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title" id="tituloModal"></h3>
+											</div>
+										<div class="modal-body">
+											<form role="form" id="form-etiqueta">
+												<input type="hidden" id="IDETIQUETA" class="form-control" />
+												<div class="form-group">
+													<label for="NOMBRE">Etiqueta</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-book"></i></span>
+														<input type="NOMBRE" class="form-control" id="NOMBRE">
+													</div>
+												</div>
+												<div class="form-group" id="label_idioma">
+													<label for="IDIOMA">Idioma</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-book"></i></span>
+														<input type="IDIOMA" class="form-control" id="IDIOMA">
+													</div>
+												</div>
+												<div class="form-group" id="select_div">
+													<label for="IDIOMA_SELECT">Idioma</label>
+													<select  class="form-control" id="IDIOMA_SELECT" >
+										                <option selected>Seleccione el Idioma</option>
+										            </select>
+												</div>												
+												<div class="form-group">
+													<label for="OBSERVACION">Descripcion</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+														<input type="OBSERVACION" class="form-control" id="OBSERVACION">
+													</div>
+												</div>
+											</form>											
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+											<button type="button" id="guardar" class="btn btn-primary" >
+												<span id="tituloBoton"></span>
+											</button>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+										<div class="row pagination pager pull-right" id="pager">									 
+											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
+											<input type="hidden" class="pagedisplay"></input>
+											<div class="col-md-5"><select class="form-control pagenum input-mini" style="height:32px"></select></div>
+								            <div class="col-md-2"><li><a href="" class=" next"><i class="fa fa-chevron-right"></i></a></li></div>
+								            
+								            <li><select style="display:none;" class="pagesize" >
+								                <option selected="selected" value="5">5</option>
+								                <option value="10">10</option>
+								                <option value="20">20</option>
+								                <option value="30">30</option>
+								                <option value="40">40</option>
+								            </select></li>							             
+										</div>
 									</div>
 								</div>
 								</div>
@@ -426,10 +410,23 @@
 	<script src="../../template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-	<script src="javascript/pruebaArqui/principal.js"></script>
+	<script src="../../javascript/Publicacion_Documental/etiqueta.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
+
+	<!-- Tablesorter: required for bootstrap -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+
+    <!-- Tablesorter: optional -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.pager.js"></script>
+
+    <!-- Tablesorter: Config bootstrap -->
+    <script src="../../javascript/tablesorter/js/config.js"></script>
+    
+    <!-- Tablesorter: Config filtros -->
+    <script src="../../javascript/tablesorter/js/filtros.js"></script>
 	
 	<!-- this page specific inline scripts -->
 	
