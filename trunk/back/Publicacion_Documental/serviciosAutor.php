@@ -56,7 +56,7 @@ function registraAutor(){
 	$array=array(
 			array('IDAUTOR'=>$lastInsertId),
 			array('NOM_APE'=>$data->{"NOM_APE"}),
-			array('PAGINA_WEB'=> $data->{"PAGINA_WEB"}),
+			//array('PAGINA_WEB'=> $data->{"PAGINA_WEB"}),
 			array('INSTITUCION'=> $data->{"INSTITUCION"}),
 			array('TRABAJO'=> $data->{"TRABAJO"})
 		);
