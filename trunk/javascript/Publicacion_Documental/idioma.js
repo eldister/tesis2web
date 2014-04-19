@@ -77,6 +77,7 @@ function inserta(data){
 	resetForm();
 
 	$(document).on('click', '.modificar-idioma', modificarIdioma);
+	$(document).on('click', '.eliminar-idioma', eliminarIdioma);
 }
 
 function eliminarIdioma(){
