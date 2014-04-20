@@ -29,13 +29,14 @@ function verUsuario(){
 		success: function(data){ 
 			$('#IDUSUARIO').val(data["IDUSUARIO"]);
 			$('#NOMBRES').val(data["NOMBRES"]);
+			$('#USERNAME').val(data["USERNAME"]);
 			$('#APELLIDOS').val(data["APELLIDOS"]);
 			$('#CORREO_INSTITUCIONAL').val(data["CORREO_INSTITUCIONAL"]);
 			$('#CORREO_ALTERNO').val(data["CORREO_ALTERNO"]);
 			$('#NUMERO_CELULAR').val(data["NUMERO_CELULAR"]);
 			$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
 			$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
-			$('#INSTITUCION').val(data["INSTITUCION"]);
+			$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
 			$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
 			$('#COMPROMISO').val(data["COMPROMISO"]);
 			$('#NOMBRE').val(data["NOMBRE"]);
