@@ -45,8 +45,18 @@ function getUsuario($id){
 }
 
 function modificaUsuario(){
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
 
+	$con= getConnection();
+	$pstmt = $con->prepare("UPDATE USUARIO U SET U.NOMBRES=?,U.APELLIDOS=?,U.CORREO_INSTITUCIONAL=?,U.CORREO_ALTERNO=?,U.NUMERO_CELULAR=?,
+							U.NUMERO_TEL_ALTERNO=?,U.CUENTA_SKYPE=?,U.INSTITUCION=?,U.MESES_TERMINAR=?,U.COMPROMISO=?,P.NOMBRE=?
+							WHERE A.IDAUTOR=?");
+	$pstmt->execute(array($data->{"NOMBRES"},$data->{"APELLIDOS"},$data->{"CORREO_INSTITUCIONAL"},$data->{"CORREO_ALTERNO"},$data->{"NUMERO_CELULAR"},
+						$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"INSTITUCION"},$data->{"MESES_TERMINAR"},
+						$data->{"COMPROMISO"},$data->{"NOMBRE"},$data->{"IDUSUARIO"}));
 
+	echo $request->getBody();
 }
 
 
