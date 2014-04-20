@@ -19,16 +19,10 @@ function regristrarUsuario(data){
 	$('#NUMERO_CELULAR').prop('readOnly',true);
 	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
 	$('#CUENTA_SKYPE').prop('readOnly',true);
-	$('#INSTITUCION').prop('readOnly',true);
+	$('#INSTITUCION').not(":selected").attr("disabled", "disabled");
 	$('#MESES_TERMINAR').prop('readOnly',true);
 	$('#COMPROMISO').prop('readOnly',true);
-	$('#IDPERMISO').prop('readOnly',true);
-	//resetForm();
-}
-
-
-function resetForm(){
-
+	$('#IDPERMISO').not(":selected").attr("disabled", "disabled")
 }
 
 function guardarCambios(){
@@ -48,7 +42,6 @@ function guardarCambios(){
 	obj["NUMERO_CELULAR"] = $('#NUMERO_CELULAR').val();
 	obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
 	obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
-	//obj["INSTITUCION"] = $('#INSTITUCION').val();
 	obj["INSTITUCION"]= "CATO";
 	obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
 	obj["COMPROMISO"] = $('#COMPROMISO').val();
@@ -59,7 +52,6 @@ function guardarCambios(){
 		type: 'POST',
 		url : ruta,
 		dataType: "json",
-		//data: obj,
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: callback
@@ -95,3 +87,5 @@ $(document).ready(function(){
 	$("#guardar").click(guardarCambios);
 	$("#clear").click(borrar);
 });
+
+
