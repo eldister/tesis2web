@@ -22,6 +22,17 @@ function getListaUsuario(){
 		echo json_encode($listaUsuario);
 }
 
+function getUsuario2($id){
+	$con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
+							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,U.INSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,U.IDPERMISO
+							FROM USUARIO U WHERE U.ESTADO =1 AND U.IDUSUARIO=?");
+	$pstmt->execute(array($id));
+	$IDUSUARIO = $pstmt->fetch(PDO::FETCH_ASSOC);
+	echo json_encode($IDUSUARIO);
+}
+
 function getUsuario($id){
     $con=getConnection();
  
