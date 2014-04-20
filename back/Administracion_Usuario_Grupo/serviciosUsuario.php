@@ -67,12 +67,18 @@ function registraUsuario(){
     $data = json_decode($request->getBody());
 
 	$con= getConnection();
+
+	//DEBO CREAR EL USERNAME Y PASSWORD
+
+	$USERNAME='nuevo_usuario';
+	$PASSWORD='1256';
+
 	$pstmt = $con->prepare("INSERT INTO USUARIO (NOMBRES,APELLIDOS,CORREO_INSTITUCIONAL,CORREO_ALTERNO,NUMERO_CELULAR,NUMERO_TEL_ALTERNO,
-										CUENTA_SKYPE,INSTITUCION,MESES_TERMINAR,COMPROMISO,IDPERMISO,ESTADO) 
-							VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
+										CUENTA_SKYPE,IDINSTITUCION,MESES_TERMINAR,COMPROMISO,IDPERMISO,USERNAME,PASSWORD,ESTADO) 
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,1)");
 	$pstmt->execute(array($data->{"NOMBRES"},$data->{"APELLIDOS"},$data->{"CORREO_INSTITUCIONAL"},$data->{"CORREO_ALTERNO"},
-					$data->{"NUMERO_CELULAR"},$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"INSTITUCION"},
-					$data->{"MESES_TERMINAR"},$data->{"COMPROMISO"},$data->{"IDPERMISO"}));
+					$data->{"NUMERO_CELULAR"},$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"IDINSTITUCION"},
+					$data->{"MESES_TERMINAR"},$data->{"COMPROMISO"},$data->{"IDPERMISO"},$USERNAME,$PASSWORD));
 
 	$lastInsertId = $con->lastInsertId();
 
@@ -85,10 +91,12 @@ function registraUsuario(){
 			array('NUMERO_CELULAR'=>$data->{"NUMERO_CELULAR"}),
 			array('NUMERO_TEL_ALTERNO'=> $data->{"NUMERO_TEL_ALTERNO"}),
 			array('CUENTA_SKYPE'=>$data->{"CUENTA_SKYPE"}),
-			array('INSTITUCION'=> $data->{"INSTITUCION"}),
+			array('IDINSTITUCION'=> $data->{"IDINSTITUCION"}),
 			array('MESES_TERMINAR'=> $data->{"MESES_TERMINAR"}),
 			array('COMPROMISO'=>$data->{"COMPROMISO"}),
-			array('IDPERMISO'=> $data->{"IDPERMISO"})
+			array('IDPERMISO'=> $data->{"IDPERMISO"}),
+			array('USERNAME'=> $USERNAME),
+			array('PASSWORD'=> $PASSWORD)
 		);
 	echo json_encode($array);
 }
@@ -118,5 +126,15 @@ function getTipoUsuario(){
 	echo json_encode($listaTipoUsuario);
 }
 
+function getInstituciones(){
+	$con= getConnection();
+	$pstmt = $con->prepare("SELECT P.IDINSTITUCION, P.NOMBRE_INSTITUCION FROM INSTITUCION P WHERE P.ESTADO=1");
+	$pstmt->execute(array());
 
+	$listaInstitucion = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaInstitucion[] = $req;
+		}
+	echo json_encode($listaInstitucion);
+}
 ?>
