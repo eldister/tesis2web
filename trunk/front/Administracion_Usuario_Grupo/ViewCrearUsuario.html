@@ -367,13 +367,10 @@
 												<h3><span>Datos Institucionales</span></h3>
 
 												<div class="form-group">
-													<label for="IDPERMISO">Institucion Educativa</label>
+													<label for="">Institucion Educativa</label>
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-home"></i></span>
-														<select class="form-control" type="institucion" id="institucion">
-															<option>PUCP</option>
-															<option>UNSA</option>
-															<option>UPN</option>
+														<select class="form-control" type="IDINSTITUCION" id="IDINSTITUCION">
 														</select>
 													</div>
 												</div>
@@ -406,7 +403,8 @@
 
 
 										<div class="col-lg-12" style="padding-left: 350px;">
-											<button type="button" class="btn btn-default" VALUE="Back" onClick="history.go(-1);return true;">
+											<!--<button type="button" class="btn btn-default" VALUE="Back" onClick="history.go(-1);return true;">-->
+											<button type="button" class="btn btn-default" onclick="location.href='ViewListaUsuario.html'">
 												Regresar
 											</button>
 											<button type="button" class="btn btn-default" id="guardar">
