@@ -1,22 +1,29 @@
 
-
- function getURLvar(var_name){
-          var re = new RegExp(var_name + "(?:=([^&]*))?", "i");
-          var pm = re.exec(decodeURIComponent(location.search));
-          if(pm === null) return undefined;
-          return pm[1] || "";
- } //- See more at: http://www.phonegapspain.com/topic/pasar-datos-por-get-con-javascript/#sthash.5EUVoHjY.dpuf
-
+function getUrlParameters(parameter, staticURL, decode){
+   var currLocation = (staticURL.length)? staticURL : window.location.search,
+       parArr = currLocation.split("?")[1].split("&"),
+       returnBool = true;
+   
+   for(var i = 0; i < parArr.length; i++){
+        parr = parArr[i].split("=");
+        if(parr[0] == parameter){
+            return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+            returnBool = true;
+        }else{
+            returnBool = false;            
+        }
+   }
+   
+   if(!returnBool) return false;  
+}
 
 function verUsuario(){
-//	$(".selected").removeClass("selected");
-//	$(this).parent().parent().addClass("selected");
-	var IDUSUARIO=getURLvar();
+	var IDUSUARIO=getUrlParameters("id","",true);
 	var obj;
 
 	$.ajax({
 		type: 'GET',
-		url : '../../api/AU_getUsuario/'+ IDUSUARIO,
+		url : '../../api/AU_getUsuario/'+IDUSUARIO,
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){ 
