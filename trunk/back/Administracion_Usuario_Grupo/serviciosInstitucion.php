@@ -49,7 +49,7 @@ function registraInstitucion(){
 
 	$con= getConnection();
 	$pstmt = $con->prepare("INSERT INTO INSTITUCION (NOMBRE_INSTITUCION,DESCRIPCION,ESTADO) VALUES (?,?,1)");
-	$pstmt->execute(array($data->{"NOMBRE_INSTITUCION"},$data->{"ESTADO"}));
+	$pstmt->execute(array($data->{"NOMBRE_INSTITUCION"},$data->{"DESCRIPCION"}));
 
 	$lastInsertId = $con->lastInsertId();
 
@@ -69,9 +69,7 @@ function eliminaInstitucion(){
 	$pstmt->execute(array($data->{"IDINSTITUCION"}));
 
 	$array=array(
-		array('IDINSTITUCION'=>$data->{"IDINSTITUCION"}),
-		array('NOMBRE_INSTITUCION'=>$data->{"NOMBRE_INSTITUCION"}),
-		array('DESCRIPCION'=> $data->{"DESCRIPCION"})
+		array('IDINSTITUCION'=>$data->{"IDINSTITUCION"})
 		);
 	echo json_encode($array);
 }
