@@ -10,6 +10,12 @@ function cargaListaUsuario(data){
 				else if (key==="CORREO_ALTERNO"){
 					fila+='<td style="display:none;">'
 				}
+				else if (key==="USERNAME"){
+					fila+='<td style="display:none;">'
+				}
+				else if (key==="PASSWORD"){
+					fila+='<td style="display:none;">'
+				}
 				else if (key==="NUMERO_CELULAR"){
 					fila+='<td style="display:none;">'
 				}
@@ -61,10 +67,12 @@ function eliminarUsuario(){
 			$('#NUMERO_CELULAR').val(data["NUMERO_CELULAR"]);
 			$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
 			$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
-			$('#INSTITUCION').val(data["INSTITUCION"]);
+			$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
 			$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
 			$('#COMPROMISO').val(data["COMPROMISO"]);
 			$('#NOMBRE').val(data["NOMBRE"]);
+			$('#USERNAME').val(data["COMPROMISO"]);
+			$('#PASSWORD').val(data["NOMBRE"]);
 		}
 	});
 	$('#IDUSUARIO').prop('readOnly',true);
@@ -75,7 +83,7 @@ function eliminarUsuario(){
 	$('#NUMERO_CELULAR').prop('readOnly',true);
 	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
 	$('#CUENTA_SKYPE').prop('readOnly',true);
-	$('#INSTITUCION').prop('readOnly',true);
+	$('#NOMBRE_INSTITUCION').prop('readOnly',true);
 	$('#MESES_TERMINAR').prop('readOnly',true);
 	$('#COMPROMISO').prop('readOnly',true);
 	$('#NOMBRE').prop('readOnly',true);
