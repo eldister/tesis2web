@@ -31,51 +31,14 @@ function cargaListaUsuario(data){
 
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
 		fila+= '<a  href="ViewVerUsuario.html?id='+data[i]["IDUSUARIO"]+'" class="ver-usuario table-link" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a  href="ViewModificarUsuario.html?id="'+data[i]["IDUSUARIO"]+' class="modificar-usuario table-link" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  href="ViewModificarUsuario.html?id='+data[i]["IDUSUARIO"]+'" class="modificar-usuario table-link" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
 		fila+= '<a  class="eliminar-usuario table-link danger" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 
 
 		fila += '</td></tr>';
 		$('#listaUsuario').append(fila);
 	}
-	$(document).on('click', '.ver-usuario', verUsuario);
-	$(document).on('click', '.modificar-usuario', modificarUsuario);
 	$(document).on('click', '.eliminar-usuario', eliminarUsuario);
-}
-
-function verUsuario(){
-	$(".selected").removeClass("selected");
-	$(this).parent().parent().addClass("selected");
-	var IDUSUARIO=this.getAttribute("IDUSUARIO");
-	var obj;
-
-	$.ajax({
-		type: 'GET',
-		url : '../../api/AU_getUsuario/'+ IDUSUARIO,
-		dataType: "json",
-		contentType: "application/json; charset=utf-8",
-		success: function(data){ 
-			$('#IDUSUARIO').val(data["IDUSUARIO"]);
-			$('#NOMBRES').val(data["NOMBRES"]);
-			$('#APELLIDOS').val(data["APELLIDOS"]);
-			$('#CORREO_INSTITUCIONAL').val(data["CORREO_INSTITUCIONAL"]);
-			$('#CORREO_ALTERNO').val(data["CORREO_ALTERNO"]);
-			$('#NUMERO_CELULAR').val(data["NUMERO_CELULAR"]);
-			$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
-			$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
-			$('#INSTITUCION').val(data["INSTITUCION"]);
-			$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
-			$('#COMPROMISO').val(data["COMPROMISO"]);
-			$('#NOMBRE').val(data["NOMBRE"]);
-			$.post("http://localhost/tesis2web/front/administracion_usuario_grupo/ViewVerUsuario.html", data);
-		}
-	});
-
-	
-}
-
-function modificarUsuario(){
-	
 }
 
 function eliminarUsuario(){
