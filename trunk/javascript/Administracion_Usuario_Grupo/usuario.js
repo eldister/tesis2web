@@ -30,8 +30,8 @@ function cargaListaUsuario(data){
 		}
 
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
-		fila+= '<a   class="ver-usuario table-link" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a  href="ViewModificarUsuario.html"  class="modificar-usuario table-link" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  href="ViewVerUsuario.html?id='+data[i]["IDUSUARIO"]+'" class="ver-usuario table-link" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  href="ViewModificarUsuario.html?id="'+data[i]["IDUSUARIO"]+' class="modificar-usuario table-link" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
 		fila+= '<a  class="eliminar-usuario table-link danger" IDUSUARIO='+data[i]["IDUSUARIO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 
 
