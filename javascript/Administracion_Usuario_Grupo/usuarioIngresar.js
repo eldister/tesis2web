@@ -7,7 +7,7 @@ function regristrarUsuario(data){
 	$('#NUMERO_CELULAR').html(data["NUMERO_CELULAR"]);
 	$('#NUMERO_TEL_ALTERNO').html(data["NUMERO_TEL_ALTERNO"]);
 	$('#CUENTA_SKYPE').html(data["CUENTA_SKYPE"]);
-	$('#INSTITUCION').html(data["INSTITUCION"]);
+	$('#IDINSTITUCION').html(data["IDINSTITUCION"]);
 	$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
 	$('#COMPROMISO').html(data["COMPROMISO"]);
 	$('#IDPERMISO').html(data["IDPERMISO"]);
@@ -19,7 +19,7 @@ function regristrarUsuario(data){
 	$('#NUMERO_CELULAR').prop('readOnly',true);
 	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
 	$('#CUENTA_SKYPE').prop('readOnly',true);
-	$('#INSTITUCION').not(":selected").attr("disabled", "disabled");
+	$('#IDINSTITUCION').not(":selected").attr("disabled", "disabled");
 	$('#MESES_TERMINAR').prop('readOnly',true);
 	$('#COMPROMISO').prop('readOnly',true);
 	$('#IDPERMISO').not(":selected").attr("disabled", "disabled")
@@ -42,12 +42,11 @@ function guardarCambios(){
 	obj["NUMERO_CELULAR"] = $('#NUMERO_CELULAR').val();
 	obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
 	obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
-	obj["INSTITUCION"]= "CATO";
+	obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
 	obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
 	obj["COMPROMISO"] = $('#COMPROMISO').val();
 	obj["IDPERMISO"] = $('#IDPERMISO').val();	
 	
-
 	$.ajax({
 		type: 'POST',
 		url : ruta,
@@ -77,12 +76,31 @@ function cargarComboTipoUsuario(){
 	});
 }
 
+function cargarComboInstitucion(){
+	$.ajax({
+		type: 'GET',
+		url : '../../api/AU_getInstituciones',
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		async:false,
+		success: function(data){
+			for(obj in data){
+				var opt = $("<option></option>");
+				opt.val(data[obj]["IDINSTITUCION"]);
+				opt.html(data[obj]["NOMBRE_INSTITUCION"]);
+				$("#IDINSTITUCION").append(opt);
+			}
+		}
+	});
+}
+
 function borrar()
 {   
    $("input").val("");
 }
 
 $(document).ready(function(){
+	cargarComboInstitucion();
 	cargarComboTipoUsuario();
 	$("#guardar").click(guardarCambios);
 	$("#clear").click(borrar);
