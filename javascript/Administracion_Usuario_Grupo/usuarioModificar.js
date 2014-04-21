@@ -26,10 +26,10 @@ function modificarUsuario(data){
 	$('#NUMERO_CELULAR').html(data["NUMERO_CELULAR"]);
 	$('#NUMERO_TEL_ALTERNO').html(data["NUMERO_TEL_ALTERNO"]);
 	$('#CUENTA_SKYPE').html(data["CUENTA_SKYPE"]);
-	$('#IDINSTITUCION').html(data["IDINSTITUCION"]);
+	$('#IDINSTITUCION').val(data["IDINSTITUCION"]);
 	$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
 	$('#COMPROMISO').html(data["COMPROMISO"]);
-	$('#IDPERMISO').html(data["IDPERMISO"]);
+	$('#IDPERMISO').val(data["IDPERMISO"]);
 	$('#USERNAME').html(data["USERNAME"]);
 
 	$('#NOMBRES').prop('readOnly',true);
@@ -40,10 +40,12 @@ function modificarUsuario(data){
 	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
 	$('#CUENTA_SKYPE').prop('readOnly',true);
 	//$('#IDINSTITUCION').prop('readOnly',true);
+	$('#IDINSTITUCION').not(":selected").attr("disabled", "disabled");
 	$('#MESES_TERMINAR').prop('readOnly',true);
 	$('#COMPROMISO').prop('readOnly',true);
 	$('#USERNAME').prop('readOnly',true);
 	//$('#IDPERMISO').prop('readOnly',true);
+	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
 }
 
 function guardarCambios(){
