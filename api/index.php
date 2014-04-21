@@ -10,7 +10,7 @@ include ("../back/pruebaArqui/serviciosPrueba.php");
 //NADYA
 include ("../back/Publicacion_Documental/serviciosIdioma.php");
 include ("../back/Publicacion_Documental/serviciosAutor.php");
-//include ("../back/Administracion_Usuario_Grupo/serviciosUsuario.php");
+include ("../back/Administracion_Usuario_Grupo/serviciosUsuario.php");
 include ("../back/Administracion_Usuario_Grupo/serviciosInstitucion.php");
 
 
