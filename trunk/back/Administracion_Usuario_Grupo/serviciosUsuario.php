@@ -1,7 +1,7 @@
 <?php
    // header("Content-type: text/html; charset=utf8");
 	include('routesUsuario.php');
-	//include ('modelIdioma.php');
+	include ('modelEncriptacion.php');
 	include_once '../back/conexion.php';
 
 
@@ -26,7 +26,7 @@ function getUsuario2($id){
 	$con=getConnection();
  
 	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
-							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,U.INSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,U.IDPERMISO
+							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,U.IDINSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,U.IDPERMISO,U.USERNAME
 							FROM USUARIO U WHERE U.ESTADO =1 AND U.IDUSUARIO=?");
 	$pstmt->execute(array($id));
 	$IDUSUARIO = $pstmt->fetch(PDO::FETCH_ASSOC);
@@ -51,15 +51,14 @@ function modificaUsuario(){
 
 	$con= getConnection();
 	$pstmt = $con->prepare("UPDATE USUARIO U SET U.NOMBRES=?,U.APELLIDOS=?,U.CORREO_INSTITUCIONAL=?,U.CORREO_ALTERNO=?,U.NUMERO_CELULAR=?,
-							U.NUMERO_TEL_ALTERNO=?,U.CUENTA_SKYPE=?,U.INSTITUCION=?,U.MESES_TERMINAR=?,U.COMPROMISO=?,P.NOMBRE=?
-							WHERE A.IDAUTOR=?");
+							U.NUMERO_TEL_ALTERNO=?,U.CUENTA_SKYPE=?,U.IDINSTITUCION=?,U.MESES_TERMINAR=?,U.COMPROMISO=?,U.IDPERMISO=?,U.USERNAME=?
+							WHERE U.IDUSUARIO=?");
 	$pstmt->execute(array($data->{"NOMBRES"},$data->{"APELLIDOS"},$data->{"CORREO_INSTITUCIONAL"},$data->{"CORREO_ALTERNO"},$data->{"NUMERO_CELULAR"},
-						$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"INSTITUCION"},$data->{"MESES_TERMINAR"},
-						$data->{"COMPROMISO"},$data->{"NOMBRE"},$data->{"IDUSUARIO"}));
+						$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"IDINSTITUCION"},$data->{"MESES_TERMINAR"},
+						$data->{"COMPROMISO"},$data->{"IDPERMISO"},$data->{"USERNAME"},$data->{"IDUSUARIO"}));
 
 	echo $request->getBody();
 }
-
 
 function registraUsuario(){
 
@@ -70,8 +69,16 @@ function registraUsuario(){
 
 	//DEBO CREAR EL USERNAME Y PASSWORD
 
-	$USERNAME='nuevo_usuario';
-	$PASSWORD='1256';
+	$USERNAME1= substr($data->{"NOMBRES"}, 0, 1);
+	$USER='.';
+	$USERNAME2= $data->{"APELLIDOS"};
+	$USERN=$USERNAME1.$USER.$USERNAME2;
+	$USERNAME= strtolower(str_replace(' ', '', $USERN));
+
+	//ECHO $USERNAME;
+
+	$PASSWORD=Encrypter::encrypt($USERNAME);
+	//ECHO $PASSWORD;
 
 	$pstmt = $con->prepare("INSERT INTO USUARIO (NOMBRES,APELLIDOS,CORREO_INSTITUCIONAL,CORREO_ALTERNO,NUMERO_CELULAR,NUMERO_TEL_ALTERNO,
 										CUENTA_SKYPE,IDINSTITUCION,MESES_TERMINAR,COMPROMISO,IDPERMISO,USERNAME,PASSWORD,ESTADO) 
