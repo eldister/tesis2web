@@ -10,7 +10,7 @@ include ("../back/pruebaArqui/serviciosPrueba.php");
 //NADYA
 include ("../back/Publicacion_Documental/serviciosIdioma.php");
 include ("../back/Publicacion_Documental/serviciosAutor.php");
-include ("../back/Administracion_Usuario_Grupo/serviciosUsuario.php");
+//include ("../back/Administracion_Usuario_Grupo/serviciosUsuario.php");
 include ("../back/Administracion_Usuario_Grupo/serviciosInstitucion.php");
 
 
@@ -20,6 +20,7 @@ include ("../back/Administracion_Usuario_Grupo/serviciosInstitucion.php");
 include ("../back/Publicacion_Documental/serviciosTipoPublicacion.php");
 include ("../back/Publicacion_Documental/serviciosTipoFicha.php");
 include ("../back/Publicacion_Documental/serviciosEtiqueta.php");
+include ("../back/Publicacion_Documental/serviciosPublicacion.php");
 
 $app->run();
 //echo 'slim cargado';
