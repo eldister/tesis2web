@@ -22,7 +22,7 @@ function regristrarUsuario(data){
 	$('#IDINSTITUCION').not(":selected").attr("disabled", "disabled");
 	$('#MESES_TERMINAR').prop('readOnly',true);
 	$('#COMPROMISO').prop('readOnly',true);
-	$('#IDPERMISO').not(":selected").attr("disabled", "disabled")
+	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
 }
 
 function guardarCambios(){
