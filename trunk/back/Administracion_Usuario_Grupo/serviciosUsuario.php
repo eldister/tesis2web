@@ -75,13 +75,7 @@ function registraUsuario(){
 	$USERN=$USERNAME1.$USER.$USERNAME2;
 	$USERNAME= strtolower(str_replace(' ', '', $USERN));
 
-	//ECHO $USERNAME;
-	//ECHO '    ';
 	$PASSWORD=Encrypter::encrypt($USERNAME);
-	//ECHO $PASSWORD;
-	//ECHO '     ';
-	//ECHO Encrypter::decrypt($PASSWORD);
-
 
 	$pstmt = $con->prepare("INSERT INTO USUARIO (NOMBRES,APELLIDOS,CORREO_INSTITUCIONAL,CORREO_ALTERNO,NUMERO_CELULAR,NUMERO_TEL_ALTERNO,
 										CUENTA_SKYPE,IDINSTITUCION,MESES_TERMINAR,COMPROMISO,IDPERMISO,USERNAME,PASSWORD,ESTADO) 
@@ -108,8 +102,43 @@ function registraUsuario(){
 			array('USERNAME'=> $USERNAME),
 			array('PASSWORD'=> $PASSWORD)
 		);
+
+	$CORREO_INSTITUCIONAL=$data->{"CORREO_INSTITUCIONAL"};
+	$CORREO_ALTERNO=$data->{"CORREO_ALTERNO"};
+	$NOMBRES=$data->{"NOMBRES"};
+	$APELLIDOS=$data->{"APELLIDOS"};
+
+	enviarMensaje($USERNAME,$PASSWORD,$CORREO_INSTITUCIONAL,$NOMBRES,$APELLIDOS,$CORREO_ALTERNO);
 	echo json_encode($array);
 }
+
+function enviarMensaje($username,$password,$CORREO_INSTITUCIONAL,$NOMBRES,$APELLIDOS,$CORREO_ALTERNO){
+	$PASS=Encrypter::decrypt($password);
+	$ESPACIO=' ';
+	$USER=$NOMBRES.$ESPACIO.$APELLIDOS;
+	$MENSAJE='Estimado '.$USER."\r\n".' Acaba de ser registrado como un nuevo miembro del Proyecto ProCal-ProSer'."\r\n".' Para poder ingresar al sistema debera hacer uso de los siguientes datos:'."\r\n".'  USUARIO:  '.$username."\r\n".'  PASSWORD:  '.$PASS;
+
+	
+	include('Mail.php');
+
+    $recipients = $CORREO_INSTITUCIONAL;
+
+    $headers['From']    = 'eli03nage@gmail.com';
+    $headers['To']      = $recipients;
+    $headers['Subject'] = 'ProCal-ProSer - Registro de Nuevo Miembro';
+
+    $body = $MENSAJE;
+
+    $smtpinfo["host"] = "smtp.gmail.com";
+    $smtpinfo["port"] = "587";
+    $smtpinfo["auth"] = true;
+    $smtpinfo["username"] = "eli03nage";
+    $smtpinfo["password"] = "nadyab90";
+
+    $mail_object =& Mail::factory("smtp", $smtpinfo); 
+    $mail_object->send($recipients, $headers, $body);
+}
+
 
 function eliminaUsuario(){
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
