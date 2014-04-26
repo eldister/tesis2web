@@ -54,16 +54,16 @@
 								<form role="form" action="">
 									<div class="input-group input-group-lg">
 										<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										<input class="form-control" type="text" id="userID" placeholder="Usuario">
+										<input class="form-control" type="text" id="USERNAME" placeholder="Usuario">
 									</div>
 									<div class="input-group input-group-lg">
 										<span class="input-group-addon"><i class="fa fa-key"></i></span>
-										<input type="password" class="form-control" id="passID" placeholder="Password">
+										<input type="password" class="form-control" id="PASSWORD" placeholder="Contraseña">
 									</div>
 									<br><br>
 									<div class="row">
 										<div class="col-sm-6 col-xs-12 col-sm-push-6">
-											<button type="submit" class="btn btn-success col-xs-12">Ingresar</button>
+											<button type="button" class="btn btn-success col-xs-12" id="ingresar">Ingresar</button>
 										</div>
 										<a href="#myModal" id="login-forget-link" class="col-sm-6 col-xs-12 col-sm-pull-6" data-toggle="modal">
 											¿Olvidó su contraseña?
@@ -81,7 +81,7 @@
 										<h3 class="modal-title"><span>Recuperar Contraseña</span></h3>
 									</div>
 								<div class="modal-body">
-									<form role="form">
+									<!--<form role="form">-->
 										<div class="form-group">
 											<label for="correo">Correo Electrónico</label>
 											<div class="input-group">
@@ -89,7 +89,7 @@
 												<input type="correo" class="form-control" id="correo" placeholder="Correo que registró" >
 											</div>
 										</div>										
-									</form>									
+									<!--</form>-->									
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -108,7 +108,7 @@
 	<script src="template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-
+	<script src="javascript/Seguridad/login.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="template/js/scripts.js"></script>
