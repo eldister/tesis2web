@@ -26,7 +26,7 @@ function ingresar(){
 		success: function(data){
 			if(data["respuesta"]==1){ 
 				alert("BIEN JUGADO");
-				localStorage.setItem('uid',data["idusuario"]);
+				localStorage.setItem('uid',data["userid"]);
 				//uid codigo de usuario en BD
 				//redirigir a pagina correspondiente
 			}
