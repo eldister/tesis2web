@@ -91,6 +91,24 @@ function modificaUsuario(){
 	echo $request->getBody();
 }
 
+
+function modificaUsuario2(){
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+
+	$con= getConnection();
+	$PASS=Encrypter::encrypt($data->{"PASSWORD"});
+	$pstmt = $con->prepare("UPDATE USUARIO U SET U.NOMBRES=?,U.APELLIDOS=?,U.CORREO_INSTITUCIONAL=?,U.CORREO_ALTERNO=?,U.NUMERO_CELULAR=?,
+							U.NUMERO_TEL_ALTERNO=?,U.CUENTA_SKYPE=?,U.IDINSTITUCION=?,U.MESES_TERMINAR=?,U.COMPROMISO=?,U.IDPERMISO=?,U.USERNAME=?,
+							U.PASSWORD=?
+							WHERE U.IDUSUARIO=?");
+	$pstmt->execute(array($data->{"NOMBRES"},$data->{"APELLIDOS"},$data->{"CORREO_INSTITUCIONAL"},$data->{"CORREO_ALTERNO"},$data->{"NUMERO_CELULAR"},
+						$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"IDINSTITUCION"},$data->{"MESES_TERMINAR"},
+						$data->{"COMPROMISO"},$data->{"IDPERMISO"},$data->{"USERNAME"},$PASS,$data->{"IDUSUARIO"}));
+
+	echo $request->getBody();
+}
+
 function registraUsuario(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
