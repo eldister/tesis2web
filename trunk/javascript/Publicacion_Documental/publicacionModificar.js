@@ -283,7 +283,7 @@ function guardarEtiqueta(){
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
 			$('#detalleEtiqueta').modal('hide');
-			$("#sel2Multi3").append('<option value="' + obj[0].IDETIQUETA + '">' + obj[0].NOMBRE + '</option>');
+			$("#sel2Multi3").append('<option value="' + obj[0].IDETIQUETA + '">' + obj[1].NOMBRE + '</option>');
 		}
 	});
 }
@@ -299,12 +299,12 @@ function guardarAutor(){
 	$.ajax({
 		type: 'POST',
 		url : "../../api/PD_registraAutor",
-		dataType: "json",
+		dataType: "json", 
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
 			$('#detalleAutor').modal('hide');
-			$("#sel2Multi2").append('<option value="' + obj[0].IDAUTOR + '">' + obj[0].NOM_APE + '</option>');
+			$("#sel2Multi2").append('<option value="' + obj[0].IDAUTOR + '">' + obj[1].NOM_APE + '</option>');
 		}
 	});
 }
@@ -323,17 +323,18 @@ $(test2).change(function() {
 
 $(document).ready(function(){
 	idpublicacion = getUrlParameters("idpublicacion","", true);	
-	iniciarNiceSelectBoxes();
 	popularSelectIdioma();
 	popularSelectTipoPublicacion();
-	llenarCampos();
-	// popularAutores();
-	// popularEtiquetas();
-	// setCamposEtiquetas();
-	// setCamposAutor();
+	//llenarCampos();
+	iniciarNiceSelectBoxes();
+	popularAutores();
+	popularEtiquetas();
+	setTimeout(llenarCampos,20);
+	setTimeout(setCamposEtiquetas,100);// setCamposEtiquetas();
+	setTimeout(setCamposAutor,100); //setCamposAutor();
 	//PROBLEMA DE CONCURRENCIA 
-	$.when(popularAutores()).then(setCamposAutor());
-	$.when(popularEtiquetas()).then(setCamposEtiquetas());
+	//$.when(popularAutores()).then(setCamposAutor());
+	//$.when(popularEtiquetas()).then(setCamposEtiquetas());
 
 
 	$("#guardar").click(guardarCambios);

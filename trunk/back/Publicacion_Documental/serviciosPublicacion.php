@@ -129,9 +129,9 @@
 			    						VALUES(?,?)");
 			    $pstmt->execute(array($idpublicacion,$data["0"][$i]["id"]));
 			}
-			echo $request->getBody();
+			echo json_encode(array("status" => 1));
 		}catch(PDOException $e){
-			echo json_encode(array("me" => $e->getMessage()));
+			echo json_encode(array("status" => 0));
 		}
 	}
 
@@ -147,9 +147,9 @@
 			    						VALUES(?,?)");
 			    $pstmt->execute(array($idpublicacion,$data["0"][$i]["id"]));
 			}
-			echo $request->getBody();
+			echo json_encode(array("status" => 1));
 		}catch(PDOException $e){
-			echo json_encode(array("me" => $e->getMessage()));
+			echo json_encode(array("status" => 0));
 		}
 	}
 
@@ -226,6 +226,32 @@
 		}catch(PDOException $e){
 			echo json_encode(array("me" => $e->getMessage()));
 		}
+	}
+
+	function subirArchivos(){ 
+		print_r($_FILES);
+		print_r($_POST);
+		$uploaddir = '../files/';
+		$idpublicacion = $_POST['IDPUBLICACION'];
+		$archivoNombres = $_FILES['file']['name'];
+		$archivoUbTemp = $_FILES['file']['tmp_name'];
+		$formato = $_FILES['file']['type'];
+		$con=getConnection();
+		//try{
+		for ($i=0; $i < count($archivoNombres) ; $i++) { 
+			$uploadfile = $uploaddir . basename($archivoNombres[$i]);
+			if(move_uploaded_file($archivoUbTemp[$i], $uploadfile)){
+			//PROBAR CON VARIOS ARCHIVOS, INSERTAR EN BD POR CADA ENTRADA SATISFACTORIA
+				$pstmt = $con->prepare("INSERT INTO ARCHIVO
+									(nombre, url, descripcion, formato, fecha_subida, estado, idpublicacion) 	
+						   			VALUES (?,?,?,?,curdate(),?,?)");
+				$pstmt->execute(array($archivoNombres[$i],$uploadfile,null,$formato[$i],1,$idpublicacion));
+			}
+		}
+		echo json_encode(array("status" => 1));
+		//}catch(PDOException $e){
+		//	echo json_encode(array("status" => 0));
+		//}
 	}
 
 ?>
