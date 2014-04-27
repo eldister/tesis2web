@@ -88,8 +88,8 @@ function guardarPublicacionxEtiqueta(data){
 	parent.push(json2);   
 
 	var obj = $.extend({},data,parent);
-	console.log(obj);
-	console.log(JSON.stringify(obj));
+	//console.log(obj);
+	//console.log(JSON.stringify(obj));
 
 	$.ajax({
 		type: 'POST',
@@ -98,7 +98,7 @@ function guardarPublicacionxEtiqueta(data){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
-			alert("etiquetas agregadas");			
+			return data["status"];			
 		}
 	});
 }
@@ -112,8 +112,8 @@ function guardarPublicacionxAutor(data){
 	parent.push(json2);   
 
 	var obj = $.extend({},data,parent);
-	console.log(obj);
-	console.log(JSON.stringify(obj));
+	//console.log(obj);
+	//console.log(JSON.stringify(obj));
 
 	$.ajax({
 		type: 'POST',
@@ -122,9 +122,20 @@ function guardarPublicacionxAutor(data){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
-			alert("autores agregados");			
+			return data["status"];			
 		}
 	});
+}
+
+function guardarArchivos(data){	
+
+	
+	myDropzone.on("sendingmultiple", function(file, xhr, formData) {
+	  // add headers with xhr.setRequestHeader() or
+	  // form data with formData.append(name, value);
+	  formData.append('IDPUBLICACION',data['IDPUBLICACION']);
+	});
+	myDropzone.processQueue();
 }
 
 function guardarCambios(){
@@ -148,12 +159,14 @@ function guardarCambios(){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
-			guardarPublicacionxEtiqueta(data);
-			guardarPublicacionxAutor(data);
-			alert("Publicación registrada correctamente");
-			window.history.go(-1);
+			//guardar etiquetas, autores y archivos
+			guardarPublicacionxEtiqueta(data) 
+			guardarPublicacionxAutor(data)
+			guardarArchivos(data)
+			
 		}
 	});
+
 }
 
 
@@ -173,7 +186,7 @@ function guardarEtiqueta(){
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
 			$('#detalleEtiqueta').modal('hide');
-			popularEtiquetas();
+			$("#sel2Multi3").append('<option value="' + obj[0].IDETIQUETA + '">' + obj[1].NOMBRE + '</option>');
 		}
 	});
 }
@@ -194,7 +207,7 @@ function guardarAutor(){
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
 			$('#detalleAutor').modal('hide');
-			popularAutores();
+			$("#sel2Multi2").append('<option value="' + obj[0].IDAUTOR + '">' + obj[1].NOM_APE + '</option>');
 		}
 	});
 }
@@ -218,6 +231,22 @@ function iniciarNiceSelectBoxes(){
 	});
 }
 
+function configurarDropzone(){
+	Dropzone.autoDiscover=false;
+	$('#subidaArchivos').dropzone({
+	    url: '../../api/PD_subirArchivos',
+	    maxFilesize: 10,
+	    paramName: 'file',
+	    addRemoveLinks: true,
+	    autoProcessQueue: false,
+	    uploadMultiple:true,
+	    maxFiles:10,
+	    parallelUploads:10000,
+	    dictRemoveFile:'Remover archivo'
+	});
+
+}
+
 var test = $('#sel2Multi3');
 $(test).change(function() {
     seleccionEtiquetas = ( JSON.stringify($(test).select2('data')) );
@@ -228,8 +257,15 @@ $(test2).change(function() {
     seleccionAutores = ( JSON.stringify($(test2).select2('data')) );
 });
 
+var myDropzone;
+Dropzone.options.subidaArchivos = {
+  init: function() {
+    myDropzone = this;
+  }
+};
 
 $(document).ready(function(){
+	configurarDropzone();
 	popularSelectIdioma();
 	popularSelectTipoPublicacion();
 	iniciarNiceSelectBoxes();

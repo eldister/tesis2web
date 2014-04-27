@@ -11,4 +11,5 @@
 	$app->get('/PD_getAutorPublicacion/:id','getAutorPublicacion');
 	$app->post('/PD_modificaPublicacionxEtiqueta','modificaPublicacionxEtiqueta');
 	$app->post('/PD_modificaPublicacionxAutor','modificaPublicacionxAutor');
+	$app->post('/PD_subirArchivos','subirArchivos');
 ?>

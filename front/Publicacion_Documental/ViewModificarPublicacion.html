@@ -388,31 +388,7 @@
 		                                    </div>
 		                                </div>
 		                            </div>
-		                            <h3><span>Carpetas, autores, etiquetas y archivos</span></h3>
-		                            <div class="row">
-		                            	<div class="col-md-12">
-		                            		<label>Carpetas</label>
-		                            		<div class="row">
-				                            	<div class="col-md-6">
-			                            			<div class="form-group form-group-select2">        
-														<select style="width:525px" id="sel2Multi" multiple>
-															<option value="carp1">Carpeta 1</option> 
-															<option value="carp2">Carpeta 2</option> 
-															<option value="carp3">Carpeta 3</option>  
-														</select>
-			                                        </div>								
-			                                     </div>
-			                                     <div class="col-md-6">
-			                                     		<div class="filter-block pull-left" >								
-															<a href="#myModalCarpeta" class="btn btn-primary pull-left" data-toggle="modal">
-																<i class="fa fa-plus-circle fa-lg"></i> 
-																<span>Agregar Carpeta</span>
-															</a>
-														</div>
-			                                     </div>
-		                                 	</div>
-	                                     </div>
-	                                </div>
+		                            <h3><span>Autores, etiquetas y archivos</span></h3>		                            
 	                                <div class="row">
 	                                     <div class="col-md-12">
 		                                     <label>Autores</label>
@@ -569,43 +545,7 @@
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->							
-				<!--FIN MODAL AUTOR-->
-				<!--MODAL CARPETAS-->  
-				<div class="modal fade" id="myModalCarpeta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h3 class="modal-title"><span>Agregar Carpeta</span></h3>
-								</div>
-							<div class="modal-body">
-								<form role="form">
-									<div class="form-group">
-										<label for="nombreCarpeta">Nombre de Carpeta</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-											<input type="carpeta" class="form-control" id="carpeta"  >
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="descripcion">Descripción</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-											<input type="descripcion" class="form-control" id="descripcion"  >
-										</div>
-									</div>
-
-								</form>
-								
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-								<button type="button" class="btn btn-primary">Registrar Etiqueta</button>
-							</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-				<!--FIN MODAL CARPETAS-->
+				<!--FIN MODAL AUTOR-->				
 				<!--MODAL SUBIR ARCHIVOS-->
 				<div class="modal fade" id="myModalSubirArchivos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -639,7 +579,7 @@
 	                    			<button type="button" class="btn btn-default" id="guardar">Modificar Publicacion</button>
 	                    			<button type="button" class="btn btn-default" id="limpiar">Limpiar</button>
 	                    			<button type="button" class="btn btn-default" value="regresar" 
-	                    			onClick="history.go(-1);return true;">Regresar</button>
+	                    			onClick="location.href='ViewListaPublicacion.html'">Regresar</button>
                     			</div>
                     			<div class="col-md-4"></div>
                     		</div>
