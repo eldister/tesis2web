@@ -129,7 +129,7 @@ function verUsuario(){
 
 	$.ajax({
 		type: 'GET',
-		url : '../../api/AU_getUsuario2/'+IDUSUARIO,
+		url : '../../api/AU_getUsuario3/'+IDUSUARIO,
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){ 
