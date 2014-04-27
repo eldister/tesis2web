@@ -22,19 +22,50 @@ function getListaUsuario(){
 		echo json_encode($listaUsuario);
 }
 
-function getUsuario2($id){
+function getUsuario3($id){
 	$con=getConnection();
  
 	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
 							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,U.IDINSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,U.IDPERMISO,U.USERNAME
 							FROM USUARIO U WHERE U.ESTADO =1 AND U.IDUSUARIO=?");
 	$pstmt->execute(array($id));
-	$IDUSUARIO = $pstmt->fetch(PDO::FETCH_ASSOC);
-	echo json_encode($IDUSUARIO);
+	$pUSUARIO = $pstmt->fetch(PDO::FETCH_ASSOC);
+	echo json_encode($pUSUARIO);
+}
+
+function getUsuario2($id){
+	$con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
+							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,U.IDINSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,U.IDPERMISO,U.USERNAME,U.PASSWORD, P.NOMBRE
+							FROM USUARIO U, PERMISO P WHERE U.ESTADO =1 AND U.IDPERMISO=P.IDPERMISO AND U.IDUSUARIO=?");
+	$pstmt->execute(array($id));
+	$pUSUARIO = $pstmt->fetch(PDO::FETCH_ASSOC);
+	$PASS=Encrypter::decrypt($pUSUARIO["PASSWORD"]);
+	//$persona=array();
+	$persona=array(
+			array('IDUSUARIO'=>$pUSUARIO["IDUSUARIO"]),
+			array('NOMBRES'=>$pUSUARIO["NOMBRES"]),
+			array('APELLIDOS'=>$pUSUARIO["APELLIDOS"]),
+			array('CORREO_INSTITUCIONAL'=>$pUSUARIO["CORREO_INSTITUCIONAL"]),
+			array('CORREO_ALTERNO'=>$pUSUARIO["CORREO_ALTERNO"]),
+			array('NUMERO_CELULAR'=>$pUSUARIO["NUMERO_CELULAR"]),
+			array('NUMERO_TEL_ALTERNO'=>$pUSUARIO["NUMERO_TEL_ALTERNO"]),
+			array('CUENTA_SKYPE'=>$pUSUARIO["CUENTA_SKYPE"]),
+			array('IDINSTITUCION'=>$pUSUARIO["IDINSTITUCION"]),
+			array('MESES_TERMINAR'=>$pUSUARIO["MESES_TERMINAR"]),
+			array('COMPROMISO'=>$pUSUARIO["COMPROMISO"]),
+			array('IDPERMISO'=>$pUSUARIO["IDPERMISO"]),
+			array('USERNAME'=>$pUSUARIO["USERNAME"]),
+			array('NOMBRE'=>$pUSUARIO["NOMBRE"]),
+			array('PASSWORD'=>$PASS)	
+		);
+
+	echo json_encode($persona);
 }
 
 function getUsuario($id){
-    $con=getConnection();
+    $con=getConnection();	
  
 	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
 							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,I.NOMBRE_INSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,P.NOMBRE,U.USERNAME
