@@ -12,9 +12,9 @@
 
 		$listaTipoPublicacion = array();
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
-			$listaEstados[] = $element;
+			$listaTipoPublicacion[] = $element;
 		}
-		echo json_encode($listaEstados);
+		echo json_encode($listaTipoPublicacion);
 	}	
 
 	function getTipoPublicacion($id){
