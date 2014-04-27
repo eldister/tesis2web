@@ -3,8 +3,6 @@ $(document).ready(function(){
 
 	$("#ingresar").click(ingresar);
 
-	//$("#cerrar").click(resetForm);
-
 });
 
 function ingresar(){
@@ -29,8 +27,17 @@ function ingresar(){
 				localStorage.setItem('uid',data["userid"]);
 				//uid codigo de usuario en BD
 				//redirigir a pagina correspondiente
+
+				$(location).attr('href','../tesis2web/front/administracion_usuario_grupo/viewPerfil.html');
 			}
-			else alert("Usuario o Contraseña Incorrectas");
-		}
+			else {
+				alert("Usuario o Contraseña Incorrectas");
+				$(location).attr('href','../../login.html');
+   				 }
+			}
 	});
 }
+
+//$('#logout').click(function(){
+//    localStorage.clear();
+//});
