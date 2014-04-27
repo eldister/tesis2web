@@ -9,6 +9,5 @@
 	$app->post('/AU_eliminaUsuario','eliminaUsuario');
 	$app->get('/AU_getTipoUsuario','getTipoUsuario');
 	$app->get('/AU_getInstituciones','getInstituciones');
-
-	
+	$app->get('/AU_getUsuario3/:id','getUsuario3');
 ?>
