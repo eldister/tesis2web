@@ -98,7 +98,7 @@ function iniciarNiceSelectBoxes(){
 	
 	$('#sel2Multi1').select2({
 		placeholder: 'Seleccione solo un usuario',
-		//maximumSelectionSize: 1,
+		maximumSelectionSize: 1,
 		allowClear: true
 	});
 
