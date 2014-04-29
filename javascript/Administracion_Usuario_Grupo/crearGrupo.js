@@ -52,13 +52,9 @@ function guardarCambios(){
 	var callback;
 	
 	ruta = "../../api/AU_registraGrupo";
-	//callback = regristrarGrupo;
 	obj["NOMBRES"] = $('#NOMBRES').val();
 	obj["FECHA_CREACION"] = $('#FECHA_CREACION').val();
 	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
-	//obj["RESPONSABLE"]=dameResponsable();
-	//obj["MIEMBROS"]=dameMiembros();
-
 
 	var parent= [];
 
