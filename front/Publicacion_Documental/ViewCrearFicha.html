@@ -15,10 +15,9 @@
 	<!-- global styles -->
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
-	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
 
 	<!-- this page specific styles -->
-	<link rel="stylesheet" type="text/css" href="../../template/css/libs/dropzone.css">
+	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
 
 	<!-- google font libraries -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
@@ -34,57 +33,43 @@
 <body>
 	<header class="navbar" id="header-navbar">
 		<div class="container">
-			<a href="index.html" id="logo" class="navbar-brand col-md-3 col-sm-4 col-xs-12">
-				<img src="../../template/img/logo.png" alt=""/> ProCal-ProSer
-			</a>
-			
+			<a href="../administracion_usuario_grupo/viewPerfil.html" id="logo" class="navbar-brand col-md-3 col-sm-4 col-xs-12">
+				<img src="../../template/img/logo.png" alt=""/> ProCal-ProSer</a>
 			<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="fa fa-bars"></span>
 			</button>
-			
 			<div class="nav-no-collapse pull-right" id="header-nav">
 				<ul class="nav navbar-nav pull-right">
 					<li class="mobile-search">
-						<a class="btn">
-							<i class="fa fa-search"></i>
-						</a>
-						
+						<a class="btn"><i class="fa fa-search"></i></a>						
 						<div class="drowdown-search">
 							<form role="search">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Búsqueda básica...">
+									<input id="busqueda-basica" type="text" class="form-control" placeholder="Búsqueda básica...">
 									<i class="fa fa-search nav-search-icon"></i>
 								</div>
 							</form>
-						</div>
-						
+						</div>						
 					</li>
 					<li class="dropdown hidden-xs">
-						<a class="btn dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-cog"></i>
-						</a>
+						<a class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i class="fa fa-search"></i>Búsqueda Avanzada</a></li>
-							<li><a href="#"><i class="fa fa-search-plus"></i>Búsqueda Progresiva</a></li>
+							<li><a href="../publicacion_documental/viewBusquedaAsistida.html"><i class="fa fa-search-plus"></i>Búsqueda Asistida</a></li>
 						</ul>
 					<li>
 					<li class="dropdown profile-dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="../../template/img/samples/profile-photo.png" alt=""/>
-							<span class="hidden-xs">Usuario Prueba</span> <b class="caret"></b>
-						</a>
+							<span class="hidden-xs">Usuario Prueba</span> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-user"></i>Ver Cuenta</a></li>
-							<li><a href="#"><i class="fa fa-cog"></i>Editar Cuenta</a></li>
-							<li><a href="#"><i class="fa fa-power-off"></i>Salir</a></li>
+							<li><a href="../administracion_usuario_grupo/viewPerfil.html"><i class="fa fa-user"></i>Ver Cuenta</a></li>
+							<li><a href="../administracion_usuario_grupo/viewModificarPerfil.html"><i class="fa fa-cog"></i>Editar Cuenta</a></li>
+							<li><a id="salir"><i class="fa fa-power-off"></i>Salir</a></li>
 						</ul>
 					</li>
-					<li class="hidden-xxs">
-						<a class="btn">
-							<i class="fa fa-power-off"></i>
-						</a>
-					</li>
+					<li class="hidden-xxs"><a id="salir" class="btn"><i class="fa fa-power-off"></i></a></li>
 				</ul>
 			</div>
 		</div>
@@ -95,197 +80,64 @@
 				<section id="col-left">
 					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
 						<ul class="nav nav-pills nav-stacked">
-							<li class="active">
-								<a href="index.html">
-									<i class="fa fa-home"></i>
-									<span>Principal</span>
-								</a>
-							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-book"></i>
-									<span>Publicaciones</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
+							<li id="principal" class="active"><a href="../administracion_usuario_grupo/viewPerfil.html">
+								<i class="fa fa-home"></i><span>Principal</span></a></li>
+							<li id="publicacion"><a href="" class="dropdown-toggle"><i class="fa fa-book"></i><span>Publicaciones</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
 								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Publicaciones
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Registrar Publicación
-										</a>
-									</li>
+									<li id="ver-publicacion"><a href="../publicacion_documental/viewListaPublicacion.html">Ver Publicación</a></li>
+									<li id="reg-publicacion"><a href="../publicacion_documental/viewCrearPublicacion.html">Registrar Publicación</a></li></ul>
+							</li>
+							<li id="fichas"><a href="" class="dropdown-toggle"><i class="fa fa-file-text"></i><span>F. Bibliográficas</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-ficha"><a href="../publicacion_documental/viewListaFicha.html">Ver Fichas</a></li>
 								</ul>
 							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-file-text"></i>
-									<span>F. Bibliográficas</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
+							<li id="usuarios"><a href="" class="dropdown-toggle"><i class="fa fa-users"></i><span>Usuarios</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
 								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Fichas
-										</a>
-									</li>
+									<li id="ver-usuario"><a href="../administracion_usuario_grupo/viewListaUsuario.html">Ver Usuarios</a></li>
+									<li id="reg-usuario"><a href="../administracion_usuario_grupo/viewCrearUsuario.html">Registrar Usuarios</a></li></ul>
+							</li>
+							<li id="grupos"><a href="" class="dropdown-toggle"><i class="fa fa-comments"></i><span>Grupos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-grupo"><a href="../administracion_usuario_grupo/viewListaGrupo.html">Ver Grupos</a></li>
+									<li id="reg-grupo"><a href="../administracion_usuario_grupo/viewCrearGrupo.html">Crear Grupo</a></li></ul>
+							</li>
+							<li id="autores"><a href="" class="dropdown-toggle"><i class="fa fa-pencil-square-o"></i><span>Autores</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-autor"><a href="../publicacion_documental/viewListaAutor.html">Ver Autores</a></li>
 								</ul>
 							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-users"></i>
-									<span>Usuarios</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
+							<li id="idiomas"><a href="" class="dropdown-toggle"><i class="fa fa-globe"></i><span>Idiomas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
 								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Usuarios
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Registrar Usuarios
-										</a>
-									</li>
+									<li id="ver-idioma"><a href="../publicacion_documental/viewListaIdioma.html">Ver Idiomas</a></li>
 								</ul>
 							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-comments"></i>
-									<span>Grupos</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
+							<li id="etiquetas"><a href="" class="dropdown-toggle"><i class="fa fa-star"></i><span>Etiquetas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
 								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Grupos
-										</a>
-									</li>
-									<li>
-										<a href="ViewCrearGrupo.html">
-											Crear Grupo
-										</a>
-									</li>
-								</ul>
+									<li id="ver-etiqueta"><a href="../publicacion_documental/viewListaEtiqueta.html">Ver Etiquetas</a></li></ul>
 							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-pencil-square-o"></i>
-									<span>Autores</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
+							<li id="maestros"><a href="" class="dropdown-toggle"><i class="fa fa-files-o"></i><span>Maestros</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
 								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Autores
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Registrar Autor
-										</a>
-									</li>
-								</ul>
+									<li id="ver-tipopub"><a href="../publicacion_documental/viewListaTipoPublicacion.html">Ver Tipo de Publicaciones</a></li>
+									<li id="ver-tipofi"><a href="../publicacion_documental/viewListaTipoFicha.html">Ver Tipo de Fichas Bibliograficas</a></li></ul>
 							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-globe"></i>
-									<span>Idiomas</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
+							<li id="enlaces"><a href="" class="dropdown-toggle"><i class="fa fa-link"></i>
+									<span>Listas de Publicación</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
+									<ul class="submenu">
+									<li id="ver-enlace"><a href="../publicacion_documental/viewGestionListaPublicacion.html">Ver Enlaces con lecturas asignadas</a></li>
+									<li id="reg-enlace"><a href="../publicacion_documental/viewCrearListaPublicacion.html">Crear enlace con lecturas asignadas</a></li></ul>
+							</li>
+							<li id="permiso"><a href="" class="dropdown-toggle"><i class="fa fa-key"></i><span>Permisos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
 								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Idiomas
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Registrar Idioma
-										</a>
-									</li>
-								</ul>
+									<li id="ver-permiso<"><a href="../seguridad/viewListaPerfiles.html">Ver Permisos</a></li>
+									<li id="reg-permiso"><a href="../seguridad/viewCrearPerfil.html">Crear Permiso</a></li></ul>
 							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-star"></i>
-									<span>Etiquetas</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
-								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Etiquetas
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Registrar Etiqueta
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-files-o"></i>
-									<span>Maestros</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
-								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Tipo de Publicaciones
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Ver Tipo de Fichas Bibliograficas
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-link"></i>
-									<span>Generar Enlaces</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
-								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Enlaces con lecturas asignadas
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Modificar enlaces con lecturas asignadas
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="fa fa-key"></i>
-									<span>Perfiles</span>
-									<i class="fa fa-chevron-circle-down drop-icon"></i>
-								</a>
-								<ul class="submenu">
-									<li>
-										<a href="#">
-											Ver Perfil
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											Crear Perfil
-										</a>
-								</ul>
-							</li>
-							
 						</ul>
 					</div>
 				</section>
@@ -304,21 +156,25 @@
 		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">
 	                                            <label>Título</label>
-	                                            <textarea class="form-control" id="titulo" rows="1" readonly>publicacion 1</textarea>
+	                                            <textarea class="form-control" id="TITULO" rows="1" readonly></textarea>
 	                                        </div>
 	                                        <div class="form-group">
 	                                            <label>Idioma</label>
-	                                            <input class="form-control" id="idioma" value="Español" readonly></input>
+	                                            <input class="form-control" id="IDIOMA" readonly></input>
 	                                        </div>	                                    
 		                                </div>
 		                                <div class="col-lg-6">	
 		                                	<div class="form-group">
 	                                            <label>Tipo</label>
-	                                            <input class="form-control" id="tipoPub" value="Tesis Pre-Grado" readonly></input>
+	                                            <input class="form-control" id="TIPOPUBLICACION" readonly></input>
 	                                        </div>
 	                                      	<div class="form-group">
-	                                            <label>Fecha de registro</label>
-	                                            <input class="form-control" id="fechaRegistro" value="30/01/2014" readonly></input>
+	                                            <label>Año de publicación</label>
+	                                            <input class="form-control" id="ANIOPUB" readonly></input>
+	                                        </div>
+	                                        <div class="form-group">
+	                                            <label>Mes de Publicación</label>
+	                                            <input class="form-control" id="MESPUB" readonly></input>
 	                                        </div>
 		                                </div>
 		                            </div>
@@ -326,29 +182,19 @@
 		                            <div class="row">		                            	
 		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">
-	                                            <label>Encabezado</label>
-	                                            <textarea class="form-control" id="encabezado" rows="3" ></textarea>
+	                                            <label>Nombre de Ficha</label>
+	                                            <input class="form-control" id="ENCABEZADO" ></input>
 	                                        </div>
 	                                       	<div class="form-group">
 												<label>Tipo de Ficha</label>
-												<select class="form-control">
-													<option>Artículo</option>
-													<option>Revista</option>
-													<option>Periódico</option>
-													<option>Presentación</option>
-													<option>Tesis Maestria</option>
+												<select class="form-control" id="TIPOFICHA_SELECT">
 												</select>
 											</div>
-
 		                                </div>
 		                                <div class="col-lg-6">	
 	                                        <div class="form-group">
-	                                            <label>Título abreviado</label>
-	                                            <input class="form-control" id="tituloAbreviado" ></input>
-	                                        </div>
-	                                        <div class="form-group">
 	                                            <label>Contenido</label>
-	                                            <textarea class="form-control" id="contenido" rows="3" ></textarea>
+	                                            <textarea class="form-control" id="CONTENIDO" rows="4" ></textarea>
 	                                        </div>
 		                                </div>
 		                            </div>
@@ -359,16 +205,13 @@
 	                                    	<div class="row">
 	                                    		<div class="col-md-6">
 			                                        <div class="form-group form-group-select2">
-														<select style="width:525px" id="sel2Multi3" multiple>
-															<option value="eti1">Etiqueta 1</option> 
-															<option value="eti2">Etiqueta 2</option> 
-															<option value="eti3">Etiqueta 3</option>  
+														<select style="width:525px" id="sel2Multi3" multiple> 
 														</select>
 			                                        </div>
 			                                    </div>
 			                                    <div class="col-md-6">
 													<div class="filter-block pull-left" >								
-														<a href="#myModalEtiqueta" class="btn btn-primary pull-left"  data-toggle="modal">
+														<a href="#detalleEtiqueta" class="btn btn-primary pull-left"  data-toggle="modal">
 															<i class="fa fa-plus-circle fa-lg"></i> 
 															<span>Agregar Etiqueta</span>
 														</a>
@@ -376,57 +219,60 @@
 												</div>
                                     		</div>
                                     	</div>
-		                            </div>
-		                     <!--MODAL ETIQUETA-->   	                     
-		                     <div class="modal fade" id="myModalEtiqueta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h3 class="modal-title"><span>Agregar Etiqueta</span></h3>
+		                            </div>	
+		      <!--MODAL ETIQUETA-->   	                     
+					<div class="modal fade" id="detalleEtiqueta" tabindex="-1" role="dialog" aria-labelledby="detalleEtiqueta" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title" id="tituloModal">Agregar Etiqueta</h3>
+									</div>
+								<div class="modal-body">
+									<form role="form" id="form-etiqueta">
+										<input type="hidden" id="IDETIQUETA" class="form-control" />
+										<div class="form-group">
+											<label for="NOMBRE">Etiqueta</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-book"></i></span>
+												<input type="NOMBRE" class="form-control" id="NOMBRE">
+											</div>
 										</div>
-										<div class="modal-body">
-											<form role="form">
-												<div class="form-group">
-													<label for="etiqueta">Etiqueta</label>
-													<div class="input-group">
-														<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-														<input type="etiqueta" class="form-control" id="etiqueta"  >
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<label for="Idioma">Idioma</label>
-													<div class="input-group">
-														<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-														<select type="Idioma" class="form-control" id="Idioma">
-															<option>Ingles</option>
-															<option>Español</option>
-															<option>Portugues</option>
-														</select>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="apellidoUsuario">Observacion</label>
-													<div class="input-group">
-														<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-														<input type="apellidoUsuario" class="form-control" id="apellidoUsuario"  >
-													</div>
-												</div>
-
-											</form>
-											
+										<div class="form-group" id="select_div">
+											<label for="IDIOMA_SELECT_MODAL">Idioma</label>
+											<select  class="form-control" id="IDIOMA_SELECT_MODAL" >
+								                <option selected>Seleccione el Idioma</option>
+								            </select>
+										</div>												
+										<div class="form-group">
+											<label for="OBSERVACION">Descripcion</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+												<input type="OBSERVACION" class="form-control" id="OBSERVACION">
+											</div>
 										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-											<button type="button" class="btn btn-primary">Registrar Etiqueta</button>
-										</div>
-									</div><!-- /.modal-content -->
-								</div><!-- /.modal-dialog -->
-							</div><!-- /.modal -->
-							<!--FIN MODAL ETIQUETA-->     	
-                    		<button type="button" class="btn btn-default" id="guardarCambios">Crear Ficha Bibliográfica</button>
+									</form>											
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardarEtiqueta" class="btn btn-primary" >
+										<span id="tituloBoton">Agregar</span>
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->		                     	
+					<!--FIN MODAL ETIQUETA--> 
+							<br>	
+                    		<div class="row pull-center">
+		                    	<div class="col-md-4"></div>
+			                    <div class="col-md-4">      	
+	                    			<button type="button" class="btn btn-default" id="guardar">Crear Ficha</button>
+	                    			<button type="button" class="btn btn-default" id="limpiar">Limpiar</button>
+	                    			<button type="button" class="btn btn-default" value="regresar" onClick="location.href='ViewListaPublicacion.html'">Regresar</button>
+                    			</div>
+                    			<div class="col-md-4"></div>
+                    		</div>
                         	</form>							
 							</div>
 						</div>						
@@ -447,33 +293,12 @@
 	
 	<!-- this page specific scripts -->
 	<script src="../../template/js/select2.min.js"></script>
-	<script src="../../template/js/dropzone.js"></script>
+	<script src="../../javascript/Publicacion_Documental/fichaRegistro.js"></script>
 
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
-	<script>
-	$(function($) {
-
-		//nice select boxes
-		$('#sel2').select2();
-		
-		$('#sel2Multi').select2({
-			placeholder: 'Seleccione las carpetas donde estará contenida la publicación',
-			allowClear: true
-		});
-
-	    $('#sel2Multi2').select2({
-			placeholder: 'Seleccione un autor',
-			allowClear: true
-		});
-
-	    $('#sel2Multi3').select2({
-			placeholder: 'Seleccione una etiqueta',
-			allowClear: true
-		});
-	});
-	</script>
+	
 </body>
 </html>
