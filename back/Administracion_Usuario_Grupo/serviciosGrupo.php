@@ -79,9 +79,135 @@ function getListaPersonas($id){
 
 
 	}
-
-	
 }
+
+function dameCantPersonas($IDGRUPO){
+	$con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT count(U.IDUSUARIO) cantidad FROM USUARIOXGRUPO U WHERE U.ESTADO = 1 
+							AND  U.IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+	return $req = $pstmt->fetch(PDO::FETCH_ASSOC)["cantidad"];
+}
+
+function getListaGrupo(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDPADRE=$data->{"IDPADRE"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+    
+
+	$con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
+							AND U.IDUSUARIO=? AND G.IDGRUPO=U.IDGRUPO AND G.IDGRUPO>?");
+	$pstmt->execute(array($IDUSUARIO,$IDPADRE));
+
+
+	$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+
+		$grupo= [
+			'IDGRUPO'=> $req["IDGRUPO"],
+			'NOMBRE'=> $req["NOMBRE"],
+			'IDGRUPO_PADRE'=> $req["IDGRUPO_PADRE"],
+			'IDRESPONSABLE'=> $req["IDRESPONSABLE"],
+			'CANTIDAD'=> dameCantPersonas( $req["IDGRUPO"])
+		];
+		$listaGrupo[] = $grupo;
+	}
+
+
+
+
+
+	/*$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$listaGrupo[] = $req;
+	}*/
+
+	 $cantUsuarios=count($listaGrupo);
+	 $listaGruposAver=array();
+
+	 for ($i = 0; $i < $cantUsuarios; $i++) {
+	 	if(veo_a_su_ancestro_dentro_de_la_lista($listaGrupo,$listaGrupo[$i]["IDGRUPO"])==false){
+	 		array_push($listaGruposAver, $listaGrupo[$i]);
+	 	}
+	 }
+
+	 $listaGruposFinal=array();
+	 $cantidadG=count($listaGruposAver);
+	 for ($i=0;$i<$cantidadG;$i++){
+	 	if(estaEnMiRama($listaGruposAver[$i]["IDGRUPO"],$IDPADRE)==true){
+	 		array_push($listaGruposFinal,$listaGruposAver[$i]);
+	 	}
+	 }
+
+	 echo json_encode($listaGruposFinal);
+}
+
+function estaEnMiRama($idHijo,$idpadre){
+	$esta=false;
+
+	if($idpadre==1)return true;
+
+	$idp2=damePadre($idHijo);
+	if($idp2==1)  return $esta;
+	while(1){
+		if($idp2==$idpadre)return true;
+		$idp2=damePadre($idp2);
+		if($idp2==1)  return false;
+	}
+	return false;
+}
+
+function damePadre($ID){
+	$con1=getConnection();
+ 
+	$pstmt = $con1->prepare("SELECT G.IDGRUPO_PADRE FROM GRUPO G  WHERE G.ESTADO = 1 AND G.IDGRUPO=?");
+	$pstmt->execute(array($ID));
+	$req = $pstmt->fetch(PDO::FETCH_ASSOC);
+	return $req["IDGRUPO_PADRE"]; 
+}
+
+function estaLista($lista,$id){
+	//busco si el id esta en la lista
+	$cantidad=count($lista);
+	for ($i=0;$i<$cantidad;$i++){
+		if($lista[$i]["IDGRUPO"]==$id){
+			return true;
+		}
+			
+	}
+	return false;
+}
+
+
+function veo_a_su_ancestro_dentro_de_la_lista($lista,$IDGRUPO){
+	//$con=getConnection();
+	$cantidadGrupos=count($lista);
+	//echo $cantidadGrupos;
+
+	$veo_a_su_ancestro=false;
+	$idpadre=damePadre($IDGRUPO);
+	//echo $idpadre;
+	if($idpadre==1)  return $veo_a_su_ancestro;
+	while(true){
+
+		if(estaLista($lista,$idpadre)==true){
+			return $veo_a_su_ancestro=true;
+		}
+		//echo $idpadre; // aca tabien cuidado
+		$IDGRUPO=$idpadre;
+		$idpadre=damePadre($IDGRUPO);
+		if($idpadre==1)  return $veo_a_su_ancestro;
+	}
+
+
+	return $veo_a_su_ancestro;
+}
+
 
 
 ?>
