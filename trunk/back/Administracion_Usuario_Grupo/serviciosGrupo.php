@@ -3,7 +3,6 @@
 	include('routesGrupo.php');
 	include_once '../back/conexion.php';
 
-
 function registraGrupo(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -90,6 +89,57 @@ function dameCantPersonas($IDGRUPO){
 	return $req = $pstmt->fetch(PDO::FETCH_ASSOC)["cantidad"];
 }
 
+function damePadreQueVeo(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
+							AND U.IDUSUARIO=? AND G.IDGRUPO=U.IDGRUPO");
+	$pstmt->execute(array($IDUSUARIO));
+
+
+	$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$listaGrupo[] = $req;
+	}
+
+	$variable=damePadre($IDGRUPO);
+
+	$ID=1;
+
+	while (true) {
+		if ($variable==1) {
+			$ID=1;
+			break;
+		}
+		if (estaEnLista($variable,$listaGrupo)==true){
+			$ID=$variable;
+			break;
+		}
+		$variable=damePadre($variable);
+	}
+
+	$grupo= [
+			'IDGRUPO'=> $ID
+		];
+
+	echo json_encode($grupo);	
+}
+
+function estaEnLista($id,$lista){
+	$esta=false;
+	$cantidad=count($lista);
+	for($i=0;$i<$cantidad;$i++){
+		if($lista[$i]["IDGRUPO"]==$id) return true;
+	}
+	return $esta;
+}
+
 function getListaGrupo(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -100,7 +150,7 @@ function getListaGrupo(){
 
 	$con=getConnection();
  
-	$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
+	$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
 							AND U.IDUSUARIO=? AND G.IDGRUPO=U.IDGRUPO AND G.IDGRUPO>?");
 	$pstmt->execute(array($IDUSUARIO,$IDPADRE));
 
@@ -111,21 +161,13 @@ function getListaGrupo(){
 		$grupo= [
 			'IDGRUPO'=> $req["IDGRUPO"],
 			'NOMBRE'=> $req["NOMBRE"],
+			'DESCRIPCION'=> $req["DESCRIPCION"],
 			'IDGRUPO_PADRE'=> $req["IDGRUPO_PADRE"],
 			'IDRESPONSABLE'=> $req["IDRESPONSABLE"],
 			'CANTIDAD'=> dameCantPersonas( $req["IDGRUPO"])
 		];
 		$listaGrupo[] = $grupo;
 	}
-
-
-
-
-
-	/*$listaGrupo = array();
-	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
-		$listaGrupo[] = $req;
-	}*/
 
 	 $cantUsuarios=count($listaGrupo);
 	 $listaGruposAver=array();
