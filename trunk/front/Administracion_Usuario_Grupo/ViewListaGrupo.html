@@ -153,7 +153,11 @@
 										<div class="form-group pull-left">
 											<input type="text" class="form-control" placeholder="Buscar grupo...">
 											<i class="fa fa-search search-icon"></i>
-										</div>										
+										</div>			
+										<a type="button" id="regresar" class="btn btn-primary pull-right">
+											<i class="fa fa-mail-reply"></i> 
+											<span>Regresar</span>
+										</a>							
 										<a href="ViewCrearGrupo.html" class="btn btn-primary pull-right">
 											<i class="fa fa-plus-circle fa-lg"></i> 
 											<span>Agregar Grupo</span>
@@ -164,102 +168,26 @@
 											<thead>	
 												<tr>
 													<th class="text-center">
+														<span>Carpeta</span>
+													</th>
+													<th class="text-center">
 														<span>Nombre</span>
 													</th>
 													<th class="text-center">
-														<span>Descripción</span>
+														<span>Observacion</span>
+													</th>
+													<th class="text-center">
+														<span>N. Integrantes</span>
+													</th>
+													<th class="text-center">
+														<span>Ver Integrantes</span>
+													</th>
+													<th class="text-center">
+														<span>Ver Publicaciones</span>
 													</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td class="text-center">
-														<span>Grupo 1</span>
-													</td>
-													<td class="text-left"	>
-														<span >Grupo para la gestión de ...</span>
-													</td>	
-													<td style="width: 23%;">
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#" class="table-link danger">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-													</td>
-												</tr>
-
-												<tr>
-													<td class="text-center">
-														<span>Grupo 2</span>
-													</td>
-													<td class="text-left"	>
-														<span >Grupo para la gestión de...</span>
-													</td>
-													<td style="width: 23%;">
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#" class="table-link">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<a href="#myModal" class="table-link danger" data-toggle="modal">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-														<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-															<div class="modal-dialog">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																		<h3 class="modal-title"><span class="text-left">Eliminar Grupo</span></h3>
-																	</div>
-																	<div class="modal-body">
-																		<div class="form-group">
-																			<label for="nombre">Nombre</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="nombre" class="form-control" id="nombre" readonly >
-																			</div>
-																		</div>
-																		<div class="form-group">
-																			<label for="descripcion">Descripción</label>
-																			<div class="input-group">
-																				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-																				<input type="descripcion" class="form-control" id="titulo" readonly >
-																			</div>
-																		</div>													
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-																		<button type="button" class="btn btn-primary">Eliminar</button>
-																	</div>
-																</div><!-- /.modal-content -->
-															</div><!-- /.modal-dialog -->
-														</div><!-- /.modal -->
-													</td>
-												</tr>
-
+											<tbody class="table-responsive" id="listaGrupo">
 											</tbody>
 
 											
@@ -302,7 +230,7 @@
 	<script src="../../template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-	<script src="javascript/pruebaArqui/principal.js"></script>
+	<script src="../../javascript/Administracion_Usuario_Grupo/grupoLista.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
