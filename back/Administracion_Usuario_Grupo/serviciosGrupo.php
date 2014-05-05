@@ -51,6 +51,22 @@ function registraGrupo(){
 	echo json_encode($grupo);
 }
 
+function damePermiso2($id){
+	$con=getConnection();
+	$pstmt = $con->prepare("SELECT U.IDPERMISO FROM USUARIO U WHERE U.ESTADO = 1 AND U.IDUSUARIO=?");
+	$pstmt->execute(array($id));
+	$idPermiso = $pstmt->fetch(PDO::FETCH_ASSOC);
+	echo json_encode($idPermiso);
+}
+
+function damePermiso($id){
+	$con=getConnection();
+	$pstmt = $con->prepare("SELECT U.IDPERMISO FROM USUARIO U WHERE U.ESTADO = 1 AND U.IDUSUARIO=?");
+	$pstmt->execute(array($id));
+	$idPermiso = $pstmt->fetch(PDO::FETCH_ASSOC)["IDPERMISO"];
+	return $idPermiso;
+}
+
 function getListaPersonas($id){
 	$con=getConnection();
  
@@ -90,11 +106,17 @@ function dameCantPersonas($IDGRUPO){
 }
 
 function damePadreQueVeo(){
-
+	
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
     $data = json_decode($request->getBody());
     $IDGRUPO=$data->{"IDGRUPO"};
     $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    if ($IDGRUPO==1){
+		$ID=1;
+		echo json_encode(array("IDGRUPO"=>$ID));	
+		return;
+	}
 
     $con=getConnection();
  
@@ -124,11 +146,7 @@ function damePadreQueVeo(){
 		$variable=damePadre($variable);
 	}
 
-	$grupo= [
-			'IDGRUPO'=> $ID
-		];
-
-	echo json_encode($grupo);	
+	echo json_encode(array("IDGRUPO"=>$ID));	
 }
 
 function estaEnLista($id,$lista){
@@ -149,24 +167,48 @@ function getListaGrupo(){
     
 
 	$con=getConnection();
- 
-	$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
-							AND U.IDUSUARIO=? AND G.IDGRUPO=U.IDGRUPO AND G.IDGRUPO>?");
-	$pstmt->execute(array($IDUSUARIO,$IDPADRE));
+	//ECHO damePermiso($IDUSUARIO);
+ 	//------------------------------------------------------------------------------------------------------------------------
+ 	if(damePermiso($IDUSUARIO)==1){
+ 		//ECHO "SOY ADMINISTRADOR";
+ 		$pstmt = $con->prepare("SELECT G.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM  GRUPO G  WHERE G.ESTADO = 1 
+								AND G.IDGRUPO>?");
+		$pstmt->execute(array($IDPADRE));
 
+		$listaGrupo = array();
+			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
 
-	$listaGrupo = array();
-	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+				$grupo= [
+					'IDGRUPO'=> $req["IDGRUPO"],
+					'NOMBRE'=> $req["NOMBRE"],
+					'DESCRIPCION'=> $req["DESCRIPCION"],
+					'IDGRUPO_PADRE'=> $req["IDGRUPO_PADRE"],
+					'IDRESPONSABLE'=> $req["IDRESPONSABLE"],
+					'CANTIDAD'=> dameCantPersonas( $req["IDGRUPO"])
+				];
+				$listaGrupo[] = $grupo;
+			}
+		//ECHO json_encode($listaGrupo);	
+ 	}
+ 	else{
+ 		//ECHO "NO DEBO ENTRAR";
+		$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
+								AND U.IDUSUARIO=? AND G.IDGRUPO=U.IDGRUPO AND G.IDGRUPO>?");
+		$pstmt->execute(array($IDUSUARIO,$IDPADRE));
 
-		$grupo= [
-			'IDGRUPO'=> $req["IDGRUPO"],
-			'NOMBRE'=> $req["NOMBRE"],
-			'DESCRIPCION'=> $req["DESCRIPCION"],
-			'IDGRUPO_PADRE'=> $req["IDGRUPO_PADRE"],
-			'IDRESPONSABLE'=> $req["IDRESPONSABLE"],
-			'CANTIDAD'=> dameCantPersonas( $req["IDGRUPO"])
-		];
-		$listaGrupo[] = $grupo;
+		$listaGrupo = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+
+			$grupo= [
+				'IDGRUPO'=> $req["IDGRUPO"],
+				'NOMBRE'=> $req["NOMBRE"],
+				'DESCRIPCION'=> $req["DESCRIPCION"],
+				'IDGRUPO_PADRE'=> $req["IDGRUPO_PADRE"],
+				'IDRESPONSABLE'=> $req["IDRESPONSABLE"],
+				'CANTIDAD'=> dameCantPersonas( $req["IDGRUPO"])
+			];
+			$listaGrupo[] = $grupo;
+		}
 	}
 
 	 $cantUsuarios=count($listaGrupo);
@@ -207,6 +249,8 @@ function estaEnMiRama($idHijo,$idpadre){
 function damePadre($ID){
 	$con1=getConnection();
  
+	if($ID==1)return $ID;
+
 	$pstmt = $con1->prepare("SELECT G.IDGRUPO_PADRE FROM GRUPO G  WHERE G.ESTADO = 1 AND G.IDGRUPO=?");
 	$pstmt->execute(array($ID));
 	$req = $pstmt->fetch(PDO::FETCH_ASSOC);
