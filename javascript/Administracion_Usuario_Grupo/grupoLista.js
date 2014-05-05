@@ -1,11 +1,24 @@
 
+var idpadre;
+var idpermiso;
+
 function cargaListaGrupo(data){
 
 	//SE PASA:  IDGRUPO, NOMBRE,IDGRUPO_PADRE,IDRESPONSABLE,CANTIDAD
+	if(getIdGrupo()=="1") {
+		$('#regresar').hide();
+	}
+	else{
+		$('#regresar').show();
+	}
 	
 	for(var i=0; i < data.length ; i++){
 		var fila = '<tr id=fila-'+ data[i]["IDGRUPO"] +'>';
+
+
 		fila+= '<td class="text-center" style="width: 10%;padding-left: 30px;"><a class="ir-grupo table-link text-center" IDGRUPO='+data[i]["IDGRUPO"]+'><img src="../../template/img/folder.png" height="42" width="60"></a></td>';
+
+
 		for(key in data[i]){
 				if(key==="IDGRUPO"){
 					fila+='<td style="display:none;">'
@@ -131,7 +144,7 @@ function resetForm(){
 
 function getId(){
 	if( localStorage.uid ){
-	return IDUSUARIO = localStorage.uid;
+	return IDUSUARIO = (localStorage.uid)*1;
 	}
 	else{
 		return IDUSUARIO =1;
@@ -140,7 +153,7 @@ function getId(){
 
 function getIdGrupo(){
 	if( localStorage.idGrupo ){
-	return IDGRUPO_PADRE = localStorage.idGrupo;
+	return IDGRUPO_PADRE = (localStorage.idGrupo)*1;
 	}
 	else{
 		return IDGRUPO_PADRE =1;
@@ -163,9 +176,11 @@ function cargaElementos(){
 	});
 }
 
+
+
 function damePadre(){
 	var obj = {};
-	var idpadre;
+
 	obj["IDUSUARIO"]= getId();
 	obj["IDGRUPO"] = getIdGrupo();
 
@@ -175,18 +190,35 @@ function damePadre(){
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
-		success: function (data){
-			//idpadre=data["IDGRUPO"];
-			//alert(data["IDGRUPO"]);
-			return data["IDGRUPO"];
+		success: function(data){
+			idpadre=data["IDGRUPO"];
 		}
-	});	
-	//return idpadre;
+	});
+	return idpadre;
+}	
+
+
+function damePermiso(){
+	var obj = {};
+
+	obj["IDUSUARIO"]= getId();
+
+	$.ajax({
+		type: 'GET',
+		url : '../../api/AU_damePermiso/'+getId(),
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			idpermiso=data["IDPERMISO"];
+		}
+	});
+	return idpermiso;
 }	
 
 function regresaGrupo(){
 	var obj = {};
-	obj["IDPADRE"] = damePadre();
+	obj["IDPADRE"] = idpadre;
 
 	localStorage.setItem('idGrupo',obj["IDPADRE"]);
 	window.location.href='../administracion_usuario_grupo/viewListaGrupo.html';
@@ -196,6 +228,8 @@ $(document).ready(function(){
 
 	cargaElementos();
 
+	idpadre = damePadre();
+	idpermiso = damePermiso();
 	//$("#guardar").click(guardarCambios);
 
 	//$("#cerrar").click(resetForm);
