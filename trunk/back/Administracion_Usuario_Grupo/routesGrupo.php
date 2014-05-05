@@ -7,5 +7,5 @@
 	$app->get('/AU_getListaPersonas/:id','getListaPersonas');
 	$app->get('/AU_damePadre/:id','damePadre');
 	$app->post('/AU_getPadre','damePadreQueVeo');
-	
+	$app->get('/AU_damePermiso/:id','damePermiso2');
 ?>
