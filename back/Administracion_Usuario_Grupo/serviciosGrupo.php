@@ -90,9 +90,7 @@ function getListaPersonas($id){
 		echo json_encode($listaPersonas);
 	}
 	else {
-
-
-
+		
 	}
 }
 
@@ -158,6 +156,22 @@ function estaEnLista($id,$lista){
 	return $esta;
 }
 
+function dameCantidadHijos($id,$lista){
+
+	$con=getConnection();
+	$pstmt = $con->prepare("SELECT G.IDGRUPO FROM  GRUPO G  WHERE G.ESTADO = 1 AND G.IDGRUPO_PADRE=?");
+	$pstmt->execute(array($id));
+	
+	$i=0;
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		if(estaLista($lista,$req["IDGRUPO"])==true){
+			$i=1+dameCantidadHijos($req["IDGRUPO"],$lista);
+		}
+	}
+	
+	return $i;
+}
+
 function getListaGrupo(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -205,18 +219,34 @@ function getListaGrupo(){
 				'DESCRIPCION'=> $req["DESCRIPCION"],
 				'IDGRUPO_PADRE'=> $req["IDGRUPO_PADRE"],
 				'IDRESPONSABLE'=> $req["IDRESPONSABLE"],
-				'CANTIDAD'=> dameCantPersonas( $req["IDGRUPO"])
+				'CANTIDAD'=> dameCantPersonas($req["IDGRUPO"])
 			];
 			$listaGrupo[] = $grupo;
 		}
 	}
 
-	 $cantUsuarios=count($listaGrupo);
+
+	$listaGrupo1=array();
+	for($i=0;$i<count($listaGrupo);$i++){
+		$grupo2=[
+				'IDGRUPO'=> $listaGrupo[$i]["IDGRUPO"],
+				'NOMBRE'=> $listaGrupo[$i]["NOMBRE"],
+				'DESCRIPCION'=> $listaGrupo[$i]["DESCRIPCION"],
+				'IDGRUPO_PADRE'=> $listaGrupo[$i]["IDGRUPO_PADRE"],
+				'IDRESPONSABLE'=> $listaGrupo[$i]["IDRESPONSABLE"],
+				'CANTIDAD'=> $listaGrupo[$i]["CANTIDAD"],
+				'HIJOS'=> dameCantidadHijos($listaGrupo[$i]["IDGRUPO"],$listaGrupo)
+		];
+		array_push($listaGrupo1, $grupo2);
+	}
+
+
+	 $cantUsuarios=count($listaGrupo1);
 	 $listaGruposAver=array();
 
 	 for ($i = 0; $i < $cantUsuarios; $i++) {
-	 	if(veo_a_su_ancestro_dentro_de_la_lista($listaGrupo,$listaGrupo[$i]["IDGRUPO"])==false){
-	 		array_push($listaGruposAver, $listaGrupo[$i]);
+	 	if(veo_a_su_ancestro_dentro_de_la_lista($listaGrupo1,$listaGrupo1[$i]["IDGRUPO"])==false){
+	 		array_push($listaGruposAver, $listaGrupo1[$i]);
 	 	}
 	 }
 
