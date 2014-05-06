@@ -3,6 +3,27 @@
 	include('routesGrupo.php');
 	include_once '../back/conexion.php';
 
+
+function dameListaIntegrantes(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+    $pstmt = $con->prepare("SELECT U.NOMBRES,U.APELLIDOS, U.CORREO_INSTITUCIONAL, U.NUMERO_CELULAR
+    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO");
+	$pstmt->execute(array($IDGRUPO));
+
+	$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$listaGrupo[] = $req;
+	}
+
+	echo json_encode($listaGrupo);
+}
+
 function registraGrupo(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -90,7 +111,7 @@ function getListaPersonas($id){
 		echo json_encode($listaPersonas);
 	}
 	else {
-		
+
 	}
 }
 

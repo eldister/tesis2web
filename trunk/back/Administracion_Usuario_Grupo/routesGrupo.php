@@ -8,4 +8,5 @@
 	$app->get('/AU_damePadre/:id','damePadre');
 	$app->post('/AU_getPadre','damePadreQueVeo');
 	$app->get('/AU_damePermiso/:id','damePermiso2');
+	$app->post('/AU_getListaIntegrantes','dameListaIntegrantes');
 ?>
