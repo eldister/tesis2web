@@ -12,12 +12,17 @@ function cargaListaGrupo(data){
 		$('#regresar').show();
 	}
 	
+	
 	for(var i=0; i < data.length ; i++){
 		var fila = '<tr id=fila-'+ data[i]["IDGRUPO"] +'>';
 
+		if(data[i]["HIJOS"]>0){
+			fila+= '<td class="text-center" style="width: 10%;padding-left: 30px;"><a class="ir-grupo table-link text-center" IDGRUPO='+data[i]["IDGRUPO"]+'><img src="../../template/img/folder.png" height="42" width="60"></a></td>';
+		}
+		else{
+			fila+= '<td class="text-center" style="width: 10%;padding-left: 30px;"><a class="table-link text-center" IDGRUPO='+data[i]["IDGRUPO"]+'><img src="../../template/img/folder.png" height="42" width="60"></a></td>';
 
-		fila+= '<td class="text-center" style="width: 10%;padding-left: 30px;"><a class="ir-grupo table-link text-center" IDGRUPO='+data[i]["IDGRUPO"]+'><img src="../../template/img/folder.png" height="42" width="60"></a></td>';
-
+		}
 
 		for(key in data[i]){
 				if(key==="IDGRUPO"){
@@ -29,6 +34,9 @@ function cargaListaGrupo(data){
 				else if (key==="IDRESPONSABLE"){
 					fila+='<td style="display:none;">'
 				}
+				else if (key==="CANTIDAD"){
+					fila+='<td style="display:none;">'
+				}
 				else
 				fila += '<td class="text-center">'+data[i][key]+'</td>';
 		}
@@ -37,15 +45,19 @@ function cargaListaGrupo(data){
 		fila+= '<td class="text-center" style="width: 10%;padding-left: 30px;"> <a  href="ViewVerUsuario.html?id='+data[i]["IDGRUPO"]+'" class="ver-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><img src="../../template/img/folder_file.png" height="42" width="60"></a></td>';
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
 		fila+= '<a  href="ViewVerUsuario.html?id='+data[i]["IDGRUPO"]+'" class="ver-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a  href="ViewModificarUsuario.html?id='+data[i]["IDGRUPO"]+'" class="modificar-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a  class="eliminar-usuario table-link danger" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-
+		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
+			fila+= '<a  href="ViewModificarUsuario.html?id='+data[i]["IDGRUPO"]+'" class="modificar-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		}
+		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
+			fila+= '<a  class="eliminar-usuario table-link danger" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		}	
 
 		fila += '</td></tr>';
 		$('#listaGrupo').append(fila);
 	}
 	$(document).on('click', '.eliminar-usuario', eliminarUsuario);
 	$(document).on('click','.ir-grupo',pasarALosHijos); //NO OLVIDAR PUNTO :p
+	
 }
 
 function pasarALosHijos(){
