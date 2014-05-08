@@ -4,6 +4,80 @@
 	include_once '../back/conexion.php';
 
 
+function damePersonas2(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND U.IDUSUARIO NOT IN (?)
+    						AND UG.IDUSUARIO=U.IDUSUARIO");
+	$pstmt->execute(array($IDGRUPO,$IDUSUARIO));
+
+	$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDUSUARIO'=>$req["IDUSUARIO"],
+			'NOMBRES'=>$req["NOMBRES"]. ' '.$req["APELLIDOS"]
+		];
+
+		array_push($listaGrupo, $gr);
+	}
+	echo json_encode($listaGrupo);
+
+}
+
+function dameGrupo(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+
+    //SACO INFORMACION DEL GRUPO
+    $pstmt = $con->prepare("SELECT G.NOMBRE,G.FECHA_CREACION,G.DESCRIPCION FROM GRUPO G WHERE G.ESTADO=1 AND G.IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	while($row = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$NOMBRE=$row["NOMBRE"];
+			$FECHA_CREACION=$row["FECHA_CREACION"];
+			$DESCRIPCION=$row["DESCRIPCION"];
+	}
+
+	//SACO INFORMACION DE LOS INTEGRANTES
+    $pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO AND 
+    						U.IDUSUARIO NOT IN (?)");
+	$pstmt->execute(array($IDGRUPO,$IDUSUARIO));
+
+	$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDUSUARIO'=>$req["IDUSUARIO"],
+			'NOMBRES'=>$req["NOMBRES"]. ' '.$req["APELLIDOS"]
+		];
+
+		array_push($listaGrupo, $gr);
+	}
+
+	$grupo=[
+		'NOMBRE'=> $NOMBRE,
+		'FECHA'=> $FECHA_CREACION,
+		'DESCRIPCION'=> $DESCRIPCION,
+		'USUARIOS'=> $listaGrupo
+	];
+
+	echo json_encode($grupo);
+
+}
+
+
 function dameListaIntegrantes(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -42,7 +116,7 @@ function registraGrupo(){
 			 VALUES(?,?,?,?,?,?)");
 	$pstmt->execute(array($NOMBRE,$FECHA,$DESCRIPCION,$ESTADO,$IDGRUPO_PADRE,$IDRESPONSABLE));
 	$lastInsertId = $con->lastInsertId();//ESTE ES EL ID DEL GRUPO QUE SE CREO
-	echo $lastInsertId;
+	//echo $lastInsertId;
 
 	$cantUsuarios=count($data[1]);
 
