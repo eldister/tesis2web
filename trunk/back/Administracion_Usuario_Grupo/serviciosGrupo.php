@@ -118,7 +118,7 @@ function getListaPersonas($id){
 function dameCantPersonas($IDGRUPO){
 	$con=getConnection();
  
-	$pstmt = $con->prepare("SELECT count(U.IDUSUARIO) cantidad FROM USUARIOXGRUPO U WHERE U.ESTADO = 1 
+	$pstmt = $con->prepare("SELECT count(*) cantidad FROM USUARIOXGRUPO U WHERE U.ESTADO = 1 
 							AND  U.IDGRUPO=?");
 	$pstmt->execute(array($IDGRUPO));
 	return $req = $pstmt->fetch(PDO::FETCH_ASSOC)["cantidad"];
@@ -219,7 +219,7 @@ function getListaGrupo(){
 					'DESCRIPCION'=> $req["DESCRIPCION"],
 					'IDGRUPO_PADRE'=> $req["IDGRUPO_PADRE"],
 					'IDRESPONSABLE'=> $req["IDRESPONSABLE"],
-					'CANTIDAD'=> dameCantPersonas( $req["IDGRUPO"])
+					'CANTIDAD'=> dameCantPersonas($req["IDGRUPO"])
 				];
 				$listaGrupo[] = $grupo;
 			}
