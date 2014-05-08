@@ -157,21 +157,24 @@
 		                                    <form role="form" action="" id="form">
 		                                        <div class="form-group">
 		                                            <label>Nombre de Grupo</label>
-		                                            <input type="text" id="nombreGrupo" name="nombreGrupo" class="form-control">
+		                                            <input type="text" id="NOMBRE" name="NOMBRE" class="form-control">
 		                                        </div>
+
+		                                        <div class="form-group">
+		                                            <label>Fecha de Creacion</label>
+		                                            <input type="text" id="FECHA" name="FECHA" class="form-control">
+		                                        </div>
+
 		                                        <div class="form-group">
 		                                            <label>Descripción</label>
-		                                            <textarea class="form-control" id="descripcion" rows="3"></textarea>
+		                                            <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="2"></textarea>
 		                                        </div>
 		                                        <div class="form-group form-group-select2">
 		                                            <label>Agregar más usuarios</label>
-													<select style="width:300px" id="sel2Multi" multiple>
-														<option value="user1">Albert Liberato</option> 
-														<option value="user2">Nadya Marcial</option> 
-														<option value="user3">Abraham Davila</option>  
+													<select style="width:300px" id="sel2Multi" multiple> 
 													</select>
 		                                        </div>
-		                                            <button type="button" class="btn btn-default" id="guardarCambios">Modificar Grupo</button>
+		                                            <button type="button" class="btn btn-default" id="modificarGrupo">Modificar Grupo</button>
 		                                    </form>
 		                                </div>
 		                                <!-- /.col-lg-6 (nested) -->
@@ -197,22 +200,11 @@
 	
 	<!-- this page specific scripts -->
 	<script src="../../template/js/select2.min.js"></script>
-
+	<script src="../../javascript/Administracion_Usuario_Grupo/grupoModificar.js"></script>
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
-	<script>
-	$(function($) {
-
-		//nice select boxes
-		$('#sel2').select2();
-		
-		$('#sel2Multi').select2({
-			placeholder: 'Seleccione un usuario',
-			allowClear: true
-		});
-	});
-	</script>
+	
 </body>
 </html>
