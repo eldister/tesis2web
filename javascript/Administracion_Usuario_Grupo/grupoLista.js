@@ -44,7 +44,7 @@ function cargaListaGrupo(data){
 				else if (key==="IDRESPONSABLE"){
 					fila+='<td style="display:none;">'
 				}
-				else if (key==="CANTIDAD"){
+				else if (key==="HIJOS"){
 					fila+='<td style="display:none;">'
 				}
 				else
@@ -56,7 +56,7 @@ function cargaListaGrupo(data){
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
 		fila+= '<a  href="ViewVerUsuario.html?id='+data[i]["IDGRUPO"]+'" class="ver-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
 		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
-			fila+= '<a  href="ViewModificarUsuario.html?id='+data[i]["IDGRUPO"]+'" class="modificar-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+			fila+= '<a  href="ViewModificarGrupo.html?id='+data[i]["IDGRUPO"]+'" class="table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
 		}
 		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
 			fila+= '<a  class="eliminar-usuario table-link danger" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
@@ -73,7 +73,7 @@ function cargaListaGrupo(data){
 }
 
 function verListaPublicacion(){
-
+//FALTA
 }
 
 function verListaUsuario(){
