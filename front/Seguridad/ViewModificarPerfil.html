@@ -146,63 +146,71 @@
 			<div class="col-md-10 col-sm-11" id="content-wrapper">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>Perfiles</h1>
+						<h1>Permisos</h1>
 							<div class="main-box clearfix">
-							<h2>Modificar Perfil</h2>
+							<h2>Modificar Permiso</h2>
 							<form role="form"  action="" id="form">							
-							<h3><span>Datos de Perfil</span></h3>
+							<h3><span>Datos de Permiso</span></h3>
 	                            <div class="row">		                            	
 	                                <div class="col-lg-6">		                                    
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input class="form-control" id="nombre" value="Administrador"></input>
+                                            <input class="form-control" id="NOMBRE"></input>
                                         </div>
                                         <div class="form-group">
                                             <label>Descripción</label>
-                                            <input class="form-control" id="descripcion" value="Acceso Total"></input>
+                                            <input class="form-control" id="DESCRIPCION"></input>
                                         </div>	                                    
 	                                </div>
 	                            </div>
-		                    <h3><span>Elegir funcionalidades de Perfil</span></h3>
+		                    	<h3><span>Elegir funcionalidades para Permiso</span></h3>
 	                    		<div id="nestable-menu">
 									<button type="button" class="btn btn-primary" data-action="expand-all">Expandir todo</button>
-									<button type="button" class="btn btn-danger" data-action="collapse-all">Colapsar todo</button>
+									<button type="button" class="btn btn-danger" data-action="collapse-all">Contraer todo</button>
 								</div>
-		                        <div class="row cf nestable-lists">
+								<div class="row cf nestable-lists">
 			                        <div class="col-md-6 dd" id="nestable2">
 										<ol class="dd-list dd-nodrag">
 											<li class="dd-item" data-id="pub">												
 												<div class="dd-handle"><p>Publicaciones</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="pub-ver">
+													<li class="dd-item dd-item-list" id="pub-list" data-id="1" data-checked="">	 
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Publicaciones
+														<div class="dd-handle">Listar
 															<div class="nested-links">
-																<input type="checkbox" id="pub-ver" checked>
+																<input type="checkbox" id="pub-list-cb" >
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="pub-reg">
+													<li class="dd-item dd-item-list" id="pub-ver" data-id="2" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Registrar Publicaciones
+														<div class="dd-handle">Ver
 															<div class="nested-links">
-																<input type="checkbox" id="pub-reg" checked>
+																<input type="checkbox" id="pub-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="pub-mod">
+													<li class="dd-item dd-item-list" id="pub-reg" data-id="3" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Publicaciones
+														<div class="dd-handle ">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="pub-mod" checked>
+																<input type="checkbox" id="pub-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="pub-del">
+													<li class="dd-item dd-item-list" id="pub-mod" data-id="4" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Publicaciones
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="pub-del" checked>
+																<input type="checkbox" id="pub-mod-cb">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" id="pub-del" data-id="5" data-checked="">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar
+															<div class="nested-links">
+																<input type="checkbox" id="pub-del-cb">
 															</div>
 														</div>
 													</li>
@@ -211,35 +219,43 @@
 											<li class="dd-item" data-id="fib">
 												<div class="dd-handle dd-nodrag"><p>Fichas Bibliográficas</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="fib-ver">
+													<li class="dd-item dd-item-list" id="fib-list" data-id="6" data-checked="">	 
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Fichas Bibliográficas
+														<div class="dd-handle">Listar
 															<div class="nested-links">
-																<input type="checkbox" id="fib-ver" checked>
+																<input type="checkbox" id="fib-list-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="fib-reg">
+													<li class="dd-item dd-item-list" id="fib-ver" data-id="7" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Registrar Fichas Bibliográficas
+														<div class="dd-handle">Ver 
 															<div class="nested-links">
-																<input type="checkbox" id="fib-reg" checked>
+																<input type="checkbox" id="fib-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="fib-mod">
+													<li class="dd-item dd-item-list" id="fib-reg" data-id="8" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Fichas Bibliográficas
+														<div class="dd-handle">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="fib-mod" checked>
+																<input type="checkbox" id="fib-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="fib-del">
+													<li class="dd-item dd-item-list" id="fib-mod" data-id="9" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Fichas Bibliográficas
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="fib-del" checked>
+																<input type="checkbox" id="fib-mod-cb">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" id="fib-del" data-id="10" data-checked="">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar
+															<div class="nested-links">
+																<input type="checkbox" id="fib-del-cb">
 															</div>
 														</div>
 													</li>
@@ -248,35 +264,42 @@
 											<li class="dd-item" data-id="usr">
 												<div class="dd-handle"><p>Usuarios</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="usr-ver">
+													<li class="dd-item dd-item-list" id="usr-list" data-id="11" data-checked="">	 <div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Listar
+															<div class="nested-links">
+																<input type="checkbox" id="usr-list-cb">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" id="usr-ver" data-id="12" data-checked="" >
 														<div class="dd-handle-list dd-nodrag"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle dd-nodrag">Ver Usuarios
+														<div class="dd-handle dd-nodrag">Ver
 															<div class="nested-links">
-																<input type="checkbox" id="usr-ver" checked>
+																<input type="checkbox" id="usr-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="usr-reg">
+													<li class="dd-item dd-item-list" id="usr-reg" data-id="13" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Registrar Usuarios
+														<div class="dd-handle ">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="usr-reg" checked>
+																<input type="checkbox" id="usr-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="usr-mod">
+													<li class="dd-item dd-item-list" id="usr-mod" data-id="14" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Usuarios
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="usr-mod" checked>
+																<input type="checkbox" id="usr-mod-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="usr-del">
+													<li class="dd-item dd-item-list" id="usr-del" data-id="15" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Usuarios
+														<div class="dd-handle ">Eliminar
 															<div class="nested-links">
-																<input type="checkbox" id="usr-del" checked>
+																<input type="checkbox" id="usr-del-cb">
 															</div>
 														</div>
 													</li>
@@ -285,35 +308,42 @@
 											<li class="dd-item" data-id="grp">
 												<div class="dd-handle"><p>Grupos</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="grp-ver">
-														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Grupos
+													<li class="dd-item dd-item-list" id="grp-list" data-id="16" data-checked="">	 <div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Listar
 															<div class="nested-links">
-																<input type="checkbox" id="grp-ver" checked>
+																<input type="checkbox" id="grp-list-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="grp-reg">
+													<li class="dd-item dd-item-list" id="grp-ver" data-id="17" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Registrar Grupos
+														<div class="dd-handle">Ver
 															<div class="nested-links">
-																<input type="checkbox" id="grp-reg" checked>
+																<input type="checkbox" id="grp-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="grp-mod">
+													<li class="dd-item dd-item-list" id="grp-reg" data-id="18" data-checked="">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Registrar
+															<div class="nested-links">
+																<input type="checkbox" id="grp-reg-cb">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" id="grp-mod" data-id="19" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Modificar Grupos
 															<div class="nested-links">
-																<input type="checkbox" id="grp-mod" checked>
+																<input type="checkbox" id="grp-mod-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="grp-del">
+													<li class="dd-item dd-item-list" id="grp-del" data-id="20" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Eliminar Grupos
 															<div class="nested-links">
-																<input type="checkbox" id="grp-del" checked>
+																<input type="checkbox" id="grp-del-cb">
 															</div>
 														</div>
 													</li>
@@ -322,35 +352,34 @@
 											<li class="dd-item" data-id="aut">
 												<div class="dd-handle"><p>Autores</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="aut-ver">
-														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Autores
+													<li class="dd-item dd-item-list" id="aut-list" data-id="21" data-checked="">   <div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Listar
 															<div class="nested-links">
-																<input type="checkbox" id="aut-ver" checked>
+																<input type="checkbox" id="aut-list-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="aut-reg">
+													<li class="dd-item dd-item-list" id="aut-reg" data-id="22" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Registrar Autores
+														<div class="dd-handle ">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="aut-reg" checked>
+																<input type="checkbox" id="aut-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="aut-mod">
+													<li class="dd-item dd-item-list" id="aut-mod" data-id="23" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Autores
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="aut-mod" checked>
+																<input type="checkbox" id="aut-mod-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="aut-del">
+													<li class="dd-item dd-item-list" id="aut-del" data-id="24" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Autores
+														<div class="dd-handle ">Eliminar
 															<div class="nested-links">
-																<input type="checkbox" id="aut-del" checked>
+																<input type="checkbox" id="aut-del-cb">
 															</div>
 														</div>
 													</li>
@@ -359,76 +388,75 @@
 										</ol>
 									</div>
 									<div class="col-md-6 dd" id="nestable">
-										<ol class="dd-list">
+										<ol class="dd-list dd-nodrag">
 											<li class="dd-item" data-id="idi">
 												<div class="dd-handle"><p>Idiomas</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="idi-ver">
-														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Idiomas
+													<li class="dd-item dd-item-list" id="idi-list" data-id="25" data-checked="">   <div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Listar
 															<div class="nested-links">
-																<input type="checkbox" id="idi-ver" checked>
+																<input type="checkbox" id="idi-list-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="idi-reg">
+													<li class="dd-item dd-item-list" id="idi-reg" data-id="26" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Registrar Idiomas
+														<div class="dd-handle ">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="idi-reg" checked>
+																<input type="checkbox" id="idi-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="idi-mod">
+													<li class="dd-item dd-item-list" id="idi-mod" data-id="27" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Idiomas
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="idi-mod" checked>
+																<input type="checkbox" id="idi-mod-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="idi-del">
+													<li class="dd-item dd-item-list" id="idi-del" data-id="28" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Idiomas
+														<div class="dd-handle ">Eliminar
 															<div class="nested-links">
-																<input type="checkbox" id="idi-del" checked>
+																<input type="checkbox" id="idi-del-cb">
 															</div>
 														</div>
 													</li>
 												</ol>
 											</li>											
 											<li class="dd-item" data-id="eti">
-												<div class="dd-handle"><p>Fichas Bibliográficas</p></div>
+												<div class="dd-handle"><p>Etiquetas</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="eti-ver">
+													<li class="dd-item dd-item-list" id="eti-list" data-id="29" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Etiquetas
+														<div class="dd-handle">Listar
 															<div class="nested-links">
-																<input type="checkbox" id="eti-ver" checked>
+																<input type="checkbox" id="eti-list-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="eti-reg">
+													<li class="dd-item dd-item-list" id="eti-reg" data-id="30" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Registrar Etiquetas
+														<div class="dd-handle">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="eti-reg" checked>
+																<input type="checkbox" id="eti-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="eti-mod">
+													<li class="dd-item dd-item-list" id="eti-mod" data-id="31" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Etiquetas
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="fib-mod" checked>
+																<input type="checkbox" id="eti-mod-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="eti-del">
+													<li class="dd-item dd-item-list" id="eti-del" data-id="32" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Etiquetas
+														<div class="dd-handle ">Eliminar
 															<div class="nested-links">
-																<input type="checkbox" id="eti-del" checked>
+																<input type="checkbox" id="eti-del-cb">
 															</div>
 														</div>
 													</li>
@@ -437,67 +465,67 @@
 											<li class="dd-item" data-id="mtr">
 												<div class="dd-handle"><p>Maestros</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="mtr-pub-ver">
+													<li class="dd-item dd-item-list" id="mtr-pub-ver" data-id="33" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle">Ver Tipo de Publicaciones
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-pub-ver" checked>
+																<input type="checkbox" id="mtr-pub-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="mtr-pub-reg">
+													<li class="dd-item dd-item-list" id="mtr-pub-reg" data-id="34" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Registrar Tipo de Publicaciones
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-pub-reg" checked>
+																<input type="checkbox" id="mtr-pub-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="mtr-pub-mod">
+													<li class="dd-item dd-item-list" id="mtr-pub-mod" data-id="35" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Modificar Tipo de Publicaciones
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-pub-mod" checked>
+																<input type="checkbox" id="mtr-pub-mod-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="mtr-pub-del">
+													<li class="dd-item dd-item-list" id="mtr-pub-del" data-id="36" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Eliminar Tipo de Publicaciones
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-pub-del" checked>
+																<input type="checkbox" id="mtr-pub-del-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="mtr-fib-ver">
+													<li class="dd-item dd-item-list" id="mtr-fib-ver" data-id="37" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Ver Tipo de Fichas
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-pub-del" checked>
+																<input type="checkbox" id="mtr-fib-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="mtr-fib-reg">
+													<li class="dd-item dd-item-list" id="mtr-fib-reg" data-id="38" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Registrar Tipo de Fichas
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-fib-reg" checked>
+																<input type="checkbox" id="mtr-fib-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="mtr-fib-mod">
+													<li class="dd-item dd-item-list" id="mtr-fib-mod" data-id="39" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Modificar Tipo de Fichas
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-fib-mod" checked>
+																<input type="checkbox" id="mtr-fib-mod-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="mtr-fib-del">
+													<li class="dd-item dd-item-list" id="mtr-fib-del" data-id="40" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
 														<div class="dd-handle ">Eliminar Tipo de Fichas
 															<div class="nested-links">
-																<input type="checkbox" id="mtr-fib-del" checked>
+																<input type="checkbox" id="mtr-fib-del-cb">
 															</div>
 														</div>
 													</li>
@@ -506,72 +534,86 @@
 											<li class="dd-item" data-id="enl">
 												<div class="dd-handle"><p>Generar Enlaces de Lecturas Asignadas</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="enl-ver">
-														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Enlaces
+													<li class="dd-item dd-item-list" id="enl-list" data-id="41" data-checked="">   <div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Listar Enlaces
 															<div class="nested-links">
-																<input type="checkbox" id="enl-ver" checked>
+																<input type="checkbox" id="enl-list-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="enl-reg">
+													<li class="dd-item dd-item-list" id="enl-ver" data-id="42" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Registrar Enlaces
+														<div class="dd-handle ">Ver
 															<div class="nested-links">
-																<input type="checkbox" id="enl-reg" checked>
+																<input type="checkbox" id="enl-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="enl-mod">
+													<li class="dd-item dd-item-list" id="enl-reg" data-id="43" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Enlaces
+														<div class="dd-handle ">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="enl-mod" checked>
+																<input type="checkbox" id="enl-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="enl-del">
+													<li class="dd-item dd-item-list" id="enl-mod" data-id="44" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Enlaces
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="enl-del" checked>
+																<input type="checkbox" id="enl-mod-cb">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" id="enl-del" data-id="45" data-checked="">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar
+															<div class="nested-links">
+																<input type="checkbox" id="enl-del-cb">
 															</div>
 														</div>
 													</li>
 												</ol>
 											</li>
 											<li class="dd-item" data-id="per">
-												<div class="dd-handle"><p>Perfiles</p></div>
+												<div class="dd-handle"><p>Permisos</p></div>
 												<ol class="dd-list">
-													<li class="dd-item dd-item-list" data-id="per-ver">
+													<li class="dd-item dd-item-list" id="per-list" data-id="46" data-checked="">   
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle">Ver Perfiles
+														<div class="dd-handle">Listar
 															<div class="nested-links">
-																<input type="checkbox" id="per-ver" checked>
+																<input type="checkbox" id="per-list-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="per-reg">
-														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Registrar Perfiles
+													<li class="dd-item dd-item-list" id="per-ver" data-id="47" data-checked="">   <div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle">Ver
 															<div class="nested-links">
-																<input type="checkbox" id="per-reg" checked>
+																<input type="checkbox" id="per-ver-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="per-mod">
+													<li class="dd-item dd-item-list" id="per-reg" data-id="48" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Modificar Perfiles
+														<div class="dd-handle ">Registrar
 															<div class="nested-links">
-																<input type="checkbox" id="per-mod" checked>
+																<input type="checkbox" id="per-reg-cb">
 															</div>
 														</div>
 													</li>
-													<li class="dd-item dd-item-list" data-id="per-del">
+													<li class="dd-item dd-item-list" id="per-mod" data-id="49" data-checked="">
 														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
-														<div class="dd-handle ">Eliminar Perfiles
+														<div class="dd-handle ">Modificar
 															<div class="nested-links">
-																<input type="checkbox" id="per-del" checked>
+																<input type="checkbox" id="per-mod-cb">
+															</div>
+														</div>
+													</li>
+													<li class="dd-item dd-item-list" id="per-del" data-id="50" data-checked="">
+														<div class="dd-handle-list"><i class="fa fa-bars"></i></div>
+														<div class="dd-handle ">Eliminar
+															<div class="nested-links">
+																<input type="checkbox" id="per-del-cb">
 															</div>
 														</div>
 													</li>
@@ -585,7 +627,8 @@
 									<div class="col-md-5">
 									</div>
 									<div class="col-md-3">
-									<button type="button" class="btn btn-default" id="guardarCambios">Modificar Perfil</button>
+									<button type="button" class="btn btn-default" id="guardar">Modificar Permiso</button>
+									<button type="button" class="btn btn-default" value="regresar" onClick="location.href='ViewListaPerfiles.html'">Regresar</button>
 									<div>
 								</div>
                         	</form>
@@ -610,51 +653,12 @@
 	
 	<!-- this page specific scripts -->
 	<script src="../../template/js/jquery.nestable.js"></script>
+	<script src="../../javascript/Seguridad/permisosModificar.js"></script>
 
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
-	<script>
-	$(document).ready(function() {
-		var updateOutput = function(e){
-			var list   = e.length ? e : $(e.target),
-				output = list.data('output');
-			if (window.JSON) {
-				output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
-			} 
-			else {
-				output.val('JSON browser support required for this demo.');
-			}
-		};
 	
-		// activate Nestable for list 1
-		$('#nestable').nestable({
-			group: 1
-		})
-		.on('change', updateOutput);
-		
-		// activate Nestable for list 2
-		$('#nestable2').nestable({
-			group: 1
-		})
-		.on('change', updateOutput);
-	
-		// output initial serialised data
-		updateOutput($('#nestable').data('output', $('#nestable-output')));
-		updateOutput($('#nestable2').data('output', $('#nestable2-output')));
-	
-		$('#nestable-menu').on('click', function(e){
-			var target = $(e.target),
-				action = target.data('action');
-			if (action === 'expand-all') {
-				$('.dd').nestable('expandAll');
-			}
-			if (action === 'collapse-all') {
-				$('.dd').nestable('collapseAll');
-			}
-		});
-	});
-	</script>
 </body>
 </html>
