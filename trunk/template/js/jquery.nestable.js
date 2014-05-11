@@ -146,7 +146,12 @@
                     items.each(function()
                     {
                         var li   = $(this),
-                            item = $.extend({}, li.data()),
+                            //cambio a codigo fuente!
+                            item ={
+                                id: li.attr("data-id"),
+                                checked: li.attr("data-checked")
+                            }
+                            //item = $.extend({}, li.data()),
                             sub  = li.children(list.options.listNodeName);
                         if (sub.length) {
                             item.children = step(sub, depth + 1);

@@ -1,6 +1,8 @@
 var seleccionAutores;
-var seleccionCarpetas;
 var seleccionEtiquetas;
+var seleccionGrupos;
+var seleccionResponsable;
+var seleccionMiembros;
 
 function popularSelectIdioma(){
 	$.ajax({
@@ -77,23 +79,37 @@ function cleanInput(){
 		placeholder: 'Seleccione una etiqueta',
 		allowClear: true
 	});
+	 $('#sel2Grupo').select2({
+		placeholder: 'Seleccione un grupo',
+		allowClear: true
+	});
+
+	$('#sel2Responsable').select2({
+		placeholder: 'Seleccione un responsable',
+		allowClear: true
+	});
+
+	$('#sel2Miembros').select2({
+		placeholder: 'Seleccione miembros para el grupo',
+		allowClear: true
+	});
 }
 
 function guardarPublicacionxEtiqueta(data){
 	//juntando los json
-	var parent= [];
-	var data2 = seleccionEtiquetas;
+	var etiquetas=[];
+	var ob;
+	for (var i=0; i<seleccionEtiquetas.length; i++) {
+		ob={id:seleccionEtiquetas[i]["id"]};
+		etiquetas.push(ob);
+	}
 
-	var json2 = JSON.parse(data2);
-	parent.push(json2);   
-
-	var obj = $.extend({},data,parent);
-	//console.log(obj);
-	//console.log(JSON.stringify(obj));
+	var obj= { idpublicacion:data["IDPUBLICACION"],
+				etiquetas:etiquetas };
 
 	$.ajax({
 		type: 'POST',
-		url : "../../api/PD_registraPublicacionxEtiqueta",
+		url : "../../api/PD_modificaPublicacionxEtiqueta",
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
@@ -105,19 +121,19 @@ function guardarPublicacionxEtiqueta(data){
 
 function guardarPublicacionxAutor(data){
 	//juntando los json
-	var parent= [];
-	var data2 = seleccionAutores;
+	var autores=[];
+	var ob;
+	for (var i=0; i<seleccionAutores.length; i++) {
+		ob={id:seleccionAutores[i]["id"]};
+		autores.push(ob);
+	}
 
-	var json2 = JSON.parse(data2);
-	parent.push(json2);   
-
-	var obj = $.extend({},data,parent);
-	//console.log(obj);
-	//console.log(JSON.stringify(obj));
+	var obj= { idpublicacion:data["IDPUBLICACION"],
+				autores:autores };
 
 	$.ajax({
 		type: 'POST',
-		url : "../../api/PD_registraPublicacionxAutor",
+		url : "../../api/PD_modificaPublicacionxAutor",
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
@@ -128,14 +144,48 @@ function guardarPublicacionxAutor(data){
 }
 
 function guardarArchivos(data){	
-
 	
 	myDropzone.on("sendingmultiple", function(file, xhr, formData) {
-	  // add headers with xhr.setRequestHeader() or
-	  // form data with formData.append(name, value);
 	  formData.append('IDPUBLICACION',data['IDPUBLICACION']);
+	  formData.append('IDGRUPO',localStorage.idMiGrupo);
+	  formData.append('IDUSUARIO',getId());
+	  formData.append('GRUPOS',JSON.stringify(gruposArchivo));
 	});
 	myDropzone.processQueue();
+}
+
+function getId(){
+	if( localStorage.uid ){
+		return IDUSUARIO = localStorage.uid;
+	}
+	else{
+		return IDUSUARIO = 1;
+	}
+}
+
+var gruposArchivo;
+function guardarPublicacionxGrupo(data){
+	var grupos=[];
+	var ob;
+	for (var i=0; i<seleccionGrupos.length; i++) {
+		ob={id:seleccionGrupos[i]["id"]};
+		grupos.push(ob);
+	}
+
+	var obj= { idpublicacion:data["IDPUBLICACION"],
+				grupos:grupos};
+	gruposArchivo=grupos;			
+
+	$.ajax({
+		type: 'POST',
+		url : "../../api/PD_registraPublicacionxGrupo",
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			return data["status"];			
+		}
+	});
 }
 
 function guardarCambios(){
@@ -143,14 +193,17 @@ function guardarCambios(){
 	obj["TITULO"]=$('#TITULO').val();
 	obj["FUENTE"]=$('#FUENTE').val();
 	obj["OBTENIDO"]=$('#OBTENIDO').val();
-	obj["ANIO"]=$('#ANIO').val();
-	obj["MES"]=$('#MES').val();
+	//obj["ANIO"]=$('#ANIO').val();
+	//obj["MES"]=$('#MES').val();
 	obj["PAGINAS"]=$('#PAGINAS').val();
 	obj["VOLUMEN"]=$('#VOLUMEN').val();
 	obj["DOI"]=$('#DOI').val();
 	obj["ISSN"]=$('#ISSN').val();
 	obj["IDIDIOMA"]=$('#IDIOMA_SELECT').val();
 	obj["IDTIPOPUBLICACION"]=$('#TIPOPUBLICACION_SELECT').val();
+	obj["FECHAPUB"]=$('#FECHAPUB').val();
+	obj["IDCREADOR"]=getId();
+	obj["IDGRUPO"]=localStorage.idMiGrupo;
 
 	$.ajax({
 		type: 'POST',
@@ -160,10 +213,18 @@ function guardarCambios(){
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			//guardar etiquetas, autores y archivos
-			guardarPublicacionxEtiqueta(data) 
-			guardarPublicacionxAutor(data)
-			guardarArchivos(data)
-			
+			var status1=guardarPublicacionxEtiqueta(data); 
+			var status2=guardarPublicacionxAutor(data);			
+			var status3=guardarPublicacionxGrupo(data);
+			var status4=guardarArchivos(data);
+			if(status1===1 && status2===1 && status3==1){
+				alert("Publicación creada correctamente");
+				window.location.href='ViewListaPublicacion.html';
+			}
+			else{
+				alert("Ocurrió un error interno");
+				window.location.href='ViewListaPublicacion.html';
+			}
 		}
 	});
 
@@ -212,13 +273,116 @@ function guardarAutor(){
 	});
 }
 
+function guardarGrupo(){
+	var obj = {};
+	
+	obj["IDGRUPO_PADRE"]= localStorage.getItem('idMiGrupo');
+	var ruta = "";
+	var callback;
+	
+	ruta = "../../api/AU_registraGrupo";
+	obj["NOMBRES"] = $('#NOMBRES').val();
+	obj["FECHA_CREACION"] = $('#FECHA_CREACION').val();
+	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
+
+	var parent= [];
+
+	parent.push(dameResponsable());
+	parent.push(dameMiembros());
+
+	var obj2 = $.extend({},obj,parent);
+
+	$.ajax({
+		type: 'POST',
+		url : ruta,
+		dataType: "json",
+		data: JSON.stringify(obj2),
+		contentType: "application/json; charset=utf-8",
+		success: function (data){
+			$('#detalleGrupo').modal('hide');
+			$("#sel2Grupo").append('<option value="' + data.IDGRUPO + '">' + data.NOMBRE + '</option>');
+		}
+	});
+}
+
+function dameResponsable(){
+	//juntando los json
+	
+	var data = [];
+
+	for (var i=0; i<seleccionResponsable.length; i++) {
+		data.push(seleccionResponsable[i]["id"]);
+	}	
+	return data;
+}
+
+function dameMiembros(){
+	//juntando los json
+	var data = [];
+
+	for (var i=0; i<seleccionMiembros.length; i++) {
+		data.push(seleccionMiembros[i]["id"]);
+	}	
+	return data;
+}
+
+function cargarListaPersonas1(){
+
+	var IDUSUARIO=getId();
+
+	$.ajax({
+		type: 'GET',
+		url : '../../api/AU_getListaPersonas/'+IDUSUARIO,
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		success: function(obj){
+			for (var i=0; i<obj.length; i++) {
+				$("#sel2Responsable").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
+			}
+		}
+	});
+}
+
+function cargarListaPersonas2(){
+
+	var IDUSUARIO=getId();
+
+	$.ajax({
+		type: 'GET',
+		url : '../../api/AU_getListaPersonas/'+IDUSUARIO,
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		success: function(obj){
+			for (var i=0; i<obj.length; i++) {
+				$("#sel2Miembros").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
+			}
+		}
+	});
+}
+
+function cargaGrupos(){
+
+	var obj={
+			IDPADRE:localStorage.getItem('idMiGrupo'),
+			IDUSUARIO: getId()
+			};
+
+	$.ajax({
+		type: 'POST',
+		url : '../../api/AU_getListaGrupo',
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function (data){
+			for (var i=0; i<data.length; i++) {
+				$("#sel2Grupo").append('<option value="' + data[i].IDGRUPO + '">' + data[i].NOMBRE + '</option>');
+			}
+		}
+	});
+}
+
 function iniciarNiceSelectBoxes(){
 	$('#sel2').select2();
-	
-	$('#sel2Multi').select2({
-		placeholder: 'Seleccione las carpetas donde estará contenida la publicación',
-		allowClear: true
-	});
 
     $('#sel2Multi2').select2({
 		placeholder: 'Seleccione un autor',
@@ -229,13 +393,30 @@ function iniciarNiceSelectBoxes(){
 		placeholder: 'Seleccione una etiqueta',
 		allowClear: true
 	});
+
+    $('#sel2Grupo').select2({
+		placeholder: 'Seleccione un grupo',
+		allowClear: true
+	});
+
+	$('#sel2Responsable').select2({
+		placeholder: 'Seleccione un responsable',
+		maximumSelectionSize: 1,
+		allowClear: true
+	});
+
+	$('#sel2Miembros').select2({
+		placeholder: 'Seleccione miembros para el grupo',
+		allowClear: true
+	});
+
 }
 
 function configurarDropzone(){
 	Dropzone.autoDiscover=false;
 	$('#subidaArchivos').dropzone({
 	    url: '../../api/PD_subirArchivos',
-	    maxFilesize: 10,
+	    maxFilesize: 100,
 	    paramName: 'file',
 	    addRemoveLinks: true,
 	    autoProcessQueue: false,
@@ -249,12 +430,27 @@ function configurarDropzone(){
 
 var test = $('#sel2Multi3');
 $(test).change(function() {
-    seleccionEtiquetas = ( JSON.stringify($(test).select2('data')) );
+    seleccionEtiquetas = ($(test).select2('data'));
 });
 
 var test2 = $('#sel2Multi2');
 $(test2).change(function() {
-    seleccionAutores = ( JSON.stringify($(test2).select2('data')) );
+    seleccionAutores = ($(test2).select2('data'));
+});
+
+var test3 = $('#sel2Grupo');
+$(test3).change(function() {
+    seleccionGrupos = ($(test3).select2('data'));
+});
+
+var test4 = $('#sel2Responsable');
+$(test4).change(function() {
+    seleccionResponsable = ($(test4).select2('data'));
+});
+
+var test5 = $('#sel2Miembros');
+$(test5).change(function() {
+    seleccionMiembros = ($(test5).select2('data'));
 });
 
 var myDropzone;
@@ -264,8 +460,27 @@ Dropzone.options.subidaArchivos = {
   }
 };
 
+function cargaHora(){
+
+	var dateObj = new Date();
+    var month = dateObj.getUTCMonth();
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var newdate = day  + "/" + month + "/" + year;
+    $('#FECHA_CREACION').val(newdate);
+}
+
 $(document).ready(function(){
+	$('#FECHAPUB').datepicker({
+	  format: 'yyyy-mm-dd'
+	});
+	$("#DOI").mask("999.9999/9999999.9999999");
+	$("#ISSN").mask("9999-9999");
+	cargaHora();
 	configurarDropzone();
+	cargarListaPersonas1();
+	cargarListaPersonas2();
+	cargaGrupos();
 	popularSelectIdioma();
 	popularSelectTipoPublicacion();
 	iniciarNiceSelectBoxes();
@@ -275,5 +490,6 @@ $(document).ready(function(){
 	$("#limpiar").click(cleanInput);
 	$("#guardarEtiqueta").click(guardarEtiqueta);
 	$("#guardarAutor").click(guardarAutor);
+	$("#guardarGrupo").click(guardarGrupo);
 
 });

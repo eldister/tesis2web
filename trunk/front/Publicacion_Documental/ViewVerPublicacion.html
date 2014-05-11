@@ -193,17 +193,10 @@
 		                                </div>
 		                                <div class="col-lg-6">	
 		                                	<div class="form-group">
-		                                        <label>Año de Publicación</label>
+		                                        <label>Fecha de Publicación (aaaa-mm-dd)</label>
 		                                        <div class="input-group">
 		                                        	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                                        	<input type="text" id="ANIO" name="ANIO" class="form-control" readonly>
-		                                        </div>
-		                                    </div>
-		                                  	<div class="form-group">
-		                                        <label>Mes de Publicación</label>
-		                                        <div class="input-group">
-		                                        	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                                        	<input type="text" id="MES" name="MES" class="form-control" readonly>
+		                                        	<input type="text" id="FECHAPUB" class="form-control" readonly>
 		                                        </div>
 		                                    </div>
 											<div class="form-group">
@@ -255,17 +248,17 @@
 	                                		</div>
 	                                	</div>
 	                                </div>	                                	                     	
-			                        <h3><span>Archivos</span></h3>
-			                        <div class="row">
+			                        <h3 id="archivosTitulo"><span>Archivos</span></h3>
+			                        <div class="row" id="divArchivos">
 										<div class="col-lg-12">
 											<ul class="list-group" id="listaArchivos">
 											
 											</ul>
 										</div>
 									</div>
-									<h3><span>Fichas Bibliográficas</span></h3>
-									<div class="table-responsive" >
-										<table class="table">
+									<h3 id="fichasTitulo"><span>Fichas Bibliográficas</span></h3>
+									<div class="table-responsive" id="divFichas">
+										<table class="table" id="tbFichas">
 											<thead>	
 												<tr>
 													<th class="text-center">

@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
 	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
+	<link rel="stylesheet" href="../../template/css/libs/datepicker.css" type="text/css" />
 
 	<!-- this page specific styles -->
 	<link rel="stylesheet" type="text/css" href="../../template/css/libs/dropzone.css">
@@ -153,8 +154,7 @@
 								<!--<form role="form"  action="" id="form">-->
 									<h2>Crear Publicación</h2>
 									<h3><span>Datos Básicos</span></h3>
-		                            <div class="row">
-		                            	
+		                            <div class="row">		                            	
 		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">	                                        	
 	                                            <label>Título</label>
@@ -198,17 +198,10 @@
 		                                </div>
 		                                <div class="col-lg-6">	
 		                                	<div class="form-group">
-		                                        <label>Año de Publicación</label>
+		                                        <label>Fecha de Publicación</label>
 		                                        <div class="input-group">
 		                                        	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                                        	<input type="text" id="ANIO" name="ANIO" class="form-control">
-		                                        </div>
-		                                    </div>
-		                                  	<div class="form-group">
-		                                        <label>Mes de Publicación</label>
-		                                        <div class="input-group">
-		                                        	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                                        	<input type="text" id="MES" name="MES" class="form-control">
+		                                        	<input type="text" id="FECHAPUB" class="form-control" readonly>
 		                                        </div>
 		                                    </div>
 											<div class="form-group">
@@ -241,6 +234,28 @@
 		                                    </div>
 		                                </div>
 		                            </div>
+		                            <h3><span>Grupos que tendrán acceso a la publicación</span></h3>	                            
+	                                <div class="row">
+	                                     <div class="col-md-12">
+		                                     <label>Selección de grupos</label>
+		                                     <div class="row">
+					                            <div class="col-md-6">
+			                                        <div class="form-group form-group-select2">
+														<select style="width:525px" id="sel2Grupo" multiple>
+														</select>
+			                                        </div>
+		                                   		</div>
+		                                    	<div class="col-md-6">
+		                                    		<div class="filter-block pull-left" >								
+														<a href="#detalleGrupo" class="btn btn-primary pull-left" style="width: 155px;" data-toggle="modal">
+															<i class="fa fa-plus-circle fa-lg"></i> 
+															<span>Crear Grupo</span>
+														</a>
+													</div>
+		                                    	</div>
+	                                		</div>
+	                                	</div>
+	                                </div>
 		                            <h3><span>Autores y etiquetas</span></h3>		                            
 	                                <div class="row">
 	                                     <div class="col-md-12">
@@ -292,6 +307,60 @@
 											</div>
 										</form>
 									</div>
+					<!--MODAL GRUPOS-->   	                     
+					<div class="modal fade" id="detalleGrupo" tabindex="-1" role="dialog" aria-labelledby="detalleGrupo" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title" id="tituloModal">Crear Grupo</h3>
+									</div>
+								<div class="modal-body">
+									<form role="form" id="form-etiqueta">
+										<div class="form-group">
+										<label for="NOMBRES">Nombre del Grupo</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-group"></i></span>
+												<input type="NOMBRES" class="form-control" id="NOMBRES" >
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="FECHA_CREACION">Fecha de creacion</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+												<input type="FECHA_CREACION" class="form-control" id="FECHA_CREACION" readonly>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="DESCRIPCION">Descripcion</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-file"></i></span>
+												<textarea type="DESCRIPCION" class="form-control" id="DESCRIPCION" rows="2"></textarea>
+											</div>
+										</div>
+										<h3>Agregar Usuarios</h3>
+										<div class="form-group form-group-select2">
+                                            <label>Agregar Responsable</label>
+											<select style="width:520px" id="sel2Responsable" multiple>
+											</select>
+                                        </div>
+										<div class="form-group form-group-select2">
+                                            <label> Integrantes del Grupo</label>
+											<select style="width:520px" id="sel2Miembros" multiple>
+											</select>
+                                        </div>		                                        
+									</form>											
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardarGrupo" class="btn btn-primary" >
+										<span id="tituloBoton">Agregar</span>
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->		                     	
+					<!--FIN MODAL GRUPOS-->
 	                <!--MODAL ETIQUETA-->   	                     
 					<div class="modal fade" id="detalleEtiqueta" tabindex="-1" role="dialog" aria-labelledby="detalleEtiqueta" aria-hidden="true">
 							<div class="modal-dialog">
@@ -446,7 +515,10 @@
 	
 	<!-- this page specific scripts -->
 	<script src="../../template/js/select2.min.js"></script>
+	<script src="../../template/js/bootstrap-datepicker.js"></script>
 	<script src="../../template/js/dropzone.js"></script>
+	<script src="../../template/js/bootstrap-datepicker.js"></script>
+	<script src="../../template/js/jquery.maskedinput.min.js"></script>
 	<script src="../../javascript/Publicacion_Documental/publicacionRegistro.js"></script>
 
 	<!-- theme scripts -->

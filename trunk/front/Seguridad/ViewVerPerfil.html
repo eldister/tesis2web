@@ -80,7 +80,7 @@
 			<div class="col-md-2" id="nav-col">
 				<section id="col-left">
 					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
-						<ul class="nav nav-pills nav-stacked">
+							<ul class="nav nav-pills nav-stacked">
 							<li id="principal" class="active"><a href="../administracion_usuario_grupo/viewPerfil.html">
 								<i class="fa fa-home"></i><span>Principal</span></a></li>
 							<li id="publicacion"><a href="" class="dropdown-toggle"><i class="fa fa-book"></i><span>Publicaciones</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
@@ -148,27 +148,27 @@
 					<div class="col-lg-12">
 						<h1>Permisos</h1>
 							<div class="main-box clearfix">
-							<h2>Crear Permiso</h2>
+							<h2>Ver Permiso</h2>
 							<form role="form"  action="" id="form">							
 							<h3><span>Datos de Permiso</span></h3>
 	                            <div class="row">		                            	
 	                                <div class="col-lg-6">		                                    
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input class="form-control" id="NOMBRE"></input>
+                                            <input class="form-control" id="NOMBRE" readonly></input>
                                         </div>
                                         <div class="form-group">
                                             <label>Descripción</label>
-                                            <input class="form-control" id="DESCRIPCION"></input>
+                                            <input class="form-control" id="DESCRIPCION"readonly></input>
                                         </div>	                                    
 	                                </div>
 	                            </div>
-		                    <h3><span>Elegir funcionalidades para Permiso</span></h3>
+		                    <h3><span>Visualización de funcionalidades de Permiso</span></h3>
 	                    		<div id="nestable-menu">
 									<button type="button" class="btn btn-primary" data-action="expand-all">Expandir todo</button>
 									<button type="button" class="btn btn-danger" data-action="collapse-all">Contraer todo</button>
 								</div>
-		                        <div class="row cf nestable-lists">
+								<div class="row cf nestable-lists">
 			                        <div class="col-md-6 dd" id="nestable2">
 										<ol class="dd-list dd-nodrag">
 											<li class="dd-item" data-id="pub">												
@@ -626,15 +626,13 @@
 								<div class="row">
 									<div class="col-md-5">
 									</div>
-									<div class="col-md-3">
-									<button type="button" class="btn btn-default" id="guardar">Guardar Permiso</button>
+									<div class="col-md-3">									
 									<button type="button" class="btn btn-default" value="regresar" onClick="location.href='ViewListaPerfiles.html'">Regresar</button>
 									<div>
 								</div>
                         	</form>
                         	<!--<p><b>Serialised Output (per list)</b></p>							
-								<textarea id="nestable2-output" class="form-control" rows="3"></textarea>
-								<textarea id="nestable-output" class="form-control" rows="3"></textarea>-->							
+								<textarea id="nestable2-output" class="form-control" rows="3"></textarea>-->							
 							</div>
 						</div>						
 					</div>
@@ -654,11 +652,12 @@
 	
 	<!-- this page specific scripts -->
 	<script src="../../template/js/jquery.nestable.js"></script>
-	<script src="../../javascript/Seguridad/permisosRegistrar.js"></script>
+	<script src="../../javascript/Seguridad/permisosVer.js"></script>
 
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
-
+	
+</body>
 </html>
