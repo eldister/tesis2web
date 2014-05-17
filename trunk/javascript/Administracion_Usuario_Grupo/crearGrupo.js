@@ -42,12 +42,21 @@ function dameMiembros(){
 	return data;
 }
 
+function getGrupo(){
+	if( localStorage.uid ){
+	return IDGRUPO = (localStorage.idGrupo)*1;
+	}
+	else{
+		return IDGRUPO =1;
+	}
+}
+
 function guardarCambios(){
 
 	var data = $(".form-control");
 	var obj = {};
 	
-	obj["IDGRUPO"]= "";
+	obj["IDGRUPO_PADRE"]=getGrupo();
 	var ruta = "";
 	var callback;
 	
