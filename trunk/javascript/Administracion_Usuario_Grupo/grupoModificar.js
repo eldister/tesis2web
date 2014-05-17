@@ -31,33 +31,9 @@ function getUrlParameters(parameter, staticURL, decode){
 }
 
 function modificarGrupo(data){
-	$('#NOMBRES').html(data["NOMBRES"]);
-	$('#APELLIDOS').html(data["APELLIDOS"]);
-	$('#CORREO_INSTITUCIONAL').html(data["CORREO_INSTITUCIONAL"]);
-	$('#CORREO_ALTERNO').html(data["CORREO_ALTERNO"]);
-	$('#NUMERO_CELULAR').html(data["NUMERO_CELULAR"]);
-	$('#NUMERO_TEL_ALTERNO').html(data["NUMERO_TEL_ALTERNO"]);
-	$('#CUENTA_SKYPE').html(data["CUENTA_SKYPE"]);
-	$('#IDINSTITUCION').val(data["IDINSTITUCION"]);
-	$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
-	$('#COMPROMISO').html(data["COMPROMISO"]);
-	$('#IDPERMISO').val(data["IDPERMISO"]);
-	$('#USERNAME').html(data["USERNAME"]);
-
-	$('#NOMBRES').prop('readOnly',true);
-	$('#APELLIDOS').prop('readOnly',true);
-	$('#CORREO_INSTITUCIONAL').prop('readOnly',true);
-	$('#CORREO_ALTERNO').prop('readOnly',true);
-	$('#NUMERO_CELULAR').prop('readOnly',true);
-	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
-	$('#CUENTA_SKYPE').prop('readOnly',true);
-	//$('#IDINSTITUCION').prop('readOnly',true);
-	$('#IDINSTITUCION').not(":selected").attr("disabled", "disabled");
-	$('#MESES_TERMINAR').prop('readOnly',true);
-	$('#COMPROMISO').prop('readOnly',true);
-	$('#USERNAME').prop('readOnly',true);
-	//$('#IDPERMISO').prop('readOnly',true);
-	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
+	
+	window.location.href='../administracion_usuario_grupo/viewListaGrupo.html';
+	//location.attr('href','../tesis2web/front/administracion_usuario_grupo/viewListaGrupo.html');
 }
 
 
@@ -132,7 +108,7 @@ function guardarCambios(){
 		dataType: "json",
 		data: JSON.stringify(obj2),
 		contentType: "application/json; charset=utf-8",
-		success: callback
+		success: window.location.href='../administracion_usuario_grupo/viewListaGrupo.html'
 	});
 }
 
