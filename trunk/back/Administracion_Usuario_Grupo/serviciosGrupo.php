@@ -4,6 +4,158 @@
 	include_once '../back/conexion.php';
 
 
+function estaEnLaLista4($id,$lista){
+	for($i=0;$i<count($lista);$i++){
+		if($lista[$i]["IDUSUARIO"]==$id)return true;
+	}
+	return false;
+}
+
+function modificaGrupo(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody(),true);
+    $estaResponsable=false;
+	$con=getConnection();
+		
+	$IDGRUPO=$data["IDGRUPO"];	
+	$IDUSUARIO=$data["IDUSUARIO"];
+    $NOMBRE=$data["NOMBRE"];
+    $FECHA=$data["FECHA"];
+	$DESCRIPCION=$data["DESCRIPCION"];
+    $ESTADO=1;
+
+    $IDRESPONSABLE=$data[0][0];
+
+    //MODIFICO EL IDRESPONSABLE
+    $pstmt = $con->prepare("UPDATE GRUPO G SET  G.NOMBRE=?,G.DESCRIPCION=?,G.IDRESPONSABLE=? WHERE G.IDGRUPO=?");
+	$pstmt->execute(array($NOMBRE,$DESCRIPCION,$IDRESPONSABLE,$IDGRUPO));
+
+	//CREO LA LISTA DE PERSONAS QUE SE QUIEREN MODIFICAR
+	$listaGrupoActual=array();
+	$cantUsuarios=count($data[1]);
+
+	for ($i = 1; $i <= $cantUsuarios; $i++) {
+		$j=$i-1;
+
+    	$var= $data[1][$j];
+    	if(($var)==$IDRESPONSABLE) $estaResponsable=true;
+    	$gr=[
+			'IDUSUARIO'=>$var,
+		];
+    	array_push($listaGrupoActual, $gr);
+	}
+
+	if ($estaResponsable==false){
+		$gr=[
+			'IDUSUARIO'=>$IDRESPONSABLE,
+		];
+		array_push($listaGrupoActual, $gr);
+	}
+	//echo json_encode($listaGrupoActual);/////////////////////////////////////////////////////
+
+	//SELECCIONO LAS PERSONAS DEL GRUPO
+	$listaGrupoAnterior=array();
+	$pstmt = $con->prepare("SELECT UG.IDUSUARIO FROM USUARIOXGRUPO UG WHERE UG.ESTADO=1 AND UG.IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDUSUARIO'=>$req["IDUSUARIO"],
+		];
+
+		array_push($listaGrupoAnterior, $gr);
+	}
+
+	$listaNuevo=array();
+	$listaSeVa=array();
+	//echo json_encode($listaGrupoAnterior);
+	for($i=0;$i<count($listaGrupoActual);$i++){
+		if(estaEnLaLista4($listaGrupoActual[$i]["IDUSUARIO"],$listaGrupoAnterior)==false){
+			array_push($listaNuevo,$listaGrupoActual[$i]["IDUSUARIO"]);
+		}
+
+	}
+	//echo json_encode($listaNuevo);
+
+	for($i=0;$i<count($listaGrupoAnterior);$i++){
+		if(estaEnLaLista4($listaGrupoAnterior[$i]["IDUSUARIO"],$listaGrupoActual)==false){
+			array_push($listaSeVa,$listaGrupoAnterior[$i]["IDUSUARIO"]);
+		}
+	}
+
+	//BORRO TODOS USUARIOS QUE YA SE MODIFICARON EN EL PROCESO	
+
+	for($i=0;$i<count($listaSeVa);$i++){
+		echo $listaSeVa[$i];
+		$pstmt = $con->prepare("DELETE FROM USUARIOXGRUPO WHERE IDGRUPO=? AND idusuario=?");
+		$pstmt->execute(array($IDGRUPO,$listaSeVa[$i]));
+
+		$pstmt = $con->prepare("DELETE FROM GRUXPUBXUSU  WHERE IDGRUPO=? AND IDUSUARIO=?");
+		$pstmt->execute(array($IDGRUPO,$listaSeVa[$i]));	
+		
+		$pstmt = $con->prepare("DELETE FROM GRUXFIXUSU  WHERE IDGRUPO=? AND IDUSUARIO=?");
+		$pstmt->execute(array($IDGRUPO,$listaSeVa[$i]));
+
+		$pstmt = $con->prepare("DELETE FROM USUXARXGRU  WHERE IDGRUPO=? AND IDUSUARIO=?");
+		$pstmt->execute(array($IDGRUPO,$listaSeVa[$i]));
+	}
+
+	//ANADO TODOS USUARIOS QUE YA SE MODIFICARON EN EL PROCESO
+
+	for($i=0;$i<count($listaNuevo);$i++){
+		$pstmt = $con->prepare("INSERT INTO USUARIOXGRUPO(IDUSUARIO,IDGRUPO,ESTADO) VALUES(?,?,?)");
+		$pstmt->execute(array($listaNuevo[$i],$IDGRUPO,1));
+
+		//SELECCIONO LAS PUBLICACIONES, FICHAS Y ARCHIVOS A LAS QUE TENGO ACCESO
+		$pstmt = $con->prepare("SELECT DISTINCT(GPU.IDPUBLICACION) FROM GRUXPUBXUSU GPU WHERE GPU.IDGRUPO=? AND GPU.ESTADO=1");
+		$pstmt->execute(array($IDGRUPO));		
+
+		$listaPublicacion=array();
+
+		//SELECCIONO LAS PUBLICACIONES
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			array_push($listaPublicacion, $req["IDPUBLICACION"]);
+		}
+
+		for($j=0;$j<count($listaPublicacion);$j++){
+			$pstmt = $con->prepare("INSERT INTO GRUXPUBXUSU(IDUSUARIO,IDGRUPO,IDPUBLICACION,VISIBILIDAD,ESTADO) VALUES(?,?,?,?,?)");
+			$pstmt->execute(array($listaNuevo[$i],$IDGRUPO,$listaPublicacion[$j],1,1));		
+
+			//SELECCIONO LAS FICHAS
+			$listaFichas=array();
+
+			$pstmt = $con->prepare("SELECT DISTINCT(GPU.IDFICHABIB) FROM GRUXFIXUSU GFU WHERE GFU.IDGRUPO=? AND GFU.ESTADO=1 AND GFU.IDPUBLICACION=?");
+			$pstmt->execute(array($IDGRUPO,$listaPublicacion[$j]));		
+
+			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+				array_push($listaFichas, $req["IDFICHABIB"]);
+			}
+
+			for($k=0;$k<count($listaFichas);$k++){
+				$pstmt = $con->prepare("INSERT INTO GRUXFIXUSU(IDGRUPO,IDUSUARIO,IDFICHABIB,IDPUBLICACION,VISIBILIDAD,ESTADO) VALUES(?,?,?,?,?,?)");
+				$pstmt->execute(array($IDGRUPO,$listaNuevo[$i],$listaFichas[$k],$listaPublicacion[$j],1,1));
+			}
+
+			//SELECCION LOS ARCHIVOS
+			$listaArchivos=array();
+
+			$pstmt = $con->prepare("SELECT DISTINCT(GPU.IDARCHIVO) FROM USUXARXGRU AU WHERE AU.IDGRUPO=? AND AU.ESTADO=1 AND AU.IDPUBLICACION=?");
+			$pstmt->execute(array($IDGRUPO,$listaPublicacion[$j]));		
+
+			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+				array_push($listaArchivos, $req["IDARCHIVO"]);
+			}
+
+			for($k=0;$k<count($listaArchivos);$k++){
+				$pstmt = $con->prepare("INSERT INTO USUXARXGRU(IDGRUPO,IDUSUARIO,IDARCHIVO,IDPUBLICACION,VISIBILIDAD,ESTADO) VALUES(?,?,?,?,?,?)");
+				$pstmt->execute(array($IDGRUPO,$listaNuevo[$i],$listaArchivos[$k],$listaPublicacion[$j],1,1));
+			}
+		}	
+	}
+	echo "SE MODIFICO BIEN !!!!";
+}
+
 function damePersonas2(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -13,10 +165,41 @@ function damePersonas2(){
 
     $con=getConnection();
 
+	//$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    //						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND U.IDUSUARIO NOT IN (?)
+    //						AND UG.IDUSUARIO=U.IDUSUARIO");
+	//$pstmt->execute(array($IDGRUPO,$IDUSUARIO));
+
 	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
-    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND U.IDUSUARIO NOT IN (?)
+    						FROM USUARIO U  WHERE U.ESTADO=1");
+	$pstmt->execute(array());
+
+	$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDUSUARIO'=>$req["IDUSUARIO"],
+			'NOMBRES'=>$req["NOMBRES"]. ' '.$req["APELLIDOS"]
+		];
+
+		array_push($listaGrupo, $gr);
+	}
+	echo json_encode($listaGrupo);
+
+}
+
+function damePersonas3(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1
     						AND UG.IDUSUARIO=U.IDUSUARIO");
-	$pstmt->execute(array($IDGRUPO,$IDUSUARIO));
+	$pstmt->execute(array($IDGRUPO));
 
 	$listaGrupo = array();
 	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
@@ -66,11 +249,26 @@ function dameGrupo(){
 		array_push($listaGrupo, $gr);
 	}
 
+	//SACO AL RESPONSABLE
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM  USUARIO U, GRUPO G  WHERE G.IDGRUPO=? AND G.ESTADO=1 AND G.IDRESPONSABLE=U.IDUSUARIO");
+	$pstmt->execute(array($IDGRUPO));
+	$resp = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDUSUARIO'=>$req["IDUSUARIO"],
+			'NOMBRES'=>$req["NOMBRES"]. ' '.$req["APELLIDOS"]
+		];
+
+		array_push($resp, $gr);
+	}
+
 	$grupo=[
 		'NOMBRE'=> $NOMBRE,
 		'FECHA'=> $FECHA_CREACION,
 		'DESCRIPCION'=> $DESCRIPCION,
-		'USUARIOS'=> $listaGrupo
+		'USUARIOS'=> $listaGrupo,
+		'RESPONSABLE'=>$resp
 	];
 
 	echo json_encode($grupo);
