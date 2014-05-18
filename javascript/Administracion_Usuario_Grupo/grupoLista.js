@@ -313,7 +313,7 @@ $(document).ready(function(){
 
 	idpadre = damePadre();
 	idpermiso = damePermiso();
-	cargaElementos();
+	setTimeout(cargaElementos,250);
 
 	
 	//$("#guardar").click(guardarCambios);
