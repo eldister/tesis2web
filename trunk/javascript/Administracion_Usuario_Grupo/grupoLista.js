@@ -94,7 +94,12 @@ function crearGrupo2(){
 }
 
 function verListaPublicacion(){
-//FALTA
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	var IDGRUPO=this.getAttribute("IDGRUPO");
+
+	localStorage.setItem('idGrupo',IDGRUPO);
+	window.location.href='../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html';
 }
 
 function verListaUsuario(){
