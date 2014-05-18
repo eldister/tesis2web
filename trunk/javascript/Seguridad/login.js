@@ -23,7 +23,7 @@ function ingresar(){
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			if(data["respuesta"]==1){ 
-				alert("BIEN JUGADO");
+				//alert("BIEN JUGADO");
 				localStorage.setItem('uid',data["userid"]);
 				var idActual=1;
 				localStorage.setItem('idMiGrupo',idActual);
