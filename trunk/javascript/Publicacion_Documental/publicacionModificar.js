@@ -572,7 +572,7 @@ function cargaArchivos(data){
 	
 	for(var i=0; i < data.length ; i++){
 		var fila = '';
-		if(data[i]["FORMATO"]==="application/force-download"){
+		if(data[i]["FORMATO"]==="application/force-download" || data[i]["FORMATO"]==="application/pdf"){ 
 			fila = '<li class="list-group-item" id="fila-'+data[i]["IDARCHIVO"]+'"><span class="badge badge-danger"><a class="eliminar-archivo btn-link danger" idarchivo="'+data[i]["IDARCHIVO"]+'" url="'+data[i]["URL"]+'">';
 			fila += '<span class="fa-stack"><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a></span><h6 id="nomArchivo"><span>'+data[i]["NOMBRE"]+'</span></h6></li>';	
 			$('#listaArchivos').append(fila);
