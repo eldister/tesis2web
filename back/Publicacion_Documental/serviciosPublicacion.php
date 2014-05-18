@@ -468,7 +468,7 @@
 	    $IDPERMISO=damePermisoN($IDUSUARIO);
 
 	    if($IDPERMISO==1){//SI SOY EL ADMINISTRADOR PUEDO VER TODOS LOS GRUPOS 
-	    	$pstmt = $con->prepare("SELECT G.IDGRUPO,G.NOMBRE FROM  GRUPO G  WHERE G.ESTADO = 1");
+	    	$pstmt = $con->prepare("SELECT G.IDGRUPO,G.NOMBRE FROM  GRUPO G  WHERE G.ESTADO = 1 AND G.IDGRUPO NOT IN (1)");
 			$pstmt->execute(array($IDGRUPO));
 
 			$listaGrupo = array();
