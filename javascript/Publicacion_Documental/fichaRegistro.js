@@ -274,7 +274,7 @@ function cargaGrupos(){
 
 	$.ajax({
 		type: 'POST',
-		url : '../../api/AU_getListaGrupo',
+		url : '../../api/PU_getListaGrupo',
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
