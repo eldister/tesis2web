@@ -35,9 +35,9 @@ function ingresar(){
 			}
 			else {
 				alert("Usuario o Contraseña Incorrectas");
-				$(location).attr('href','../../login.html');
-   				 }
-			}
+				$(location).attr('href','../tesis2web/login.html');
+   			}
+		}
 	});
 }
 
