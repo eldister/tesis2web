@@ -4,6 +4,11 @@
 	include ('modelEncriptacion.php');
 	include_once '../back/conexion.php';
 
+function encriptaAdmin(){
+	$USERNAME="admin";
+	$PASSWORD=Encrypter::encrypt($USERNAME);
+	echo $PASSWORD;
+}
 
 function getListaUsuario(){
 		$request = \Slim\Slim::getInstance()->request();
