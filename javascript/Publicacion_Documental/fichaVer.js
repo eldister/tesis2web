@@ -117,6 +117,6 @@ $(document).ready(function(){
 	popularGrupos();
 	popularEtiquetas();	
 	llenarCamposFicha();
-	setTimeout(llenarDatosPublicacion,100);
+	setTimeout(llenarDatosPublicacion,400);
 
 });
