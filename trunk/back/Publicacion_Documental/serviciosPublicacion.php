@@ -444,4 +444,64 @@
 		}
 	}
 
+
+	function damePermisoN($id){
+		$con=getConnection();
+		$pstmt = $con->prepare("SELECT U.IDPERMISO FROM USUARIO U WHERE U.ESTADO = 1 AND U.IDUSUARIO=?");
+		$pstmt->execute(array($id));
+		$idPermiso = $pstmt->fetch(PDO::FETCH_ASSOC)["IDPERMISO"];
+		return $idPermiso;
+	}
+
+
+
+	function getListaGrupoN(){
+
+		$request = \Slim\Slim::getInstance()->request(); //json parameters
+	    $data = json_decode($request->getBody());
+	    $IDGRUPO=$data->{"IDPADRE"}; //GRUPO DONDE ESTOY
+	    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+	    $con=getConnection();
+
+	    //SACO PERMISO
+	    $IDPERMISO=damePermisoN($IDUSUARIO);
+
+	    if($IDPERMISO==1){//SI SOY EL ADMINISTRADOR PUEDO VER TODOS LOS GRUPOS 
+	    	$pstmt = $con->prepare("SELECT G.IDGRUPO,G.NOMBRE FROM  GRUPO G  WHERE G.ESTADO = 1");
+			$pstmt->execute(array($IDGRUPO));
+
+			$listaGrupo = array();
+			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+
+				$grupo= [
+					'IDGRUPO'=> $req["IDGRUPO"],
+					'NOMBRE'=> $req["NOMBRE"]
+				];
+				$listaGrupo[] = $grupo;
+			}
+	    }
+	    else{ // SI NO SOY EL ADMINISTRADOR DEBO DE VER SOLO LOS GRUPOS A LOS QUE TENGO ACCESO
+	    	$pstmt = $con->prepare("SELECT UG.IDGRUPO,G.NOMBRE FROM  USUARIOXGRUPO UG,GRUPO G  WHERE G.ESTADO = 1 AND UG.ESTADO=1 AND 
+	    							UG.IDUSUARIO=? AND UG.IDGRUPO=G.IDGRUPO");
+			$pstmt->execute(array($IDUSUARIO));
+
+			$listaGrupo = array();
+			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+
+				$grupo= [
+					'IDGRUPO'=> $req["IDGRUPO"],
+					'NOMBRE'=> $req["NOMBRE"]
+				];
+				$listaGrupo[] = $grupo;
+			}
+	    }
+
+	    echo json_encode($listaGrupo);
+
+
+	}
+
+
+
 ?>
