@@ -109,7 +109,7 @@ function guardarPublicacionxEtiqueta(data){
 
 	$.ajax({
 		type: 'POST',
-		url : "../../api/PD_modificaPublicacionxEtiqueta",
+		url : "../../api/PD_registraPublicacionxEtiqueta",
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
@@ -133,7 +133,7 @@ function guardarPublicacionxAutor(data){
 
 	$.ajax({
 		type: 'POST',
-		url : "../../api/PD_modificaPublicacionxAutor",
+		url : "../../api/PD_registraPublicacionxAutor",
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",

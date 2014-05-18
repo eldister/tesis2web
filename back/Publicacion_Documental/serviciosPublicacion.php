@@ -125,6 +125,15 @@
 		$pstmt = $con->prepare("UPDATE PUBLICACION P SET P.ESTADO = 0 WHERE P.IDPUBLICACION=?");
 		$pstmt->execute(array($data->{"IDPUBLICACION"}));
 
+		$pstmt = $con->prepare("DELETE FROM gruxpubxusu WHERE IDPUBLICACION=?");
+		$pstmt->execute(array($data->{"IDPUBLICACION"}));
+
+		$pstmt = $con->prepare("DELETE FROM usuxarxgru WHERE IDPUBLICACION=?");
+		$pstmt->execute(array($data->{"IDPUBLICACION"}));
+
+		$pstmt = $con->prepare("DELETE FROM PUBLICACIONXETIQUETAS WHERE IDPUBLICACION=?");
+		$pstmt->execute(array($data->{"IDPUBLICACION"}));
+
 		echo $request->getBody();
 	}
 
@@ -314,6 +323,8 @@
 					$pstmt->execute(array($integrantes[$j]["IDUSUARIO"],$idgrupo,$idpublicacion));
 				}
 			}
+			//verificar si el usuario creador esta dentro de los usuarios modificados, de lo contrario agregarlo
+			//PENDIENTE
 			echo json_encode(array("status" => 1));
 		}catch(PDOException $e){
 			echo json_encode(array("status" => $e->getMessage()));
@@ -407,6 +418,30 @@
 			echo json_encode(array("status" => 0));
 		}
 
+	}
+
+	function getListaFichaPublicacion(){
+
+		$request = \Slim\Slim::getInstance()->request(); //json parameters
+		$data = json_decode($request->getBody(),TRUE);
+
+		try{
+			$con=getConnection();
+			$pstmt = $con->prepare("SELECT DISTINCT F.IDFICHABIB, F.ENCABEZADO, CONCAT(U.NOMBRES,' ', U.APELLIDOS) AS USUARIO
+									FROM FICHABIB F, PUBLICACION P, USUARIO U, gruxfixusu GFU 
+									WHERE F.ESTADO=1 AND  P.IDPUBLICACION=F.IDPUBLICACION AND U.IDUSUARIO=F.IDCREADOR
+										AND F.IDPUBLICACION=? AND GFU.IDUSUARIO=? AND GFU.ESTADO=1");
+
+			$pstmt->execute(array($data["idpublicacion"],$data["idusulogueado"]));
+
+			$listaFicha = array();
+			while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+				$listaFicha[] = $element;
+			}
+			echo json_encode($listaFicha);			
+		}catch(PDOException $e){
+			echo json_encode(array("status" => 0));
+		}
 	}
 
 ?>

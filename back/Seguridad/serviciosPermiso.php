@@ -60,12 +60,12 @@
 	function getPermisoUsuario($id){
 
 	    $con=getConnection();	 
-		$pstmt = $con->prepare("SELECT E.IDETIQUETA, E.NOMBRE, E.OBSERVACION, I.NOMBRE as IDIOMA,E.IDIDIOMA 
-								FROM ETIQUETA E, IDIOMA I WHERE E.IDETIQUETA=? AND I.IDIDIOMA=E.IDIDIOMA");		
+		$pstmt = $con->prepare("SELECT U.IDPERMISO  
+								FROM USUARIO U WHERE U.IDUSUARIO=?");		
 		$pstmt->execute(array($id));
 
-		$etiqueta = $pstmt->fetch(PDO::FETCH_ASSOC);
-		echo json_encode($etiqueta);
+		$permiso = $pstmt->fetch(PDO::FETCH_ASSOC);
+		return $permiso;
 	}
 
 	function registrarPermiso(){

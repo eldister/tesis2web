@@ -21,7 +21,7 @@ include ("../back/Publicacion_Documental/serviciosTipoPublicacion.php");
 include ("../back/Publicacion_Documental/serviciosTipoFicha.php");
 include ("../back/Publicacion_Documental/serviciosEtiqueta.php");
 include ("../back/Publicacion_Documental/serviciosPublicacion.php");
-//include ("../back/Publicacion_Documental/serviciosFicha.php"); 
+include ("../back/Publicacion_Documental/serviciosFicha.php"); 
 include ("../back/Seguridad/serviciosLogin.php");
 include ("../back/Seguridad/serviciosPermiso.php");
 
