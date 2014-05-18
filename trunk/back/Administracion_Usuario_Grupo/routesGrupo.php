@@ -14,4 +14,5 @@
 	$app->post('/AU_getGPersonas2','damePersonas2');
 	$app->post('/AU_modificaGrupo','modificaGrupo');
 	$app->post('/AU_getGPersonas3','damePersonas3');
+	$app->post('/AU_getGPersonas4','damePersonas4');
 ?>
