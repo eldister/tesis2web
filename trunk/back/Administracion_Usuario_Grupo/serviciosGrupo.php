@@ -125,7 +125,7 @@ function modificaGrupo(){
 			//SELECCIONO LAS FICHAS
 			$listaFichas=array();
 
-			$pstmt = $con->prepare("SELECT DISTINCT(GPU.IDFICHABIB) FROM GRUXFIXUSU GFU WHERE GFU.IDGRUPO=? AND GFU.ESTADO=1 AND GFU.IDPUBLICACION=?");
+			$pstmt = $con->prepare("SELECT DISTINCT(GFU.IDFICHABIB) FROM GRUXFIXUSU GFU WHERE GFU.IDGRUPO=? AND GFU.ESTADO=1 AND GFU.IDPUBLICACION=?");
 			$pstmt->execute(array($IDGRUPO,$listaPublicacion[$j]));		
 
 			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
