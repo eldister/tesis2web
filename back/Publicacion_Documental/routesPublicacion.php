@@ -19,4 +19,5 @@
 	$app->get('/PD_getGrupoPublicacion/:id','getGrupoPublicacion');
 	$app->post('/PD_getListaFichaPublicacion','getListaFichaPublicacion');
 
+	$app->post('/PU_getListaGrupo','getListaGrupoN');
 ?>
