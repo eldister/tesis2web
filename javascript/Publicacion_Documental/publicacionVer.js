@@ -87,7 +87,7 @@ function cargaArchivos(data){
 	
 	for(var i=0; i < data.length ; i++){
 		var fila = '';
-		if(data[i]["FORMATO"]==="application/force-download"){
+		if(data[i]["FORMATO"]==="application/force-download" || data[i]["FORMATO"]==="application/pdf" ){
 			fila = '<li class="list-group-item"><span class="badge badge-primary"><a class="ver-archivo btn-link danger" url="'+data[i]["URL"]+'">';
 			fila += '<span class="fa-stack"><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a></span><h6 id="nomArchivo">'+data[i]["NOMBRE"]+'<h6></li>';	
 			$('#listaArchivos').append(fila);
