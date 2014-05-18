@@ -114,7 +114,7 @@ function iniciarNiceSelectBoxes(){
 }
 
 function cargarListaPersonas1(){
-	var obj = {};
+	/*var obj = {};
 	var IDUSUARIO=getId();
 
 	$.ajax({
@@ -128,11 +128,30 @@ function cargarListaPersonas1(){
 				$("#sel2Multi1").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
 			}
 		}
-	});
+	});*/
+
+	var IDUSUARIO=getId();
+		var obj = {};
+		obj["IDUSUARIO"]=IDUSUARIO;
+		//obj["IDGRUPO"]=getUrlParameters("id","",true);
+
+
+		$.ajax({
+			type: 'POST',
+			url : '../../api/AU_getGPersonas4',
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: function(obj){
+				for (var i=0; i<obj.length; i++) {
+					$("#sel2Multi1").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRES + '</option>');
+				}
+			}
+		});
 }
 
 function cargarListaPersonas2(){
-	var obj = {};
+	/*var obj = {};
 	var IDUSUARIO=getId();
 
 	$.ajax({
@@ -146,7 +165,25 @@ function cargarListaPersonas2(){
 				$("#sel2Multi2").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
 			}
 		}
-	});
+	});*/
+	var IDUSUARIO=getId();
+		var obj = {};
+		obj["IDUSUARIO"]=IDUSUARIO;
+		//obj["IDGRUPO"]=getUrlParameters("id","",true);
+
+
+		$.ajax({
+			type: 'POST',
+			url : '../../api/AU_getGPersonas4',
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: function(obj){
+				for (var i=0; i<obj.length; i++) {
+					$("#sel2Multi2").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRES + '</option>');
+				}
+			}
+		});
 }
 
 function cargaHora(){
