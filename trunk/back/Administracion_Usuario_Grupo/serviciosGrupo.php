@@ -274,7 +274,7 @@ function damePersonas3(){
 	echo json_encode($listaGrupo);
 
 }
-*/
+*/	
 function dameGrupo(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -486,16 +486,32 @@ function damePadreQueVeo(){
 	}
 
     $con=getConnection();
- 
-	$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
-							AND U.IDUSUARIO=? AND G.IDGRUPO=U.IDGRUPO");
-	$pstmt->execute(array($IDUSUARIO));
+ 	$permiso=damePermiso($IDUSUARIO);
+
+ 	if($permiso==1){
+ 		$pstmt = $con->prepare("SELECT G.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM  GRUPO G  WHERE G.ESTADO = 1");
+		$pstmt->execute(array());
 
 
-	$listaGrupo = array();
-	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
-		$listaGrupo[] = $req;
-	}
+		$listaGrupo = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaGrupo[] = $req;
+		}
+ 	}
+ 	else{
+ 		$pstmt = $con->prepare("SELECT U.IDGRUPO,G.NOMBRE,G.IDGRUPO_PADRE,G.IDRESPONSABLE,G.DESCRIPCION FROM USUARIOXGRUPO U, GRUPO G  WHERE U.ESTADO = 1 
+								AND U.IDUSUARIO=? AND G.IDGRUPO=U.IDGRUPO");
+		$pstmt->execute(array($IDUSUARIO));
+
+
+		$listaGrupo = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaGrupo[] = $req;
+		}
+ 	}
+		
+
+
 
 	$variable=damePadre($IDGRUPO);
 
@@ -765,6 +781,8 @@ function dameGrupo2(){
 	echo json_encode($grupo);
 
 }
+
+
 
 
 ?>
