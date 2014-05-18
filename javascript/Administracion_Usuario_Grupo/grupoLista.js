@@ -54,7 +54,7 @@ function cargaListaGrupo(data){
 		fila+= '<td class="text-center" style="width: 10%;padding-left: 30px;"> <a  class="ver-listaUsuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><img src="../../template/img/folder_people.png" height="55" width="70"></a></td>';
 		fila+= '<td class="text-center" style="width: 10%;padding-left: 30px;"> <a  class="ver-listaPublicacion table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><img src="../../template/img/folder_file.png" height="55" width="70"></a></td>';
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
-		fila+= '<a  href="ViewVerUsuario.html?id='+data[i]["IDGRUPO"]+'" class="ver-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  href="ViewVerGrupo.html?id='+data[i]["IDGRUPO"]+'" class="ver-usuario table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
 		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
 			fila+= '<a  href="ViewModificarGrupo.html?id='+data[i]["IDGRUPO"]+'" class="table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
 		}
