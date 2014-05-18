@@ -618,5 +618,72 @@ function veo_a_su_ancestro_dentro_de_la_lista($lista,$IDGRUPO){
 }
 
 
+function dameGrupo2(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+
+    //SACO INFORMACION DEL GRUPO
+    $pstmt = $con->prepare("SELECT G.NOMBRE,G.FECHA_CREACION,G.DESCRIPCION FROM GRUPO G WHERE G.ESTADO=1 AND G.IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	while($row = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$NOMBRE=$row["NOMBRE"];
+			$FECHA_CREACION=$row["FECHA_CREACION"];
+			$DESCRIPCION=$row["DESCRIPCION"];
+	}
+
+	//SACO INFORMACION DE LOS INTEGRANTES
+    $pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO AND 
+    						U.IDUSUARIO NOT IN (?)");
+	$pstmt->execute(array($IDGRUPO,$IDUSUARIO));
+
+	$listaGrupo = array();
+	$personas="";
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDUSUARIO'=>$req["IDUSUARIO"],
+			'NOMBRES'=>$req["NOMBRES"]. ' '.$req["APELLIDOS"]
+		];
+		$aux=$req["NOMBRES"]. ' '.$req["APELLIDOS"]. '  ; ';
+		$personas=$personas. ' '.$aux;
+		//array_push($listaGrupo, $gr);
+	}
+
+	//SACO AL RESPONSABLE
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM  USUARIO U, GRUPO G  WHERE G.IDGRUPO=? AND G.ESTADO=1 AND G.IDRESPONSABLE=U.IDUSUARIO");
+	$pstmt->execute(array($IDGRUPO));
+	//$resp = array();
+	$resp="";
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		//$gr=[
+		//	'IDUSUARIO'=>$req["IDUSUARIO"],
+		//	'NOMBRES'=>$req["NOMBRES"]. ' '.$req["APELLIDOS"]
+		//];
+
+		//array_push($resp, $gr);
+		$aux=$req["NOMBRES"]. ' '.$req["APELLIDOS"]. ' ';
+		//echo $aux;
+		$resp=$resp. ' '.$aux;
+	}
+
+	$grupo=[
+		'NOMBRE'=> $NOMBRE,
+		'FECHA'=> $FECHA_CREACION,
+		'DESCRIPCION'=> $DESCRIPCION,
+		'INTEGRANTES'=> $personas,
+		'RESPONSABLE'=>$resp
+	];
+
+	echo json_encode($grupo);
+
+}
+
 
 ?>
