@@ -8,7 +8,7 @@
 	function getListaTipoFicha(){
 		$con=getConnection();
 		$pstmt = $con->prepare("SELECT T.IDTIPOFICHA, T.NOMBRE, T.DESCRIPCION FROM TIPOFICHA T WHERE T.ESTADO=1");
-		$pstmt->execute();
+		$pstmt->execute(array());
 
 		$listaTipoFicha = array();
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
