@@ -12,6 +12,13 @@ function cargaListaGrupo(data){
 		$('#regresar').show();
 	}
 	
+	//SI ES EL ADMINISTRADOR Y SE ENCUENTRA EN LA PRIMERA RAIZ QUE APARESCA EL BOTON DE CREAR GRUPO ARRIBA
+	if((idpermiso=="1")&&(getIdGrupo()=="1")){
+		$('#creaGrupo').show();
+	}
+	else{
+		$('#creaGrupo').hide();
+	}
 	
 	for(var i=0; i < data.length ; i++){
 		var fila = '<tr id=fila-'+ data[i]["IDGRUPO"] +'>';
@@ -61,7 +68,11 @@ function cargaListaGrupo(data){
 		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
 			fila+= '<a  class="eliminar-usuario table-link danger" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		}	
+		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
+			fila+= '<a   type="button" class="crear-grupo btn btn-primary pull-right" style="padding-left: 5px;padding-right: 5px;padding-top: 3px;padding-bottom: 3px;border-left-width: 10px;width: 110px;" IDGRUPO='+data[i]["IDGRUPO"]+'><i class="fa fa-plus-circle fa-lg"></i><span>Grupo</span></a>';
+		}
 
+		
 		fila += '</td></tr>';
 		$('#listaGrupo').append(fila);
 	}
@@ -69,7 +80,17 @@ function cargaListaGrupo(data){
 	$(document).on('click', '.ver-listaPublicacion', verListaPublicacion);
 	$(document).on('click', '.eliminar-usuario', eliminarUsuario);
 	$(document).on('click','.ir-grupo',pasarALosHijos); //NO OLVIDAR PUNTO :p
+	$(document).on('click', '.crear-grupo', crearGrupo2);
 	
+}
+
+function crearGrupo2(){
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	var IDGRUPO=this.getAttribute("IDGRUPO");
+
+	localStorage.setItem('idGrupo',IDGRUPO);
+	window.location.href='../Administracion_Usuario_Grupo/ViewCrearGrupo.html';
 }
 
 function verListaPublicacion(){
@@ -112,7 +133,7 @@ function pasarALosHijos(){
 	$(this).parent().parent().addClass("selected");
 	var IDGRUPO1=this.getAttribute("IDGRUPO");
 	localStorage.setItem('idGrupo',IDGRUPO1);
-	window.location.href='../administracion_usuario_grupo/viewListaGrupo.html';
+	window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
 	//location.attr('href','../tesis2web/front/administracion_usuario_grupo/viewListaGrupo.html');
 } 
 
@@ -273,22 +294,23 @@ function damePermiso(){
 		}
 	});
 	return idpermiso;
-}	
+}		
 
 function regresaGrupo(){
 	var obj = {};
 	obj["IDPADRE"] = idpadre;
-
+	
 	localStorage.setItem('idGrupo',obj["IDPADRE"]);
 	window.location.href='../administracion_usuario_grupo/viewListaGrupo.html';
 }
 
 $(document).ready(function(){
 
-	cargaElementos();
-
 	idpadre = damePadre();
 	idpermiso = damePermiso();
+	cargaElementos();
+
+	
 	//$("#guardar").click(guardarCambios);
 
 	$("#cerrar").click(resetForm);

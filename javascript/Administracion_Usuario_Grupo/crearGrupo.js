@@ -81,7 +81,7 @@ function guardarCambios(){
 		data: JSON.stringify(obj2),
 		contentType: "application/json; charset=utf-8",
 		success: function (data){
-			
+			alert("El grupo se creoCorrectamente");
 		}
 	});
 }
