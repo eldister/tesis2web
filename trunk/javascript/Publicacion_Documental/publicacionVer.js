@@ -97,6 +97,15 @@ function cargaArchivos(data){
 	$(document).on('click', '.ver-archivo', verArchivo);
 }
 
+function getId(){
+	if( localStorage.uid ){
+		return IDUSUARIO = localStorage.uid;
+	}
+	else{
+		return IDUSUARIO = 1;
+	}
+}
+
 function verArchivo(){
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
@@ -166,10 +175,14 @@ function verficha(){
 }
 
 function llenarFichas(){
+	var obj={idpublicacion:idpub,
+			 idusulogueado:getId()
+		};
 	$.ajax({
-		type: 'GET',
-		url : '../../api/PD_getListaFicha',
+		type: 'POST',
+		url : '../../api/PD_getListaFichaPublicacion',
 		dataType: "json",
+		data:JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: cargaFichas
 	});

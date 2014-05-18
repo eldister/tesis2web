@@ -17,5 +17,6 @@
 	$app->post('/PD_subirArchivos','subirArchivos');
 	$app->get('/PD_getArchivosPublicacion/:id','getArchivosPublicacion');
 	$app->get('/PD_getGrupoPublicacion/:id','getGrupoPublicacion');
+	$app->post('/PD_getListaFichaPublicacion','getListaFichaPublicacion');
 
 ?>

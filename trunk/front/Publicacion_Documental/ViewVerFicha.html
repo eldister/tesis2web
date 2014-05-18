@@ -15,7 +15,7 @@
 	<!-- global styles -->
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
-
+	
 	<!-- this page specific styles -->
 	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
 
@@ -84,7 +84,7 @@
 								<i class="fa fa-home"></i><span>Principal</span></a></li>
 							<li id="publicacion"><a href="" class="dropdown-toggle"><i class="fa fa-book"></i><span>Publicaciones</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
 								<ul class="submenu">
-									<li id="ver-publicacion"><a href="../publicacion_documental/viewListaPublicacion.html">Ver Publicación</a></li>
+									<li id="ver-publicacion"><a href="../publicacion_documental/viewListaPublicacion.html">Ver Publicaciones</a></li>
 									<li id="reg-publicacion"><a href="../publicacion_documental/viewCrearPublicacion.html">Registrar Publicación</a></li></ul>
 							</li>
 							<li id="fichas"><a href="" class="dropdown-toggle"><i class="fa fa-file-text"></i><span>F. Bibliográficas</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
@@ -150,8 +150,8 @@
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
 									<!--<form role="form"  action="" id="form">-->
-									<h2>Crear Ficha de Resumen</h2>
-									<h3><span>Datos de la Publicación</span></h3>
+									<h2>Ver Ficha de Resumen</h2>
+									<h3><span>Datos de Publicación</span></h3>
 		                            <div class="row">		                            	
 		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">
@@ -177,173 +177,43 @@
 		                                </div>
 		                            </div>
 		                            <h3><span>Datos de Ficha de Resumen</span></h3>
-		                            <div class="row">		                            	
+  									<div class="row">		                            	
 		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">
 	                                            <label>Nombre de Ficha</label>
-	                                            <input class="form-control" id="ENCABEZADO" ></input>
+	                                            <input class="form-control" id="ENCABEZADO" readonly></input>
 	                                        </div>
 	                                       	<div class="form-group">
 												<label>Tipo de Ficha</label>
-												<select class="form-control" id="TIPOFICHA_SELECT">
-												</select>
+												<input class="form-control" id="TIPOFICHA" readonly></input>
 											</div>
 		                                </div>
 		                                <div class="col-lg-6">	
 	                                        <div class="form-group">
 	                                            <label>Contenido</label>
-	                                            <textarea class="form-control" id="CONTENIDO" rows="4" ></textarea>
+	                                            <textarea class="form-control" id="CONTENIDO" rows="4" readonly></textarea>
 	                                        </div>
 		                                </div>
 		                            </div>
-		                            <h3><span>Grupos que tendrán acceso a la ficha</span></h3>	                            
-	                                <div class="row">
+		                            <h3><span>Grupos que tienen acceso a la ficha</span></h3>                      
+		                            <div class="row">
 	                                     <div class="col-md-12">
-		                                     <label>Selección de grupos</label>
-		                                     <div class="row">
-					                            <div class="col-md-6">
-			                                        <div class="form-group form-group-select2">
-														<select style="width:525px" id="sel2Grupo" multiple>
-														</select>
-			                                        </div>
-		                                   		</div>
-		                                    	<div class="col-md-6">
-		                                    		<div class="filter-block pull-left" >								
-														<a href="#detalleGrupo" class="btn btn-primary pull-left" style="width: 155px;" data-toggle="modal">
-															<i class="fa fa-plus-circle fa-lg"></i> 
-															<span>Crear Grupo</span>
-														</a>
-													</div>
-		                                    	</div>
-	                                		</div>
+		                                    <ul class="fa-ul" id="listaGrupos">											
+											</ul>
 	                                	</div>
 	                                </div>
-		                            <h3><span>Agregar Etiquetas</span></h3>		                            
+		                            <h3><span>Etiquetas de la Ficha</span></h3>		                            
 	                                <div class="row">
 	                                    <div class="col-md-12">
-	                                    	<label>Etiquetas</label>
-	                                    	<div class="row">
-	                                    		<div class="col-md-6">
-			                                        <div class="form-group form-group-select2">
-														<select style="width:525px" id="sel2Multi3" multiple> 
-														</select>
-			                                        </div>
-			                                    </div>
-			                                    <div class="col-md-6">
-													<div class="filter-block pull-left" >								
-														<a href="#detalleEtiqueta" class="btn btn-primary pull-left"  data-toggle="modal">
-															<i class="fa fa-plus-circle fa-lg"></i> 
-															<span>Agregar Etiqueta</span>
-														</a>
-													</div>
-												</div>
-                                    		</div>
+	                                    	<ul class="fa-ul" id="listaEtiquetas">
+	                                    	</ul>
                                     	</div>
-		                            </div>	
-		      		<!--MODAL ETIQUETA-->   	                     
-					<div class="modal fade" id="detalleEtiqueta" tabindex="-1" role="dialog" aria-labelledby="detalleEtiqueta" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h3 class="modal-title" id="tituloModal">Agregar Etiqueta</h3>
-									</div>
-								<div class="modal-body">
-									<form role="form" id="form-etiqueta">
-										<input type="hidden" id="IDETIQUETA" class="form-control" />
-										<div class="form-group">
-											<label for="NOMBRE">Etiqueta</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-book"></i></span>
-												<input type="NOMBRE" class="form-control" id="NOMBRE">
-											</div>
-										</div>
-										<div class="form-group" id="select_div">
-											<label for="IDIOMA_SELECT_MODAL">Idioma</label>
-											<select  class="form-control" id="IDIOMA_SELECT_MODAL" >
-								                <option selected>Seleccione el Idioma</option>
-								            </select>
-										</div>												
-										<div class="form-group">
-											<label for="OBSERVACION">Descripcion</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-												<input type="OBSERVACION" class="form-control" id="OBSERVACION">
-											</div>
-										</div>
-									</form>											
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-									<button type="button" id="guardarEtiqueta" class="btn btn-primary" >
-										<span id="tituloBoton">Agregar</span>
-									</button>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->		                     	
-					<!--FIN MODAL ETIQUETA-->
-					<!--MODAL GRUPOS-->   	                     
-					<div class="modal fade" id="detalleGrupo" tabindex="-1" role="dialog" aria-labelledby="detalleGrupo" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h3 class="modal-title" id="tituloModal">Crear Grupo</h3>
-									</div>
-								<div class="modal-body">
-									<form role="form" id="form-etiqueta">
-										<div class="form-group">
-										<label for="NOMBRES">Nombre del Grupo</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-group"></i></span>
-												<input type="NOMBRES" class="form-control" id="NOMBRES" >
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="FECHA_CREACION">Fecha de creacion</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-												<input type="FECHA_CREACION" class="form-control" id="FECHA_CREACION" readonly>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="DESCRIPCION">Descripcion</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-file"></i></span>
-												<textarea type="DESCRIPCION" class="form-control" id="DESCRIPCION" rows="2"></textarea>
-											</div>
-										</div>
-										<h3>Agregar Usuarios</h3>
-										<div class="form-group form-group-select2">
-                                            <label>Agregar Responsable</label>
-											<select style="width:520px" id="sel2Responsable" multiple>
-											</select>
-                                        </div>
-										<div class="form-group form-group-select2">
-                                            <label> Integrantes del Grupo</label>
-											<select style="width:520px" id="sel2Miembros" multiple>
-											</select>
-                                        </div>		                                        
-									</form>											
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-									<button type="button" id="guardarGrupo" class="btn btn-primary" >
-										<span id="tituloBoton">Agregar</span>
-									</button>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->		                     	
-					<!--FIN MODAL GRUPOS--> 
-							<br>	
+		                            </div>					          	
+                    		<br>	
                     		<div class="row pull-center">
 		                    	<div class="col-md-4"></div>
 			                    <div class="col-md-4">      	
-	                    			<button type="button" class="btn btn-default" id="guardar">Crear Ficha</button>
-	                    			<button type="button" class="btn btn-default" id="limpiar">Limpiar</button>
-	                    			<button type="button" class="btn btn-default" value="regresar" onClick="location.href='ViewListaFicha.html'">Regresar</button>
+	                    			  <button type="button" class="btn btn-default" value="regresar" onClick="location.href='ViewListaFicha.html'">Regresar</button>
                     			</div>
                     			<div class="col-md-4"></div>
                     		</div>
@@ -367,12 +237,11 @@
 	
 	<!-- this page specific scripts -->
 	<script src="../../template/js/select2.min.js"></script>
-	<script src="../../javascript/Publicacion_Documental/fichaRegistro.js"></script>
+	<script src="../../javascript/Publicacion_Documental/fichaVer.js"></script>
 
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
-	
 </body>
 </html>
