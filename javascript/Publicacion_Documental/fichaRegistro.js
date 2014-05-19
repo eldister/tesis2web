@@ -177,13 +177,13 @@ function guardarCambios(){
 		success: function(data){
 			if(data["status"]===0){
 				alert("Ocurrió un error interno");
-				window.location.href='ViewListaPublicacion.html';
+				window.location.href='ViewListaFicha.html';
 			}else{
 				var status1=guardarFichaxEtiqueta(data);
 				var status2=guardarFichaxGrupo(data);
 				if(status1===1 && status2===1){
 					alert("Ficha registrada correctamente");
-					window.location.href='ViewListaPublicacion.html';
+					window.location.href='ViewListaFicha.html';
 				}				
 			}
 		}
