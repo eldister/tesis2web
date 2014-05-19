@@ -250,7 +250,7 @@ function guardarEtiqueta(){
 			$("#sel2Multi3").append('<option value="' + obj[0].IDETIQUETA + '">' + obj[1].NOMBRE + '</option>');
 		}
 	});
-	$("input.form-control").val("");
+	//$("input.form-control").val("");
 }
 
 function guardarAutor(){
@@ -272,7 +272,7 @@ function guardarAutor(){
 			$("#sel2Multi2").append('<option value="' + obj[0].IDAUTOR + '">' + obj[1].NOM_APE + '</option>');
 		}
 	});
-	$("input.form-control").val("");
+	//$("input.form-control").val("");
 }
 
 function guardarGrupo(){
