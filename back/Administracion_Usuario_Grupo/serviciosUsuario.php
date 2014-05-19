@@ -10,19 +10,50 @@ function encriptaAdmin(){
 	echo $PASSWORD;
 }
 
+function damePermisoNP($id){
+	$con=getConnection();
+	$pstmt = $con->prepare("SELECT U.IDPERMISO FROM USUARIO U WHERE U.ESTADO = 1 AND U.IDUSUARIO=?");
+	$pstmt->execute(array($id));
+	$idPermiso = $pstmt->fetch(PDO::FETCH_ASSOC)["IDPERMISO"];
+	return $idPermiso;
+}
+
 function getListaUsuario(){
-		$request = \Slim\Slim::getInstance()->request();
-		$con=getConnection();
+
+		$request = \Slim\Slim::getInstance()->request(); //json parameters
+    	$data = json_decode($request->getBody());
+		//$request = \Slim\Slim::getInstance()->request();
+		//$data = json_decode($request->getBody(),true);
+    	$IDUSUARIO=$data->{"IDUSUARIO"};
+    	//echo $IDUSUARIO;
 		
-		$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
+
+		$PERMISO=damePermisoNP($IDUSUARIO);
+		//echo $PERMISO;
+
+		$con=getConnection();
+		$listaUsuario = array();
+		if($PERMISO==1){
+			$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
 								U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,I.NOMBRE_INSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,P.NOMBRE,U.USERNAME,U.PASSWORD
 								 FROM USUARIO U, PERMISO P, INSTITUCION I WHERE U.ESTADO =1 AND U.IDPERMISO=P.IDPERMISO AND U.IDINSTITUCION=I.IDINSTITUCION");
 
-		$pstmt->execute();
+			$pstmt->execute();
+			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+				$listaUsuario[] = $req;
+			}
+		}
+		else{
+			$pstmt = $con->prepare("SELECT DISTINCT(UG2.IDUSUARIO),U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
+									U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,I.NOMBRE_INSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,P.NOMBRE,U.USERNAME,
+									U.PASSWORD FROM usuarioxgrupo UG2,usuario U, institucion I,permiso p WHERE I.idinstitucion=U.idinstitucion 
+									AND U.idusuario=UG2.idusuario AND P.idpermiso=u.idpermiso AND UG2.idgrupo IN 
+									(SELECT UG.idgrupo FROM usuarioxgrupo UG WHERE UG.ESTADO=1 AND UG.idusuario=?)");
 
-		$listaUsuario = array();
-		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
-			$listaUsuario[] = $req;
+			$pstmt->execute(array($IDUSUARIO));
+			while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+				$listaUsuario[] = $req;
+			}
 		}
 		echo json_encode($listaUsuario);
 }
