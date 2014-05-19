@@ -170,7 +170,7 @@ function damePersonas4(){
 	//$pstmt->execute(array($IDGRUPO,$IDUSUARIO));
 
 	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
-    						FROM USUARIO U  WHERE U.ESTADO=1");
+    						FROM USUARIO U  WHERE U.ESTADO=1 AND U.IDPERMISO NOT IN (1) ");
 	$pstmt->execute(array());
 
 	$listaGrupo = array();
