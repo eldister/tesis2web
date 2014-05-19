@@ -1,7 +1,7 @@
 <?php
 
 
-	$app->get('/AU_getListaUsuario','getListaUsuario');
+	$app->post('/AU_getListaUsuario','getListaUsuario');
 	$app->get('/AU_getUsuario/:id','getUsuario');
 	$app->get('/AU_getUsuario2/:id','getUsuario2');
 	$app->post('/AU_registraUsuario','registraUsuario');
