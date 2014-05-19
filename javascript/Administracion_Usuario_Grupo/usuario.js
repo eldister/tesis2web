@@ -1,4 +1,5 @@
 
+var IDUSUARIO;
 function cargaListaUsuario(data){
 
 	for(var i=0; i < data.length ; i++){
@@ -50,7 +51,7 @@ function cargaListaUsuario(data){
 function eliminarUsuario(){
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
-	var IDUSUARIO=this.getAttribute("IDUSUARIO");
+	IDUSUARIO=this.getAttribute("IDUSUARIO");
 	var obj;
 
 	$.ajax({
@@ -108,7 +109,7 @@ function guardarCambios(){
 	var data = $(".form-control");
 	var obj = {};
 	
-	obj["IDUSUARIO"]= IDUSUARIO.value;//hardcode!
+	obj["IDUSUARIO"]= IDUSUARIO;//hardcode!
 	var ruta = "";
 	var callback;
 	
@@ -132,12 +133,24 @@ function resetForm(){
 	$(".alert").remove();
 }
 
+function getId(){
+	if( localStorage.uid ){
+	return IDUSUARIO = localStorage.uid;
+	}
+	else{
+		return IDUSUARIO =1;
+	}
+}
 
 function cargaElementos(){
+	var obj = {};
+	obj["IDUSUARIO"]=getId();
+
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url : '../../api/AU_getListaUsuario',
 		dataType: "json",
+		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: cargaListaUsuario
 	});
