@@ -1,4 +1,8 @@
 
+var idpermiso;
+var idUsuario;
+var idResonsable;
+
 function cargaElementos(data){
 
 	for(var i=0; i < data.length ; i++){
@@ -14,9 +18,12 @@ function cargaElementos(data){
 		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		
 		fila+= '<a class="ver-publicacion table-link" href="ViewVerPublicacion.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a class="modificar-publicacion table-link" href="ViewModificarPublicacion.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-		fila+= '<a class="eliminar-publicacion table-link danger" idpublicacion='+data[i]["IDPUBLICACION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		if((idpermiso==1)||(idUsuario==idResonsable)){
+			fila+= '<a class="modificar-publicacion table-link" href="ViewModificarPublicacion.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+			fila+= '<a class="eliminar-publicacion table-link danger" idpublicacion='+data[i]["IDPUBLICACION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		}
 		fila += '</td></tr>';
 		$('#listaPublicacion').append(fila);
 		//$('#listaPublicacion').trigger("update");
@@ -59,6 +66,42 @@ function getUrlParameters(parameter, staticURL, decode){
    if(!returnBool) return false;  
 }
 
+function damePermiso(){
+	var obj = {};
+
+	obj["IDUSUARIO"]= getId();
+
+	$.ajax({
+		type: 'GET',
+		url : '../../api/AU_damePermiso/'+getId(),
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			idpermiso=data["IDPERMISO"];
+		}
+	});
+	return idpermiso;
+}	
+
+function dameResponsable(){
+	var obj = {};
+
+	obj["IDGRUPO"]= getUrlParameters("id","",true);
+
+	$.ajax({
+		type: 'POST',
+		url : '../../api/AU_dameResponsable',
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			idResonsable=data["IDRESPONSABLE"];
+		}
+	});
+	return idResonsable;
+}	
+
 function cargaListaPublicacion(){
 
 	var IDUSUARIO=getId();
@@ -79,6 +122,9 @@ function cargaListaPublicacion(){
 }
 
 $(document).ready(function(){
+	idpermiso = damePermiso();
+	idUsuario=getId();
+	idResonsable=dameResponsable();
 	cargaListaPublicacion();
 	//$("#guardar").click(guardarCambios);
 	//$("#cerrar").click(resetForm);

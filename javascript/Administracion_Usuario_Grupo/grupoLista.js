@@ -66,7 +66,7 @@ function cargaListaGrupo(data){
 			fila+= '<a  href="ViewModificarGrupo.html?id='+data[i]["IDGRUPO"]+'" class="table-link" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
 		}
 		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
-			fila+= '<a  class="eliminar-usuario table-link danger" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+			fila+= '<a  class="eliminar-grupo table-link danger" IDGRUPO='+data[i]["IDGRUPO"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		}	
 		if((data[i]["IDRESPONSABLE"]==getId()) || (idpermiso=="1")){
 			fila+= '<a   type="button" class="crear-grupo btn btn-primary pull-right" style="padding-left: 5px;padding-right: 5px;padding-top: 3px;padding-bottom: 3px;border-left-width: 10px;width: 80px;" IDGRUPO='+data[i]["IDGRUPO"]+'><i class="fa fa-plus-circle fa-lg"></i><span>Grupo</span></a>';
@@ -78,7 +78,7 @@ function cargaListaGrupo(data){
 	}
 	$(document).on('click', '.ver-listaUsuario', verListaUsuario);
 	$(document).on('click', '.ver-listaPublicacion', verListaPublicacion);
-	$(document).on('click', '.eliminar-usuario', eliminarUsuario);
+	$(document).on('click', '.eliminar-grupo', eliminarUsuario);
 	$(document).on('click','.ir-grupo',pasarALosHijos); //NO OLVIDAR PUNTO :p
 	$(document).on('click', '.crear-grupo', crearGrupo2);
 	
