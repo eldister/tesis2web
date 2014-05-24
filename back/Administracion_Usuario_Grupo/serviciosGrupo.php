@@ -4,6 +4,44 @@
 	include_once '../back/conexion.php';
 
 
+
+function getListaPublicacionesN($IDGRUPO){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+    //$IDGRUPO=$data->{"IDGRUPO"};
+	
+    $IDPERMISO=damePermiso($IDUSUARIO);
+	$con=getConnection();
+
+	if($IDPERMISO==1){
+		$pstmt = $con->prepare("SELECT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
+										P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
+										I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
+								FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T 
+								WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA 
+								AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION AND P.IDPUBLICACION IN (select 
+									g.IDPUBLICACION from gruxpubxusu g where g.idgrupo=$IDGRUPO)");
+		$pstmt->execute();
+	}
+	else{
+		$pstmt = $con->prepare("SELECT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
+										P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
+										I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
+								FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T 
+								WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA 
+								AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION AND P.IDPUBLICACION IN (select 
+									g.IDPUBLICACION from gruxpubxusu g where g.idusuario=$IDUSUARIO and g.idgrupo=$IDGRUPO)");
+		$pstmt->execute();
+	}
+		$listaPublicacion = array();
+		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaPublicacion[] = $element;
+		}
+		echo json_encode($listaPublicacion);
+}	
+
 function estaEnLaLista4($id,$lista){
 	for($i=0;$i<count($lista);$i++){
 		if($lista[$i]["IDUSUARIO"]==$id)return true;
