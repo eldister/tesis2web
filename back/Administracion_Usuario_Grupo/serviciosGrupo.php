@@ -3,7 +3,19 @@
 	include('routesGrupo.php');
 	include_once '../back/conexion.php';
 
+function dameResponsableN(){
 
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    //$IDGRUPO=$data->{"IDGRUPO"};
+	
+	$con=getConnection();
+	$pstmt = $con->prepare("SELECT G.IDRESPONSABLE FROM GRUPO G WHERE G.IDGRUPO=$IDGRUPO");
+	$pstmt->execute();
+	$ID = $pstmt->fetch(PDO::FETCH_ASSOC);
+	ECHO json_encode($ID);
+}
 
 function getListaPublicacionesN($IDGRUPO){
 
