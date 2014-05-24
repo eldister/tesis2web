@@ -98,8 +98,9 @@ function verListaPublicacion(){
 	$(this).parent().parent().addClass("selected");
 	var IDGRUPO=this.getAttribute("IDGRUPO");
 
-	localStorage.setItem('idGrupo',IDGRUPO);
-	window.location.href='../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html';
+	//localStorage.setItem('idGrupo',IDGRUPO);
+	//window.location.href='../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html?id='+IDGRUPO;
+	window.location.href = "../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html?id=" + IDGRUPO;
 }
 
 function verListaUsuario(){
