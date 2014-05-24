@@ -1,0 +1,86 @@
+
+function cargaElementos(data){
+
+	for(var i=0; i < data.length ; i++){
+		var fila = '<tr id=fila-'+ data[i]["IDPUBLICACION"] +'>';
+		fila +='<td style="display:none;">';
+		fila += '<td class="text-center">'+data[i]["TITULO"]+'</td>';
+		fila += '<td class="text-center">'+data[i]["FECHAREGISTRO"]+'</td>';
+		fila += '<td class="text-center">'+data[i]["TIPO"]+'</td>';
+		fila += '<td class="text-center">'+data[i]["IDIOMA"]+'</td>';
+		fila+= '<td class="text-center"><a class="agregar-ficha table-link" href="ViewCrearFicha.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-file-o fa-stack-1x fa-inverse"></i></span></a></td>';
+		fila+= '<td style="width: 23%;padding-left: 30px;">'
+		//fila+= '<a class="table-link" href="ViewModificarIdioma.html?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		//fila+= '<a class="table-link danger" data-toggle="modal" href="#myModal"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		//fila+= '<a  class="eliminarRequisito" data-toggle="modal" ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a class="ver-publicacion table-link" href="ViewVerPublicacion.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a class="modificar-publicacion table-link" href="ViewModificarPublicacion.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a class="eliminar-publicacion table-link danger" idpublicacion='+data[i]["IDPUBLICACION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		fila += '</td></tr>';
+		$('#listaPublicacion').append(fila);
+		//$('#listaPublicacion').trigger("update");
+	}
+}
+
+function getIdGrupo(){
+	if( localStorage.idGrupo ){
+	return IDGRUPO_PADRE = (localStorage.idGrupo)*1;
+	}
+	else{
+		return IDGRUPO_PADRE =1;
+	}
+}
+
+function getId(){
+	if( localStorage.uid ){
+	return IDGRUPO_PADRE = (localStorage.uid)*1;
+	}
+	else{
+		return IDGRUPO_PADRE =1;
+	}
+}
+
+function getUrlParameters(parameter, staticURL, decode){
+   var currLocation = (staticURL.length)? staticURL : window.location.search,
+       parArr = currLocation.split("?")[1].split("&"),
+       returnBool = true;
+   
+   for(var i = 0; i < parArr.length; i++){
+        parr = parArr[i].split("=");
+        if(parr[0] == parameter){
+            return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+            returnBool = true;
+        }else{
+            returnBool = false;            
+        }
+   }
+   
+   if(!returnBool) return false;  
+}
+
+function cargaListaPublicacion(){
+
+	var IDUSUARIO=getId();
+	var obj = {};
+	obj["IDUSUARIO"]=IDUSUARIO;
+	GRUPO =getUrlParameters("id","",true);
+
+	$.ajax({
+		type: 'POST',
+		url : '../../api/AU_getListaPublicacion/'+GRUPO,
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: cargaElementos
+	});
+	//$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+    //   .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
+}
+
+$(document).ready(function(){
+	cargaListaPublicacion();
+	//$("#guardar").click(guardarCambios);
+	//$("#cerrar").click(resetForm);
+
+});
