@@ -78,7 +78,7 @@ function cargaListaGrupo(data){
 	}
 	$(document).on('click', '.ver-listaUsuario', verListaUsuario);
 	$(document).on('click', '.ver-listaPublicacion', verListaPublicacion);
-	$(document).on('click', '.eliminar-grupo', eliminarUsuario);
+	$(document).on('click', '.eliminar-grupo', eliminarGrupo);
 	$(document).on('click','.ir-grupo',pasarALosHijos); //NO OLVIDAR PUNTO :p
 	$(document).on('click', '.crear-grupo', crearGrupo2);
 	
@@ -143,53 +143,28 @@ function pasarALosHijos(){
 	//location.attr('href','../tesis2web/front/administracion_usuario_grupo/viewListaGrupo.html');
 } 
 
-function eliminarUsuario(){
+function eliminarGrupo(){
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
-	var IDUSUARIO=this.getAttribute("IDUSUARIO");
-	var obj;
+	var IDGRUPO=this.getAttribute("IDGRUPO");
+	var obj={};
+	obj["IDGRUPO"]= IDGRUPO;
 
-	$.ajax({
-		type: 'GET',
-		url : '../../api/AU_getUsuario/'+ IDUSUARIO,
-		dataType: "json",
-		contentType: "application/json; charset=utf-8",
-		success: function(data){ 
-			$('#IDUSUARIO').val(data["IDUSUARIO"]);
-			$('#NOMBRES').val(data["NOMBRES"]);
-			$('#APELLIDOS').val(data["APELLIDOS"]);
-			$('#CORREO_INSTITUCIONAL').val(data["CORREO_INSTITUCIONAL"]);
-			$('#CORREO_ALTERNO').val(data["CORREO_ALTERNO"]);
-			$('#NUMERO_CELULAR').val(data["NUMERO_CELULAR"]);
-			$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
-			$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
-			$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
-			$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
-			$('#COMPROMISO').val(data["COMPROMISO"]);
-			$('#NOMBRE').val(data["NOMBRE"]);
-			$('#USERNAME').val(data["COMPROMISO"]);
-			$('#PASSWORD').val(data["NOMBRE"]);
-		}
-	});
-	$('#IDUSUARIO').prop('readOnly',true);
-	$('#NOMBRES').prop('readOnly',true);
-	$('#APELLIDOS').prop('readOnly',true);
-	$('#CORREO_INSTITUCIONAL').prop('readOnly',true);
-	$('#CORREO_ALTERNO').prop('readOnly',true);
-	$('#NUMERO_CELULAR').prop('readOnly',true);
-	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
-	$('#CUENTA_SKYPE').prop('readOnly',true);
-	$('#NOMBRE_INSTITUCION').prop('readOnly',true);
-	$('#MESES_TERMINAR').prop('readOnly',true);
-	$('#COMPROMISO').prop('readOnly',true);
-	$('#NOMBRE').prop('readOnly',true);
-	$('#detalleUsuario').removeClass('insertar');
-	$('#detalleUsuario').removeClass('modificar');
-	$('#detalleUsuario').removeClass('eliminar');
-	$('#tituloBoton').html("Eliminar");
-	$('#tituloModal').html("Eliminar Usuario");
-	$('#detalleUsuario').addClass('eliminar');
-	$('#detalleUsuario').modal('show');
+	var answer = confirm("Desea eliminar el grupo?")
+	if (answer){
+		$.ajax({
+			type: 'POST',
+			url : '../../api/AU_eliminaGrupo',
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: function(data){ 
+				$('#fila-'+IDGRUPO+'').remove();
+				alert("Se elimino correctamente el grupo");
+			}
+		});
+		
+	}
 }
 
 function elimina(data){

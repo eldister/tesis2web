@@ -18,4 +18,5 @@
 	$app->post('/AU_getListaPublicacion/:id','getListaPublicacionesN');
 	$app->post('/AU_dameResponsable','dameResponsableN');
 	$app->post('/AU_eliminaPublicacionXGrupo','eliminaPublicacionXGrupo');
+	$app->post('/AU_eliminaGrupo','eliminarGrupoN');
 ?>

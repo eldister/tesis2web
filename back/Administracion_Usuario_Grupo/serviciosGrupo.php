@@ -3,6 +3,38 @@
 	include('routesGrupo.php');
 	include_once '../back/conexion.php';
 
+
+function eliminarGrupoN(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+
+    $con=getConnection();
+
+	$pstmt = $con->prepare("DELETE FROM USUARIOXGRUPO WHERE IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	$pstmt = $con->prepare("DELETE FROM LISTAPUBXGRUPO WHERE IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	$pstmt = $con->prepare("DELETE FROM GRUXPUBXUSU WHERE IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+	
+	$pstmt = $con->prepare("DELETE FROM GRUXFIXUSU WHERE IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	$pstmt = $con->prepare("DELETE FROM USUXARXGRU WHERE IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	$pstmt = $con->prepare("DELETE FROM USUARIOXGRUPO WHERE IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+
+	$pstmt = $con->prepare("DELETE FROM GRUPO WHERE IDGRUPO=?");
+	$pstmt->execute(array($IDGRUPO));
+}
+
+
 function eliminaPublicacionXGrupo(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
