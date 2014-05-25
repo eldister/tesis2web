@@ -3,6 +3,26 @@
 	include('routesGrupo.php');
 	include_once '../back/conexion.php';
 
+function eliminaPublicacionXGrupo(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+    echo $IDGRUPO;
+    $IDPUBLICACION=$data->{"IDPUBLICACION"};
+	
+	$con=getConnection();
+
+	$pstmt = $con->prepare("DELETE FROM GRUXPUBXUSU WHERE IDGRUPO=? AND IDPUBLICACION=?");
+	$pstmt->execute(array($IDGRUPO,$IDPUBLICACION));
+	
+	$pstmt = $con->prepare("DELETE FROM GRUXFIXUSU WHERE IDGRUPO=? AND IDPUBLICACION=?");
+	$pstmt->execute(array($IDGRUPO,$IDPUBLICACION));
+
+	$pstmt = $con->prepare("DELETE FROM USUXARXGRU WHERE IDGRUPO=? AND IDPUBLICACION=?");
+	$pstmt->execute(array($IDGRUPO,$IDPUBLICACION));
+}	
+
 function dameResponsableN(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
