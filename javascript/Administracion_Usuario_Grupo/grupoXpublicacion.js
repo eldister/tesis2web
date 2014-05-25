@@ -52,8 +52,9 @@ function eliminarPublicacionXGrupo(){
 			data: JSON.stringify(obj),
 			contentType: "application/json; charset=utf-8",
 			success: function(data){
+				$('#fila-'+IDPUBLICACION+'').remove();
 				alert("Se elimino correctamente la publicacion");
-				window.location.href = "../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html?id=" + IDGRUPO;
+				//window.location.href = "../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html?id=" + IDGRUPO;
 			}
 		});
 	}
