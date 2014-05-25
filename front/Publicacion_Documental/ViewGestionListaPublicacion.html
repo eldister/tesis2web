@@ -166,29 +166,12 @@
 														<span>Nombre Abreviado</span>
 													</th>
 													<th class="text-center">
-														<span>Registro</span>
-													</th>
-													<th class="text-center">
-														<span>Estado</span>
+														<span>Fecha de Registro</span>
 													</th>
 												</tr>
 											</thead>
 											<tbody id="listalistaPublicacion">
-												<tr>
-													<td class="text-center">
-														<span>Lista para Investigación</span>
-													</td>
-													<td class="text-center">
-														<span>25-6-2014</span>
-													</td>
-													<td class="text-center">
-														<span>Activo</span>
-													</td>
-													<td style="width: 12%;padding-left: 30px;">
-														<a class="modificar-publicacion table-link" href=""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>
-														<a class="eliminar-publicacion table-link danger" href=""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>
-													</td>
-												</tr>												
+																						
 											</tbody>											
 										</table>
 						<div class="modal fade" id="detallelista" tabindex="-1" role="dialog" aria-labelledby="detallelista" aria-hidden="true">
@@ -196,45 +179,17 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h3 class="modal-title" id="tituloModal"></h3>
+										
 									</div>
 									<div class="modal-body">
 										<form role="form" id="form-tipoPublicacion">
-											<input type="hidden" id="IDLISTAPUBLICACION" class="form-control" />
-											<div class="form-group">										
-												<label for="NOMBRE">Nombre Abreviado</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-book"></i></span>
-													<input type="NOMBRE" class="form-control" id="NOMBRE">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="FECHAREGISTRO">Registro</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-													<input type="FECHAREGISTRO" class="form-control" id="FECHAREGISTRO">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="ESTADO">Estado</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-													<input type="ESTADO" class="form-control" id="ESTADO">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="TIEMPOVIGENCIA">Tiempo de vigencia</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-													<input type="TIEMPOVIGENCIA" class="form-control" id="TIEMPOVIGENCIA">
-												</div>
-											</div>										
+											<h4>¿Seguro que desea eliminar esta lista?</h4>								
 										</form>													
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 										<button type="button" id="guardar" class="btn btn-primary">
-											<span id="tituloBoton"></span>
+											<span id="tituloBoton">Eliminar</span>
 										</button>
 									</div>
 								</div><!-- /.modal-content -->
@@ -276,7 +231,7 @@
 	<script src="../../template/js/bootstrap.js"></script>
 	
 	<!-- this page specific scripts -->
-	<script src="../../javascript/Publicacion_Documental/publicacion.js"></script>
+	<script src="../../javascript/Publicacion_Documental/listaPublicacion.js"></script>
 
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>

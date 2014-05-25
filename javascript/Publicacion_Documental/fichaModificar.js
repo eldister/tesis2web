@@ -197,10 +197,9 @@ function guardarCambios(){
 			}else{
 				var status1=guardarFichaxEtiqueta(data);
 				var status2=guardarFichaxGrupo(data);
-				//if(status1===1 && status2===1){
-					alert("Ficha modificada correctamente");
-					window.location.href='ViewListaFicha.html';
-				//}				
+				alert("Ficha modificada correctamente");
+				window.location.href='ViewListaFicha.html';
+				
 			}
 		}
 	});
