@@ -179,12 +179,10 @@ function guardarCambios(){
 				alert("Ocurrió un error interno");
 				window.location.href='ViewListaFicha.html';
 			}else{
-				var status1=guardarFichaxEtiqueta(data);
-				var status2=guardarFichaxGrupo(data);
-				if(status1===1 && status2===1){
-					alert("Ficha registrada correctamente");
-					window.location.href='ViewListaFicha.html';
-				}				
+				guardarFichaxEtiqueta(data);
+				guardarFichaxGrupo(data);
+				alert("Ficha registrada correctamente");
+				window.location.href='ViewListaFicha.html';
 			}
 		}
 	});

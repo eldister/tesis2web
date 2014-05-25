@@ -167,12 +167,12 @@ function guardarCambios(){
 			var status2=guardarPublicacionxAutor(data);			
 			var status3=guardarPublicacionxGrupo(data);
 			var status4=guardarArchivos(data);
-			if(status1===1 && status2===1 && status3===1){
-				alert("Publicación modificada correctamente");
+			if(data["status"]===0){
+				alert("Ocurrió un error interno");
 				window.location.href='ViewListaPublicacion.html';
 			}
 			else{
-				alert("Ocurrió un error interno");
+				alert("Publicación creada correctamente");
 				window.location.href='ViewListaPublicacion.html';
 			}
 		}

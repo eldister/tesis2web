@@ -98,11 +98,16 @@ function guardarCambios(){
 }
 
 function cargaListaPublicacion(){
+	var obj={ idMiGrupo:localStorage.idMiGrupo,
+			  idUsuario:localStorage.uid
+			};
+
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url : '../../api/PD_getListaPublicacion',
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
+		data:JSON.stringify(obj),
 		success: cargaElementos
 	});
 	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })

@@ -95,7 +95,9 @@ function getId(){
 }
 
 function cargaListaFicha(){
-	var obj={idusulogueado:getId()};
+	var obj={idusulogueado:getId(),
+			 idMiGrupo:localStorage.idMiGrupo 
+			};
 
 	$.ajax({
 		type: 'POST',

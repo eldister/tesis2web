@@ -1,6 +1,6 @@
 <?php
 
-	$app->get('/PD_getListaPublicacion','getListaPublicacion');
+	$app->post('/PD_getListaPublicacion','getListaPublicacion');
 	$app->get('/PD_getPublicacion/:id','getPublicacion');
 	$app->post('/PD_registraPublicacion','registraPublicacion');
 	$app->post('/PD_modificaPublicacion','modificaPublicacion');

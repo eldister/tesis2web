@@ -6,15 +6,33 @@
 	include_once '../back/conexion.php';
 
 	function getListaPublicacion(){
-		$con=getConnection();
-		$pstmt = $con->prepare("SELECT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
-										P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
-										I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
-								FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T 
-								WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA 
-								AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION");
-		$pstmt->execute();
 
+		$request = \Slim\Slim::getInstance()->request(); //json parameters
+	    $data = json_decode($request->getBody(),TRUE);
+
+	    $permiso=getPermisoUsuario($data["idUsuario"]);
+
+	    $con=getConnection();
+
+	    if($permiso["IDPERMISO"]!=1){
+	    	$pstmt = $con->prepare("SELECT DISTINCT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
+									P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
+									I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
+							FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T, gruxpubxusu GPU, LOG L
+							WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA AND L.PUBLICACION_IDPUBLICACION=P.IDPUBLICACION
+									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION AND (L.USUARIO_IDUSUARIO=? OR GPU.IDGRUPO=?)
+									AND GPU.IDPUBLICACION=P.IDPUBLICACION AND GPU.ESTADO=1");
+			$pstmt->execute(array($data["idUsuario"],$data["idMiGrupo"]));
+		}
+	    else{
+			$pstmt = $con->prepare("SELECT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
+											P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
+											I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
+									FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T 
+									WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA 
+									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION");
+			$pstmt->execute();
+		}
 		$listaPublicacion = array();
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
 			$listaPublicacion[] = $element;
@@ -63,11 +81,11 @@
 								  )
 							);
 
-			$array=array('IDPUBLICACION'=>$data->{"IDPUBLICACION"});
+			$array=array('IDPUBLICACION'=>$data->{"IDPUBLICACION"},"status"=>1);
 			echo json_encode($array);
 
 		}catch (PDOException $e){
-			echo json_encode(array("me" => $e->getMessage()));
+			echo json_encode(array("me" => $e->getMessage(),"status"=>0));
 		}
 	}
 
@@ -110,10 +128,10 @@
 									VALUES (?,?,?,1,1)");
 			$pstmt->execute(array($data->{"IDCREADOR"},$data->{"IDGRUPO"},$lastInsertId));
 
-			$array=array('IDPUBLICACION'=>$lastInsertId);
+			$array=array('IDPUBLICACION'=>$lastInsertId,"status"=>1);
 			echo json_encode($array);
 		}catch (PDOException $e){
-			echo json_encode(array("me" => $e->getMessage()));
+			echo json_encode(array("me" => $e->getMessage(),"status"=>0));
 		}
 	}
 

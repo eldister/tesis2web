@@ -151,25 +151,26 @@
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
 								<form role="form"  action="" id="form">
-									<h2>Crear Lista de Publicación</h2>
+									<h2>Ver Lecturas de Lista de Publicación</h2>
 									<h3><span>Datos Básicos</span></h3>
 		                            <div class="row">		                            	
 		                                <div class="col-lg-12">		                                    
 	                                        <div class="form-group">	                                        	
 	                                            <label>Tema</label>
-	                                            <div class="input-group">
+	                                            <h4 id="tema"></h4>
+	                                            <!--<div class="input-group">
 	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
 	                                           		<input type="Tema" class="form-control" id="Tema">							
-	                                        	</div>
+	                                        	</div>-->
 	                                        </div>	                                                           
 		                                </div>
 		                            </div>
-		                            <h3><span>Lecturas a asignar</span></h3>		                            
+		                            <h3><span>Lecturas que deben revisarse</span></h3>		                            
 										<div class="clearfix">
-											<div class="filter-block pull-right">														<a href="#agregarElemento" class="btn btn-primary pull-right" id="agregar" data-toggle="modal">
-													<i class="fa fa-plus-circle fa-lg"></i> 
-													<span>Agregar Lectura</span>
-												</a>												
+											<div class="filter-block pull-right">														<select type="Tema" class="form-control" id="Tema">
+													<option value="1">Vista Compacta</option>
+													<option value="2">Vista Extendida</option>
+												</select>
 											</div>
 										</div>
 										<div class="table-responsive">
@@ -192,6 +193,7 @@
 												</tbody>											
 											</table>
 										</div>
+										<!--
 										<h3><span>Grupos a asignar</span></h3>
 										<div class="row">
 	                                		<div class="col-md-6">
@@ -199,96 +201,28 @@
 													<select style="width:525px" id="sel2grupo" multiple>							</select>
 		                                        </div>
 		                                    </div>	                                    
-	                            		</div>
-	                <!--MODAL AGREGAR ELEMENTO-->   	                     
-					<div class="modal fade" id="agregarElemento" tabindex="-1" role="dialog" aria-labelledby="agregarElemento" aria-hidden="true">
-							<div class="modal-dialog">
+	                            		</div>-->
+	                <!--MODAL VER Archivos-->   	                     
+					<div class="modal fade" id="detalleArchivo" tabindex="-1" role="dialog" aria-labelledby="detalleArchivo" aria-hidden="true">
+							<div class="modal-dialog" style="width:743px;">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h3 class="modal-title" id="tituloModal">Datos Básicos</h3>
+										<h3 class="modal-title" id="tituloModal">Archivo</h3>
 									</div>
-								<div class="modal-body">
-									<form role="form" id="form-lectura">
-										<input type="hidden" id="IDLECTURAASIGNADA" class="form-control" />							<div class="form-group" id="select_div">
-											<label for="PALABRACLAVE">Palabras Clave</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-book"></i></span>
-												<input type="PALABRACLAVE" class="form-control" id="PALABRACLAVE">
-											</div>
-										</div>												
-										<div class="form-group">
-											<label for="NOTASLECTURA">Notas de Lecturas</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-												<textarea type="NOTASLECTURA" class="form-control" id="NOTASLECTURA" rows="2"></textarea>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="OBSERVACIONES">Observaciones</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-												<textarea type="OBSERVACIONES" class="form-control" id="OBSERVACIONES" rows="2"></textarea>
-											</div>
-										</div>									    
-									</form>											
+								<div class="modal-body embedded" id="modalDiv">														
 								</div>
-								<div class="modal-header" id="headerElemento">
-									<h3 class="modal-title" id="tituloModal">Agregar Lectura</h3>
-							    </div>
-							    <div class="modal-body" id="bodyElemento">
-							    	<div class="row">
-							    		<div class"col-lg-12">
-							    			<div class="filter-block pull-right">
-												<div class="form-group pull-left">
-													<input type="text" class="form-control" placeholder="Buscar publicación..." id="criterioBusqueda">
-													<i class="fa fa-search search-icon"></i>
-												</div>
-											</div>
-										</div>
-									</div>	
-									<div class="table-responsive">
-									<table class="table tablesorter" id="tabla">
-										<thead>	
-											<tr>
-												<th class="text-center">
-													<span>Titulo</span>
-												</th>
-												<th class="text-center">
-													<span>Tipo</span>
-												</th>
-												<th class="text-center">
-													<span>Idioma</span>
-												</th>
-												<th class="text-center">
-													<span>Autor</span>
-												</th>
-												<th class="text-center">
-													<span>Elección</span>
-												</th>
-											</tr>
-										</thead>
-										<tbody id="listaPublicaciones">																							
-										</tbody>											
-									</table>
-									</div>																	
-								</div>								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-									<button type="button" id="guardarLectura" class="btn btn-primary" >
-										<span id="tituloBoton"></span>
-									</button>									
 								</div>
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->		                     	
-					<!--FIN MODAL AGREGAR ELEMENTO--> 
+					<!--FIN MODAL Archivos-->	                
 		                     <br><br>
 		                    <div class="row pull-center">
 		                    	<div class="col-md-4"></div>
 			                    <div class="col-md-4">      	
-	                    			<button type="button" class="btn btn-default" id="guardar">Crear Lista</button>
-	                    			<button type="button" class="btn btn-default" id="limpiar">Limpiar</button>
 	                    			<button type="button" class="btn btn-default" value="regresar" onClick="location.href='ViewGestionListaPublicacion.html'">Regresar</button>
                     			</div>
                     			<div class="col-md-4"></div>
@@ -315,7 +249,8 @@
 	<!-- this page specific scripts -->
 	<script src="../../template/js/select2.min.js"></script>
 	<script src="../../template/js/dropzone.js"></script>
-	<script src="../../javascript/Publicacion_Documental/listaPublicacionRegistro.js"></script>
+	<script src="../../javascript/Publicacion_Documental/listaPublicacionVer.js"></script>
+	<script src="../../template/js/pdfobject.js"></script>
 
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
