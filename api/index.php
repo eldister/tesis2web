@@ -13,7 +13,7 @@ include ("../back/Publicacion_Documental/serviciosAutor.php");
 include ("../back/Administracion_Usuario_Grupo/serviciosUsuario.php");
 include ("../back/Administracion_Usuario_Grupo/serviciosInstitucion.php");
 include ("../back/Administracion_Usuario_Grupo/serviciosGrupo.php");
-
+include ("../back/Busqueda/serviciosBusqueda.php");
 
 
 //ALBERT

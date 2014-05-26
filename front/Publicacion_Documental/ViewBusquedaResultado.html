@@ -45,8 +45,8 @@
 						<div class="drowdown-search">
 							<form role="search">
 								<div class="form-group">
-									<input id="busqueda-basica" type="text" class="form-control" placeholder="Búsqueda básica...">
-									<i class="fa fa-search nav-search-icon"></i>
+									<input id="criterioBusqueda" type="text" class="form-control" placeholder="Búsqueda básica...">
+									<i class="fa fa-search nav-search-icon"><a href="../publicacion_documental/ViewBusquedaResultado.html"></a></i>
 								</div>
 							</form>
 						</div>						
@@ -152,7 +152,7 @@
 									<div class="filter-block pull-right">									
 										<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
 											<i class="fa fa-crosshairs fa-lg"></i> 
-											<span>Búsqueda Avanzada</span>
+											<span>Búsqueda Basica</span>
 										</a>
 									</div>
 									<div class="table-responsive">
@@ -174,21 +174,8 @@
 												</tr>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td class="text-center">
-														<a href="#">Publicacion 1</a>
-													</td>
-													<td class="text-center"	>
-														<span >06/04/2014</span>
-													</td>
-													<td class="text-center"	>
-														<span >Artículo</span>
-													</td>
-													<td class="text-center"	>
-														<span >Español</span>
-													</td>
-												</tr>
+											<tbody id="listaPublicaciones">
+												
 											</tbody>	
 										</table>
 										<ul class="pagination pull-right">
@@ -230,24 +217,8 @@
 												</tr>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td class="text-center">
-														<span>30/01/2014</span>
-													</td>
-													<td class="text-center"	>
-														<span >Encabezado 1</span>
-													</td>
-													<td class="text-center"	>
-														<span >Articulo</span>
-													</td>
-													<td class="text-center"	>
-														<span >Título 1</span>
-													</td>
-													<td class="text-center"	>
-														<span >Publicacion 1</span>
-													</td>
-												</tr>
+											<tbody id="listaFichas">
+												
 											</tbody>	
 										</table>
 										<ul class="pagination pull-right">
@@ -285,6 +256,7 @@
 	<!-- global scripts -->
 	<script src="../../template/js/jquery.js"></script>
 	<script src="../../template/js/bootstrap.js"></script>
+	<script src="../../javascript/Busqueda/BusquedaBasica.js"></script>
 	
 	<!-- this page specific scripts -->
 	
