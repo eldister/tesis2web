@@ -5,6 +5,7 @@ var seleccionGrupos;
 var seleccionResponsable;
 var seleccionMiembros;
 
+var idiomas;
 function popularSelectIdioma(){
 	$.ajax({
 		type: 'GET',
@@ -12,12 +13,28 @@ function popularSelectIdioma(){
 	    dataType: "json",
 	    contentType: "application/json; charset=utf-8",
 	    success: function(data) {
+	       idiomas=data;
+	       armarModalBody(data);
 		   for (var i=0; i<data.length; i++) {
-		     $("#IDIOMA_SELECT").append('<option value="' + data[i].IDIDIOMA + '">' + data[i].NOMBRE + '</option>');
-		     $("#IDIOMA_SELECT_MODAL").append('<option value="' + data[i].IDIDIOMA + '">' + data[i].NOMBRE + '</option>');
+		     var opt='<option value="' + data[i].IDIDIOMA + '">' + data[i].NOMBRE + '</option>';
+		     $("#IDIOMA_SELECT").append(opt);
+		     $("#IDIOMA_SELECT_MODAL").append(opt);
+		     $("#selectIdiomaEtiqueta").append(opt);
 		   }
 	    }
 	});
+}
+
+function armarModalBody(data){
+
+	for (var i=0; i<data.length; i++) {
+		var fila ='<input type="hidden" id="IDETIQUETA" class="form-control" />';
+		fila += '<span id="ididioma-'+data[i].IDIDIOMA+'">'+data[i].NOMBRE+'</span>';
+		fila += '<div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-book"></i></span>';
+		fila += '<input type="NOMBRE" class="form-control" id="NOMBRE-'+data[i].IDIDIOMA+'"></div></div>';
+		$('#bodyEtiquetas').append(fila);
+	}
+
 }
 
 function popularSelectTipoPublicacion(){
@@ -347,15 +364,32 @@ function popularAutores(){
 	});
 }
 
-function popularEtiquetas(){
+function popularEtiquetas(ididioma){
 	$.ajax({
 		type: 'GET',
 	    url:'../../api/PD_getListaEtiqueta',
 	    dataType: "json",
 	    contentType: "application/json; charset=utf-8",
+	    async: false,
 	    success: function(data) {
+	    	$("#sel2Multi3").empty();
 		   	for (var i=0; i<data.length; i++) {
-			    $("#sel2Multi3").append('<option value="' + data[i].IDETIQUETA + '">' + data[i].NOMBRE + '</option>');
+		   		if(ididioma===data[i].IDIDIOMA){
+		   			if(seleccionEtiquetas!=null){
+		   				var cont=0;
+			   			for (var j=0; j<seleccionEtiquetas.length; j++) {
+			   				//obtener idrelacionado
+			   				var idBuscar=seleccionEtiquetas[j]["id"];
+			   				var obj =  $.grep(data, function(e){ return e.IDETIQUETA == idBuscar; });				   				
+
+							if(obj[0].IDETIQUETARELACIONADA===data[i].IDETIQUETARELACIONADA){
+								cont+=1;
+							}						
+						}
+						if (cont>0) continue;
+					}
+		    		$("#sel2Multi3").append('<option value="' + data[i].IDETIQUETA + '">' + data[i].NOMBRE + '</option>');
+		    	}
 		   	}
 	    }
 	});
@@ -432,24 +466,34 @@ function getId(){
 }
 
 function guardarEtiqueta(){
+	var listEtiquetas =[];
 	var obj = {};
 
-	obj["NOMBRE"] = $('#NOMBRE').val();
-	obj["IDIDIOMA"] =$('#IDIOMA_SELECT_MODAL').val();
-	obj["IDIOMA"]=$('#IDIOMA_SELECT_MODAL option:selected').text();
-	obj["OBSERVACION"] = $('#OBSERVACION').val();
+	var ruta = "";
+
+	ruta = "../../api/PD_registraEtiqueta";
+
+	for (var i=0; i<idiomas.length; i++) {
+		obj = { nombre:$('#NOMBRE-'+idiomas[i].IDIDIOMA+'').val(),
+				ididioma: idiomas[i].IDIDIOMA,
+				idioma: idiomas[i].NOMBRE
+				};
+		listEtiquetas.push(obj);
+	}
 
 	$.ajax({
 		type: 'POST',
-		url : "../../api/PD_registraEtiqueta",
+		url : ruta,
 		dataType: "json",
-		data: JSON.stringify(obj),
+		data: JSON.stringify(listEtiquetas),
 		contentType: "application/json; charset=utf-8",
-		success: function(obj){
+		success: function(data){
 			$('#detalleEtiqueta').modal('hide');
-			$("#sel2Multi3").append('<option value="' + obj[0].IDETIQUETA + '">' + obj[1].NOMBRE + '</option>');
+			$("#sel2Multi3").append('<option value="' + data[ididioma-1].IDETIQUETA + '">' + data[ididioma-1].NOMBRE + '</option>');
 		}
 	});
+	$('#bodyEtiquetas').empty();
+	armarModalBody(idiomas);
 }
 
 function guardarAutor(){
@@ -615,6 +659,14 @@ function llenarArchivos(){
 	});
 }
 
+var ididioma="1";
+function cambioIdiomaCombo(){
+	$("#selectIdiomaEtiqueta").change(function(){
+		ididioma=$(this).val();
+		popularEtiquetas(ididioma);
+	});
+}
+
 $(document).ready(function(){
 	idpublicacion = getUrlParameters("idpublicacion","", true);	
 	$('#FECHAPUB').datepicker({
@@ -623,6 +675,7 @@ $(document).ready(function(){
 	$("#DOI").mask("999.9999/9999999.9999999");
 	$("#ISSN").mask("9999-9999");
 	cargaHora();
+	cambioIdiomaCombo();
 	configurarDropzone();
 	cargarListaPersonas1();
 	cargarListaPersonas2();
@@ -631,7 +684,7 @@ $(document).ready(function(){
 	popularSelectTipoPublicacion();
 	iniciarNiceSelectBoxes();
 	popularAutores();
-	popularEtiquetas();
+	popularEtiquetas(ididioma);
 	llenarArchivos();
 	setTimeout(llenarCampos,20);
 	setTimeout(setCamposGrupos,300);

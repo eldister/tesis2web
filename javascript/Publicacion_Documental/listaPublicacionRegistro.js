@@ -32,10 +32,13 @@ function cargaGrupos(){
 
 function borrarCampos(){
 	$("#PALABRACLAVE").val('');
-	$("#NOTASLECTURA").val('');
+	$("#notasLectura").empty();
 	$("#OBSERVACIONES").val('');
 	$('#listaPublicaciones').empty();
 	$('#criterioBusqueda').val('');
+	indiceNota=1;
+	indice=null;
+	addNotaLectura();
 }
 
 var index=0;
@@ -50,8 +53,15 @@ function agregarFila(){
 		var idioma = $("#listaPublicaciones tr#fila-"+checkedradio+" td.idioma").html();
 		var autores = $("#listaPublicaciones tr#fila-"+checkedradio+" td.autores").html();
 		var palabrasclave = $("#PALABRACLAVE").val();
-		var notaslectura = $("#NOTASLECTURA").val();
+		//var notaslectura = $("#NOTASLECTURA").val();
 		var observaciones = $("#OBSERVACIONES").val();
+
+		var notasLectura =[];
+		for (var i = 0; i < indiceNota-1; i++) {
+			var ind = i+1;
+			var objNota={contenido:$("#NOTASLECTURA-"+ind+"").val()};
+			notasLectura.push(objNota);
+		};
 
 		var fila = '<tr id=f-'+index+'><td class="text-center title">'+titulo+'</td><td class="text-center palcla">'+palabrasclave+'</td>';
 	    fila += '<td class="text-center autors">'+autores+'</td><td style="width: 12%;padding-left: 30px;">';
@@ -65,13 +75,13 @@ function agregarFila(){
 					  idpublicacion:idpub,
 			          titulo:titulo,
 			          palabrasclave:palabrasclave,
-			          notaslectura:notaslectura,
+			          notaslectura:notasLectura,
 			          observaciones:observaciones,
-			          autores:autores
+			          autores:autores			       
 			      	  };
 	    index +=1;
 		listaLecturas.push(objLectura);
-		//console.log(listaLecturas);
+		console.log(listaLecturas);
 	}
 	else{
 		var idpub=indice[0].index;
@@ -80,10 +90,17 @@ function agregarFila(){
 		$.each(listaLecturas, function() {
 		    if (this.index === idpub) {
 		        this.palabrasclave=$("#PALABRACLAVE").val();
-		        this.notaslectura=$("#NOTASLECTURA").val();
+		        var notasLectura =[];
+				for (var i = 0; i < indice[0].notaslectura.length; i++) {
+					var ind = i+1;
+					var objNota={contenido:$("#NOTASLECTURA-"+ind+"").val()};
+					notasLectura.push(objNota);
+				};
+		        this.notaslectura=notasLectura;
 		        this.observaciones=$("#OBSERVACIONES").val();
 		    }
-		});		
+		});	
+		console.log(listaLecturas);	
 	}
 
 	borrarCampos();
@@ -148,8 +165,13 @@ function modificarLectura(){
 
 	indice =  $.grep(listaLecturas, function(e){ return e.index == idp; });
 
+	$("#notasLectura").empty();
 	$("#PALABRACLAVE").val(indice[0].palabrasclave);
-	$("#NOTASLECTURA").val(indice[0].notaslectura);
+
+	//$("#NOTASLECTURA").val(indice[0].notaslectura);
+	for (var i = 0; i < indice[0].notaslectura.length; i++) {
+		addNotaLecturaModificar(i+1,indice[0].notaslectura[i]);
+	};
 	$("#OBSERVACIONES").val(indice[0].observaciones);
 }
 
@@ -214,18 +236,42 @@ function iniciarNiceSelectBoxes(){
 }
 
 function cambiarTituloBoton(){
+	borrarCampos();
 	$('#tituloBoton').html('Agregar');
 	$('#headerElemento').show();
 	$('#bodyElemento').show();
 }
 
+function addNotaLecturaModificar(indice,nota){
+	var fila ='<br><div class="input-group" id="nota-'+indice+'">';
+	fila += '<span class="input-group-addon"><i class="fa fa-edit"></i></span>';
+	fila += '<textarea type="NOTASLECTURA" class="form-control" id="NOTASLECTURA-'+indice+'" rows="2">';
+	fila += nota.contenido;
+	fila += '</textarea></div>';
+
+	$('#notasLectura').append(fila);
+}
+
+function addNotaLectura(){
+
+	var fila ='<br><div class="input-group" id="nota-'+indiceNota+'">';
+	fila += '<span class="input-group-addon"><i class="fa fa-edit"></i></span>';
+	fila += '<textarea type="NOTASLECTURA" class="form-control" id="NOTASLECTURA-'+indiceNota+'" rows="2"></textarea>';
+	fila += '</div>';
+	indiceNota+=1;
+	$('#notasLectura').append(fila);
+}
+
+var indiceNota = 1;
 $(document).ready(function(){
 	iniciarNiceSelectBoxes();
 	cargaGrupos();
 	detectaBuscar();
+	addNotaLectura(indiceNota);
 	$("#guardarLectura").click(agregarFila);
 	$("#guardar").click(guardarCambios);
 	$("#agregar").click(cambiarTituloBoton);
+	$("#agregarNota").click(addNotaLectura);
 	$(document).on('click', '.modificar-lectura', modificarLectura);
 	$(document).on('click', '.eliminar-lectura', eliminarLectura);
 });
