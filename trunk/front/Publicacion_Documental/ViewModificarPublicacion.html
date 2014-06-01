@@ -170,7 +170,7 @@
 	                                        	</div>
 	                                        </div>
 	                                      	<div class="form-group">
-	                                            <label>Obtenido de</label>
+	                                            <label>Referencia(s)</label>
 	                                            <div class="input-group">
 	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
 	                                            	<textarea class="form-control" id="OBTENIDO" rows="3" placeholder="Nombre y/o descripción de ACM, IEEE u otra base de datos"></textarea>
@@ -181,7 +181,7 @@
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-globe"></i></span>
 													<select class="form-control" id="IDIOMA_SELECT" >
-										                <option selected>Seleccione el Idioma</option>
+										                
 										            </select>
 									            </div>	
 											</div>
@@ -190,7 +190,7 @@
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-book"></i></span>
 													<select class="form-control" id="TIPOPUBLICACION_SELECT" >
-										                <option selected>Seleccione el tipo de publicación</option>
+										                
 										            </select>
 									            </div>	
 											</div>		                                    
@@ -204,7 +204,7 @@
 		                                        </div>
 		                                    </div>
 											<div class="form-group">
-		                                        <label>Páginas</label>
+		                                        <label>Páginas (página inicial - página final)</label>
 		                                        <div class="input-group">
 		                                        	<span class="input-group-addon"><i class="fa fa-book"></i></span>
 		                                        	<input type="text" id="PAGINAS" name="PAGINAS" class="form-control">
@@ -279,6 +279,13 @@
 	                                </div>
 	                                <div class="row">
 	                                    <div class="col-md-12">
+	                                    	<label>Idioma de Etiquetas</label>
+	                                    	<div class="row">
+	                                    		<div class="col-md-3">
+	                                    			<select class="form-control" id="selectIdiomaEtiqueta"></select>
+	                                    		</div>
+	                                    	</div>
+	                                    	<br>
 	                                    	<label>Etiquetas</label>
 	                                    	<div class="row">
 	                                    		<div class="col-md-6">
@@ -376,30 +383,8 @@
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 										<h3 class="modal-title" id="tituloModal">Agregar Etiqueta</h3>
 									</div>
-								<div class="modal-body">
-									<form role="form" id="form-etiqueta">
-										<input type="hidden" id="IDETIQUETA" class="form-control" />
-										<div class="form-group">
-											<label for="NOMBRE">Etiqueta</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-book"></i></span>
-												<input type="NOMBRE" class="form-control" id="NOMBRE">
-											</div>
-										</div>
-										<div class="form-group" id="select_div">
-											<label for="IDIOMA_SELECT_MODAL">Idioma</label>
-											<select  class="form-control" id="IDIOMA_SELECT_MODAL" >
-								                <option selected>Seleccione el Idioma</option>
-								            </select>
-										</div>												
-										<div class="form-group">
-											<label for="OBSERVACION">Descripcion</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-												<input type="OBSERVACION" class="form-control" id="OBSERVACION">
-											</div>
-										</div>
-									</form>											
+								<div class="modal-body" id="bodyEtiquetas">
+																																										
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

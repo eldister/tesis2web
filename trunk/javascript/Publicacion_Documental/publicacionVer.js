@@ -2,13 +2,15 @@
 function llenarEtiquetas(){
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getListaEtiqueta',
+		url : '../../api/PD_getEtiquetaPublicacion/'+idpub,
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			var etiquetas="";
 			for(var i=0; i < data.length ; i++){
-				etiquetas+= data[i]["NOMBRE"] + ", ";
+				if(i+1===data.length) etiquetas+= data[i]["NOMBRE"];
+				else etiquetas+= data[i]["NOMBRE"] + ", ";
+
 			}
 			$('#etiquetasLista').append(etiquetas);
 		}
@@ -19,13 +21,14 @@ function llenarEtiquetas(){
 function llenarAutores(){
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getListaAutor',
+		url : '../../api/PD_getAutorPublicacion/'+idpub,
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			var autores="";
 			for(var i=0; i < data.length ; i++){
-				autores+= data[i]["NOM_APE"] + ", ";
+				if(i+1===data.length)autores+= data[i]["NOM_APE"];
+				else autores+= data[i]["NOM_APE"] + ", ";
 			}
 			$('#autoresLista').append(autores);
 		}
