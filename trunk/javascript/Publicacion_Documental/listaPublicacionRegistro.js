@@ -91,7 +91,7 @@ function agregarFila(){
 		    if (this.index === idpub) {
 		        this.palabrasclave=$("#PALABRACLAVE").val();
 		        var notasLectura =[];
-				for (var i = 0; i < indice[0].notaslectura.length; i++) {
+				for (var i = 0; i < $("#notasLectura > div").length; i++) {
 					var ind = i+1;
 					var objNota={contenido:$("#NOTASLECTURA-"+ind+"").val()};
 					notasLectura.push(objNota);
@@ -172,6 +172,7 @@ function modificarLectura(){
 	for (var i = 0; i < indice[0].notaslectura.length; i++) {
 		addNotaLecturaModificar(i+1,indice[0].notaslectura[i]);
 	};
+	indiceNota=indice[0].notaslectura.length+1;
 	$("#OBSERVACIONES").val(indice[0].observaciones);
 }
 

@@ -7,5 +7,5 @@
 	$app->get('/PD_getGrupoListaPublicacion/:id','getGrupoListaPublicacion');	
 	$app->post('/PD_modificaListaPublicacion','modificaListaPublicacion');
 	$app->post('/PD_eliminaListaPublicacion','eliminaListaPublicacion');
-	
+	$app->post('/PD_getPublicacionesEnlace','getPublicacionesEnlace');	
 ?>

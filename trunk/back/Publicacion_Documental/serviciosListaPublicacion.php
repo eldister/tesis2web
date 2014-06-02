@@ -19,7 +19,7 @@
 		}
 		else{ //es admin
 			$pstmt = $con->prepare("SELECT L.idlistapublicacion, L.nombreabr, DATE_FORMAT(L.fecharegistro,'%e-%m-%y') as 									fecharegistro, L.estado 
-    								from listapublicacion L, listapubxgrupo G where L.estado=1");
+    								from listapublicacion L where L.estado=1");
 			$pstmt->execute();			
 		}
 
@@ -44,8 +44,30 @@
 
 		$listaLecturas = array();
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
-			$listaLecturas[] = $element;
+			
+			$pstmt2 = $con->prepare("SELECT CONTENIDO FROM NOTALECTURA WHERE IDLECTURAASIGNADA=?");
+			$pstmt2->execute(array($element["IDLECTURAASIGNADA"]));
+
+			$notaslectura=array();
+			while($nota = $pstmt2->fetch(PDO::FETCH_ASSOC)){
+				$notaslectura[]=$nota;
+			}
+
+			$nodo = array(
+					"NOMBREABR"=>$element["NOMBREABR"],
+					"IDLECTURAASIGNADA"=>$element["IDLECTURAASIGNADA"],
+					"TITULO"=>$element["TITULO"],
+					"PALABRASCLAVE"=>$element["PALABRASCLAVE"],
+					"NOTASLECTURA"=>$notaslectura,
+					"OBSERVACIONES"=>$element["OBSERVACIONES"],
+					"AUTORES"=>$element["AUTORES"],
+					"URL"=>$element["URL"],
+					"IDPUBLICACION"=>$element["IDPUBLICACION"],
+					);			
+
+			$listaLecturas[] = $nodo;
 		}
+		//print_r($listaLecturas);
 		echo json_encode($listaLecturas);
 	}
 
@@ -100,6 +122,39 @@
 	    return $token;
 	}
 
+	function enviarCorreo($lista,$tokenlink){
+			
+		$MENSAJE='Estimados participantes:'."\r\n".'Se acaba de crear una nueva lista de publicacion para su revision'."\r\n";
+		$MENSAJE.='Pueden ingresar a esta a travos del siguiente enlace:'."\r\n\n".'http://localhost/tesis2web/listapublicacion.html?id='.$tokenlink;
+		$MENSAJE.="\r\n\n".'Saludos Cordiales';
+		//pendiente firma del mensaje
+		$MENSAJE.="\r\n\n".'PD: Tildes omitidas intencionalmente';
+
+		include('Mail.php');
+		
+		$correos=array();
+		for ($i=0; $i < count($lista) ; $i++) { 
+			$correos[]=$lista[$i]["correo_institucional"];
+		}
+
+	    $recipients = implode(", ",$correos);
+
+	    $headers['From']    = 'eli03nage@gmail.com';
+	    $headers['To']      = $recipients;
+	    $headers['Subject'] = 'ProCal-ProSer - Nueva Lista de Publicación';
+
+	    $body = $MENSAJE;
+
+	    $smtpinfo["host"] = "smtp.gmail.com";
+	    $smtpinfo["port"] = "587";
+	    $smtpinfo["auth"] = true;
+	    $smtpinfo["username"] = "eli03nage";
+	    $smtpinfo["password"] = "nadyab90";
+
+	    $mail_object =& Mail::factory("smtp", $smtpinfo); 
+	    $mail_object->send($recipients, $headers, $body);
+	}
+
 	function registraListaPublicacion(){
 		$request = \Slim\Slim::getInstance()->request();
 		$data = json_decode($request->getBody(),TRUE);
@@ -130,7 +185,7 @@
 			}
 			$pstmt = $con->prepare("INSERT INTO LECTURAASIGNADA VALUES(null,?,?,'notasDemo',?,?,?,?)");
 			$pstmt->execute(array($lectura["titulo"],$lectura["palabrasclave"],
-									$lectura["observaciones"],$lectura["autores"],$lastLista,$idarchivo));
+						$lectura["observaciones"],$lectura["autores"],$lastLista,$idarchivo));
 
 			$lastlectura = $con->lastInsertId();
 			$notasLectura = $data["lecturas"][$i]["notaslectura"];
@@ -141,8 +196,28 @@
 			}
 		}
 
+		//ENVIAR A MIEMBROS DE GRUPOS SELECCIONADOS (pendiente probar)
+		$pstmt = $con->prepare("SELECT idgrupo from LISTAPUBXGRUPO where idlistapublicacion=?");
+		$pstmt->execute(array($lastLista));
+		$listaIdsGrupo=array();
+		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaIdsGrupo[]=$element["idgrupo"];
+		}
+
+		$cadenaGrupos=implode(",",$listaIdsGrupo);		
+		
+		$pstmt = $con->prepare("SELECT distinct U.nombres, U.apellidos, U.correo_institucional
+								from usuarioxgrupo GU, usuario U
+								where GU.idgrupo in (?) and U.idusuario<>1");
+		$pstmt->execute(array($cadenaGrupos));
+		$listaUsuarios=array();
+		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaUsuarios[]=$element;
+		}
+		enviarCorreo($listaUsuarios,$tokenlink);
+
 		if(count($mensajes)>0){
-			echo json_encode(array("status"=>0));
+			 echo json_encode(array("status"=>0));
 		}
 		else echo json_encode(array("status"=>1));
 
@@ -167,6 +242,18 @@
 		}
 
 		//PUBLICACIONES
+		$pstmt = $con->prepare("SELECT IDLECTURAASIGNADA FROM LECTURAASIGNADA WHERE IDLISTAPUBLICACION=?");
+		$pstmt->execute(array($data["idlp"]));
+		$listaIds = array();
+		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaIds[] = $element;
+		}
+
+		for ($i=0; $i < count($listaIds); $i++) { 
+			$pstmt = $con->prepare("DELETE FROM NOTALECTURA WHERE IDLECTURAASIGNADA=?");
+			$pstmt->execute(array($listaIds[$i]["IDLECTURAASIGNADA"]));
+		}
+
 		$pstmt = $con->prepare("DELETE FROM LECTURAASIGNADA WHERE IDLISTAPUBLICACION=?");
 		$pstmt->execute(array($data["idlp"]));
 
@@ -179,9 +266,17 @@
 				$mensajes[]="error";
 				break;
 			}
-			$pstmt = $con->prepare("INSERT INTO LECTURAASIGNADA VALUES(null,?,?,?,?,?,?,?)");
-			$pstmt->execute(array($lectura["titulo"],$lectura["palabrasclave"],$lectura["notaslectura"],
+			$pstmt = $con->prepare("INSERT INTO LECTURAASIGNADA VALUES(null,?,?,'notasDemo',?,?,?,?)");
+			$pstmt->execute(array($lectura["titulo"],$lectura["palabrasclave"],
 									$lectura["observaciones"],$lectura["autores"],$data["idlp"],$idarchivo));
+
+			$lastlectura = $con->lastInsertId();
+			$notasLectura = $data["lecturas"][$i]["notaslectura"];
+
+			for($j=0; $j<count($notasLectura); $j++){
+				$pstmt = $con->prepare("INSERT INTO NOTALECTURA VALUES(NULL,?,?)");
+				$pstmt->execute(array($notasLectura[$j]["contenido"],$lastlectura));
+			}
 		}
 
 		if(count($mensajes)>0){
@@ -243,7 +338,48 @@
 			$listaPublicaciones[] = $req;
 		}
 		echo json_encode($listaPublicaciones);
+	}
 
+	function getPublicacionesEnlace(){
+		$request = \Slim\Slim::getInstance()->request();
+		$data = json_decode($request->getBody(),TRUE);
+			
+		$con=getConnection();
+		$pstmt = $con->prepare("SELECT LP.IDLISTAPUBLICACION, LP.NOMBREABR, L.IDLECTURAASIGNADA, L.TITULO, L.PALABRASCLAVE, L.NOTASLECTURA, 
+								L.OBSERVACIONES, L.AUTORES, A.URL, P.IDPUBLICACION
+								from LECTURAASIGNADA L, ARCHIVO A, LISTAPUBLICACION LP, PUBLICACION P
+								WHERE LP.TOKENLINK=? AND A.IDARCHIVO=L.IDARCHIVO AND 
+									LP.IDLISTAPUBLICACION=L.IDLISTAPUBLICACION AND P.IDPUBLICACION=A.IDPUBLICACION");
+		$pstmt->execute(array($data["idenlace"]));
+
+		$listaLecturas = array();
+		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			
+			$pstmt2 = $con->prepare("SELECT CONTENIDO FROM NOTALECTURA WHERE IDLECTURAASIGNADA=?");
+			$pstmt2->execute(array($element["IDLECTURAASIGNADA"]));
+
+			$notaslectura=array();
+			while($nota = $pstmt2->fetch(PDO::FETCH_ASSOC)){
+				$notaslectura[]=$nota;
+			}
+
+			$nodo = array(
+					"IDLISTAPUBLICACION"=>$element["IDLISTAPUBLICACION"],
+					"NOMBREABR"=>$element["NOMBREABR"],
+					"IDLECTURAASIGNADA"=>$element["IDLECTURAASIGNADA"],
+					"TITULO"=>$element["TITULO"],
+					"PALABRASCLAVE"=>$element["PALABRASCLAVE"],
+					"NOTASLECTURA"=>$notaslectura,
+					"OBSERVACIONES"=>$element["OBSERVACIONES"],
+					"AUTORES"=>$element["AUTORES"],
+					"URL"=>$element["URL"],
+					"IDPUBLICACION"=>$element["IDPUBLICACION"],
+					);			
+
+			$listaLecturas[] = $nodo;
+		}
+		//print_r($listaLecturas);
+		echo json_encode($listaLecturas);
 	}
 
 ?>

@@ -22,7 +22,6 @@ function getUrlParameters(parameter, staticURL, decode){
    
    if(!returnBool) return false;  
 }
-
 function llenaTabla(data){
 	for(var i=0; i < data.length ; i++){
 		var fila = '<tr id=fila-'+ data[i]["IDLECTURAASIGNADA"] +'>';
@@ -30,51 +29,12 @@ function llenaTabla(data){
 		fila += '<td class="text-center">'+data[i]["TITULO"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["PALABRASCLAVE"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["AUTORES"]+'</td>';
-		fila += '<td style="width: 12%;padding-left: 30px;">'
-		fila +=	'<a class="ver-archivo table-link" url="'+data[i]["URL"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a>';
-		fila += '</td></tr>';
+		fila += '</tr>';
 		$('#listaLecturas').append(fila);
 	}
-
-	$(document).on('click', '.ver-archivo', verArchivo);
 }
 
-function verArchivo(){
-	$(".selected").removeClass("selected");
-	$(this).parent().parent().addClass("selected");
-	var url=this.getAttribute("url");
-	var newurl='../'+url;
-	var myPDF = new PDFObject({
-	  url: newurl,
-	  id: "archPDF",
-	  width: "700px",
-  	  height: "900px",
-	  pdfOpenParams: {
-	  	toolbar: 0,
-	    navpanes: 0,
-	    statusbar: 0,
-	    view: "FitH",
-	  }
-	}).embed("modalDiv");
-	$('#detalleArchivo').modal("show");
-
-}
 var lecturas;
-function cargaPublicacionesxLista(){
-	var obj={idlp:idlp};
-	$.ajax({
-		type: 'POST',
-		url : '../../api/PD_getPublicacionesLista',
-		dataType: "json",
-		data: JSON.stringify(obj),
-		contentType: "application/json; charset=utf-8",
-		success: function (data){
-			$("#tema").html(data[0]["NOMBREABR"]);
-			lecturas=data;
-			llenaTabla(data);
-		}
-	});
-}
 
 function cargaPublicacionesExtendida(){
 
@@ -90,7 +50,6 @@ function cargaPublicacionesExtendida(){
 		for (var j = 0; j < lecturas[i]["NOTASLECTURA"].length; j++) {
 			fila += '<p class="list-group-item-text">-Nota '+(j+1)+': '+lecturas[i]["NOTASLECTURA"][j]["CONTENIDO"]+'</p>';
 		};
-		fila += '<h5 class="list-group-item-text"><a class="ver-archivo" url="'+lecturas[i]["URL"]+'">Ver Archivo</a></h5>';
 		fila += '</div>';
 
 		$('#divExtendida').append(fila);
@@ -102,7 +61,7 @@ function cambiaDisplay(idvista){
 		$("#listaLecturas").empty();
 		$("#divExtendida").hide();
 		$("#divCompacta").show();
-		cargaPublicacionesxLista();
+		llenaTabla(lecturas);
 	}
 	else{//extendida
 		$("#divExtendida").empty();
@@ -110,7 +69,6 @@ function cambiaDisplay(idvista){
 		$("#divExtendida").show();
 		cargaPublicacionesExtendida();
 	}
-
 }
 
 function cambioIdiomaCombo(){
@@ -119,11 +77,35 @@ function cambioIdiomaCombo(){
 	});
 }
 
-var idlp,idvista="1";
+function validarEnlace(){
+	var obj={idenlace:idenlace};
+	$.ajax({
+		type: 'POST',
+		url : '../tesis2web/api/PD_getPublicacionesEnlace',
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function (data){
+			if(data.length>0){
+				$("#tema").html(data[0]["NOMBREABR"]);
+				idlp=data[0]["IDLISTAPUBLICACION"];
+				lecturas=data;
+				llenaTabla(data);				
+			}
+			else{
+				$("#mainbox").empty();
+				var fila="<h4>El enlace proporcionado es inválido, por tanto no tiene permisos para ver su contenido.</h4>";
+				$("#mainbox").append(fila);
+			}
+		}
+	});
+}
+
+var idenlace,idlp,idvista="1",lecturas;
 $(document).ready(function(){
-	idlp=getUrlParameters("idlp","",true);
-	//cargaPublicacionesxLista();
+	idenlace=getUrlParameters("id","",true);
+	validarEnlace();
 	cambioIdiomaCombo();
-	cambiaDisplay(idvista);
+	//cambiaDisplay(idvista);
 	
 });
