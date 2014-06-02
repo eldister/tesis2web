@@ -81,6 +81,7 @@ function cargaGrupos(){
 }
 var index=0;
 function llenaPublicaciones(data){
+
 	for(var i=0; i < data.length ; i++){
 		var fila = '<tr id=f-'+index+'><td class="text-center title">'+data[i]["TITULO"]+'</td>';
 		fila += '<td class="text-center palcla">'+data[i]["PALABRASCLAVE"]+'</td>';
@@ -89,11 +90,18 @@ function llenaPublicaciones(data){
 		fila +=	'<a class="eliminar-lectura table-link danger" idpublicacion='+index+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		fila +=	'</td></tr>';
 					
+		var objNota;
+		var listaNota=[];
+		for (var j = 0; j < data[i]["NOTASLECTURA"].length; j++) {
+			objNota={contenido:data[i]["NOTASLECTURA"][j]["CONTENIDO"]};
+			listaNota.push(objNota);
+		};
+
 		objLectura = {index:index,
 					  idpublicacion:data[i]["IDPUBLICACION"],
 			          titulo:data[i]["TITULO"],
 			          palabrasclave:data[i]["PALABRASCLAVE"],
-			          notaslectura:data[i]["NOTASLECTURA"],
+			          notaslectura:listaNota,
 			          observaciones:data[i]["OBSERVACIONES"],
 			          autores:data[i]["AUTORES"]
 			      	  };
@@ -121,10 +129,13 @@ function cargaLecturas(){
 
 function borrarCampos(){
 	$("#PALABRACLAVE").val('');
-	$("#NOTASLECTURA").val('');
+	$("#notasLectura").empty();
 	$("#OBSERVACIONES").val('');
 	$('#listaPublicaciones').empty();
 	$('#criterioBusqueda').val('');
+	indiceNota=1;
+	indice=null;
+	addNotaLectura();
 }
 
 
@@ -139,8 +150,15 @@ function agregarFila(){
 		var idioma = $("#listaPublicaciones tr#fila-"+checkedradio+" td.idioma").html();
 		var autores = $("#listaPublicaciones tr#fila-"+checkedradio+" td.autores").html();
 		var palabrasclave = $("#PALABRACLAVE").val();
-		var notaslectura = $("#NOTASLECTURA").val();
+
 		var observaciones = $("#OBSERVACIONES").val();
+
+		var notasLectura =[];
+		for (var i = 0; i < indiceNota-1; i++) {
+			var ind = i+1;
+			var objNota={contenido:$("#NOTASLECTURA-"+ind+"").val()};
+			notasLectura.push(objNota);
+		};
 
 		var fila = '<tr id=f-'+index+'><td class="text-center title">'+titulo+'</td><td class="text-center palcla">'+palabrasclave+'</td>';
 	    fila += '<td class="text-center autors">'+autores+'</td><td style="width: 12%;padding-left: 30px;">';
@@ -154,7 +172,7 @@ function agregarFila(){
 					  idpublicacion:idpub,
 			          titulo:titulo,
 			          palabrasclave:palabrasclave,
-			          notaslectura:notaslectura,
+			          notaslectura:notasLectura,
 			          observaciones:observaciones,
 			          autores:autores
 			      	  };
@@ -169,7 +187,14 @@ function agregarFila(){
 		$.each(listaLecturas, function() {
 		    if (this.index === idpub) {
 		        this.palabrasclave=$("#PALABRACLAVE").val();
-		        this.notaslectura=$("#NOTASLECTURA").val();
+		        var notasLectura =[];
+		        var cantidadNotas= $("#notasLectura > div").length;
+				for (var i = 0; i < cantidadNotas; i++) {
+					var ind = i+1;
+					var objNota={contenido:$("#NOTASLECTURA-"+ind+"").val()};
+					notasLectura.push(objNota);
+				};
+		        this.notaslectura=notasLectura;
 		        this.observaciones=$("#OBSERVACIONES").val();
 		    }
 		});		
@@ -179,6 +204,7 @@ function agregarFila(){
 	$('#agregarElemento').modal('hide');
 
 }
+
 
 function llenaTabla(data){
 	for(var i=0; i < data.length ; i++){
@@ -237,8 +263,13 @@ function modificarLectura(){
 
 	indice =  $.grep(listaLecturas, function(e){ return e.index == idp; });
 
+	$("#notasLectura").empty();
 	$("#PALABRACLAVE").val(indice[0].palabrasclave);
-	$("#NOTASLECTURA").val(indice[0].notaslectura);
+
+	for (var i = 0; i < indice[0].notaslectura.length; i++) {
+		addNotaLecturaModificar(i+1,indice[0].notaslectura[i]);
+	};
+	indiceNota=indice[0].notaslectura.length+1;
 	$("#OBSERVACIONES").val(indice[0].observaciones);
 }
 
@@ -305,23 +336,47 @@ function iniciarNiceSelectBoxes(){
 }
 
 function cambiarTituloBoton(){
+	borrarCampos();
 	$('#tituloBoton').html('Agregar');
 	$('#headerElemento').show();
 	$('#bodyElemento').show();
 }
 
+function addNotaLecturaModificar(indice,nota){
+	var fila ='<br><div class="input-group" id="nota-'+indice+'">';
+	fila += '<span class="input-group-addon"><i class="fa fa-edit"></i></span>';
+	fila += '<textarea type="NOTASLECTURA" class="form-control" id="NOTASLECTURA-'+indice+'" rows="2">';
+	fila += nota.contenido;
+	fila += '</textarea></div>';
+
+	$('#notasLectura').append(fila);
+}
+
+function addNotaLectura(){
+
+	var fila ='<br><div class="input-group" id="nota-'+indiceNota+'">';
+	fila += '<span class="input-group-addon"><i class="fa fa-edit"></i></span>';
+	fila += '<textarea type="NOTASLECTURA" class="form-control" id="NOTASLECTURA-'+indiceNota+'" rows="2"></textarea>';
+	fila += '</div>';
+	indiceNota+=1;
+	$('#notasLectura').append(fila);
+}
+
 var idlp=getUrlParameters("idlp","",true);
+var indiceNota = 1;
 $(document).ready(function(){
 	iniciarNiceSelectBoxes();
 	setCamposGruposInicial();
 	cargaGrupos();
 	detectaBuscar();
-	cargaLecturas();	
+	cargaLecturas();
+	addNotaLectura(indiceNota);	
 	setTimeout(setCamposGrupos(),300);
 	
 	$("#guardarLectura").click(agregarFila);
 	$("#guardar").click(guardarCambios);
 	$("#agregar").click(cambiarTituloBoton);
+	$("#agregarNota").click(addNotaLectura);
 	$(document).on('click', '.modificar-lectura', modificarLectura);
 	$(document).on('click', '.eliminar-lectura', eliminarLectura);
 });

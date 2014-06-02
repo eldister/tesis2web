@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ProCal-ProSer</title>
+	
+	<!-- bootstrap -->
+	<link href="template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+
+	<!-- libraries -->
+	<link href="template/css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="template/css/compiled/layout.css">
+	<link rel="stylesheet" type="text/css" href="template/css/compiled/elements.css">
+
+	<!-- this page specific styles -->
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
+	<![endif]-->
+</head>
+<body>
+	<header class="navbar hidden-xs hidden-sm" id="header-navbar">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-6">
+					<a href="index.html" id="logo">
+						<img src="template/img/logos/logoPCPS_mini.jpg" alt=""/> 
+					</a>
+				</div>
+				<div class="col-xs-6" align="right">
+					<h5><a href="login.html">Ingresar</a></h5>
+				</div>		
+			</div>	
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-12" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12" >						
+						<h1 id="titulo">Lista de Publicación</h1>
+						<div class="main-box clearfix" id="mainbox">
+							<form role="form"  action="" id="form">
+								<h2>Lecturas de la Lista</h2>
+								<h3><span>Datos Básicos</span></h3>
+	                            <div class="row">		                            	
+	                                <div class="col-lg-12">		                                    
+                                        <div class="form-group">	                                        	
+                                            <label>Tema</label>
+                                            <h4 id="tema"></h4>
+                                        </div>	                                                           
+	                                </div>
+	                            </div>
+	                            <h3><span>Lecturas que deben revisarse</span></h3>
+	                            <h4><span>Para poder visualizarlas debe <a href="login.html">ingresar</a> al sistema</span></h4>		                            
+									<div class="clearfix">
+										<div class="filter-block pull-right">														<select type="tipovista" class="form-control" id="tipovista">
+												<option value="1">Vista Compacta</option>
+												<option value="2">Vista Extendida</option>
+											</select>
+										</div>
+									</div>
+									<div class="table-responsive" id="divCompacta">
+										<table class="table tablesorter" id="tabla">
+											<thead>	
+												<tr>
+													<th class="text-center">
+														<span>Titulo</span>
+													</th>
+													<th class="text-center">
+														<span>Palabras Clave</span>
+													</th>
+												    <th class="text-center">
+														<span>Autor(es)</span>
+													</th>
+												</tr>
+											</thead>
+											<tbody id="listaLecturas">
+												
+											</tbody>											
+										</table>
+									</div>
+									<div class="list-group" id="divExtendida">
+										
+									</div>								
+                    		</form>							
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2014 INV-TOOL. Powered by Nadya - Albert
+		</p>
+	</footer>
+	
+	<!-- global scripts -->
+	<script src="template/js/jquery.js"></script>
+	<script src="template/js/bootstrap.js"></script>
+	
+	<!-- this page specific scripts -->
+	<script src="javascript/Publicacion_Documental/listaPublicacionEnlace.js"></script>
+	
+	<!-- theme scripts -->
+	<script src="template/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+	
+
+</body>
+</html>
