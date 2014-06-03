@@ -10,21 +10,49 @@ function getId(){
 }
 
 function llenaTabla(data){
-	for(var i=0; i < data.length ; i++){
-		var fila = '<tr id=fila-'+ data[i]["IDPUBLICACION"] +'>';
+
+	$('#CANTIDADP').val(data["CANTIDADP"]);
+
+	for(var i=0; i < data["PUBLICACIONES"].length ; i++){
+		var fila = '<tr id=fila-'+ data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'>';
 		fila +='<td style="display:none;">';
-		fila += '<td class="text-center titulo">'+data[i]["TITULO"]+'</td>';		
-		fila += '<td class="text-center tipo">'+data[i]["TIPO"]+'</td>';
-		fila += '<td class="text-center idioma">'+data[i]["IDIOMA"]+'</td>';
-		fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
-		fila += '<td class="text-center"><input id="opcion'+data[i]["IDPUBLICACION"]+'" type="radio" name="radio" value="'+data[i]["IDPUBLICACION"]+'"></td>'	
+		fila += '<td class="text-center titulo">'+data["PUBLICACIONES"][i][i]["TITULO"]+'</td>';		
+		fila += '<td class="text-center tipo">'+data["PUBLICACIONES"][i][i]["DESCRIPCION"]+'</td>';
+		fila += '<td class="text-center tipo">'+data["PUBLICACIONES"][i][i]["FUENTE"]+'</td>';
+		fila += '<td class="text-center idioma">'+data["PUBLICACIONES"][i][i]["IDIOMA"]+'</td>';
+		//fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
+		fila += '<td style="width: 23%;padding-left: 100px;">'
+		fila += '<a class="ver-publicacion table-link" href="ViewVerPublicacion.html?idpublicacion='+data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
 		fila += '</tr>';
 		$('#listaPublicaciones').append(fila);		
 	}	
 }
 
+
+function getUrlParameters(parameter, staticURL, decode){
+   var currLocation = (staticURL.length)? staticURL : window.location.search,
+       parArr = currLocation.split("?")[1].split("&"),
+       returnBool = true;
+   
+   for(var i = 0; i < parArr.length; i++){
+        parr = parArr[i].split("=");
+        if(parr[0] == parameter){
+            return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+            returnBool = true;
+        }else{
+            returnBool = false;            
+        }
+   }
+   
+   if(!returnBool) return false;  
+}
+
 function realizarBusqueda(){
-	var obj={criterio:$('#criterioBusqueda').val()};
+	
+	var IDUSUARIO=getId();
+	var obj = {};
+	obj["IDUSUARIO"]=IDUSUARIO;
+	obj["criterio"]=getUrlParameters("id","",true);
 
 	
 	$.ajax({
@@ -34,36 +62,40 @@ function realizarBusqueda(){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function (data){
+			//alert("aaaaaaaaaaaaaa");
 			llenaTabla(data);
 		}
 	});
 }
 
-function detectaBuscar(){
-	
-	/*$('#criterioBusqueda').bind("enterKey",function(e){
-		//$('#listaPublicaciones').empty();	
-		//$('#listaFichas').empty();	
-		//realizarBusqueda();
-		alert("Se presiono enter");
-	});
-	$('#criterioBusqueda').keyup(function(e){
-		if(e.keyCode == 13)
-		{
-		  $(this).trigger("enterKey");
-		}
-	});*/
 
-	$('#criterioBusqueda').keypress(function(event) {
+
+$(document).ready(function(){
+	//detectaBuscar();
+
+	realizarBusqueda();
+
+	var enterpressed=false;
+	var NOMBRE;
+	$("#criterioBusqueda").keypress(function(event) {
 		 if (event.keyCode == 13) {
 		 	$('#listaPublicaciones').empty();	
 			$('#listaFichas').empty();
-			realizarBusqueda();
-		 	alert("Se presiono enter");
+			NOMBRE=$("#criterioBusqueda").val();
+			//realizarBusqueda();
+				//window.location.href = "../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html?id=" + IDGRUPO;
+			enterpressed=true;
+		 	//alert("Se presiono enter");
+		 	//window.location.href = '../Publicacion_Documental/ViewListaPublicacion.html?id='+NOMBRE;
+		 	if(enterpressed) window.location.href = "../Publicacion_Documental/ViewBusquedaResultado.html?id="+NOMBRE;
 		 }
-	 });
-}
+		 else{
 
-$(document).ready(function(){
-	detectaBuscar();
+		 	//var obj=event.keyCode;
+		 	//alert(obj);
+		 	//alert("no se presiono nada");
+		 }
+	});
+	
+	//$("#guardar").click(guardarCambios);
 });
