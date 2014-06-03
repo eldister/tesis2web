@@ -43,12 +43,12 @@
 					<li class="mobile-search">
 						<a class="btn"><i class="fa fa-search"></i></a>						
 						<div class="drowdown-search">
-							<form role="search">
+							<!--<form role="search"> ESTO NO VA-->
 								<div class="form-group">
 									<input id="criterioBusqueda" type="text" class="form-control" placeholder="Búsqueda básica...">
-									<i class="fa fa-search nav-search-icon"><a href="../publicacion_documental/ViewBusquedaResultado.html"></a></i>
+									<i class="fa fa-search nav-search-icon"></i>
 								</div>
-							</form>
+							<!--</form>-->
 						</div>						
 					</li>
 					<li class="dropdown hidden-xs">
@@ -148,12 +148,21 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
-									<h2 class="pull-left">Resultados para publicaciones</h2>
+									<h3 class="pull-left">Resultados para publicaciones</h3>
+
 									<div class="filter-block pull-right">									
-										<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
+										<!--<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
 											<i class="fa fa-crosshairs fa-lg"></i> 
 											<span>Búsqueda Basica</span>
-										</a>
+										</a>-->
+										<label id="" style="width: 1050px;" >Cantidad de publicaciones encontradas:<input readOnly type="CANTIDADP"  id="CANTIDADP"></input></label >
+										<div class="form-group">
+													
+													<!--<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-user"></i></span>
+														<input type="CANTIDADP" class="form-control" id="CANTIDADP" readonly>
+													</div>-->
+										</div>
 									</div>
 									<div class="table-responsive">
 										<table class="table user-list">
@@ -163,13 +172,16 @@
 														<span>Título</span>
 													</th>
 													<th class="text-center">
-														<span>Fecha Registro</span>
+														<span>Tipo de Publicacion</span>
 													</th>
 													<th class="text-center">
-														<span>Tipo de Publicación</span>
+														<span>Fuente</span>
 													</th>
 													<th class="text-center">
 														<span>Idioma</span>
+													</th>
+													<th class="text-center">
+														<span>Ver Publicacion</span>
 													</th>
 												</tr>
 												</tr>
@@ -194,7 +206,7 @@
 												</li>
 										</ul>
 									</div>
-									<h2 class="pull-left">Resultados para fichas bibliográficas</h2>
+									<h3 class="pull-left">Resultados para fichas bibliográficas</h3>
 									<div class="table-responsive">
 										<table class="table user-list">
 											<thead>	
