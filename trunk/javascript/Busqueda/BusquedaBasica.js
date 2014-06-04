@@ -12,6 +12,7 @@ function getId(){
 function llenaTabla(data){
 
 	$('#CANTIDADP').val(data["CANTIDADP"]);
+	$('#CANTIDADF').val(data["CANTIDADF"]);
 
 	for(var i=0; i < data["PUBLICACIONES"].length ; i++){
 		var fila = '<tr id=fila-'+ data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'>';
@@ -26,6 +27,22 @@ function llenaTabla(data){
 		fila += '</tr>';
 		$('#listaPublicaciones').append(fila);		
 	}	
+
+	for(var i=0; i < data["FICHAS"].length ; i++){
+		var fila = '<tr id=fila-'+ data["FICHAS"][i][i]["IDFICHABIB"]+'>';
+		fila +='<td style="display:none;">';
+		fila += '<td class="text-center titulo">'+data["FICHAS"][i][i]["ENCABEZADO"]+'</td>';		
+		fila += '<td class="text-center tipo">'+data["FICHAS"][i][i]["TITULO_ABREVIADO"]+'</td>';
+		fila += '<td class="text-center tipo">'+data["FICHAS"][i][i]["NOMBRE"]+'</td>';
+		//fila += '<td class="text-center idioma">'+data["FICHAS"][i][i]["IDIOMA"]+'</td>';
+		//fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
+		fila += '<td style="width: 23%;padding-left: 100px;">'
+		fila += '<a class="ver-publicacion table-link" href="ViewVerFicha.html?idficha='+data["FICHAS"][i][i]["IDFICHABIB"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
+		fila += '</tr>';
+		$('#listaFichas').append(fila);		
+	}	
+
+
 }
 
 
