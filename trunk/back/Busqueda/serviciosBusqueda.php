@@ -4,6 +4,62 @@
 	include_once '../back/conexion.php';
 
 
+
+function guardaHistorialP(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDPUBLICACION=$data->{"IDPUBLICACION"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+    $pstmt = $con->prepare("SELECT H.NUMVECES, H.IDHISTORIALBUSQUEDA FROM HISTORIALBUSQUEDA H WHERE H.IDPUBLICACION=$IDPUBLICACION AND H.IDUSUARIO=$IDUSUARIO");
+	$pstmt->execute(array());
+	$NUMVECES = $pstmt->fetch(PDO::FETCH_ASSOC)["NUMVECES"];
+    $IDHISTORIALBUSQUEDA = $pstmt->fetch(PDO::FETCH_ASSOC)["IDHISTORIALBUSQUEDA"];
+
+    if($NUMVECES==0){
+    	//INSERTO
+    	$NUMVECES=$NUMVECES+1;
+    	$pstmt = $con->prepare("INSERT INTO HISTORIALBUSQUEDA(IDPUBLICACION,NUMVECES,IDUSUARIO) VALUES  (?,?,?) ");
+		$pstmt->execute(array($IDPUBLICACION,$NUMVECES,$IDUSUARIO));
+    }
+    else{
+    	$NUMVECES=$NUMVECES+1;
+    	$pstmt = $con->prepare("UPDATE HISTORIALBUSQUEDA H SET H.NUMVECES=? WHERE H.IDUSUARIO=? AND H.IDPUBLICACION=?");
+		$pstmt->execute(array($NUMVECES,$IDUSUARIO,$IDPUBLICACION));
+    }
+}
+
+
+function guardaHistorialH(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDFICHA=$data->{"IDFICHA"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
+
+    $con=getConnection();
+    $pstmt = $con->prepare("SELECT H.NUMVECES, H.IDHISTORIALBUSQUEDA FROM HISTORIALBUSQUEDA H WHERE H.IDFICHABIB=$IDFICHA AND H.IDUSUARIO=$IDUSUARIO");
+	$pstmt->execute();
+	$NUMVECES = $pstmt->fetch(PDO::FETCH_ASSOC)["NUMVECES"];
+    $IDHISTORIALBUSQUEDA = $pstmt->fetch(PDO::FETCH_ASSOC)["IDHISTORIALBUSQUEDA"];
+
+    if($NUMVECES==0){
+    	//INSERTO
+    	$NUMVECES=$NUMVECES+1;
+    	$pstmt = $con->prepare("INSERT INTO HISTORIALBUSQUEDA(IDFICHABIB,NUMVECES,IDUSUARIO) VALUES  (?,?,?) ");
+		$pstmt->execute(array($IDFICHA,$NUMVECES,$IDUSUARIO));
+    }
+    else{
+    	$NUMVECES=$NUMVECES+1;
+    	$pstmt = $con->prepare("UPDATE HISTORIALBUSQUEDA H SET H.NUMVECES=? WHERE H.IDUSUARIO=? AND H.IDFICHABIB=?");
+		$pstmt->execute(array($NUMVECES,$IDUSUARIO,$IDFICHA));
+    }
+}
+
+
+
 function damePermisoB($id){
 
 	$con=getConnection();

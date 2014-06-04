@@ -23,7 +23,8 @@ function llenaTabla(data){
 		fila += '<td class="text-center idioma">'+data["PUBLICACIONES"][i][i]["IDIOMA"]+'</td>';
 		//fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
 		fila += '<td style="width: 23%;padding-left: 100px;">'
-		fila += '<a class="ver-publicacion table-link" href="ViewVerPublicacion.html?idpublicacion='+data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
+		//fila += '<a class="ver-publicacion table-link" href="ViewVerPublicacion.html?idpublicacion='+data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
+		fila += '<a class="ver-publicacion table-link" IDPUBLICACION='+data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
 		fila += '</tr>';
 		$('#listaPublicaciones').append(fila);		
 	}	
@@ -37,12 +38,61 @@ function llenaTabla(data){
 		//fila += '<td class="text-center idioma">'+data["FICHAS"][i][i]["IDIOMA"]+'</td>';
 		//fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
 		fila += '<td style="width: 23%;padding-left: 100px;">'
-		fila += '<a class="ver-publicacion table-link" href="ViewVerFicha.html?idficha='+data["FICHAS"][i][i]["IDFICHABIB"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
+		//fila += '<a class="ver-publicacion table-link" href="ViewVerFicha.html?idficha='+data["FICHAS"][i][i]["IDFICHABIB"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
+		fila += '<a class="ver-ficha table-link" IDFICHA='+data["FICHAS"][i][i]["IDFICHABIB"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';		
 		fila += '</tr>';
 		$('#listaFichas').append(fila);		
 	}	
 
+	$(document).on('click', '.ver-publicacion', verPublicacion);
+	$(document).on('click', '.ver-ficha', verFicha);
+}
 
+function verPublicacion(){
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	var IDPUBLICACION=this.getAttribute("IDPUBLICACION");
+	var obj={};
+
+
+	obj["IDUSUARIO"]=getId();
+	obj["IDPUBLICACION"]=IDPUBLICACION;
+
+	$.ajax({
+		type: 'POST',
+		url : '../../api/BQ_guardaHistorialP',
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success:{
+			
+		}
+	});
+	window.location.href = "../Publicacion_Documental/ViewVerPublicacion.html?idpublicacion="+IDPUBLICACION;
+}
+
+
+function verFicha(){
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	var IDFICHA=this.getAttribute("IDFICHA");
+	var obj={};
+
+
+	obj["IDUSUARIO"]=getId();
+	obj["IDFICHA"]=IDFICHA;
+
+	$.ajax({
+		type: 'POST',
+		url : '../../api/BQ_guardaHistorialH',
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			
+		}
+	});
+	window.location.href = "../Publicacion_Documental/ViewVerFicha.html?idficha="+IDFICHA;
 }
 
 
