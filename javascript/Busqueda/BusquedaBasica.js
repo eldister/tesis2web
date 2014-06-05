@@ -157,12 +157,12 @@ $(document).ready(function(){
 		 	if(enterpressed) window.location.href = "../Publicacion_Documental/ViewBusquedaResultado.html?id="+NOMBRE;
 		 }
 		 else{
-
-		 	//var obj=event.keyCode;
-		 	//alert(obj);
-		 	//alert("no se presiono nada");
 		 }
 	});
 	
-	//$("#guardar").click(guardarCambios);
+	
+	
+
+
+	
 });
