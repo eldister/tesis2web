@@ -48,40 +48,17 @@ function armarPermisos(){
 	return padre;
 }
 
-function guardarCambios(){
-
-	var obj={
-		IDPERMISO: idper,
-		NOMBRE: $('#NOMBRE').val(),
-		DESCRIPCION: $('#DESCRIPCION').val(),
-		PERMISOS: armarPermisos()
-	};
-
-	$.ajax({
-		type: 'POST',
-	    url:'../../api/SE_modificarPermiso',
-	    dataType: "json",
-	    contentType: "application/json; charset=utf-8",
-	    data: JSON.stringify(obj),
-	    success: function(data) {
-	    	if(data["status"]=1){
-	    		alert("Permiso modificado Correctamente");
-	    		$(location).attr('href',"viewListaPerfiles.html");
-	    	}
-	    }
-	});
-}
-
 function llenarInfo(data){
 	var input;
 	$("li.dd-item-list").each(function(index){
+		input=$(this).find("input").first();
 		for (var i = 0; i < data.length; i++) {
-			input=$(this).find("input").first();
 			if($(this).attr("data-id")==data[i]["IDFUNCIONALIDAD"]){
 				input.attr("checked","checked");
+				break;
 			}
-			input.attr("disabled","disabled");
 		};
+		input.attr("disabled","disabled");
 	});
 }
 

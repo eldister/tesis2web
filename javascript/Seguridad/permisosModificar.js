@@ -130,6 +130,17 @@ function cambiosCheckbox(){
 	$("#mtr-fib-mod-cb").change(function() { if(this.checked) $("#mtr-fib-ver-cb").prop("checked",true);});
 	$("#mtr-fib-del-cb").change(function() { if(this.checked) $("#mtr-fib-ver-cb").prop("checked",true);});
 
+	//Institucion
+	$("#mtr-inst-ver-cb").change(function(e) {
+	    if(this.checked) { $("#mtr-inst-mod-cb").prop('checked',true);
+	        $("#mtr-inst-del-cb").prop('checked',true); $("#mtr-inst-ver-cb").val('off');
+	    }else{ $("#mtr-inst-mod-cb").prop("checked",false);
+	        $("#mtr-inst-del-cb").prop("checked",false); $("#mtr-inst-ver-cb").val('on');
+	    }
+	});
+	$("#mtr-inst-mod-cb").change(function() { if(this.checked) $("#mtr-inst-ver-cb").prop("checked",true);});
+	$("#mtr-inst-del-cb").change(function() { if(this.checked) $("#mtr-inst-ver-cb").prop("checked",true);});
+
 	//Generar Enlace
 	$("#enl-list-cb").change(function(e) {
 	    if(this.checked) { $("#enl-ver-cb").prop('checked',true); $("#enl-mod-cb").prop('checked',true);
@@ -205,10 +216,11 @@ function guardarCambios(){
 function llenarInfo(data){
 	var input;
 	$("li.dd-item-list").each(function(index){
+		input=$(this).find("input").first();
 		for (var i = 0; i < data.length; i++) {
-			if($(this).attr("data-id")==data[i]["IDFUNCIONALIDAD"]){
-				input=$(this).find("input").first();
+			if($(this).attr("data-id")==data[i]["IDFUNCIONALIDAD"]){				
 				input.attr("checked","checked");
+				break;
 			}
 		};
 	});

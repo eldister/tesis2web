@@ -47,19 +47,23 @@ function validarVisibilidadPanelIzquierdo(data){
 	result2 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "37"; });
 	if (result2.length === 0) {$("#ver-tipofi").hide(); } else {$("#ver-tipofi").show();}
 
-	if (result1.length === 0 && result2.length === 0) $("#maestros").hide(); else $("#maestros").show();
+	//institucion
+	result3 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "41"; });
+	if (result3.length === 0) {$("#ver-institucion").hide(); } else {$("#ver-institucion").show();}
+
+	if (result1.length === 0 && result2.length === 0 && result3.length === 0) $("#maestros").hide(); else $("#maestros").show();
 
 	//enlace
-	result1 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "41"; });
+	result1 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "45"; });
 	if (result1.length === 0) $("#ver-enlace").hide(); else $("#ver-enlace").show();
-	result2 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "43"; });
+	result2 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "47"; });
 	if (result2.length === 0) $("#reg-enlace").hide(); else $("#reg-enlace").show();
 	if (result1.length === 0 && result2.length === 0) $("#enlaces").hide(); else $("#enlaces").show();
 
 	//permiso
-	result1 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "46"; });
+	result1 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "50"; });
 	if (result1.length === 0) $("#ver-permiso").hide(); else $("#ver-permiso").show();
-	result2 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "48"; });
+	result2 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "52"; });
 	if (result2.length === 0) $("#reg-permiso").hide(); else $("#reg-permiso").show();
 	if (result1.length === 0 && result2.length === 0) $("#permiso").hide(); else $("#permiso").show();
 
