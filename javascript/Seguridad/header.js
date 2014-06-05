@@ -12,6 +12,7 @@ document.write('<li class="mobile-search">');
 document.write('<a class="btn"><i class="fa fa-search"></i></a>');
 document.write('<div class="drowdown-search">');
 document.write('<div class="form-group">');
+document.write('<script src="../../javascript/Busqueda/BusquedaBasica.js"></script>');
 document.write('<input id="criterioBusqueda" type="text" class="form-control" placeholder="Búsqueda básica...">');
 document.write('<i class="fa fa-search nav-search-icon"></i>');
 document.write('</div>');
