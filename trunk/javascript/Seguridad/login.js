@@ -1,4 +1,4 @@
-
+﻿
 $(document).ready(function(){
 
 	$("#ingresar").click(ingresar);
@@ -31,7 +31,7 @@ function ingresar(){
 				//uid codigo de usuario en BD
 				//redirigir a pagina correspondiente
 
-				$(location).attr('href','../tesis2web/front/administracion_usuario_grupo/viewPerfil.html');
+				$(location).attr('href','../tesis2web/front/Administracion_Usuario_Grupo/viewPerfil.html');
 			}
 			else {
 				alert("Usuario o Contraseña Incorrectas");
