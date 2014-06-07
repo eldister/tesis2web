@@ -78,6 +78,7 @@ function cambioIdiomaCombo(){
 }
 
 function validarEnlace(){
+	//if (idenlace===null) $(location).attr('href','../../front/Seguridad/errorPermiso.html');
 	var obj={idenlace:idenlace};
 	$.ajax({
 		type: 'POST',
