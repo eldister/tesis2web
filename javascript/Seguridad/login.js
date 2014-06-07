@@ -26,7 +26,9 @@ function ingresar(){
 				//alert("BIEN JUGADO");
 				localStorage.setItem('uid',data["userid"]);
 				var idActual=1;
-				localStorage.setItem('idMiGrupo',idActual);
+				if(data["grupoid"]===null)
+					localStorage.setItem('idMiGrupo',idActual);
+				else localStorage.setItem('idMiGrupo',data["grupoid"]);
 				localStorage.setItem('idGrupo',idActual);
 				//uid codigo de usuario en BD
 				//redirigir a pagina correspondiente

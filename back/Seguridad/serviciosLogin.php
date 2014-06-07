@@ -20,7 +20,12 @@
 			$passfeliz=Encrypter::decrypt($array["password"]);
 
 			if($passfeliz==$data->{"PASSWORD"}) {
-				echo json_encode(array('respuesta'=>1,'userid'=>$array["idusuario"]));
+				//solucion temporal porque usuario puede tener muchos grupos por usuario
+				$pstmt = $con->prepare("SELECT idgrupo from usuarioxgrupo where idusuario=? limit 1");
+				$pstmt->execute(array($array["idusuario"]));
+				$grupo =  $pstmt->fetch(PDO::FETCH_ASSOC);
+
+				echo json_encode(array('respuesta'=>1,'userid'=>$array["idusuario"], 'grupoid'=>$grupo["idgrupo"]));
 			}
 			else{
 				echo json_encode(array('respuesta'=>0));

@@ -12,10 +12,11 @@
 	    $con=getConnection();
 
 	    if($permiso["IDPERMISO"]!=1){
-			$pstmt = $con->prepare("SELECT L.idlistapublicacion, L.nombreabr, DATE_FORMAT(L.fecharegistro,'%e-%m-%y') as 									fecharegistro, L.estado 
-    								from listapublicacion L, listapubxgrupo G
-    								where L.idlistapublicacion = G.idlistapublicacion and G.idgrupo=? and L.estado=1");
-			$pstmt->execute(array($data["idMiGrupo"]));
+			$pstmt = $con->prepare("SELECT L.idlistapublicacion, L.nombreabr, DATE_FORMAT(L.fecharegistro,'%e-%m-%y') as fecharegistro, L.estado 
+										from listapublicacion L, listapubxgrupo G, usuarioxgrupo UG
+										where L.idlistapublicacion = G.idlistapublicacion and G.idgrupo=UG.idgrupo 
+										and UG.idusuario=? and L.estado=1;");
+			$pstmt->execute(array($data["idUsuario"]));
 		}
 		else{ //es admin
 			$pstmt = $con->prepare("SELECT L.idlistapublicacion, L.nombreabr, DATE_FORMAT(L.fecharegistro,'%e-%m-%y') as 									fecharegistro, L.estado 
