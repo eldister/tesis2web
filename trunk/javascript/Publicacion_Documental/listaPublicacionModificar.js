@@ -221,7 +221,7 @@ function llenaTabla(data){
 }
 
 function realizarBusqueda(){
-	var obj={criterio:$('#criterioBusqueda').val()};
+	var obj={criterio:$('#criterioBusqueda2').val()};
 
 	$.ajax({
 		type: 'POST',
@@ -237,11 +237,11 @@ function realizarBusqueda(){
 
 function detectaBuscar(){
 	
-	$('#criterioBusqueda').bind("enterKey",function(e){
+	$('#criterioBusqueda2').bind("enterKey",function(e){
 		$('#listaPublicaciones').empty();		
 		realizarBusqueda();
 	});
-	$('#criterioBusqueda').keyup(function(e){
+	$('#criterioBusqueda2').keyup(function(e){
 		if(e.keyCode == 13)
 		{
 		  $(this).trigger("enterKey");
