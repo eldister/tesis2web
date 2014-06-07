@@ -82,6 +82,7 @@ function guardarCambios(){
 		contentType: "application/json; charset=utf-8",
 		success: function (data){
 			alert("El grupo se creoCorrectamente");
+			window.location.href='../Administracion_Usuario_Grupo/viewListaGrupo.html';
 		}
 	});
 }

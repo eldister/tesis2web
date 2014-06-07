@@ -32,7 +32,7 @@ function getUrlParameters(parameter, staticURL, decode){
 
 function modificarGrupo(data){
 	
-	window.location.href='../administracion_usuario_grupo/viewListaGrupo.html';
+	window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
 	//location.attr('href','../tesis2web/front/administracion_usuario_grupo/viewListaGrupo.html');
 }
 
@@ -108,7 +108,7 @@ function guardarCambios(){
 		dataType: "json",
 		data: JSON.stringify(obj2),
 		contentType: "application/json; charset=utf-8",
-		success: window.location.href='../administracion_usuario_grupo/viewListaGrupo.html'
+		success: window.location.href='../Administracion_Usuario_Grupo/viewListaGrupo.html'
 	});
 }
 

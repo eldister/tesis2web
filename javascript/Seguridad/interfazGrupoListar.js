@@ -1,26 +1,27 @@
 function validarVisibilidadTabla(data){
 	var result,permisover,permisoreg,permisomod,permisodel;
 
-	result = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "50"; });
+	result = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "16"; });
 	if (result.length === 0){
 		$(location).attr('href','../../front/Seguridad/errorPermiso.html');
 	}else{ 
-		permisover = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "51"; });
-		permisoreg = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "52"; });
-		permisomod = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "53"; });
-		permisodel = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "54"; });
+		permisover = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "17"; });
+		permisoreg = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "18"; });
+		permisomod = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "19"; });
+		permisodel = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "20"; });
 
 		if (permisover.length === 0) {
-			$('a.ver-permiso').attr("style","visibility: hidden");
+			$('a.ver-usuario').attr("style","visibility: hidden");
 		}
 		if (permisoreg.length === 0) {
-			$('#btn-agregar').hide();
+			$('#creaGrupo').hide();
+			$('a.crear-grupo').attr("style","visibility: hidden");
 		}
 		if (permisomod.length === 0) {
-			$('a.modificar-permiso').attr("style","visibility: hidden");
+			$('a.modificar-grupo').attr("style","visibility: hidden");
 		}
 		if (permisodel.length === 0) {
-			$('a.eliminar-permiso').attr("style","visibility: hidden");
+			$('a.eliminar-grupo').attr("style","visibility: hidden");
 		}
 	}	
 }
