@@ -159,11 +159,12 @@ function eliminarGrupo(){
 			data: JSON.stringify(obj),
 			contentType: "application/json; charset=utf-8",
 			success: function(data){ 
+				window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
 				$('#fila-'+IDGRUPO+'').remove();
 				alert("Se elimino correctamente el grupo");
 			}
 		});
-		
+		//window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
 	}
 }
 
