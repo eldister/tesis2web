@@ -89,6 +89,23 @@
 		}
 	}
 
+	function agregaEtiquetasTitulo($titulo,$ididioma,$idpublicacion){
+		$palabras = str_word_count($titulo, 1);
+		$con2= getConnection();
+		for ($i=0; $i < count($palabras); $i++) { 
+			$pstmt = $con2->prepare("INSERT INTO ETIQUETARELACIONADA VALUES(NULL,'Vacio por mientras')");
+			$pstmt->execute();
+			$lastInsertId = $con2->lastInsertId();
+
+			$pstmt = $con2->prepare("INSERT INTO ETIQUETA VALUES(NULL,?,'No importa',2,?,?)");
+			$pstmt->execute(array($palabras[$i],$ididioma,$lastInsertId));
+			$lastInsertEtiqueta = $con2->lastInsertId();
+
+			$pstmt = $con2->prepare("INSERT INTO PUBLICACIONXETIQUETAS VALUES(?,?)");
+			$pstmt->execute(array($idpublicacion,$lastInsertEtiqueta));
+		}
+	}
+
 	function registraPublicacion(){
 
 		$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -113,6 +130,9 @@
 								  )
 							);
 			$lastInsertId = $con->lastInsertId();
+
+			//agregar etiquetas del título
+			agregaEtiquetasTitulo($data->{"TITULO"},$data->{"IDIDIOMA"},$lastInsertId);			
 
 			$pstmt=null;
 			$pstmt = $con->prepare("INSERT INTO LOG (FECHA_REGISTRO,USUARIO_IDUSUARIO,PUBLICACION_IDPUBLICACION) 
