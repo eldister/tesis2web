@@ -126,7 +126,7 @@
 	function enviarCorreo($lista,$tokenlink){
 			
 		$MENSAJE='Estimados participantes:'."\r\n".'Se acaba de crear una nueva lista de publicacion para su revision'."\r\n";
-		$MENSAJE.='Pueden ingresar a esta a travos del siguiente enlace:'."\r\n\n".'http://localhost/tesis2web/listapublicacion.html?id='.$tokenlink;
+		$MENSAJE.='Pueden ingresar a esta a travos del siguiente enlace:'."\r\n\n".'http://inv-tool.inf.pucp.edu.pe/tesis2web/listapublicacion.html?id='.$tokenlink;
 		$MENSAJE.="\r\n\n".'Saludos Cordiales';
 		//pendiente firma del mensaje
 		$MENSAJE.="\r\n\n".'PD: Tildes omitidas intencionalmente';
@@ -197,7 +197,7 @@
 			}
 		}
 
-		//ENVIAR A MIEMBROS DE GRUPOS SELECCIONADOS (pendiente probar)
+		//ENVIAR A MIEMBROS DE GRUPOS SELECCIONADOS (probado)
 		$pstmt = $con->prepare("SELECT idgrupo from LISTAPUBXGRUPO where idlistapublicacion=?");
 		$pstmt->execute(array($lastLista));
 		$listaIdsGrupo=array();
@@ -279,6 +279,27 @@
 				$pstmt->execute(array($notasLectura[$j]["contenido"],$lastlectura));
 			}
 		}
+
+		//ENVIAR A MIEMBROS DE GRUPOS SELECCIONADOS (probado)
+		$pstmt = $con->prepare("SELECT idgrupo from LISTAPUBXGRUPO where idlistapublicacion=?");
+		$pstmt->execute(array($data["idlp"]));
+		$listaIdsGrupo=array();
+		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaIdsGrupo[]=$element["idgrupo"];
+		}
+
+		$cadenaGrupos=implode(",",$listaIdsGrupo);		
+		
+		$pstmt = $con->prepare("SELECT distinct U.nombres, U.apellidos, U.correo_institucional
+								from usuarioxgrupo GU, usuario U
+								where GU.idgrupo in (?) and U.idusuario<>1");
+		$pstmt->execute(array($cadenaGrupos));
+		$listaUsuarios=array();
+		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaUsuarios[]=$element;
+		}
+		enviarCorreo($listaUsuarios,$tokenlink);
+
 
 		if(count($mensajes)>0){
 			echo json_encode(array("status"=>0));
