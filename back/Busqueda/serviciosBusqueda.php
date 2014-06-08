@@ -187,7 +187,7 @@ function busquedaBasica(){
 		//echo $words[$i];
 
 	    $pstmt = $con->prepare(" SELECT PE.IDPUBLICACION FROM PUBLICACIONXETIQUETAS PE WHERE PE.IDETIQUETA IN (SELECT EE.IDETIQUETA FROM ETIQUETA EE WHERE EE.ESTADO!=0 AND EE.IDETIQUETARELACIONADA IN
-	    						 (SELECT DISTINCT(E.IDETIQUETARELACIONADA) FROM ETIQUETA E WHERE E.ESTADO!=0 AND E.NOMBRE LIKE CONCAT('%',?,'%')))");
+	    						 (SELECT DISTINCT(E.IDETIQUETARELACIONADA) FROM ETIQUETA E WHERE E.ESTADO!=0 /*E.ESTADO=2*/ AND E.NOMBRE LIKE CONCAT('%',?,'%')))");
 
 		$pstmt->execute(array($words[$i]));
 	    //lleno el array donde van a estar:   IDPUBLICACION - NUMCOINCIDENCIA
@@ -254,7 +254,7 @@ function busquedaBasica(){
 		//echo $words[$i];
 
 	    $pstmt = $con->prepare(" SELECT PE.IDFICHABIB FROM FICHAXETIQUETA PE WHERE PE.IDETIQUETA IN (SELECT EE.IDETIQUETA FROM ETIQUETA EE WHERE EE.ESTADO!=0 AND EE.IDETIQUETARELACIONADA IN
-	    						 (SELECT DISTINCT(E.IDETIQUETARELACIONADA) FROM ETIQUETA E WHERE E.ESTADO!=0 AND E.NOMBRE LIKE CONCAT('%',?,'%')))");
+	    						 (SELECT DISTINCT(E.IDETIQUETARELACIONADA) FROM ETIQUETA E WHERE E.ESTADO!=0 /*E.ESTADO=2*/ AND E.NOMBRE LIKE CONCAT('%',?,'%')))");
 
 		$pstmt->execute(array($words[$i]));
 	    //lleno el array donde van a estar:   IDFICHABIB - NUMCOINCIDENCIA
@@ -319,6 +319,14 @@ function busquedaBasica(){
 	echo json_encode($RESULTADO);
 
 }
+
+
+
+function busquedaAsistida(){
+	
+}
+
+
 
 
 ?>
