@@ -326,7 +326,7 @@
 
 		$con=getConnection();
 
-		$sql = "SELECT P.IDPUBLICACION,
+		$sql = "SELECT distinct P.IDPUBLICACION,
 				    P.TITULO,	
 				    T.NOMBRE as TIPO,
 				    I.NOMBRE as IDIOMA,
@@ -349,7 +349,7 @@
 				    idioma I
 				where
 				    T.idtipopublicacion = P.idtipopublicacion
-				        and P.ididioma = I.ididioma
+				        and P.ididioma = I.ididioma and p.estado=1
 				        and P.titulo like CONCAT('%',?,'%')";
 		
 		$pstmt = $con->prepare($sql);
