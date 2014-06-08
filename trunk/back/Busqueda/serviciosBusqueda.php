@@ -98,12 +98,16 @@ function insertaItem($valor,$publicacion,$listaO){
 
 	$listaNueva=array();
 	$entro=false;
+	//echo count($listaO);
 
 	for($i=0;$i<count($listaO);$i++){
+		//echo $listaO[$i]["valor"];
 		if(($listaO[$i]["valor"]>$valor) && ($entro==false)){
 			array_push($listaNueva,$listaO[$i]);
 		}
 		elseif(($listaO[$i]["valor"]<=$valor) && ($entro==false)){
+			//echo "entre aca !";
+			array_push($listaNueva,$listaO[$i]);
 			$entro=true;
 			$item=array();
 			$item["valor"]=$valor;
@@ -113,15 +117,19 @@ function insertaItem($valor,$publicacion,$listaO){
 		elseif ($entro==true) {
 			array_push($listaNueva, $listaO[$i]);
 		}
+		//echo json_encode($listaNueva);
 	}
 
 	if($entro==false){
+		//echo "entre";
 		$item=array();
 		$item["valor"]=$valor;
 		$item["id"]=$publicacion["id"];
 		array_push($listaNueva, $item);
 	}
 
+	//echo "LISTA";
+	//echo json_encode($listaNueva);
 	return $listaNueva;	
 }
 
@@ -141,6 +149,7 @@ function ordenaListaPublicaciones($listaPublicaciones){
 		$NVECES = $pstmt->fetch(PDO::FETCH_ASSOC)["NVECES"];
 
 		$valor=$listaPublicaciones[$i]["cant"]*10+$NVECES*2;
+		//echo $valor;
 
 		$listaOrdenada=insertaItem($valor,$listaPublicaciones[$i],$listaOrdenada);
 	}
@@ -218,6 +227,7 @@ function busquedaBasica(){
 	}
 
 	$listaPubliFinal=damePublicacionesQueVeo($listaPublicacionesConCoindicencia,$IDUSUARIO);
+	//echo json_encode($listaPubliFinal);
 
 	$final=ordenaListaPublicaciones($listaPubliFinal);
 
@@ -323,7 +333,7 @@ function busquedaBasica(){
 
 
 function busquedaAsistida(){
-	
+
 }
 
 
