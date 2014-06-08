@@ -108,7 +108,7 @@ function guardarCambios(){
 		dataType: "json",
 		data: JSON.stringify(obj2),
 		contentType: "application/json; charset=utf-8",
-		success: window.location.href='../Administracion_Usuario_Grupo/viewListaGrupo.html'
+		success: window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html'
 	});
 }
 
