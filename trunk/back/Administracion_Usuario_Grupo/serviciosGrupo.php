@@ -257,7 +257,7 @@ function modificaGrupo(){
 			}
 		}	
 	}
-	echo "SE MODIFICO BIEN !!!!";
+	echo json_encode(array("status"=>1));
 }
 
 function damePersonas4(){
