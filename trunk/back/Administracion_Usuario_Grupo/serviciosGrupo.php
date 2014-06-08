@@ -32,6 +32,8 @@ function eliminarGrupoN(){
 
 	$pstmt = $con->prepare("DELETE FROM GRUPO WHERE IDGRUPO=?");
 	$pstmt->execute(array($IDGRUPO));
+
+	echo json_encode(array("status"=>1));
 }
 
 
