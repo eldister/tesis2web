@@ -4,6 +4,19 @@
 	include_once '../back/conexion.php';
 
 
+function dameEtiquetaBQ(){
+
+
+    $con=getConnection();
+    $pstmt = $con->prepare("SELECT E.NOMBRE, E.IDETIQUETA FROM ETIQUETA E WHERE E.ESTADO=1");
+	$pstmt->execute(array());
+	$listaEtiqueta = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$listaEtiqueta[] = $req;
+	}
+
+	echo json_encode($listaEtiqueta);
+}
 
 function guardaHistorialP(){
 
@@ -332,7 +345,166 @@ function busquedaBasica(){
 
 
 function busquedaAsistida(){
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody(),true);
+    //$CRITERIO=$data->{"criterio"};
+    $IDUSUARIO=$data["IDUSUARIO"];
+    //echo $IDUSUARIO;
+    $RESULTADO;
+	//Object {0: Array[1], IDUSUARIO: "1"}
+	//$words=array();
+    //$words=$data[0][0];
+    $con=getConnection();
 
+    //PUBLICACIONES
+
+    $listaPublicacionesConCoindicencia = array();
+	//$words = explode(' ', $CRITERIO);
+	//echo 'The sentence has ' . count($words) . ' words.<br />'; 
+	//for ($i = 0; $i < count($words); $i++)
+	for ($i = 0; $i < count($data[0]); $i++)	
+	{	
+		$pstmt = $con->prepare("SELECT E.NOMBRE FROM ETIQUETA E WHERE E.IDETIQUETA=?");
+		//$pstmt->execute(array($words[$i]));
+		$pstmt->execute(array($data[0][$i]));
+		$nombreEtiqueta=$req = $pstmt->fetch(PDO::FETCH_ASSOC)["NOMBRE"];
+		//echo $words[$i];
+
+	    $pstmt = $con->prepare(" SELECT PE.IDPUBLICACION FROM PUBLICACIONXETIQUETAS PE WHERE PE.IDETIQUETA IN (SELECT EE.IDETIQUETA FROM ETIQUETA EE WHERE EE.ESTADO!=0 AND EE.IDETIQUETARELACIONADA IN
+	    						 (SELECT DISTINCT(E.IDETIQUETARELACIONADA) FROM ETIQUETA E WHERE /*E.ESTADO!=0*/ E.ESTADO=1 AND E.NOMBRE=?/* LIKE CONCAT('%',?,'%')*/))");
+
+		$pstmt->execute(array($nombreEtiqueta));
+	    //lleno el array donde van a estar:   IDPUBLICACION - NUMCOINCIDENCIA
+
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$idPublicacion = $req["IDPUBLICACION"];
+			//echo $idPublicacion;
+
+			$cant=count($listaPublicacionesConCoindicencia);
+			$esta=false;
+			for($j=0;$j<$cant;$j++){
+				if($listaPublicacionesConCoindicencia[$j]["id"]==$idPublicacion){
+					$num=$listaPublicacionesConCoindicencia[$j]["cant"]+1;
+					$listaPublicacionesConCoindicencia[$j]["cant"]=$num;
+					$esta=true;
+					break;
+				}
+			}
+			if($esta==false){
+				//entonces solo inserto uno
+				$listaPublicacionesConCoindicencia[$cant]=array();
+				$listaPublicacionesConCoindicencia[$cant]["id"]=$idPublicacion;
+				$listaPublicacionesConCoindicencia[$cant]["cant"]=1;
+			}
+
+		}
+
+	}
+
+	$listaPubliFinal=damePublicacionesQueVeo($listaPublicacionesConCoindicencia,$IDUSUARIO);
+	//echo json_encode($listaPubliFinal);
+
+	$final=ordenaListaPublicaciones($listaPubliFinal);
+
+	//echo json_encode($final);
+	$listaPublicacionesOrdenadas=array();	
+
+	for($k=0;$k<count($final);$k++){
+		$con=getConnection();
+		//ECHO $final[$k]["id"];
+		$pstmt = $con->prepare("SELECT P.IDPUBLICACION,P.TITULO,P.FUENTE,T.DESCRIPCION,I.NOMBRE FROM PUBLICACION P, TIPOPUBLICACION T, IDIOMA I WHERE P.IDPUBLICACION=? AND 
+								P.ESTADO=1 AND T.IDTIPOPUBLICACION=P.IDTIPOPUBLICACION AND I.IDIDIOMA=P.IDIDIOMA");
+		$pstmt->execute(array($final[$k]["id"]));
+
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){	
+			$publicacion=array();
+			$publicacion[$k]["IDPUBLICACION"]=$req["IDPUBLICACION"];
+			$publicacion[$k]["TITULO"]=$req["TITULO"];
+			$publicacion[$k]["FUENTE"]=$req["FUENTE"];	
+			$publicacion[$k]["DESCRIPCION"]=$req["DESCRIPCION"];	
+			$publicacion[$k]["IDIOMA"]=$req["NOMBRE"];
+			array_push($listaPublicacionesOrdenadas, $publicacion);
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------------------------------------------------
+
+	//FICHAS BIBLIOGRAFICAS
+
+	$listaFichasConCoindicencia = array();
+	//$words = explode(' ', $CRITERIO);
+	//echo 'The sentence has ' . count($words) . ' words.<br />'; 
+	for ($i = 0; $i < count($data[0]); $i++)
+	{
+		$pstmt = $con->prepare("SELECT E.NOMBRE FROM ETIQUETA E WHERE E.IDETIQUETA=?");
+		//$pstmt->execute(array($words[$i]));
+		$pstmt->execute(array($data[0][$i]));
+		$nombreEtiqueta=$req = $pstmt->fetch(PDO::FETCH_ASSOC)["NOMBRE"];
+		//echo $words[$i];
+
+	    $pstmt = $con->prepare(" SELECT PE.IDFICHABIB FROM FICHAXETIQUETA PE WHERE PE.IDETIQUETA IN (SELECT EE.IDETIQUETA FROM ETIQUETA EE WHERE EE.ESTADO!=0 AND EE.IDETIQUETARELACIONADA IN
+	    						 (SELECT DISTINCT(E.IDETIQUETARELACIONADA) FROM ETIQUETA E WHERE /*E.ESTADO!=0*/ E.ESTADO=1 AND E.NOMBRE=?/* LIKE CONCAT('%',?,'%')*/))");
+		$pstmt->execute(array($nombreEtiqueta));
+	    //lleno el array donde van a estar:   IDFICHABIB - NUMCOINCIDENCIA
+
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$idFicha = $req["IDFICHABIB"];
+			//echo $idPublicacion;
+
+			$cant=count($listaFichasConCoindicencia);
+			$esta=false;
+			for($j=0;$j<$cant;$j++){
+				if($listaFichasConCoindicencia[$j]["id"]==$idFicha){
+					$num=$listaFichasConCoindicencia[$j]["cant"]+1;
+					$listaFichasConCoindicencia[$j]["cant"]=$num;
+					$esta=true;
+					break;
+				}
+			}
+			if($esta==false){
+				//entonces solo inserto uno
+				$listaFichasConCoindicencia[$cant]=array();
+				$listaFichasConCoindicencia[$cant]["id"]=$idFicha;
+				$listaFichasConCoindicencia[$cant]["cant"]=1;
+			}
+
+		}
+
+	}
+
+	$listaFichaFinal=damePublicacionesQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
+
+	$final=ordenaListaFicha($listaFichaFinal);
+
+	//echo json_encode($final);
+	$listaFichasOrdenadas2=array();	
+
+	for($k=0;$k<count($final);$k++){
+		$con=getConnection();
+		//ECHO $final[$k]["id"];
+		$pstmt = $con->prepare("SELECT P.IDFICHABIB,P.ENCABEZADO,P.TITULO_ABREVIADO,T.NOMBRE FROM FICHABIB P, TIPOFICHA T  WHERE P.IDFICHABIB=? AND 
+								P.ESTADO=1 AND T.IDTIPOFICHA=P.IDTIPOFICHA ");
+		$pstmt->execute(array($final[$k]["id"]));
+
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){	
+			$publicacion=array();
+			$publicacion[$k]["IDFICHABIB"]=$req["IDFICHABIB"];
+			$publicacion[$k]["ENCABEZADO"]=$req["ENCABEZADO"];
+			$publicacion[$k]["TITULO_ABREVIADO"]=$req["TITULO_ABREVIADO"];	
+			$publicacion[$k]["NOMBRE"]=$req["NOMBRE"];
+			array_push($listaFichasOrdenadas2, $publicacion);
+		}
+	}
+
+
+	$RESULTADO=[
+			'CANTIDADP'=>count($listaPublicacionesOrdenadas),
+			'PUBLICACIONES'=>$listaPublicacionesOrdenadas,
+			'CANTIDADF'=>count($listaFichasOrdenadas2),
+			'FICHAS'=>$listaFichasOrdenadas2
+		];
+
+	echo json_encode($RESULTADO);
 }
 
 
