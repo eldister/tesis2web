@@ -153,6 +153,51 @@
 													</a>
 												</li>
 										</ul>
+		<div class="modal fade" id="detalleBusqueda" tabindex="-1" role="dialog" aria-labelledby="detalleBusqueda" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title" id="tituloModal"></h3>
+					</div>
+
+				<div class="modal-body">
+					<div class="container"> <form action="" id="form-usuario">
+						<form role="form">
+							<div class="form-group">
+
+								
+								<div class="row">
+									<label for="NOMBRES">Nombre</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-book"></i></span>
+											<input type="NOMBRES" class="form-control" id="NOMBRES"  >
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="FECHA_CREACION">Fecha de Creacion</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+											<input type="FECHA_CREACION" class="form-control" id="FECHA_CREACION" readOnly >
+									</div>
+								</div>
+
+																		
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" id="guardar" class="btn btn-primary">
+						<span id="tituloBoton"></span>
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->								
+
+
 									</div>
 								</div>
 								</div>
