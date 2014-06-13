@@ -189,12 +189,33 @@ function cargarListaPersonas2(){
 
 function cargaHora(){
 
-	var dateObj = new Date();
+	/*var dateObj = new Date();
     var month = dateObj.getUTCMonth();
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
     var newdate = day  + "/" + month + "/" + year;
-    $('#FECHA_CREACION').val(newdate);
+    $('#FECHA_CREACION').val(newdate);*/
+
+
+
+    var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = dd+'/'+mm+'/'+yyyy;
+	$('#FECHA_CREACION').val(today);
+	//document.write(today);
+
+
 }
 
 $(document).ready(function(){
