@@ -51,6 +51,7 @@ function verUsuario(){
 			$('#MESES_TERMINAR').val(data[9]["MESES_TERMINAR"]);
 			$('#COMPROMISO').val(data[10]["COMPROMISO"]);
 			$('#IDPERMISO').val(data[11]["IDPERMISO"]);
+			$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
 			$('#USERNAME').val(data[12]["USERNAME"]);
 			$('#NOMBRE').html(data[13]["NOMBRE"]);
 			$('#PASSWORD').val(data[14]["PASSWORD"]);
