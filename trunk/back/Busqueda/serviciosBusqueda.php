@@ -107,6 +107,32 @@ function damePublicacionesQueVeo($listaP,$id){
 	return $lista;
 }
 
+function dameFichasQueVeo($listaP,$id){
+
+	$lista=array();
+	
+	$con=getConnection();
+	$PERMISO=damePermisoB($id);
+	if($PERMISO==1){
+		return $listaP;
+	}
+	else{
+		$pstmt = $con->prepare("SELECT DISTINCT(GU.IDFICHABIB) FROM GRUXFIXUSU GU WHERE GU.IDUSUARIO=$id AND GU.ESTADO=1");
+		$pstmt->execute(array());
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$idP = $pstmt->fetch(PDO::FETCH_ASSOC)["IDFICHABIB"];
+
+			for($i=0;$i<count($listaP);$i++){
+				if($listaP[$i]["id"]==$idP){
+					array_push($lista, $listaP["id"]);
+				}
+			}
+		}
+	}
+	return $lista;
+}
+
+
 function insertaItem($valor,$publicacion,$listaO){
 
 	$listaNueva=array();
@@ -250,6 +276,7 @@ function busquedaBasica(){
 	//echo json_encode($final);
 	$listaPublicacionesOrdenadas=array();	
 
+	$cant=0;
 	for($k=0;$k<count($final);$k++){
 		$con=getConnection();
 		//ECHO $final[$k]["id"];
@@ -259,12 +286,13 @@ function busquedaBasica(){
 
 		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){	
 			$publicacion=array();
-			$publicacion[$k]["IDPUBLICACION"]=$req["IDPUBLICACION"];
-			$publicacion[$k]["TITULO"]=$req["TITULO"];
-			$publicacion[$k]["FUENTE"]=$req["FUENTE"];	
-			$publicacion[$k]["DESCRIPCION"]=$req["DESCRIPCION"];	
-			$publicacion[$k]["IDIOMA"]=$req["NOMBRE"];
+			$publicacion[$cant]["IDPUBLICACION"]=$req["IDPUBLICACION"];
+			$publicacion[$cant]["TITULO"]=$req["TITULO"];
+			$publicacion[$cant]["FUENTE"]=$req["FUENTE"];	
+			$publicacion[$cant]["DESCRIPCION"]=$req["DESCRIPCION"];	
+			$publicacion[$cant]["IDIOMA"]=$req["NOMBRE"];
 			array_push($listaPublicacionesOrdenadas, $publicacion);
+			$cant=$cantp+1;
 		}
 	}
 
@@ -309,13 +337,14 @@ function busquedaBasica(){
 
 	}
 
-	$listaFichaFinal=damePublicacionesQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
+	$listaFichaFinal=dameFichasQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
 
 	$final=ordenaListaFicha($listaFichaFinal);
 
 	//echo json_encode($final);
 	$listaFichasOrdenadas2=array();	
 
+	$cantp=0;
 	for($k=0;$k<count($final);$k++){
 		$con=getConnection();
 		//ECHO $final[$k]["id"];
@@ -325,11 +354,12 @@ function busquedaBasica(){
 
 		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){	
 			$publicacion=array();
-			$publicacion[$k]["IDFICHABIB"]=$req["IDFICHABIB"];
-			$publicacion[$k]["ENCABEZADO"]=$req["ENCABEZADO"];
-			$publicacion[$k]["TITULO_ABREVIADO"]=$req["TITULO_ABREVIADO"];	
-			$publicacion[$k]["NOMBRE"]=$req["NOMBRE"];
+			$publicacion[$cantp]["IDFICHABIB"]=$req["IDFICHABIB"];
+			$publicacion[$cantp]["ENCABEZADO"]=$req["ENCABEZADO"];
+			$publicacion[$cantp]["TITULO_ABREVIADO"]=$req["TITULO_ABREVIADO"];	
+			$publicacion[$cantp]["NOMBRE"]=$req["NOMBRE"];
 			array_push($listaFichasOrdenadas2, $publicacion);
+			$cantp=$cantp+1;
 		}
 	}
 
@@ -412,6 +442,7 @@ function busquedaAsistida(){
 	//echo json_encode($final);
 	$listaPublicacionesOrdenadas=array();	
 
+	$cantp=0;
 	for($k=0;$k<count($final);$k++){
 		$con=getConnection();
 		//ECHO $final[$k]["id"];
@@ -421,12 +452,13 @@ function busquedaAsistida(){
 
 		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){	
 			$publicacion=array();
-			$publicacion[$k]["IDPUBLICACION"]=$req["IDPUBLICACION"];
-			$publicacion[$k]["TITULO"]=$req["TITULO"];
-			$publicacion[$k]["FUENTE"]=$req["FUENTE"];	
-			$publicacion[$k]["DESCRIPCION"]=$req["DESCRIPCION"];	
-			$publicacion[$k]["IDIOMA"]=$req["NOMBRE"];
+			$publicacion[$cantp]["IDPUBLICACION"]=$req["IDPUBLICACION"];
+			$publicacion[$cantp]["TITULO"]=$req["TITULO"];
+			$publicacion[$cantp]["FUENTE"]=$req["FUENTE"];	
+			$publicacion[$cantp]["DESCRIPCION"]=$req["DESCRIPCION"];	
+			$publicacion[$cantp]["IDIOMA"]=$req["NOMBRE"];
 			array_push($listaPublicacionesOrdenadas, $publicacion);
+			$cantp=$cantp+1;
 		}
 	}
 
@@ -475,7 +507,7 @@ function busquedaAsistida(){
 
 	}
 
-	$listaFichaFinal=damePublicacionesQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
+	$listaFichaFinal=dameFichasQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
 
 	$final=ordenaListaFicha($listaFichaFinal);
 
@@ -594,9 +626,10 @@ function busquedaAvanzada(){
 			//echo json_encode($listaPubliFinal);
 
 			$final=ordenaListaPublicaciones($listaPublicacionesAcceso);
+			//print_r($listaPublicacionesAcceso);
 			//print_r($final);
 			//$listaPublicacionesOrdenadas=array();	
-
+			$cantp=0;
 			for($k=0;$k<count($final);$k++){
 				$con=getConnection();
 				//ECHO $final[$k]["id"];
@@ -606,12 +639,13 @@ function busquedaAvanzada(){
 
 				while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){	
 					$publicacion=array();
-					$publicacion[$k]["IDPUBLICACION"]=$req["IDPUBLICACION"];
-					$publicacion[$k]["TITULO"]=$req["TITULO"];
-					$publicacion[$k]["FUENTE"]=$req["FUENTE"];	
-					$publicacion[$k]["DESCRIPCION"]=$req["DESCRIPCION"];	
-					$publicacion[$k]["IDIOMA"]=$req["NOMBRE"];
+					$publicacion[$cantp]["IDPUBLICACION"]=$req["IDPUBLICACION"];
+					$publicacion[$cantp]["TITULO"]=$req["TITULO"];
+					$publicacion[$cantp]["FUENTE"]=$req["FUENTE"];	
+					$publicacion[$cantp]["DESCRIPCION"]=$req["DESCRIPCION"];	
+					$publicacion[$cantp]["IDIOMA"]=$req["NOMBRE"];
 					array_push($listaPublicacionesOrdenadas, $publicacion);
+					$cantp=$cantp+1;
 				}
 			}
 		}
@@ -665,7 +699,7 @@ function busquedaAvanzada(){
 				$a=$a+1;
 			}		
 			$listaFichasAcceso=array();
-			$listaFichasAcceso=damePublicacionesQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
+			$listaFichasAcceso=dameFichasQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
 
 			//echo json_encode($listaPubliFinal);
 
@@ -673,7 +707,7 @@ function busquedaAvanzada(){
 			//print_r($final);
 			//$listaFichasOrdenadas=array();	
 
-
+			$cantp=0;
 			for($k=0;$k<count($final);$k++){
 				$con=getConnection();
 				//ECHO $final[$k]["id"];
@@ -683,11 +717,12 @@ function busquedaAvanzada(){
 
 				while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){	
 					$publicacion=array();
-					$publicacion[$k]["IDFICHABIB"]=$req["IDFICHABIB"];
-					$publicacion[$k]["ENCABEZADO"]=$req["ENCABEZADO"];
-					$publicacion[$k]["TITULO_ABREVIADO"]=$req["TITULO_ABREVIADO"];	
-					$publicacion[$k]["NOMBRE"]=$req["NOMBRE"];
+					$publicacion[$cantp]["IDFICHABIB"]=$req["IDFICHABIB"];
+					$publicacion[$cantp]["ENCABEZADO"]=$req["ENCABEZADO"];
+					$publicacion[$cantp]["TITULO_ABREVIADO"]=$req["TITULO_ABREVIADO"];	
+					$publicacion[$cantp]["NOMBRE"]=$req["NOMBRE"];
 					array_push($listaFichasOrdenadas, $publicacion);
+					$cantp=$cantp+1;
 				}
 			}
 		}
@@ -701,28 +736,6 @@ function busquedaAvanzada(){
 
 		echo json_encode($RESULTADO);
 
-
-
-
-
-
-
-				/*//ACA SE ACABA DE CREAR EL QUERY:
-				$RESULTADO=[
-					'PUBLICACION'=>$QUERYTOTAL,
-					'ID'=>$listaIDPublicacionesPrimero,
-					'ArregloQueVeo'=>$listaPublicacionesAcceso,
-					//'LISTAORDENADA'=>$listaPublicacionesOrdenadas
-					'LISTA'=>$final	
-					//,
-					//'QUERYPRINCIPIO'=>$QUERYPRINCIPIO,
-					//'CANTIDAD'=>count($ARREGLO),
-					//'PALABRA'=>$palabra,
-					//'ATRIBUTO'=>$atributo
-				];
-					//echo json_encode($RESULTADO);
-
-    echo json_encode($RESULTADO);*/
 }	
 
 ?>
