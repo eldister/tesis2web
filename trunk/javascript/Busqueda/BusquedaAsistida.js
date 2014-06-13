@@ -187,6 +187,69 @@ function cargarListaEtiquetas(){
 	});
 }
 
+function cargaHora(){
+
+    var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = dd+'/'+mm+'/'+yyyy;
+	//$('#FECHA_CREACION').val(today);
+	//document.write(today);
+	return today;
+
+}
+
+function guardaBQ(){
+
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	//IDUSUARIO=getId;
+	//var obj;
+
+	var IDUSUARIO=getId();
+	var obj = {};
+	obj["IDUSUARIO"]=IDUSUARIO;
+	$('#FECHA_CREACION').val(cargaHora);
+
+	//obj["criterio"]=getUrlParameters("id","",true);
+	//var parent= [];
+
+	//parent.push(dameEtiquetas());
+	//var obj2 = $.extend({},obj,parent);
+
+	/*$.ajax({
+		type: 'POST',
+		url : '../../api/BQ_GuardaBusqueda',
+		dataType: "json",
+		data: JSON.stringify(obj2),
+		contentType: "application/json; charset=utf-8",
+		success: function (data){
+			//alert("aaaaaaaaaaaaaa");
+			llenaTabla(data);
+		}
+	});*/
+
+	//$('#detalleBusqueda').removeClass('insertar');
+	//$('#detalleBusqueda').removeClass('modificar');
+	//$('#detalleBusqueda').removeClass('eliminar');
+	$('#tituloBoton').html("Guardar");
+	$('#tituloModal').html("Guardar Busqueda");
+	$('#detalleBusqueda').addClass('eliminar');
+	$('#detalleBusqueda').modal('show');
+}
+
+
+
 
 
 $(document).ready(function(){
@@ -195,9 +258,9 @@ $(document).ready(function(){
 	iniciarNiceSelectBoxesBQ();
 	cargarListaEtiquetas();
 	$("#busquedaAsistida").click(realizarBusqueda);
-
+	$("#guardaBusqueda").click(guardaBQ);
 	//realizarBusqueda();
-
+	cargaHora();
 	var enterpressed=false;
 	var NOMBRE;
 	$("#criterioBusqueda").keypress(function(event) {
