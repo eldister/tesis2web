@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ProCal-ProSer</title>
+	
+	<!-- bootstrap -->
+	<link href="../../template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+
+	<!-- libraries -->
+	<link href="../../template/css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+
+	<!-- this page specific styles -->
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
+	<![endif]-->
+</head>
+<body>
+	<header class="navbar" id="header-navbar">
+		<div class="container">
+			<a href="../administracion_usuario_grupo/viewPerfil.html" id="logo" class="navbar-brand col-md-3 col-sm-4 col-xs-12">
+				<img src="../../template/img/logo.png" alt=""/> ProCal-ProSer</a>
+			<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="fa fa-bars"></span>
+			</button>
+			<div class="nav-no-collapse pull-right" id="header-nav">
+				<ul class="nav navbar-nav pull-right">
+					<li class="mobile-search">
+						<a class="btn"><i class="fa fa-search"></i></a>						
+						<div class="drowdown-search">
+							<!--<form role="search"> ESTO NO VA-->
+								<div class="form-group">
+									<input id="criterioBusqueda" type="text" class="form-control" placeholder="Búsqueda básica...">
+									<i class="fa fa-search nav-search-icon"></i>
+								</div>
+							<!--</form>-->
+						</div>						
+					</li>
+					<li class="dropdown hidden-xs">
+						<a class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="fa fa-search"></i>Búsqueda Avanzada</a></li>
+							<li><a href="../publicacion_documental/viewBusquedaAsistida.html"><i class="fa fa-search-plus"></i>Búsqueda Asistida</a></li>
+						</ul>
+					<li>
+					<li class="dropdown profile-dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="../../template/img/samples/profile-photo.png" alt=""/>
+							<span class="hidden-xs">Usuario Prueba</span> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="../administracion_usuario_grupo/viewPerfil.html"><i class="fa fa-user"></i>Ver Cuenta</a></li>
+							<li><a href="../administracion_usuario_grupo/viewModificarPerfil.html"><i class="fa fa-cog"></i>Editar Cuenta</a></li>
+							<li><a id="salir"><i class="fa fa-power-off"></i>Salir</a></li>
+						</ul>
+					</li>
+					<li class="hidden-xxs"><a id="salir" class="btn"><i class="fa fa-power-off"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2" id="nav-col">
+				<section id="col-left">
+					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
+						<ul class="nav nav-pills nav-stacked">
+							<li id="principal" class="active"><a href="../administracion_usuario_grupo/viewPerfil.html">
+								<i class="fa fa-home"></i><span>Principal</span></a></li>
+							<li id="publicacion"><a href="" class="dropdown-toggle"><i class="fa fa-book"></i><span>Publicaciones</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-publicacion"><a href="../publicacion_documental/viewListaPublicacion.html">Ver Publicaciones</a></li>
+									<li id="reg-publicacion"><a href="../publicacion_documental/viewCrearPublicacion.html">Registrar Publicación</a></li></ul>
+							</li>
+							<li id="fichas"><a href="" class="dropdown-toggle"><i class="fa fa-file-text"></i><span>F. Bibliográficas</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-ficha"><a href="../publicacion_documental/viewListaFicha.html">Ver Fichas</a></li>
+								</ul>
+							</li>
+							<li id="usuarios"><a href="" class="dropdown-toggle"><i class="fa fa-users"></i><span>Usuarios</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-usuario"><a href="../administracion_usuario_grupo/viewListaUsuario.html">Ver Usuarios</a></li>
+									<li id="reg-usuario"><a href="../administracion_usuario_grupo/viewCrearUsuario.html">Registrar Usuarios</a></li></ul>
+							</li>
+							<li id="grupos"><a href="" class="dropdown-toggle"><i class="fa fa-comments"></i><span>Grupos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-grupo"><a href="../administracion_usuario_grupo/viewListaGrupo.html">Ver Grupos</a></li>
+									<li id="reg-grupo"><a href="../administracion_usuario_grupo/viewCrearGrupo.html">Crear Grupo</a></li></ul>
+							</li>
+							<li id="autores"><a href="" class="dropdown-toggle"><i class="fa fa-pencil-square-o"></i><span>Autores</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-autor"><a href="../publicacion_documental/viewListaAutor.html">Ver Autores</a></li>
+								</ul>
+							</li>
+							<li id="idiomas"><a href="" class="dropdown-toggle"><i class="fa fa-globe"></i><span>Idiomas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-idioma"><a href="../publicacion_documental/viewListaIdioma.html">Ver Idiomas</a></li>
+								</ul>
+							</li>
+							<li id="etiquetas"><a href="" class="dropdown-toggle"><i class="fa fa-star"></i><span>Etiquetas</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-etiqueta"><a href="../publicacion_documental/viewListaEtiqueta.html">Ver Etiquetas</a></li></ul>
+							</li>
+							<li id="maestros"><a href="" class="dropdown-toggle"><i class="fa fa-files-o"></i><span>Maestros</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-tipopub"><a href="../publicacion_documental/viewListaTipoPublicacion.html">Ver Tipo de Publicaciones</a></li>
+									<li id="ver-tipofi"><a href="../publicacion_documental/viewListaTipoFicha.html">Ver Tipo de Fichas Bibliograficas</a></li></ul>
+							</li>
+							<li id="enlaces"><a href="" class="dropdown-toggle"><i class="fa fa-link"></i>
+									<span>Listas de Publicación</span><i class="fa fa-chevron-circle-down drop-icon"></i></a>
+									<ul class="submenu">
+									<li id="ver-enlace"><a href="../publicacion_documental/viewGestionListaPublicacion.html">Ver Enlaces con lecturas asignadas</a></li>
+									<li id="reg-enlace"><a href="../publicacion_documental/viewCrearListaPublicacion.html">Crear enlace con lecturas asignadas</a></li></ul>
+							</li>
+							<li id="permiso"><a href="" class="dropdown-toggle"><i class="fa fa-key"></i><span>Permisos</span>
+									<i class="fa fa-chevron-circle-down drop-icon"></i></a>
+								<ul class="submenu">
+									<li id="ver-permiso<"><a href="../seguridad/viewListaPerfiles.html">Ver Permisos</a></li>
+									<li id="reg-permiso"><a href="../seguridad/viewCrearPerfil.html">Crear Permiso</a></li></ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-10 col-sm-11" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1>Búsqueda Avanzada</h1>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="main-box clearfix">
+									<h3 class="pull-left">Ingrese los datos para la busqueda</h3>
+
+																	
+										<!--<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
+											<i class="fa fa-crosshairs fa-lg"></i> 
+											<span>Búsqueda Basica</span>
+										</a>-->
+
+										
+										<div class="row">
+											<div class="col-lg-12"></br>
+												<!--<form name="myForm"></br>-->
+													<label>Que tipo de documento desea buscar : </label>
+													<input type="radio" name="tipoB" id="ra1" value="PUBLICACION" style="width: 50px;" checked> Publicacion
+													<input type="radio" name="tipoB" id="ra2" value="FICHA" style="width: 50px;"> Ficha<br>
+												<!--</form>-->
+											</div>	
+										</div>
+										<div class="row">
+												<br>
+												<div id="filaVista">
+
+												</div>
+										</div>
+										<br>	
+										<div class="row">
+											<div class="col-md-4"></div>	
+											<div class="col-md-4">
+												<button type="button" class="btn btn-default" id="nuevoElemento">Agregar elemento</button>
+												<button type="button" class="btn btn-default" id="buscar">Buscar</button>
+											</div>
+											<div class="col-md-4"></div>
+										</div>
+									</div>
+								
+									<div class="main-box clearfix">
+									<h3 class="pull-left">Resultados para publicaciones</h3>
+
+									<div class="filter-block pull-right">									
+										<!--<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
+											<i class="fa fa-crosshairs fa-lg"></i> 
+											<span>Búsqueda Basica</span>
+										</a>-->
+										<label id="" style="width: 1050px;" >Cantidad de publicaciones encontradas:<input readOnly type="CANTIDADP"  id="CANTIDADP"></input></label >
+										<div class="form-group">
+													
+													<!--<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-user"></i></span>
+														<input type="CANTIDADP" class="form-control" id="CANTIDADP" readonly>
+													</div>-->
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table user-list">
+											<thead>	
+												<tr>
+													<th class="text-center">
+														<span>Título</span>
+													</th>
+													<th class="text-center">
+														<span>Tipo de Publicacion</span>
+													</th>
+													<th class="text-center">
+														<span>Fuente</span>
+													</th>
+													<th class="text-center">
+														<span>Idioma</span>
+													</th>
+													<th class="text-center">
+														<span>Ver Publicacion</span>
+													</th>
+												</tr>
+												</tr>
+											</thead>
+											<tbody id="listaPublicaciones">
+												
+											</tbody>	
+										</table>
+										<ul class="pagination pull-right">
+												<li>
+													<a href="#">
+														<i class="fa fa-chevron-left"></i>
+													</a>
+												</li>
+												<li>
+													<a href="#">1</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fa fa-chevron-right"></i>
+													</a>
+												</li>
+										</ul>
+									</div>
+									<h3 class="pull-left">Resultados para fichas bibliográficas</h3>
+
+									<label  style="width: 1050px;" >Cantidad de Fichas encontradas:<input readOnly type="CANTIDADF"  id="CANTIDADF"></input></label >
+
+									<div class="table-responsive">
+										<table class="table user-list">
+											<thead>	
+												<tr>
+													<th class="text-center">
+														<span>Encabezado</span>
+													</th>
+													<th class="text-center">
+														<span>Titulo Abreviado</span>
+													</th>
+													<th class="text-center">
+														<span>Nombre</span>
+													</th>
+												
+												    <th class="text-center">
+														<span>Ver Ficha </span>
+													</th>
+												</tr>
+												</tr>
+											</thead>
+											<tbody id="listaFichas">
+												
+											</tbody>	
+										</table>
+										<ul class="pagination pull-right">
+												<li>
+													<a href="#">
+														<i class="fa fa-chevron-left"></i>
+													</a>
+												</li>
+												<li>
+													<a href="#">1</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fa fa-chevron-right"></i>
+													</a>
+												</li>
+										</ul>
+										<div style="padding-left: 430px;">
+											<button type="button" class="btn btn-default" onclick="history.back();">Regresar</button>	
+										</div>
+									</div>
+								</div>
+								
+								</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">TESIS</a>. Powered by Nadya - Albert
+		</p>
+	</footer>
+	
+	<!-- global scripts -->
+	<script src="../../template/js/jquery.js"></script>
+	<script src="../../template/js/bootstrap.js"></script>
+	<script src="../../javascript/Busqueda/BusquedaAvanzada.js"></script>
+	<script src="../../javascript/Busqueda/Busqueda.js"></script>
+
+	
+	<!-- this page specific scripts -->
+	
+	<!-- theme scripts -->
+	<script src="../../template/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+
+	
+</body>
+</html>
