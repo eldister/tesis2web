@@ -808,5 +808,31 @@ function eliminaMiBusqueda($id){
 }
 
 
+function dameEtiquetasBQ(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDBUSQUEDA=$data->{"IDBUSQUEDA"};
+    $con=getConnection();
+
+
+    $pstmt = $con->prepare("SELECT B.IDETIQUETA FROM BUSQUEDAXETIQUETA B WHERE B.IDBUSQUEDA=?");
+	$pstmt->execute(array($IDBUSQUEDA));
+
+	$resp = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDETIQUETA'=>$req["IDETIQUETA"],
+		];
+		array_push($resp, $gr);
+	}
+
+
+	$etiquetas=[
+		'IDETIQUETA'=>$resp
+	];
+
+	echo json_encode($etiquetas);
+}
 
 ?>

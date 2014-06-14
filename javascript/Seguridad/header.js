@@ -21,7 +21,7 @@ document.write('<li class="dropdown hidden-xs">');
 document.write('<a class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></a>');
 document.write('<ul class="dropdown-menu">');
 document.write('<li><a href="../Busqueda/ViewBusquedaAvanzada.html"><i class="fa fa-search"></i>Búsqueda Avanzada</a></li>');
-document.write('<li><a href="../Publicacion_Documental/ViewBusquedaAsistida.html"><i class="fa fa-search-plus"></i>Búsqueda Asistida</a></li>');
+document.write('<li><a href="../Publicacion_Documental/ViewBusquedaAsistida.html?id=0"><i class="fa fa-search-plus"></i>Búsqueda Asistida</a></li>');
 document.write('<li><a href="../Busqueda/ViewMisBusquedas.html"><i class="fa fa-bookmark"></i>Mis Busquedas</a></li>');
 document.write('</ul>');
 document.write('<li>');

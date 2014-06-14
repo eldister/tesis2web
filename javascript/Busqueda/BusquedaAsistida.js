@@ -124,7 +124,7 @@ function verFicha(){
 	window.location.href = "../Publicacion_Documental/ViewVerFicha.html?idficha="+IDFICHA;
 }
 
-
+/*
 function getUrlParameters(parameter, staticURL, decode){
    var currLocation = (staticURL.length)? staticURL : window.location.search,
        parArr = currLocation.split("?")[1].split("&"),
@@ -141,7 +141,7 @@ function getUrlParameters(parameter, staticURL, decode){
    }
    
    if(!returnBool) return false;  
-}
+}*/
 
 function realizarBusqueda(){
 	
@@ -272,6 +272,57 @@ function guardarCambios(){
 	});
 }
 
+function getUrlParameters(parameter, staticURL, decode){
+   var currLocation = (staticURL.length)? staticURL : window.location.search,
+       parArr = currLocation.split("?")[1].split("&"),
+       returnBool = true;
+   
+   for(var i = 0; i < parArr.length; i++){
+        parr = parArr[i].split("=");
+        if(parr[0] == parameter){
+            return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+            returnBool = true;
+        }else{
+            returnBool = false;            
+        }
+   }
+   
+   if(!returnBool) return false;  
+}
+
+function verEtiquetaBusqueda(){
+
+	var obj = {};
+	var IDBUSQUEDA=getUrlParameters("id","",true);
+	obj["IDBUSQUEDA"]=IDBUSQUEDA;
+
+
+	if(IDBUSQUEDA==0){
+
+	}
+	else{
+		$.ajax({
+			type: 'POST',
+			url : '../../api/AU_getEtiquetaBQ',
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: function(data){ 
+				
+				//INTEGRANTES
+				var integrantes = $("#sel2Multi1").select2("val");
+				var lista=data["IDETIQUETA"];
+
+		    	for (var i=0; i<lista.length; i++) {
+					integrantes.push(lista[i].IDETIQUETA);
+		    	}
+		    	$("#sel2Multi1").select2("val", integrantes);
+				seleccionMiembros = $("#sel2Multi1").select2("data");
+			}
+		});
+	}
+}
+
 
 
 $(document).ready(function(){
@@ -279,6 +330,7 @@ $(document).ready(function(){
 
 	iniciarNiceSelectBoxesBQ();
 	cargarListaEtiquetas();
+	setTimeout(verEtiquetaBusqueda,50);
 	$("#busquedaAsistida").click(realizarBusqueda);
 	$("#guardaBusqueda").click(guardaBQ);
 	$("#cerrar").click(resetForm);
