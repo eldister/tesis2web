@@ -1,6 +1,6 @@
 
-var seleccionResponsable;
-var seleccionMiembros;
+var seleccionResponsable=[];
+var seleccionMiembros=[];
 
 
 function getId(){
@@ -43,7 +43,7 @@ $(test).change(function() {
     dameResponsable();
 });
 
-var test2 = $('#sel2Multi');
+var test2 = $('#sel2Multi2');
 $(test2).change(function() {
     seleccionMiembros = ($(test2).select2('data')) ;
     dameMiembros();
@@ -90,11 +90,15 @@ function guardarCambios(){
 	ruta = "../../api/AU_modificaGrupo";
 	callback = modificarGrupo;
 
-	obj["NOMBRE"] = $('#NOMBRE').val();
+	obj["NOMBRE"] = $('#NOMBRES').val();
 	obj["FECHA"] = $('#FECHA').val();	
 	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
 
 	var parent= [];
+
+	if(!validarGrupo(dameResponsable(),dameMiembros())){
+		return;
+	}
 
 	parent.push(dameResponsable());
 	parent.push(dameMiembros());
@@ -131,19 +135,19 @@ function verGrupo(){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(data){ 
-			$('#NOMBRE').val(data["NOMBRE"]);
+			$('#NOMBRES').val(data["NOMBRE"]);
 			$('#FECHA').val(data["FECHA"]);
 			$('#DESCRIPCION').val(data["DESCRIPCION"]);
 
 			//INTEGRANTES
-			var integrantes = $("#sel2Multi").select2("val");
+			var integrantes = $("#sel2Multi2").select2("val");
 			var lista=data["USUARIOS"];
 
 	    	for (var i=0; i<lista.length; i++) {
 				integrantes.push(lista[i].IDUSUARIO);
 	    	}
-	    	$("#sel2Multi").select2("val", integrantes);
-			seleccionMiembros = $("#sel2Multi").select2("data");
+	    	$("#sel2Multi2").select2("val", integrantes);
+			seleccionMiembros = $("#sel2Multi2").select2("data");
 
 			//RESPONSABLE
 			var responsable = $("#sel2Multi1").select2("val");
@@ -174,7 +178,7 @@ function cargarListaPersonas1(){
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
 			for (var i=0; i<obj.length; i++) {
-				$("#sel2Multi").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRES + '</option>');
+				$("#sel2Multi2").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRES + '</option>');
 			}
 		}
 	});
@@ -202,7 +206,7 @@ function cargarListaPersonas2(){
 }
 
 function iniciarNiceSelectBoxes(){
-	$('#sel2Multi').select2({
+	$('#sel2Multi2').select2({
 		placeholder: 'Seleccione los usuarios',
 		allowClear: true
 	});

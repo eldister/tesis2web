@@ -48,36 +48,45 @@
 
 								<div class="main-box clearfix">
 									<h3>Modificación de Grupo</h3>
-				                    
+				                    <h6>Datos obligatorios (*) </h6>
 		                            <div class="row">
 		                                <div class="col-lg-6">
 		                                    <form role="form" action="" id="form">
 		                                        <div class="form-group">
-		                                            <label>Nombre de Grupo</label>
-		                                            <input type="text" id="NOMBRE" name="NOMBRE" class="form-control">
+		                                            <label>Nombre de Grupo (*)</label>
+		                                            <div class="input-group">
+		                                            	<span class="input-group-addon"><i class="fa fa-group"></i></span>
+		                                            	<input type="text" id="NOMBRES" name="NOMBRES" class="form-control">		                                        		
+		                                        	</div>
 		                                        </div>
 
 		                                        <div class="form-group">
 		                                            <label>Fecha de Creacion</label>
-		                                            <input type="text" id="FECHA" name="FECHA" class="form-control" readonly>
+		                                            <div class="input-group">
+		                                            	<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+		                                            	<input type="text" id="FECHA" name="FECHA" class="form-control" readonly>
+		                                            </div>
 		                                        </div>
 
 		                                        <div class="form-group">
 		                                            <label>Descripción</label>
-		                                            <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="2"></textarea>
+		                                            <div class="input-group">
+		                                            	<span class="input-group-addon"><i class="fa fa-file"></i></span>
+		                                            	<textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="2"></textarea>
+		                                            </div>
 		                                        </div>
 
 		                                        <h3>Miembros del Grupo</h3>
 
 		                                        <div class="form-group form-group-select2">
-		                                            <label>Responsable</label>
+		                                            <label>Responsable (*)</label>
 													<select style="width:520px" id="sel2Multi1" multiple >
 													</select>
 		                                        </div>
 
 		                                        <div class="form-group form-group-select2">
-		                                            <label>Integrantes del grupo</label>
-													<select style="width:520px" id="sel2Multi" multiple> 
+		                                            <label>Integrantes del grupo (*)</label>
+													<select style="width:520px" id="sel2Multi2" multiple> 
 													</select>
 		                                        </div>
 
@@ -113,6 +122,7 @@
 	<script src="../../javascript/Administracion_Usuario_Grupo/grupoModificar.js"></script>
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
+	<script src="../../javascript/Seguridad/validation.js"></script>
 	
 	<!-- this page specific inline scripts -->
 	

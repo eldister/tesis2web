@@ -45,15 +45,15 @@
 
 						<div class="row">
 							<div class="col-lg-12">
-								<div class="main-box" style="min-height: 740px;">
+								<div class="main-box clearfix">
 									<h2><span>Crear Usuario</span></h2>
 									
-										
+										    <h6><span>Datos obligatorios (*)<span></h6>
 										    <div class="col-lg-6">	
 												<h3><span>Datos Personales</span></h3>
 
 												<div class="form-group">
-													<label for="NOMBRES">Nombres Completos</label>
+													<label for="NOMBRES">Nombres Completos (*)</label>
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-user"></i></span>
 														<input type="NOMBRES" class="form-control" id="NOMBRES">
@@ -61,7 +61,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="APELLIDOS">Apellidos Completos</label>
+													<label for="APELLIDOS">Apellidos Completos (*)</label>
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-user"></i></span>
 														<input type="APELLIDOS" class="form-control" id="APELLIDOS">
@@ -69,7 +69,7 @@
 												</div>
 
 												<div class="form-group">
-													<label for="CORREO_INSTITUCIONAL">Correo Institucional</label>
+													<label for="CORREO_INSTITUCIONAL">Correo Institucional (*) 	</label>
 													<div class="input-group">
 														<span class="input-group-addon">@</span>
 														<input type="CORREO_INSTITUCIONAL" class="form-control" id="CORREO_INSTITUCIONAL">
@@ -115,7 +115,7 @@
 												<h3><span>Datos Institucionales</span></h3>
 
 												<div class="form-group">
-													<label for="">Institucion Educativa</label>
+													<label for="">Institucion Educativa (*)</label>
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-home"></i></span>
 														<select class="form-control" type="IDINSTITUCION" id="IDINSTITUCION">
@@ -124,7 +124,7 @@
 												</div>
 
 												<div class="form-group">
-													<label for="">Tipo Participante</label>
+													<label for="">Tipo Participante (*)</label>
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-home"></i></span>
 														<select type="IDPERMISO" class="form-control" id="IDPERMISO">
@@ -187,9 +187,11 @@
 	<script src="../../javascript/Busqueda/Busqueda.js"></script>
 	<script src="../../template/js/bootstrap.js"></script>
 	<script src="../../javascript/Seguridad/interfaz.js"></script>
+	<script src="../../javascript/Seguridad/validation.js"></script>
 	
 	<!-- this page specific scripts -->
 	<script src="../../javascript/Administracion_Usuario_Grupo/usuarioIngresar.js"></script>
+	<script src="../../template/js/jquery.maskedinput.min.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>

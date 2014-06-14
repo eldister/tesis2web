@@ -32,6 +32,11 @@ function guardarCambios(){
 	obj["IDUSUARIO"]= "";
 	var ruta = "";
 	var callback;
+
+	if (!validarUsuario()){
+		//alert("Uno o más errores en los campos de entrada");
+		return;
+	}
 	
 	ruta = "../../api/AU_registraUsuario";
 	callback = regristrarUsuario;
@@ -97,11 +102,14 @@ function cargarComboInstitucion(){
 function borrar()
 {   
    $("input").val("");
+   clearErrors();
 }
 
 $(document).ready(function(){
 	cargarComboInstitucion();
 	cargarComboTipoUsuario();
+	$("#NUMERO_CELULAR").mask("(999) 9999-9999");
+	$("#NUMERO_TEL_ALTERNO").mask("(999) 9999-9999");
 	$("#guardar").click(guardarCambios);
 	$("#clear").click(borrar);
 });
