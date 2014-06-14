@@ -292,7 +292,7 @@ function busquedaBasica(){
 			$publicacion[$cant]["DESCRIPCION"]=$req["DESCRIPCION"];	
 			$publicacion[$cant]["IDIOMA"]=$req["NOMBRE"];
 			array_push($listaPublicacionesOrdenadas, $publicacion);
-			$cant=$cantp+1;
+			$cant=$cant+1;
 		}
 	}
 
