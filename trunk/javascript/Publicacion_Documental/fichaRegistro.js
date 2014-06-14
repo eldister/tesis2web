@@ -1,5 +1,7 @@
-var seleccionEtiquetas;
-var seleccionGrupos;
+var seleccionEtiquetas=[];
+var seleccionGrupos=[];
+var seleccionResponsable=[];
+var seleccionMiembros=[];
 
 function getUrlParameters(parameter, staticURL, decode){
    /*
@@ -202,6 +204,10 @@ function guardarCambios(){
 	obj["IDGRUPO"]=localStorage.idMiGrupo;
 	obj["IDPUBLICACION"]=getUrlParameters("idpublicacion","",true);
 
+	if(!validarFicha(seleccionGrupos)){
+		return;
+	}
+
 	$.ajax({
 		type: 'POST',
 		url : "../../api/PD_registraFicha",
@@ -237,6 +243,10 @@ function guardarEtiqueta(){
 				idioma: idiomas[i].NOMBRE
 				};
 		listEtiquetas.push(obj);
+	}
+
+	if(!validarEtiqueta(idiomas)){
+		return;
 	}
 
 	$.ajax({
@@ -288,6 +298,10 @@ function guardarGrupo(){
 	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
 
 	var parent= [];
+
+	if(!validarGrupo2(dameResponsable(),dameMiembros())){
+		return;
+	}
 
 	parent.push(dameResponsable());
 	parent.push(dameMiembros());

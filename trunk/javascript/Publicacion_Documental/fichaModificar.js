@@ -1,5 +1,7 @@
-var seleccionEtiquetas;
-var seleccionGrupos;
+var seleccionEtiquetas=[];
+var seleccionGrupos=[];
+var seleccionResponsable=[];
+var seleccionMiembros=[];
 var idficha=getUrlParameters("idficha", "", true);
 var publicacionDeFicha;
 
@@ -218,6 +220,10 @@ function guardarCambios(){
 	obj["IDPUBLICACION"]=publicacionDeFicha;
 	obj["IDFICHABIB"]=idficha;
 
+	if(!validarFicha(seleccionGrupos)){
+		return;
+	}
+
 	$.ajax({
 		type: 'POST',
 		url : "../../api/PD_modificaFicha",
@@ -254,6 +260,10 @@ function guardarEtiqueta(){
 				idioma: idiomas[i].NOMBRE
 				};
 		listEtiquetas.push(obj);
+	}
+
+	if(!validarEtiqueta(idiomas)){
+		return;
 	}
 
 	$.ajax({
@@ -305,6 +315,10 @@ function guardarGrupo(){
 	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
 
 	var parent= [];
+
+	if(!validarGrupo2(dameResponsable(),dameMiembros())){
+		return;
+	}
 
 	parent.push(dameResponsable());
 	parent.push(dameMiembros());

@@ -46,7 +46,13 @@ function agregarFila(){
 	var boton = $("#tituloBoton").html();
 
 	if(boton==="Agregar"){
+
 		var checkedradio = $('[name="radio"]:radio:checked').val();
+
+		if(!validarAgregarLectura(checkedradio)){			
+			return;
+		}
+
 		var idpub = checkedradio;
 		var titulo = $("#listaPublicaciones tr#fila-"+checkedradio+" td.titulo").html();
 		var tipo = $("#listaPublicaciones tr#fila-"+checkedradio+" td.tipo").html();
@@ -84,6 +90,11 @@ function agregarFila(){
 		console.log(listaLecturas);
 	}
 	else{
+
+		if(!validarModificarLectura(checkedradio)){			
+			return;
+		}
+
 		var idpub=indice[0].index;
 		$("#listaLecturas tr#f-"+idpub+" td.palcla").html($("#PALABRACLAVE").val());
 		
@@ -204,6 +215,10 @@ function guardarCambios(){
 			 grupos:grupos
 		};
 
+	if(!validarListaPublicacion(grupos,listaLecturas)){
+		return;
+	}
+
 	$.ajax({
 		type: 'POST',
 		url : "../../api/PD_registraListaPublicacion",
@@ -223,7 +238,7 @@ function guardarCambios(){
 	});
 }
 
-var seleccionGrupos;
+var seleccionGrupos=[];
 var test3 = $('#sel2grupo');
 $(test3).change(function() {
     seleccionGrupos = ($(test3).select2('data'));

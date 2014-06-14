@@ -56,6 +56,11 @@ function guardarCambios(){
 	obj["IDUSUARIO"]=getUrlParameters("id","",true);
 	var ruta = "";
 	var callback;
+
+	if (!validarUsuario()){
+		//alert("Uno o más errores en los campos de entrada");
+		return;
+	}
 	
 	ruta = "../../api/AU_modificaUsuario";
 	callback = modificarUsuario;
@@ -155,7 +160,8 @@ $(document).ready(function(){
 	cargarComboTipoUsuario();
 	cargarComboInstitucion();
 	verUsuario();
-
+	//$("#NUMERO_CELULAR").mask("(999) 9999-9999");
+	//$("#NUMERO_TEL_ALTERNO").mask("(999) 9999-9999");
 	$("#modificarUsuario").click(guardarCambios);
 });
 

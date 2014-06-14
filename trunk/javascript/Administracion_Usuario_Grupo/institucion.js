@@ -24,6 +24,7 @@ function cargaListaInstitucion(data){
 }
 
 function modificarInstitucion(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var obj = {
@@ -55,11 +56,12 @@ function resetForm(){
 	$('#DESCRIPCION').prop('readOnly',false);
 	$("input.form-control").val("");
 	$(".alert").remove();
+	clearErrors();
 }
 
 
 function inserta(data){
-
+	clearErrors();
 	$('#detalleInstitucion').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDINSTITUCION"] +'>'; 
 	fila +='<td style="display:none;">'
@@ -78,6 +80,7 @@ function inserta(data){
 }
 
 function eliminarInstitucion(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var obj = {
@@ -150,6 +153,8 @@ function guardarCambios(){
 		obj["NOMBRE_INSTITUCION"] = $('#NOMBRE_INSTITUCION').val();
 		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
 	}
+
+	if(!validarInstitucion()) return;
 
 	$.ajax({
 		type: 'POST',

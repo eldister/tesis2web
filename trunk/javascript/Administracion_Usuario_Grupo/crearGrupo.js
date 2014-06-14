@@ -1,6 +1,6 @@
 
-var seleccionResponsable;
-var seleccionMiembros;
+var seleccionResponsable=[];
+var seleccionMiembros=[];
 
 
 var test = $('#sel2Multi1');
@@ -66,6 +66,10 @@ function guardarCambios(){
 	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
 
 	var parent= [];
+
+	if(!validarGrupo(dameResponsable(),dameMiembros())){
+		return;
+	}
 
 	parent.push(dameResponsable());
 	parent.push(dameMiembros());
