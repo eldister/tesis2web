@@ -1,6 +1,13 @@
 var listaLecturas=[];
 var seleccionEtiquetas;
 
+
+function resetForm(){
+	$("input.form-control").val("");
+	$(".alert").remove();
+}
+
+
 function getId(){
 	if( localStorage.uid ){
 		return IDUSUARIO = localStorage.uid;
@@ -213,6 +220,7 @@ function guardaBQ(){
 
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
+	resetForm();
 	//IDUSUARIO=getId;
 	//var obj;
 
@@ -220,35 +228,49 @@ function guardaBQ(){
 	var obj = {};
 	obj["IDUSUARIO"]=IDUSUARIO;
 	$('#FECHA_CREACION').val(cargaHora);
-
-	//obj["criterio"]=getUrlParameters("id","",true);
-	//var parent= [];
-
-	//parent.push(dameEtiquetas());
-	//var obj2 = $.extend({},obj,parent);
-
-	/*$.ajax({
-		type: 'POST',
-		url : '../../api/BQ_GuardaBusqueda',
-		dataType: "json",
-		data: JSON.stringify(obj2),
-		contentType: "application/json; charset=utf-8",
-		success: function (data){
-			//alert("aaaaaaaaaaaaaa");
-			llenaTabla(data);
-		}
-	});*/
-
-	//$('#detalleBusqueda').removeClass('insertar');
-	//$('#detalleBusqueda').removeClass('modificar');
-	//$('#detalleBusqueda').removeClass('eliminar');
 	$('#tituloBoton').html("Guardar");
 	$('#tituloModal').html("Guardar Busqueda");
-	$('#detalleBusqueda').addClass('eliminar');
+	$('#detalleBusqueda').addClass('guardar');
 	$('#detalleBusqueda').modal('show');
 }
 
+function guardaEtiquetaBQ(data){
+	$('#detalleBusqueda').modal('hide');
+	alert("La busqueda fue guardada correctamente");	
+}
 
+function guardarCambios(){
+	var data = $(".form-control");
+	var obj = {};
+	
+	obj["IDUSUARIO"] = getId();
+	obj["NOMBRES"] = $('#NOMBRES').val();
+
+	//obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();//hardcode!
+	var ruta = "";
+	var callback;
+	var parent= [];
+
+	parent.push(dameEtiquetas());
+	var obj2 = $.extend({},obj,parent);
+
+	
+	if($('#detalleBusqueda').hasClass("guardar")){
+		ruta = "../../api/BQ_guardarBusqueda";
+		callback = guardaEtiquetaBQ;
+		
+	}
+
+	$.ajax({
+		type: 'POST',
+		url : ruta,
+		dataType: "json",
+		//data: obj,
+		data: JSON.stringify(obj2),
+		contentType: "application/json; charset=utf-8",
+		success: callback
+	});
+}
 
 
 
@@ -259,7 +281,9 @@ $(document).ready(function(){
 	cargarListaEtiquetas();
 	$("#busquedaAsistida").click(realizarBusqueda);
 	$("#guardaBusqueda").click(guardaBQ);
+	$("#cerrar").click(resetForm);
 	//realizarBusqueda();
+	$("#guardar").click(guardarCambios);
 	cargaHora();
 	var enterpressed=false;
 	var NOMBRE;
