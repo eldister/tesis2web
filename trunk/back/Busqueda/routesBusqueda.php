@@ -7,4 +7,5 @@
 	$app->post('/BQ_buscarPublicacionAsistida','busquedaAsistida');
 	$app->post('/BQ_damelistaEtiquetas','dameEtiquetaBQ');
 	$app->post('/BQ_BusquedaAvanzada','busquedaAvanzada');
+	$app->post('/BQ_guardarBusqueda','busquedaGuardar');
 ?>

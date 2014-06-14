@@ -738,4 +738,35 @@ function busquedaAvanzada(){
 
 }	
 
+
+
+
+
+function busquedaGuardar(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody(),true);
+    $con=getConnection();
+    $IDUSUARIO=$data["IDUSUARIO"];
+	$NOMBRES=$data["NOMBRES"];
+	$FECHA=$today = date("Y-m-d");
+
+
+	//INSERTO LA BUSQUEDA
+	$pstmt = $con->prepare("INSERT INTO BUSQUEDA(nombre,fecha_hora,estado,idusuario) VALUES (?,?,1,?)");
+	$pstmt->execute(array($NOMBRES,$FECHA,$IDUSUARIO));
+	$lastInsertId = $con->lastInsertId();//ESTE ES EL ID DEL  QUE SE CREO
+
+
+	for ($i = 0; $i < count($data[0]); $i++)	
+	{	
+		$pstmt = $con->prepare("INSERT INTO BUSQUEDAXETIQUETA(IDBUSQUEDA,IDETIQUETA) VALUE (?,?)");
+		$pstmt->execute(array($lastInsertId,$data[0][$i]));
+	}
+
+	echo json_encode($lastInsertId);
+
+}
+
+
 ?>
