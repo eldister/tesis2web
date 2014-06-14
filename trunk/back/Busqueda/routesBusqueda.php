@@ -8,4 +8,7 @@
 	$app->post('/BQ_damelistaEtiquetas','dameEtiquetaBQ');
 	$app->post('/BQ_BusquedaAvanzada','busquedaAvanzada');
 	$app->post('/BQ_guardarBusqueda','busquedaGuardar');
+	$app->post('/BQ_getListaMisBusquedas','dameMisBusquedas');
+	$app->get('/BQ_eliminaMiBusqueda/:id','eliminaMiBusqueda');
+
 ?>

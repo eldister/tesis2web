@@ -769,4 +769,44 @@ function busquedaGuardar(){
 }
 
 
+function dameMisBusquedas(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody(),true);
+    $con=getConnection();
+    $IDUSUARIO=$data["IDUSUARIO"];
+
+    $pstmt = $con->prepare("SELECT B.IDBUSQUEDA, B.NOMBRE,/*DATE_FORMAT(b.fecha_hora, '%W %M %Y')*/  DATE(b.fecha_hora)FROM BUSQUEDA B where b.idusuario=? and b.estado=1");
+	$pstmt->execute(array($IDUSUARIO));
+
+	$listaBusqueda = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaBusqueda[] = $req;
+		}
+	echo json_encode($listaBusqueda);	
+
+}
+
+
+
+function eliminaMiBusqueda($id){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    //$data = json_decode($request->getBody());
+    //$IDBUSQUEDA=$data->{"IDBUSQUEDA"};
+
+    $con=getConnection();
+
+	$pstmt = $con->prepare("DELETE FROM BUSQUEDAXETIQUETA WHERE IDBUSQUEDA=?");
+	$pstmt->execute(array($id));
+
+	$pstmt = $con->prepare("UPDATE BUSQUEDA B SET B.ESTADO=0 WHERE B.IDBUSQUEDA=?");
+	$pstmt->execute(array($id));
+	
+	echo json_encode(array("status"=>1));
+
+}
+
+
+
 ?>
