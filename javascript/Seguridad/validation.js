@@ -288,3 +288,10 @@ function validarPermiso(){
 
 	return camposValidos;
 }
+
+function validarBuscar(etiquetas){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateLengthCampoSelect("s2id_sel2Multi1",etiquetas,"Debe seleccionar al menos una etiqueta") && camposValidos;
+	return camposValidos;
+}
