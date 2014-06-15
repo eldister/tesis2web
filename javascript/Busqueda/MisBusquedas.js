@@ -18,6 +18,7 @@ function cargaListaBusqueda(data){
 
 		fila += '</td></tr>';
 		$('#listaBusqueda').append(fila);
+		$('#listaBusqueda').trigger("update");
 	}
 	$(document).on('click', '.ver-busqueda', verBusqueda);
 	$(document).on('click', '.eliminar-busqueda', eliminarBusqueda);
@@ -206,6 +207,9 @@ function cargaElementos(){
 		contentType: "application/json; charset=utf-8",
 		success: cargaListaBusqueda
 	});
+
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
 }
 
 
