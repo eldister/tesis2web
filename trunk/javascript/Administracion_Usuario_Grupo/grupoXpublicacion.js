@@ -26,6 +26,8 @@ function cargaElementos(data){
 		}
 		fila += '</td></tr>';
 		$('#listaPublicacion').append(fila);
+		$('#listaPublicacion').trigger("update");
+
 		$(document).on('click', '.eliminar-publicacion', eliminarPublicacionXGrupo);
 	}
 }
@@ -54,6 +56,8 @@ function eliminarPublicacionXGrupo(){
 			success: function(data){
 				$('#fila-'+IDPUBLICACION+'').remove();
 				alert("Se elimino correctamente la publicacion");
+				$('#listaPublicacion').trigger("update");
+
 				//window.location.href = "../Administracion_Usuario_Grupo/ViewListaPublicacionPorGrupo.html?id=" + IDGRUPO;
 			}
 		});
@@ -154,7 +158,13 @@ function cargaListaPublicacion(){
     //   .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
 }
 
+function initTableSorter(){
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
+}
+
 $(document).ready(function(){
+	initTableSorter();	
 	idpermiso = damePermiso();
 	idUsuario=getId();
 	idResonsable=dameResponsable();
