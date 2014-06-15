@@ -165,6 +165,18 @@ function validarEtiqueta(idiomas){
 	return camposValidos;
 }
 
+function validarEtiquetaInd(nombreEtiqueta){
+	clearErrors(); 
+	if ($(nombreEtiqueta).val() == "" || $(nombreEtiqueta).val() == null){
+		var spanError = '<span class="errorMsg help-block" >El campo es obligatorio</span>';
+		$(nombreEtiqueta).parent().parent().addClass("has-error");
+		$(nombreEtiqueta).parent().parent().append(spanError);
+		return false;
+	}
+	return true;
+}
+
+
 function validarGrupo2(responsable,miembros){
 	clearErrors(); 
 	var camposValidos = true;
@@ -219,6 +231,60 @@ function validarModificarLectura(){
 	clearErrors(); 
 	var camposValidos = true;
 	camposValidos = validateMandatory("PALABRACLAVE","El campo es obligatorio") && camposValidos;
+
+	return camposValidos;
+}
+
+function validarPublicacion(grupos,autores){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateMandatory("TITULO","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("FUENTE","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("OBTENIDO","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("FECHAPUB","El campo es obligatorio") && camposValidos;
+	camposValidos = validateLengthCampoSelect("s2id_sel2Grupo",grupos,"Debe seleccionar al menos un grupo") && camposValidos;
+	camposValidos = validateLengthCampoSelect("s2id_sel2Multi2",autores,"Debe seleccionar al menos un autor") && camposValidos;
+
+	return camposValidos;
+}	
+
+function validarAutor(){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateMandatory("NOM_APE","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("PAGINA_WEB","El campo es obligatorio") && camposValidos;
+
+	return camposValidos;
+}
+
+function validarIdioma(){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateMandatory("NOMBRE","El campo es obligatorio") && camposValidos;
+
+	return camposValidos;
+}
+
+function validarTipoFicha(){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateMandatory("NOMBRE","El campo es obligatorio") && camposValidos;
+
+	return camposValidos;
+}
+
+function validarTipoPublicacion(){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateMandatory("NOMBRE","El campo es obligatorio") && camposValidos;
+
+	return camposValidos;
+}
+
+function validarPermiso(){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateMandatory("NOMBRE","El campo es obligatorio") && camposValidos;
 
 	return camposValidos;
 }

@@ -91,7 +91,7 @@ function agregarFila(){
 	}
 	else{
 
-		if(!validarModificarLectura(checkedradio)){			
+		if(!validarModificarLectura()){			
 			return;
 		}
 

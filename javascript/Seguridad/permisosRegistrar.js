@@ -30,6 +30,8 @@ function guardarCambios(){
 		PERMISOS: armarPermisos()
 	};
 
+	if(!validarPermiso()) return;
+
 	$.ajax({
 		type: 'POST',
 	    url:'../../api/SE_registrarPermiso',
