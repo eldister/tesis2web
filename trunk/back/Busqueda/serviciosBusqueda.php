@@ -775,8 +775,8 @@ function dameMisBusquedas(){
     $data = json_decode($request->getBody(),true);
     $con=getConnection();
     $IDUSUARIO=$data["IDUSUARIO"];
-
-    $pstmt = $con->prepare("SELECT B.IDBUSQUEDA, B.NOMBRE,/*DATE_FORMAT(b.fecha_hora, '%W %M %Y')*/  DATE(b.fecha_hora)FROM BUSQUEDA B where b.idusuario=? and b.estado=1");
+    
+    $pstmt = $con->prepare("SELECT B.IDBUSQUEDA, B.NOMBRE, DATE_FORMAT(b.fecha_hora,'%e-%m-%y')/* DATE(b.fecha_hora)*/FROM BUSQUEDA B where b.idusuario=? and b.estado=1");
 	$pstmt->execute(array($IDUSUARIO));
 
 	$listaBusqueda = array();

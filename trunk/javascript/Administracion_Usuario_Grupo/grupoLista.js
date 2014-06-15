@@ -75,6 +75,7 @@ function cargaListaGrupo(data){
 		
 		fila += '</td></tr>';
 		$('#listaGrupo').append(fila);
+		$('#listaGrupo').trigger("update");
 	}
 	$(document).on('click', '.ver-listaUsuario', verListaUsuario);
 	$(document).on('click', '.ver-listaPublicacion', verListaPublicacion);
@@ -172,6 +173,7 @@ function elimina(data){
 	$('#detalleUsuario').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDUSUARIO"]+'').remove();
+	$('#listaGrupo').trigger("update");
 	return false;
 }
 
@@ -286,8 +288,14 @@ function regresaGrupo(){
 	window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
 }
 
-$(document).ready(function(){
+function initTableSorter(){
+	$("table#tabla2").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
+}
 
+
+$(document).ready(function(){
+	initTableSorter()
 	idpadre = damePadre();
 	idpermiso = damePermiso();
 	setTimeout(cargaElementos,250);
