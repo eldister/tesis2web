@@ -51,8 +51,7 @@ function cargaListaUsuario(data){
 
 function eliminarUsuario(){
 
-	var answer = confirm("Desea eliminar al usuario?")
-	if (answer){
+	
 		$(".selected").removeClass("selected");
 		$(this).parent().parent().addClass("selected");
 		IDUSUARIO=this.getAttribute("IDUSUARIO");
@@ -99,7 +98,7 @@ function eliminarUsuario(){
 		$('#tituloModal').html("Eliminar Usuario");
 		$('#detalleUsuario').addClass('eliminar');
 		$('#detalleUsuario').modal('show');
-	}
+	
 }
 
 function elimina(data){
@@ -107,6 +106,7 @@ function elimina(data){
 	resetForm();
 	$('#fila-'+data[0]["IDUSUARIO"]+'').remove();
 	$('#listaUsuario').trigger("update");
+	alert("El usuario fue eliminado correctamente");
 	return false;
 }
 
@@ -120,8 +120,11 @@ function guardarCambios(){
 	var callback;
 	
 	if($('#detalleUsuario').hasClass("eliminar")){
-		ruta = "../../api/AU_eliminaUsuario";
-		callback = elimina;
+		var answer = confirm("Desea eliminar al usuario?")
+		if (answer){
+			ruta = "../../api/AU_eliminaUsuario";
+			callback = elimina;
+		}
 	}
 
 	$.ajax({
