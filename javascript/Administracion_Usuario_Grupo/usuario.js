@@ -44,6 +44,7 @@ function cargaListaUsuario(data){
 
 		fila += '</td></tr>';
 		$('#listaUsuario').append(fila);
+		$('#listaUsuario').trigger("update");
 	}
 	$(document).on('click', '.eliminar-usuario', eliminarUsuario);
 }
@@ -105,6 +106,7 @@ function elimina(data){
 	$('#detalleUsuario').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDUSUARIO"]+'').remove();
+	$('#listaUsuario').trigger("update");
 	return false;
 }
 
@@ -160,8 +162,13 @@ function cargaElementos(){
 	});
 }
 
-$(document).ready(function(){
+function initTableSorter(){
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
+}
 
+$(document).ready(function(){
+	initTableSorter();
 	cargaElementos();
 
 	$("#guardar").click(guardarCambios);
