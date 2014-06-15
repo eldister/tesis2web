@@ -22,6 +22,7 @@ function cargaListaAutor(data){
 
 		fila += '</td></tr>';
 		$('#listaAutor').append(fila);
+		$('#listaAutor').trigger("update");
 	}
 	$(document).on('click', '.ver-autor', verAutor);
 	$(document).on('click', '.modificar-autor', modificarAutor);
@@ -164,6 +165,8 @@ function elimina(data){
 	$('#detalleAutor').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDAUTOR"]+'').remove();
+	$('#listaAutor').trigger("update");
+
 	return false;
 }
 
@@ -176,6 +179,8 @@ function modifica(data){
 	$(campos[2]).html(data["INSTITUCION"]);
 	$(campos[3]).html(data["TRABAJO"]);
 	$('#detalleAutor').modal('hide');
+	$('#listaAutor').trigger("update");
+
 	resetForm();
 }
 
@@ -250,8 +255,13 @@ function insertaCambiosFront(){
 
 }
 
-$(document).ready(function(){
+function initTableSorter(){
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
+}
 
+$(document).ready(function(){
+	initTableSorter();	
 	cargaElementos();
 
 	$("#guardar").click(guardarCambios);
