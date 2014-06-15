@@ -46,45 +46,50 @@ function modificarUsuario(data){
 	$('#USERNAME').prop('readOnly',true);
 	//$('#IDPERMISO').prop('readOnly',true);
 	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
+	alert("Los datos del usuario fueron modificados correctamente");
 }
 
 function guardarCambios(){
-	var data = $(".form-control");
-	var obj = {};
-	
-	//obj["IDUSUARIO"]=this.getAttribute("IDUSUARIO");
-	obj["IDUSUARIO"]=getUrlParameters("id","",true);
-	var ruta = "";
-	var callback;
 
-	if (!validarUsuario()){
-		//alert("Uno o más errores en los campos de entrada");
-		return;
+	var answer = confirm("Desea modificar los datos del usuario?")
+	if (answer){
+		var data = $(".form-control");
+		var obj = {};
+		
+		//obj["IDUSUARIO"]=this.getAttribute("IDUSUARIO");
+		obj["IDUSUARIO"]=getUrlParameters("id","",true);
+		var ruta = "";
+		var callback;
+
+		if (!validarUsuario()){
+			//alert("Uno o más errores en los campos de entrada");
+			return;
+		}
+		
+		ruta = "../../api/AU_modificaUsuario";
+		callback = modificarUsuario;
+		obj["NOMBRES"] = $('#NOMBRES').val();
+		obj["APELLIDOS"] = $('#APELLIDOS').val();
+		obj["CORREO_INSTITUCIONAL"] = $('#CORREO_INSTITUCIONAL').val();
+		obj["CORREO_ALTERNO"] = $('#CORREO_ALTERNO').val();
+		obj["NUMERO_CELULAR"] = $('#NUMERO_CELULAR').val();
+		obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
+		obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
+		obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
+		obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
+		obj["COMPROMISO"] = $('#COMPROMISO').val();
+		obj["IDPERMISO"] = $('#IDPERMISO').val();	
+		obj["USERNAME"] = $('#USERNAME').val();
+
+		$.ajax({
+			type: 'POST',
+			url : ruta,
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: callback
+		});
 	}
-	
-	ruta = "../../api/AU_modificaUsuario";
-	callback = modificarUsuario;
-	obj["NOMBRES"] = $('#NOMBRES').val();
-	obj["APELLIDOS"] = $('#APELLIDOS').val();
-	obj["CORREO_INSTITUCIONAL"] = $('#CORREO_INSTITUCIONAL').val();
-	obj["CORREO_ALTERNO"] = $('#CORREO_ALTERNO').val();
-	obj["NUMERO_CELULAR"] = $('#NUMERO_CELULAR').val();
-	obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
-	obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
-	obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
-	obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
-	obj["COMPROMISO"] = $('#COMPROMISO').val();
-	obj["IDPERMISO"] = $('#IDPERMISO').val();	
-	obj["USERNAME"] = $('#USERNAME').val();
-
-	$.ajax({
-		type: 'POST',
-		url : ruta,
-		dataType: "json",
-		data: JSON.stringify(obj),
-		contentType: "application/json; charset=utf-8",
-		success: callback
-	});
 }
 
 function cargarComboTipoUsuario(){
