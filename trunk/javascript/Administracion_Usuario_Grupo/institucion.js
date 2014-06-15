@@ -24,30 +24,35 @@ function cargaListaInstitucion(data){
 }
 
 function modificarInstitucion(){
-	clearErrors();
-	$(".selected").removeClass("selected");
-	$(this).parent().parent().addClass("selected");
-	var obj = {
-		"IDINSTITUCION": this.getAttribute("IDINSTITUCION")
-	}
-	$.ajax({
-		type: 'GET',
-		url : '../../api/AU_getInstitucion/'+obj["IDINSTITUCION"],
-		dataType: "json",
-		contentType: "application/json; charset=utf-8",
-		success: function(data){
-			$('#IDINSTITUCION').val(obj["IDINSTITUCION"]);
-			$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
-			$('#DESCRIPCION').val(data["DESCRIPCION"]);
+
+	var answer = confirm("Desea modificar los datos de la institucion?")
+	if (answer){
+		clearErrors();
+		$(".selected").removeClass("selected");
+		$(this).parent().parent().addClass("selected");
+		var obj = {
+			"IDINSTITUCION": this.getAttribute("IDINSTITUCION")
 		}
-	});
-	$('#detalleInstitucion').removeClass('insertar');
-	$('#detalleInstitucion').removeClass('modificar');
-	$('#detalleInstitucion').removeClass('eliminar');
-	$('#tituloModal').html("Modificar Institucion");
-	$('#tituloBoton').html("Modificar");
-	$('#detalleInstitucion').addClass('modificar');
-	$('#detalleInstitucion').modal('show');
+		$.ajax({
+			type: 'GET',
+			url : '../../api/AU_getInstitucion/'+obj["IDINSTITUCION"],
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function(data){
+				$('#IDINSTITUCION').val(obj["IDINSTITUCION"]);
+				$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
+				$('#DESCRIPCION').val(data["DESCRIPCION"]);
+				alert("Los datos de la institucion fueron modificados correctamente");
+			}
+		});
+		$('#detalleInstitucion').removeClass('insertar');
+		$('#detalleInstitucion').removeClass('modificar');
+		$('#detalleInstitucion').removeClass('eliminar');
+		$('#tituloModal').html("Modificar Institucion");
+		$('#tituloBoton').html("Modificar");
+		$('#detalleInstitucion').addClass('modificar');
+		$('#detalleInstitucion').modal('show');
+	}
 }
 
 
@@ -61,25 +66,29 @@ function resetForm(){
 
 
 function inserta(data){
-	clearErrors();
-	$('#detalleInstitucion').modal('hide');
-	var fila = '<tr id=fila-'+ data[0]["IDINSTITUCION"] +'>'; 
-	fila +='<td style="display:none;">'
-	fila += '<td class="text-center">'+data[1]["NOMBRE_INSTITUCION"]+'</td>';
-	fila += '<td class="text-center">'+data[2]["DESCRIPCION"]+'</td>';
 
-	fila+= '<td style="width: 23%;padding-left: 30px;">'
-	fila+= '<a class="modificar-institucion table-link" IDINSTITUCION='+data[0]["IDINSTITUCION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
-	fila+= '<a  class="eliminar-institucion table-link danger" IDINSTITUCION='+data[0]["IDINSTITUCION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
-	fila += '</tr>';
-	$('#listaInstitucion').append(fila);
+		clearErrors();
+		$('#detalleInstitucion').modal('hide');
+		var fila = '<tr id=fila-'+ data[0]["IDINSTITUCION"] +'>'; 
+		fila +='<td style="display:none;">'
+		fila += '<td class="text-center">'+data[1]["NOMBRE_INSTITUCION"]+'</td>';
+		fila += '<td class="text-center">'+data[2]["DESCRIPCION"]+'</td>';
 
-	resetForm();
-	$(document).on('click', '.modificar-institucion', modificarInstitucion);
-	$(document).on('click', '.eliminar-institucion', eliminarInstitucion);
+		fila+= '<td style="width: 23%;padding-left: 30px;">'
+		fila+= '<a class="modificar-institucion table-link" IDINSTITUCION='+data[0]["IDINSTITUCION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
+		fila+= '<a  class="eliminar-institucion table-link danger" IDINSTITUCION='+data[0]["IDINSTITUCION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
+		fila += '</tr>';
+		$('#listaInstitucion').append(fila);
+
+		resetForm();
+		$(document).on('click', '.modificar-institucion', modificarInstitucion);
+		$(document).on('click', '.eliminar-institucion', eliminarInstitucion);
+	
 }
 
 function eliminarInstitucion(){
+
+
 	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");

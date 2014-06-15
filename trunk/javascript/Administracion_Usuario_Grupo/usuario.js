@@ -49,52 +49,56 @@ function cargaListaUsuario(data){
 }
 
 function eliminarUsuario(){
-	$(".selected").removeClass("selected");
-	$(this).parent().parent().addClass("selected");
-	IDUSUARIO=this.getAttribute("IDUSUARIO");
-	var obj;
 
-	$.ajax({
-		type: 'GET',
-		url : '../../api/AU_getUsuario/'+ IDUSUARIO,
-		dataType: "json",
-		contentType: "application/json; charset=utf-8",
-		success: function(data){ 
-			$('#IDUSUARIO').val(data["IDUSUARIO"]);
-			$('#NOMBRES').val(data["NOMBRES"]);
-			$('#APELLIDOS').val(data["APELLIDOS"]);
-			$('#CORREO_INSTITUCIONAL').val(data["CORREO_INSTITUCIONAL"]);
-			$('#CORREO_ALTERNO').val(data["CORREO_ALTERNO"]);
-			$('#NUMERO_CELULAR').val(data["NUMERO_CELULAR"]);
-			$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
-			$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
-			$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
-			$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
-			$('#COMPROMISO').val(data["COMPROMISO"]);
-			$('#NOMBRE').val(data["NOMBRE"]);
-			$('#USERNAME').val(data["COMPROMISO"]);
-			$('#PASSWORD').val(data["NOMBRE"]);
-		}
-	});
-	$('#IDUSUARIO').prop('readOnly',true);
-	$('#NOMBRES').prop('readOnly',true);
-	$('#APELLIDOS').prop('readOnly',true);
-	$('#CORREO_INSTITUCIONAL').prop('readOnly',true);
-	$('#CORREO_ALTERNO').prop('readOnly',true);
-	$('#NUMERO_CELULAR').prop('readOnly',true);
-	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
-	$('#CUENTA_SKYPE').prop('readOnly',true);
-	$('#NOMBRE_INSTITUCION').prop('readOnly',true);
-	$('#MESES_TERMINAR').prop('readOnly',true);
-	$('#COMPROMISO').prop('readOnly',true);
-	$('#NOMBRE').prop('readOnly',true);
-	$('#detalleUsuario').removeClass('insertar');
-	$('#detalleUsuario').removeClass('modificar');
-	$('#detalleUsuario').removeClass('eliminar');
-	$('#tituloBoton').html("Eliminar");
-	$('#tituloModal').html("Eliminar Usuario");
-	$('#detalleUsuario').addClass('eliminar');
-	$('#detalleUsuario').modal('show');
+	var answer = confirm("Desea eliminar al usuario?")
+	if (answer){
+		$(".selected").removeClass("selected");
+		$(this).parent().parent().addClass("selected");
+		IDUSUARIO=this.getAttribute("IDUSUARIO");
+		var obj;
+
+		$.ajax({
+			type: 'GET',
+			url : '../../api/AU_getUsuario/'+ IDUSUARIO,
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function(data){ 
+				$('#IDUSUARIO').val(data["IDUSUARIO"]);
+				$('#NOMBRES').val(data["NOMBRES"]);
+				$('#APELLIDOS').val(data["APELLIDOS"]);
+				$('#CORREO_INSTITUCIONAL').val(data["CORREO_INSTITUCIONAL"]);
+				$('#CORREO_ALTERNO').val(data["CORREO_ALTERNO"]);
+				$('#NUMERO_CELULAR').val(data["NUMERO_CELULAR"]);
+				$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
+				$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
+				$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
+				$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
+				$('#COMPROMISO').val(data["COMPROMISO"]);
+				$('#NOMBRE').val(data["NOMBRE"]);
+				$('#USERNAME').val(data["COMPROMISO"]);
+				$('#PASSWORD').val(data["NOMBRE"]);
+			}
+		});
+		$('#IDUSUARIO').prop('readOnly',true);
+		$('#NOMBRES').prop('readOnly',true);
+		$('#APELLIDOS').prop('readOnly',true);
+		$('#CORREO_INSTITUCIONAL').prop('readOnly',true);
+		$('#CORREO_ALTERNO').prop('readOnly',true);
+		$('#NUMERO_CELULAR').prop('readOnly',true);
+		$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
+		$('#CUENTA_SKYPE').prop('readOnly',true);
+		$('#NOMBRE_INSTITUCION').prop('readOnly',true);
+		$('#MESES_TERMINAR').prop('readOnly',true);
+		$('#COMPROMISO').prop('readOnly',true);
+		$('#NOMBRE').prop('readOnly',true);
+		$('#detalleUsuario').removeClass('insertar');
+		$('#detalleUsuario').removeClass('modificar');
+		$('#detalleUsuario').removeClass('eliminar');
+		$('#tituloBoton').html("Eliminar");
+		$('#tituloModal').html("Eliminar Usuario");
+		$('#detalleUsuario').addClass('eliminar');
+		$('#detalleUsuario').modal('show');
+	}
 }
 
 function elimina(data){
