@@ -18,6 +18,7 @@ function cargaListaIdioma(data){
 
 		fila += '</td></tr>';
 		$('#listaIdioma').append(fila);
+		$('#listaIdioma').trigger("update");
 	}
 	$(document).on('click', '.modificar-idioma', modificarIdioma);
 	$(document).on('click', '.eliminar-idioma', eliminarIdioma);
@@ -116,6 +117,8 @@ function elimina(data){
 	$('#detalleIdioma').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDIDIOMA"]+'').remove();
+	$('#listaIdioma').trigger("update");
+
 	return false;
 }
 
@@ -126,6 +129,8 @@ function modifica(data){
 	$(campos[1]).html(data["NOMBRE"]);
 	$(campos[2]).html(data["OBSERVACION"]);
 	$('#detalleIdioma').modal('hide');
+	$('#listaIdioma').trigger("update");
+
 	resetForm();
 }
 
@@ -194,8 +199,13 @@ function insertaCambiosFront(){
 
 }
 
-$(document).ready(function(){
+function initTableSorter(){
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
+}
 
+$(document).ready(function(){
+	initTableSorter();	
 	cargaElementos();
 
 	$("#guardar").click(guardarCambios);
