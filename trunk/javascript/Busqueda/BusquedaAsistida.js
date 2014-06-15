@@ -1,5 +1,5 @@
 var listaLecturas=[];
-var seleccionEtiquetas;
+var seleccionEtiquetas=[];
 
 
 function resetForm(){
@@ -153,6 +153,8 @@ function realizarBusqueda(){
 	//obj["criterio"]=getUrlParameters("id","",true);
 	var parent= [];
 
+	if(!validarBuscar(dameEtiquetas())) return;
+
 	parent.push(dameEtiquetas());
 	var obj2 = $.extend({},obj,parent);
 
@@ -179,7 +181,18 @@ function iniciarNiceSelectBoxesBQ(){
 
 function cargarListaEtiquetas(){
 	
-	//var obj = {};
+	/*$.ajax({
+		type: 'GET',
+	    url:'../../api/PD_getListaTipoPublicacion',
+	    dataType: "json",
+	    contentType: "application/json; charset=utf-8",
+	    success: function(data) {
+		   for (var i=0; i<data.length; i++) {
+		     $("#TIPOPUBLICACION_SELECT").append('<option value="' + data[i].IDTIPOPUBLICACION + '">' + data[i].NOMBRE + '</option>');
+		   }
+	    }
+	});*/
+
 	$.ajax({
 		type: 'POST',
 		url : '../../api/BQ_damelistaEtiquetas',
@@ -190,6 +203,7 @@ function cargarListaEtiquetas(){
 			for (var i=0; i<obj.length; i++) {
 				$("#sel2Multi1").append('<option value="' + obj[i].IDETIQUETA + '">' + obj[i].NOMBRE + '</option>');
 			}
+
 		}
 	});
 }
@@ -317,7 +331,7 @@ function verEtiquetaBusqueda(){
 					integrantes.push(lista[i].IDETIQUETA);
 		    	}
 		    	$("#sel2Multi1").select2("val", integrantes);
-				seleccionMiembros = $("#sel2Multi1").select2("data");
+				seleccionEtiquetas = $("#sel2Multi1").select2("data");
 			}
 		});
 	}
@@ -353,11 +367,5 @@ $(document).ready(function(){
 		 }
 		 else{
 		 }
-	});
-	
-	
-	
-
-
-	
+	});	
 });
