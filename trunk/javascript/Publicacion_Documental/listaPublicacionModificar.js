@@ -144,6 +144,11 @@ function agregarFila(){
 
 	if(boton==="Agregar"){
 		var checkedradio = $('[name="radio"]:radio:checked').val();
+
+		if(!validarAgregarLectura(checkedradio)){			
+			return;
+		}
+
 		var idpub = checkedradio;
 		var titulo = $("#listaPublicaciones tr#fila-"+checkedradio+" td.titulo").html();
 		var tipo = $("#listaPublicaciones tr#fila-"+checkedradio+" td.tipo").html();
@@ -181,6 +186,11 @@ function agregarFila(){
 		//console.log(listaLecturas);
 	}
 	else{
+
+		if(!validarModificarLectura()){			
+			return;
+		}
+
 		var idpub=indice[0].index;
 		$("#listaLecturas tr#f-"+idpub+" td.palcla").html($("#PALABRACLAVE").val());
 		
@@ -301,6 +311,10 @@ function guardarCambios(){
 			 lecturas:listaLecturas,
 			 grupos:grupos
 		};
+
+	if(!validarListaPublicacion(grupos,listaLecturas)){
+		return;
+	}
 
 	$.ajax({
 		type: 'POST',

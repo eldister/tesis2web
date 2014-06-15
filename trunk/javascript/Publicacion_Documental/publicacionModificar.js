@@ -1,9 +1,9 @@
-var seleccionAutores;
-var seleccionEtiquetas;
+var seleccionAutores=[];
+var seleccionEtiquetas=[];
 var idpublicacion=getUrlParameters("idpublicacion", "", true);
-var seleccionGrupos;
-var seleccionResponsable;
-var seleccionMiembros;
+var seleccionGrupos=[];
+var seleccionResponsable=[];
+var seleccionMiembros=[];
 
 var idiomas;
 function popularSelectIdioma(){
@@ -171,6 +171,10 @@ function guardarCambios(){
 	obj["FECHAPUB"]=$('#FECHAPUB').val();
 	obj["IDPUBLICACION"]=idpublicacion;
 	obj["IDGRUPO"]=localStorage.idMiGrupo;
+
+	if(!validarPublicacion(seleccionGrupos,seleccionAutores)){
+		return;
+	}
 
 	$.ajax({
 		type: 'POST',
@@ -481,6 +485,10 @@ function guardarEtiqueta(){
 		listEtiquetas.push(obj);
 	}
 
+	if(!validarEtiqueta(idiomas)){
+		return;
+	}
+
 	$.ajax({
 		type: 'POST',
 		url : ruta,
@@ -503,6 +511,10 @@ function guardarAutor(){
 	obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
 	obj["INSTITUCION"] = $('#INSTITUCION').val();
 	obj["TRABAJO"] = $('#TRABAJO').val();
+
+	if(!validarAutor()){
+		return;
+	}
 
 	$.ajax({
 		type: 'POST',
@@ -530,6 +542,10 @@ function guardarGrupo(){
 	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
 
 	var parent= [];
+
+	if(!validarGrupo2(dameResponsable(),dameMiembros())){
+		return;
+	}
 
 	parent.push(dameResponsable());
 	parent.push(dameMiembros());

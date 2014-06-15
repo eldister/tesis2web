@@ -25,6 +25,7 @@ function cargaListaIdioma(data){
 
 
 function modificarIdioma(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var obj = {
@@ -57,11 +58,12 @@ function resetForm(){
 	$('#NOMBRE').prop('readOnly',false)
 	$("input.form-control").val("");
 	$(".alert").remove();
+	clearErrors();
 }
 
 
 function inserta(data){
-
+	clearErrors();
 	$('#detalleIdioma').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDIDIOMA"] +'>'; //TENGO EL PARCHE XD PA K DURE INFINITO
 	fila+='<td style="display:none;">'
@@ -81,6 +83,7 @@ function inserta(data){
 }
 
 function eliminarIdioma(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var IDIDIOMA=this.getAttribute("IDIDIOMA");
@@ -155,6 +158,8 @@ function guardarCambios(){
 		obj["OBSERVACION"] = $('#OBSERVACION').val();
 	}
 
+	if(!validarIdioma()) return;
+
 	$.ajax({
 		type: 'POST',
 		url : ruta,
@@ -177,6 +182,7 @@ function cargaElementos(){
 }
 
 function insertaCambiosFront(){
+	clearErrors();
 	$('#IDIDIOMA').html("");
 	$('#detalleIdioma').removeClass('insertar');
 	$('#detalleIdioma').removeClass('eliminar');

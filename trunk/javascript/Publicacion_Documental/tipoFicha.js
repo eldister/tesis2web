@@ -26,7 +26,7 @@ function cargaElementos(data){
 }
 
 function inserta(data){
-
+	clearErrors();
 	$('#detalleTipoFicha').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDTIPOFICHA"] +'>';
 	//var fila='<tr>';
@@ -50,6 +50,7 @@ function inserta(data){
 }
 
 function eliminarTipoFicha(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var idtipo=this.getAttribute("IDTIPOFICHA");
@@ -78,6 +79,7 @@ function eliminarTipoFicha(){
 }
 
 function modificarTipoFicha(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var idtipo=this.getAttribute("IDTIPOFICHA");
@@ -110,6 +112,7 @@ function resetForm(){
 	$('#DESCRIPCION').attr('readOnly',false);
 	$("input.form-control").val("");
 	$(".alert").remove();
+	clearErrors();
 }
 
 function modifica(data){
@@ -159,6 +162,9 @@ function guardarCambios(){
 		obj["NOMBRE"] = $('#NOMBRE').val();
 		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
 	}
+
+	if(!validarTipoFicha()) return;
+
 	$.ajax({
 		type: 'POST',
 		url : ruta,
@@ -181,6 +187,7 @@ function cargaListaTipoFicha(){
 }
 
 function insertaCambiosFront(){
+	clearErrors();
 	$('#IDTIPOFICHA').html("");
 	$('#detalleTipoFicha').removeClass('insertar');
 	$('#detalleTipoFicha').removeClass('modificar');

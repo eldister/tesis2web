@@ -50,31 +50,32 @@
 								<!--<form role="form"  action="" id="form">-->
 									<h2>Modificar Publicación</h2>
 									<h3><span>Datos Básicos</span></h3>
+									<h6>Datos obligatorios (*)</h6>
 		                            <div class="row">		                            	
 		                                <div class="col-lg-6">		                                    
 	                                        <div class="form-group">	                                        	
-	                                            <label>Título</label>
+	                                            <label>Título (*)</label>
 	                                            <div class="input-group">
 	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
 	                                           		<textarea class="form-control" id="TITULO" rows="3"></textarea>
 	                                        	</div>
 	                                        </div>
 	                                        <div class="form-group">
-	                                            <label>Fuente</label>
+	                                            <label>Fuente (*)</label>
 	                                            <div class="input-group">
 	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
 	                                            	<textarea class="form-control" id="FUENTE" rows="3" placeholder="Nombre y/o descripción del congreso, revista, editorial u otra fuente"></textarea>
 	                                        	</div>
 	                                        </div>
 	                                      	<div class="form-group">
-	                                            <label>Referencia(s)</label>
+	                                            <label>Referencia(s) (*)</label>
 	                                            <div class="input-group">
 	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
 	                                            	<textarea class="form-control" id="OBTENIDO" rows="3" placeholder="Nombre y/o descripción de ACM, IEEE u otra base de datos"></textarea>
 	                                        	</div>
 	                                        </div>
 	                                        <div class="form-group">
-												<label for="IDIOMA_SELECT">Idioma</label>
+												<label for="IDIOMA_SELECT">Idioma (*)</label>
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-globe"></i></span>
 													<select class="form-control" id="IDIOMA_SELECT" >
@@ -83,7 +84,7 @@
 									            </div>	
 											</div>
 											<div class="form-group">
-												<label for="TIPOPUBLICACION_SELECT">Tipo</label>
+												<label for="TIPOPUBLICACION_SELECT">Tipo (*)</label>
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-book"></i></span>
 													<select class="form-control" id="TIPOPUBLICACION_SELECT" >
@@ -94,7 +95,7 @@
 		                                </div>
 		                                <div class="col-lg-6">	
 		                                	<div class="form-group">
-		                                        <label>Fecha de Publicación</label>
+		                                        <label>Fecha de Publicación (*)</label>
 		                                        <div class="input-group">
 		                                        	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                                        	<input type="text" id="FECHAPUB" class="form-control" readonly>
@@ -133,7 +134,7 @@
 		                            <h3><span>Grupos que tendrán acceso a la publicación</span></h3>	                            
 	                                <div class="row">
 	                                     <div class="col-md-12">
-		                                     <label>Selección de grupos</label>
+		                                     <label>Selección de grupos (*)</label>
 		                                     <div class="row">
 					                            <div class="col-md-6">
 			                                        <div class="form-group form-group-select2">
@@ -155,7 +156,7 @@
 		                            <h3><span>Autores y etiquetas</span></h3>		                            
 	                                <div class="row">
 	                                     <div class="col-md-12">
-		                                     <label>Autores</label>
+		                                     <label>Autores (*)</label>
 		                                     <div class="row">
 					                            <div class="col-md-6">
 			                                        <div class="form-group form-group-select2">
@@ -401,6 +402,7 @@
 	<!-- global scripts -->
 	<script src="../../javascript/Seguridad/interfaz.js"></script>
 	<script src="../../template/js/bootstrap.js"></script>
+	<script src="../../javascript/Seguridad/validation.js"></script>
 	
 	<!-- this page specific scripts -->
 	<script src="../../template/js/select2.min.js"></script>

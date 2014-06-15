@@ -29,6 +29,7 @@ function cargaListaAutor(data){
 }
 
 function verAutor(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var obj = {
@@ -62,6 +63,7 @@ function verAutor(){
 
 
 function modificarAutor(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var obj = {
@@ -99,11 +101,12 @@ function resetForm(){
 	$('#guardar').show();
 	$("input.form-control").val("");
 	$(".alert").remove();
+	clearErrors();
 }
 
 
 function inserta(data){
-
+	clearErrors();
 	$('#detalleAutor').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDAUTOR"] +'>'; 
 	fila +='<td style="display:none;">'
@@ -125,6 +128,7 @@ function inserta(data){
 }
 
 function eliminarAutor(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var obj = {
@@ -210,6 +214,8 @@ function guardarCambios(){
 		obj["TRABAJO"] = $('#TRABAJO').val();
 	}
 
+	if(!validarAutor()) return;
+
 	$.ajax({
 		type: 'POST',
 		url : ruta,
@@ -232,6 +238,7 @@ function cargaElementos(){
 }
 
 function insertaCambiosFront(){
+	clearErrors();
 	$('#IDAUTOR').html("");
 	$('#detalleAutor').removeClass('insertar');
 	$('#detalleAutor').removeClass('eliminar');

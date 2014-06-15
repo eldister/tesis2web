@@ -20,6 +20,7 @@ function cargaElementos(data,ididioma){
 }
 
 function inserta(data){
+	clearErrors();
 	$('#detalleEtiqueta').modal('hide');
 	/*for (var i = 0; i < data.length; i++) {
 		var fila = '<tr id=fila-'+ data[i]["IDETIQUETA"] +'>';
@@ -41,6 +42,7 @@ function inserta(data){
 
 
 function eliminarEtiqueta(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var idtipo=this.getAttribute("idetiqueta");
@@ -77,6 +79,7 @@ function eliminarEtiqueta(){
 var nombreEtiqueta;
 var idetiqueta;
 function modificarEtiqueta(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var idtipo=this.getAttribute("idetiqueta");
@@ -122,6 +125,7 @@ function resetForm(){
 }
 
 function modifica(data){
+	clearErrors();
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
 	$(campos[0]).html(data["IDETIQUETA"]);
@@ -133,6 +137,7 @@ function modifica(data){
 }
 
 function elimina(data){
+	clearErrors();
 	$('#detalleEtiqueta').modal('hide');	
 	resetForm();
 	for (var i = 0; i < data.length; i++) {
@@ -150,6 +155,7 @@ function guardarCambios(){
 	var ruta = "";
 	var callback;
 	var etiquetas;
+
 
 	if($('#detalleEtiqueta').hasClass("eliminar")){
 		ruta = "../../api/PD_eliminaEtiqueta";
@@ -177,6 +183,10 @@ function guardarCambios(){
 			listEtiquetas.push(obj);
 		}
 
+		if(!validarEtiqueta(idiomas)){
+			return;
+		}
+
 		$.ajax({
 			type: 'POST',
 			url : ruta,
@@ -192,6 +202,10 @@ function guardarCambios(){
 		callback = modifica;
 		obj["IDETIQUETA"] = $('#IDETIQUETA').val();
 		obj["NOMBRE"] = $(nombreEtiqueta).val();
+
+		if(!validarEtiquetaInd(nombreEtiqueta)){
+			return;
+		}
 
 		$.ajax({
 			type: 'POST',
@@ -218,6 +232,7 @@ function cargaListaEtiqueta(ididioma){
 }
 
 function insertaCambiosFront(){
+	clearErrors();
 	$('#IDETIQUETA').html("");
 	$('#detalleEtiqueta').removeClass('insertar');
 	$('#detalleEtiqueta').removeClass('modificar');

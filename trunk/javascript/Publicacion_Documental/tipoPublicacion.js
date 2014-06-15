@@ -27,7 +27,7 @@ function cargaElementos(data){
 }
 
 function inserta(data){
-
+	clearErrors();
 	$('#detalleTipoPublicacion').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDTIPOPUBLICACION"] +'>';
 	//var fila='<tr>';
@@ -52,6 +52,7 @@ function inserta(data){
 }
 
 function eliminarTipoPublicacion(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var idtipo=this.getAttribute("IDTIPOPUBLICACION");
@@ -85,6 +86,7 @@ function eliminarTipoPublicacion(){
 }
 
 function modificarTipoPublicacion(){
+	clearErrors();
 	$(".selected").removeClass("selected");
 	$(this).parent().parent().addClass("selected");
 	var idtipo=this.getAttribute("IDTIPOPUBLICACION");
@@ -122,6 +124,7 @@ function resetForm(){
 	$('#DESCRIPCION').attr('readOnly',false);
 	$("input.form-control").val("");
 	$(".alert").remove();
+	clearErrors();
 }
 
 function modifica(data){
@@ -172,6 +175,9 @@ function guardarCambios(){
 		obj["NOMBRE"] = $('#NOMBRE').val();
 		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
 	}
+
+	if(!validarTipoPublicacion()) return;
+
 	$.ajax({
 		type: 'POST',
 		url : ruta,
@@ -197,6 +203,7 @@ function cargaListaTipoPublicacion(){
 }
 
 function insertaCambiosFront(){
+	clearErrors();
 	$('#IDTIPOPUBLICACION').html("");
 	$('#detalleTipoPublicacion').removeClass('insertar');
 	$('#detalleTipoPublicacion').removeClass('modificar');
