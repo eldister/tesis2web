@@ -52,45 +52,47 @@ function getGrupo(){
 }
 
 function guardarCambios(){
+	var answer = confirm("Desea crear el grupo?")
+	if (answer){
+		var data = $(".form-control");
+		var obj = {};
+		
+		obj["IDGRUPO_PADRE"]=getGrupo();
+		var ruta = "";
+		var callback;
+		
+		ruta = "../../api/AU_registraGrupo";
+		obj["NOMBRES"] = $('#NOMBRES').val();
+		obj["FECHA_CREACION"] = $('#FECHA_CREACION').val();
+		obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
 
-	var data = $(".form-control");
-	var obj = {};
-	
-	obj["IDGRUPO_PADRE"]=getGrupo();
-	var ruta = "";
-	var callback;
-	
-	ruta = "../../api/AU_registraGrupo";
-	obj["NOMBRES"] = $('#NOMBRES').val();
-	obj["FECHA_CREACION"] = $('#FECHA_CREACION').val();
-	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
+		var parent= [];
 
-	var parent= [];
-
-	if(!validarGrupo(dameResponsable(),dameMiembros())){
-		return;
-	}
-
-	parent.push(dameResponsable());
-	parent.push(dameMiembros());
-
-	var obj2 = $.extend({},obj,parent);
-
-	console.log(obj2);
-	console.log(JSON.stringify(obj2));
-	$.ajax({
-		type: 'POST',
-		url : ruta,
-		dataType: "json",
-		data: JSON.stringify(obj2),
-		contentType: "application/json; charset=utf-8",
-		success: function (data){
-			alert("El grupo se creoCorrectamente");
-			window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
+		if(!validarGrupo(dameResponsable(),dameMiembros())){
+			return;
 		}
-	});
-}
 
+		parent.push(dameResponsable());
+		parent.push(dameMiembros());
+
+		var obj2 = $.extend({},obj,parent);
+
+		console.log(obj2);
+		console.log(JSON.stringify(obj2));
+		$.ajax({
+			type: 'POST',
+			url : ruta,
+			dataType: "json",
+			data: JSON.stringify(obj2),
+			contentType: "application/json; charset=utf-8",
+			success: function (data){
+				alert("El grupo se creoCorrectamente");
+				window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
+			}
+		});
+	}
+	else{}
+}
 function borrar(){
 	$("input").val("");
 }

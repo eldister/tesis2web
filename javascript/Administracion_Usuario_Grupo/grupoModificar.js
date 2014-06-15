@@ -78,44 +78,51 @@ function dameMiembros(){
 
 
 function guardarCambios(){
-	var data = $(".form-control");
-	var IDUSUARIO=getId();
-	var obj = {};
-	
-	obj["IDUSUARIO"]=IDUSUARIO;
-	obj["IDGRUPO"]=getUrlParameters("id","",true);
-	var ruta = "";
-	var callback;
-	
-	ruta = "../../api/AU_modificaGrupo";
-	callback = modificarGrupo;
 
-	obj["NOMBRE"] = $('#NOMBRES').val();
-	obj["FECHA"] = $('#FECHA').val();	
-	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
+	var answer = confirm("Desea modificar los datos del grupo?")
+	if (answer){
+		var data = $(".form-control");
+		var IDUSUARIO=getId();
+		var obj = {};
+		
+		obj["IDUSUARIO"]=IDUSUARIO;
+		obj["IDGRUPO"]=getUrlParameters("id","",true);
+		var ruta = "";
+		var callback;
+		
+		ruta = "../../api/AU_modificaGrupo";
+		callback = modificarGrupo;
 
-	var parent= [];
+		obj["NOMBRE"] = $('#NOMBRES').val();
+		obj["FECHA"] = $('#FECHA').val();	
+		obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
 
-	if(!validarGrupo(dameResponsable(),dameMiembros())){
-		return;
+		var parent= [];
+
+		if(!validarGrupo(dameResponsable(),dameMiembros())){
+			return;
+		}
+
+		parent.push(dameResponsable());
+		parent.push(dameMiembros());
+
+		var obj2 = $.extend({},obj,parent);
+
+
+		$.ajax({
+			type: 'POST',
+			url : ruta,
+			dataType: "json",
+			data: JSON.stringify(obj2),
+			contentType: "application/json; charset=utf-8",
+			success: function (data){
+				alert("El grupo se modifico creoCorrectamente"); 
+				window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html';
+			}
+		});
 	}
-
-	parent.push(dameResponsable());
-	parent.push(dameMiembros());
-
-	var obj2 = $.extend({},obj,parent);
-
-
-	$.ajax({
-		type: 'POST',
-		url : ruta,
-		dataType: "json",
-		data: JSON.stringify(obj2),
-		contentType: "application/json; charset=utf-8",
-		success: window.location.href='../Administracion_Usuario_Grupo/ViewListaGrupo.html'
-	});
+	else{}
 }
-
 
 function borrar()
 {   
