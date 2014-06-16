@@ -82,28 +82,33 @@ function damePermisoB($id){
 	return $permiso;
 }	
 
-function damePublicacionesQueVeo($listaP,$id){
+function damePublicacionesQueVeo($listaP,$idd){
 
 	$lista=array();
-	
+	//print_r($listaP);
+	//print_r($id);
 	$con=getConnection();
-	$PERMISO=damePermisoB($id);
+	$PERMISO=damePermisoB($idd);
 	if($PERMISO==1){
 		return $listaP;
 	}
 	else{
-		$pstmt = $con->prepare("SELECT DISTINCT(GU.IDPUBLICACION) FROM GRUXPUBXUSU GU WHERE GU.IDUSUARIO=$id AND GU.ESTADO=1");
-		$pstmt->execute(array());
+		$pstmt = $con->prepare("SELECT DISTINCT(GU.IDPUBLICACION) FROM GRUXPUBXUSU GU WHERE GU.IDUSUARIO=? AND GU.ESTADO=1");
+		$pstmt->execute(array($idd));
 		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
-			$idP = $pstmt->fetch(PDO::FETCH_ASSOC)["IDPUBLICACION"];
-
+			$idP = $req["IDPUBLICACION"];
+			
+			//print_r($idP);
 			for($i=0;$i<count($listaP);$i++){
+				//print_r("El id pasado es=")
+				//print_r($listaP[$i]["id"]);
 				if($listaP[$i]["id"]==$idP){
-					array_push($lista, $listaP["id"]);
+					array_push($lista, $listaP[$i]/*["id"]*/);
 				}
 			}
 		}
 	}
+	//print_r($lista);
 	return $lista;
 }
 
@@ -117,14 +122,14 @@ function dameFichasQueVeo($listaP,$id){
 		return $listaP;
 	}
 	else{
-		$pstmt = $con->prepare("SELECT DISTINCT(GU.IDFICHABIB) FROM GRUXFIXUSU GU WHERE GU.IDUSUARIO=$id AND GU.ESTADO=1");
-		$pstmt->execute(array());
+		$pstmt = $con->prepare("SELECT DISTINCT(GU.IDFICHABIB) FROM GRUXFIXUSU GU WHERE GU.IDUSUARIO=? AND GU.ESTADO=1");
+		$pstmt->execute(array($id));
 		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
-			$idP = $pstmt->fetch(PDO::FETCH_ASSOC)["IDFICHABIB"];
+			$idP = $req["IDFICHABIB"];
 
 			for($i=0;$i<count($listaP);$i++){
 				if($listaP[$i]["id"]==$idP){
-					array_push($lista, $listaP["id"]);
+					array_push($lista, $listaP[$i]/*["id"]*/);
 				}
 			}
 		}
@@ -559,11 +564,11 @@ function busquedaAvanzada(){
 
 	
 	$QUERYMEDIO="WHERE ";
-	$QUERFIN=" ";
+	$QUERFIN=" AND P.ESTADO=1 ";
 	
 
 		if($TIPOBUSQUEDA==1){ //BUSCO PUBLICACIONES
-			$QUERYPRINCIPIO="SELECT P.IDPUBLICACION as id FROM PUBLICACION P ";
+			$QUERYPRINCIPIO="SELECT distinct(P.IDPUBLICACION) as id FROM PUBLICACION P ";
 			$entroAutor=false;
 			$entroTipo=false;
 			$QUERYTOTALP=" ";
@@ -578,7 +583,12 @@ function busquedaAvanzada(){
 					$condicion="";
 				}
 				else {
-					$condicion=$ARREGLO[$i]["cond"];
+					if($ARREGLO[$i]["cond"]=="NOT"){
+						$condicion=" AND ".$ARREGLO[$i]["cond"];
+					}
+					else{
+						$condicion=$ARREGLO[$i]["cond"];
+					}
 				}
 				$QUERYMEDIO=$QUERYMEDIO." ".$condicion." ";
 
@@ -606,6 +616,7 @@ function busquedaAvanzada(){
 			}
 
 			$QUERYTOTAL=$QUERYPRINCIPIO." ".$QUERYMEDIO." ".$QUERFIN;	
+			//print_r($QUERYTOTAL);
 			$pstmt = $con->prepare($QUERYTOTAL);
 			$pstmt->execute(array());
 
@@ -620,9 +631,10 @@ function busquedaAvanzada(){
 				//array_push($listaIDPublicacionesPrimero,$listaPublicacionesConCoindicencia);
 				$a=$a+1;
 			}		
+			//print_r($listaPublicacionesConCoindicencia);
 			$listaPublicacionesAcceso=array();
 			$listaPublicacionesAcceso=damePublicacionesQueVeo($listaPublicacionesConCoindicencia,$IDUSUARIO);
-
+			//print_r($listaPublicacionesAcceso);
 			//echo json_encode($listaPubliFinal);
 
 			$final=ordenaListaPublicaciones($listaPublicacionesAcceso);
@@ -651,7 +663,7 @@ function busquedaAvanzada(){
 		}
 		else{
 
-			$QUERYPRINCIPIO="SELECT F.IDFICHABIB as id FROM FICHABIB F ";
+			$QUERYPRINCIPIO="SELECT distinct(F.IDFICHABIB) as id FROM FICHABIB F ";
 			$entroAutor=false;
 			$entroTipo=false;
 			$QUERYTOTALP=" ";
@@ -666,7 +678,12 @@ function busquedaAvanzada(){
 					$condicion="";
 				}
 				else {
-					$condicion=$ARREGLO[$i]["cond"];
+					if($ARREGLO[$i]["cond"]=="NOT"){
+						$condicion=" AND ".$ARREGLO[$i]["cond"];
+					}
+					else{
+						$condicion=$ARREGLO[$i]["cond"];
+					}
 				}
 				$QUERYMEDIO=$QUERYMEDIO." ".$condicion." ";
 
