@@ -191,28 +191,31 @@ function armarPermisos(){
 
 function guardarCambios(){
 
-	var obj={
-		IDPERMISO: idper,
-		NOMBRE: $('#NOMBRE').val(),
-		DESCRIPCION: $('#DESCRIPCION').val(),
-		PERMISOS: armarPermisos()
-	};
+	var answer = confirm("Desea modificar los datos del perfil ?")
+	if (answer){
+		var obj={
+			IDPERMISO: idper,
+			NOMBRE: $('#NOMBRE').val(),
+			DESCRIPCION: $('#DESCRIPCION').val(),
+			PERMISOS: armarPermisos()
+		};
 
-	if(!validarPermiso()) return;
+		if(!validarPermiso()) return;
 
-	$.ajax({
-		type: 'POST',
-	    url:'../../api/SE_modificarPermiso',
-	    dataType: "json",
-	    contentType: "application/json; charset=utf-8",
-	    data: JSON.stringify(obj),
-	    success: function(data) {
-	    	if(data["status"]=1){
-	    		alert("Permiso modificado Correctamente");
-	    		$(location).attr('href',"viewListaPerfiles.html");
-	    	}
-	    }
-	});
+		$.ajax({
+			type: 'POST',
+		    url:'../../api/SE_modificarPermiso',
+		    dataType: "json",
+		    contentType: "application/json; charset=utf-8",
+		    data: JSON.stringify(obj),
+		    success: function(data) {
+		    	if(data["status"]=1){
+		    		alert("El permiso fue modificado Correctamente");
+		    		$(location).attr('href',"ViewListaPerfiles.html");
+		    	}
+		    }
+		});
+	}
 }
 
 function llenarInfo(data){
