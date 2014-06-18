@@ -236,50 +236,53 @@ function guardarPublicacionxGrupo(data){
 }
 
 function guardarCambios(){
-	var obj = {};
-	obj["TITULO"]=$('#TITULO').val();
-	obj["FUENTE"]=$('#FUENTE').val();
-	obj["OBTENIDO"]=$('#OBTENIDO').val();
-	//obj["ANIO"]=$('#ANIO').val();
-	//obj["MES"]=$('#MES').val();
-	obj["PAGINAS"]=$('#PAGINAS').val();
-	obj["VOLUMEN"]=$('#VOLUMEN').val();
-	obj["DOI"]=$('#DOI').val();
-	obj["ISSN"]=$('#ISSN').val();
-	obj["IDIDIOMA"]=$('#IDIOMA_SELECT').val();
-	obj["IDTIPOPUBLICACION"]=$('#TIPOPUBLICACION_SELECT').val();
-	obj["FECHAPUB"]=$('#FECHAPUB').val();
-	obj["IDCREADOR"]=getId();
-	obj["IDGRUPO"]=localStorage.idMiGrupo;
 
-	if(!validarPublicacion(seleccionGrupos,seleccionAutores)){
-		return;
-	}
+	var answer = confirm("Desea crear la publicacion ?")
+	if (answer){
+		var obj = {};
+		obj["TITULO"]=$('#TITULO').val();
+		obj["FUENTE"]=$('#FUENTE').val();
+		obj["OBTENIDO"]=$('#OBTENIDO').val();
+		//obj["ANIO"]=$('#ANIO').val();
+		//obj["MES"]=$('#MES').val();
+		obj["PAGINAS"]=$('#PAGINAS').val();
+		obj["VOLUMEN"]=$('#VOLUMEN').val();
+		obj["DOI"]=$('#DOI').val();
+		obj["ISSN"]=$('#ISSN').val();
+		obj["IDIDIOMA"]=$('#IDIOMA_SELECT').val();
+		obj["IDTIPOPUBLICACION"]=$('#TIPOPUBLICACION_SELECT').val();
+		obj["FECHAPUB"]=$('#FECHAPUB').val();
+		obj["IDCREADOR"]=getId();
+		obj["IDGRUPO"]=localStorage.idMiGrupo;
 
-	$.ajax({
-		type: 'POST',
-		url : "../../api/PD_registraPublicacion",
-		dataType: "json",
-		data: JSON.stringify(obj),
-		contentType: "application/json; charset=utf-8",
-		success: function(data){
-			//guardar etiquetas, autores y archivos
-			var status1=guardarPublicacionxEtiqueta(data); 
-			var status2=guardarPublicacionxAutor(data);			
-			var status3=guardarPublicacionxGrupo(data);
-			var status4=guardarArchivos(data);
-
-			if(data["status"]===0){
-				alert("Ocurrió un error interno");
-				window.location.href='ViewListaPublicacion.html';
-			}
-			else{
-				alert("Publicación creada correctamente");
-				window.location.href='ViewListaPublicacion.html';
-			}
+		if(!validarPublicacion(seleccionGrupos,seleccionAutores)){
+			return;
 		}
-	});
 
+		$.ajax({
+			type: 'POST',
+			url : "../../api/PD_registraPublicacion",
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: function(data){
+				//guardar etiquetas, autores y archivos
+				var status1=guardarPublicacionxEtiqueta(data); 
+				var status2=guardarPublicacionxAutor(data);			
+				var status3=guardarPublicacionxGrupo(data);
+				var status4=guardarArchivos(data);
+
+				if(data["status"]===0){
+					alert("Ocurrió un error interno");
+					window.location.href='ViewListaPublicacion.html';
+				}
+				else{
+					alert("Publicación creada correctamente");
+					window.location.href='ViewListaPublicacion.html';
+				}
+			}
+		});
+	}
 }
 
 
