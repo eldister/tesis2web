@@ -20,12 +20,14 @@ function cargaElementos(data){
 		fila+= '<a class="eliminar-tipoFicha table-link danger" idtipoficha='+data[i]["IDTIPOFICHA"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a>';
 		fila += '</td></tr>';
 		$('#listaTipoFicha').append(fila);
+		$('#listaTipoFicha').trigger("update");
 	}
 	$(document).on('click', '.modificar-tipoFicha', modificarTipoFicha);
 	$(document).on('click', '.eliminar-tipoFicha', eliminarTipoFicha);
 }
 
 function inserta(data){
+	alert("El tipo de publicacion fue creado correctamente");	
 	clearErrors();
 	$('#detalleTipoFicha').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDTIPOFICHA"] +'>';
@@ -116,6 +118,7 @@ function resetForm(){
 }
 
 function modifica(data){
+	alert("El tipo de publicacion fue modificado correctamente");	
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
 	$(campos[0]).html(data["IDTIPOFICHA"]);
@@ -126,7 +129,7 @@ function modifica(data){
 }
 
 function elimina(data){
-
+	alert("El tipo de publicacion fue eliminado correctamente");	
 	$('#detalleTipoFicha').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDTIPOFICHA"]+'').remove();
@@ -143,24 +146,33 @@ function guardarCambios(){
 	var callback;
 
 	if($('#detalleTipoFicha').hasClass("eliminar")){
-		ruta = "../../api/PD_eliminaTipoFicha";
-		callback = elimina;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea eliminar el tipo de publicacion ?")
+		if (answer){
+			ruta = "../../api/PD_eliminaTipoFicha";
+			callback = elimina;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if($('#detalleTipoFicha').hasClass("insertar")){
-		ruta = "../../api/PD_registraTipoFicha";
-		callback = inserta;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea ingresar el tipo de publicacion ?")
+		if (answer){
+			ruta = "../../api/PD_registraTipoFicha";
+			callback = inserta;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if($('#detalleTipoFicha').hasClass("modificar")){
-		ruta = "../../api/PD_modificaTipoFicha";
-		callback = modifica;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea modificar el tipo de publicacion ?")
+		if (answer){
+			ruta = "../../api/PD_modificaTipoFicha";
+			callback = modifica;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if(!validarTipoFicha()) return;
@@ -200,7 +212,13 @@ function insertaCambiosFront(){
 	$('#DESCRIPCION').val("");
 }
 
+function initTableSorter(){
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
+}
+
 $(document).ready(function(){
+	initTableSorter();		
 	cargaListaTipoFicha();
 	$("#guardar").click(guardarCambios);
 	$("#cerrar").click(resetForm);

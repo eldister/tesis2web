@@ -59,7 +59,7 @@
 										</div>
 									</div>
 									<div class="table-responsive">
-										<table class="table user-list">
+										<table class="table tablesorter" id="tabla">
 											<thead>	
 												<tr>
 													<th class="text-center">
@@ -106,21 +106,20 @@
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
-										<ul class="pagination pull-right">
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-left"></i>
-													</a>
-												</li>
-												<li>
-													<a href="#">1</a>
-												</li>
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-right"></i>
-													</a>
-												</li>
-										</ul>
+										<div class="row pagination pager pull-right" id="pager">									 
+											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
+											<input type="hidden" class="pagedisplay"></input>
+											<div class="col-md-5"><select class="form-control pagenum input-mini" style="height:32px"></select></div>
+								            <div class="col-md-2"><li><a href="" class=" next"><i class="fa fa-chevron-right"></i></a></li></div>
+								            
+								            <li><select style="display:none;" class="pagesize" >
+								                <option selected="selected" value="5">5</option>
+								                <option value="10">10</option>
+								                <option value="20">20</option>
+								                <option value="30">30</option>
+								                <option value="40">40</option>
+								            </select></li>							             
+										</div>
 									</div>
 								</div>
 								</div>
@@ -150,6 +149,20 @@
 	
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
+	<!-- Tablesorter: required for bootstrap -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+
+    <!-- Tablesorter: optional -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.pager.js"></script>
+
+    <!-- Tablesorter: Config bootstrap -->
+    <script src="../../javascript/tablesorter/js/config.js"></script>
+    
+    <!-- Tablesorter: Config filtros -->
+    <script src="../../javascript/tablesorter/js/filtros.js"></script>
+	
+	<!-- this page specific inline scripts -->
 	
 	<!-- this page specific inline scripts -->
 	

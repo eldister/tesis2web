@@ -18,6 +18,7 @@ function cargaListaInstitucion(data){
 
 		fila += '</td></tr>';
 		$('#listaInstitucion').append(fila);
+		$('#listaInstitucion').trigger("update");		
 	}
 	$(document).on('click', '.modificar-institucion', modificarInstitucion);
 	$(document).on('click', '.eliminar-institucion', eliminarInstitucion);
@@ -25,8 +26,7 @@ function cargaListaInstitucion(data){
 
 function modificarInstitucion(){
 
-	var answer = confirm("Desea modificar los datos de la institucion?")
-	if (answer){
+
 		clearErrors();
 		$(".selected").removeClass("selected");
 		$(this).parent().parent().addClass("selected");
@@ -42,7 +42,6 @@ function modificarInstitucion(){
 				$('#IDINSTITUCION').val(obj["IDINSTITUCION"]);
 				$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
 				$('#DESCRIPCION').val(data["DESCRIPCION"]);
-				alert("Los datos de la institucion fueron modificados correctamente");
 			}
 		});
 		$('#detalleInstitucion').removeClass('insertar');
@@ -52,7 +51,7 @@ function modificarInstitucion(){
 		$('#tituloBoton').html("Modificar");
 		$('#detalleInstitucion').addClass('modificar');
 		$('#detalleInstitucion').modal('show');
-	}
+	
 }
 
 
@@ -66,7 +65,7 @@ function resetForm(){
 
 
 function inserta(data){
-
+		alert("La institucion fue ingresa correctamente");
 		clearErrors();
 		$('#detalleInstitucion').modal('hide');
 		var fila = '<tr id=fila-'+ data[0]["IDINSTITUCION"] +'>'; 
@@ -118,6 +117,7 @@ function eliminarInstitucion(){
 }
 
 function elimina(data){
+	alert("La institucion fue eliminada correctamente");
 	$('#detalleInstitucion').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDINSTITUCION"]+'').remove();
@@ -125,6 +125,7 @@ function elimina(data){
 }
 
 function modifica(data){
+	alert("La institucion fue modificada correctamente");
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
 	$(campos[0]).html(data["IDINSTITUCION"]);
@@ -143,24 +144,33 @@ function guardarCambios(){
 	var callback;
 	
 	if($('#detalleInstitucion').hasClass("insertar")){
-		ruta = "../../api/AU_registraInstitucion";
-		callback = inserta;
-		obj["NOMBRE_INSTITUCION"] = $('#NOMBRE_INSTITUCION').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea agregar la institucion?")
+		if (answer){
+			ruta = "../../api/AU_registraInstitucion";
+			callback = inserta;
+			obj["NOMBRE_INSTITUCION"] = $('#NOMBRE_INSTITUCION').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if($('#detalleInstitucion').hasClass("modificar")){
-		ruta = "../../api/AU_modificaInstitucion";
-		callback = modifica;
-		obj["NOMBRE_INSTITUCION"] = $('#NOMBRE_INSTITUCION').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea modificar la institucion?")
+		if (answer){
+			ruta = "../../api/AU_modificaInstitucion";
+			callback = modifica;
+			obj["NOMBRE_INSTITUCION"] = $('#NOMBRE_INSTITUCION').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if($('#detalleInstitucion').hasClass("eliminar")){
-		ruta = "../../api/AU_eliminaInstitucion";
-		callback = elimina;
-		obj["NOMBRE_INSTITUCION"] = $('#NOMBRE_INSTITUCION').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea eliminar la institucion?")
+		if (answer){
+			ruta = "../../api/AU_eliminaInstitucion";
+			callback = elimina;
+			obj["NOMBRE_INSTITUCION"] = $('#NOMBRE_INSTITUCION').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if(!validarInstitucion()) return;
@@ -198,10 +208,14 @@ function insertaCambiosFront(){
 
 }
 
+function initTableSorter(){
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
+}
+
 $(document).ready(function(){
-
+	initTableSorter();	
 	cargaElementos();
-
 	$("#guardar").click(guardarCambios);
 
 	$("#cerrar").click(resetForm);
