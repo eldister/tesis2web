@@ -107,6 +107,7 @@ function resetForm(){
 
 
 function inserta(data){
+	alert("El autor fue creado correctamente");
 	clearErrors();
 	$('#detalleAutor').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDAUTOR"] +'>'; 
@@ -162,6 +163,7 @@ function eliminarAutor(){
 }
 
 function elimina(data){
+	alert("El autor fue eliminado correctamente");	
 	$('#detalleAutor').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDAUTOR"]+'').remove();
@@ -171,6 +173,7 @@ function elimina(data){
 }
 
 function modifica(data){
+	alert("Los datos del autor fueron modificados correctamente");
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
 	$(campos[0]).html(data["IDAUTOR"]);
@@ -193,30 +196,39 @@ function guardarCambios(){
 	var callback;
 	
 	if($('#detalleAutor').hasClass("insertar")){
-		ruta = "../../api/PD_registraAutor";
-		callback = inserta;
-		obj["NOM_APE"] = $('#NOM_APE').val();
-		obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
-		obj["INSTITUCION"] = $('#INSTITUCION').val();
-		obj["TRABAJO"] = $('#TRABAJO').val();
+		var answer = confirm("Desea registar el autor ?")
+		if (answer){
+			ruta = "../../api/PD_registraAutor";
+			callback = inserta;
+			obj["NOM_APE"] = $('#NOM_APE').val();
+			obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
+			obj["INSTITUCION"] = $('#INSTITUCION').val();
+			obj["TRABAJO"] = $('#TRABAJO').val();
+		}
 	}
 
 	if($('#detalleAutor').hasClass("modificar")){
-		ruta = "../../api/PD_modificaAutor";
-		callback = modifica;
-		obj["NOM_APE"] = $('#NOM_APE').val();
-		obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
-		obj["INSTITUCION"] = $('#INSTITUCION').val();
-		obj["TRABAJO"] = $('#TRABAJO').val();
+		var answer = confirm("Desea modificar los datos del autor ?")
+		if (answer){
+			ruta = "../../api/PD_modificaAutor";
+			callback = modifica;
+			obj["NOM_APE"] = $('#NOM_APE').val();
+			obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
+			obj["INSTITUCION"] = $('#INSTITUCION').val();
+			obj["TRABAJO"] = $('#TRABAJO').val();
+		}
 	}
 
 	if($('#detalleAutor').hasClass("eliminar")){
-		ruta = "../../api/PD_eliminaAutor";
-		callback = elimina;
-		obj["NOM_APE"] = $('#NOM_APE').val();
-		obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
-		obj["INSTITUCION"] = $('#INSTITUCION').val();
-		obj["TRABAJO"] = $('#TRABAJO').val();
+		var answer = confirm("Desea eliminar al autor ?")
+		if (answer){
+			ruta = "../../api/PD_eliminaAutor";
+			callback = elimina;
+			obj["NOM_APE"] = $('#NOM_APE').val();
+			obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
+			obj["INSTITUCION"] = $('#INSTITUCION').val();
+			obj["TRABAJO"] = $('#TRABAJO').val();
+		}
 	}
 
 	if(!validarAutor()) return;
