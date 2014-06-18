@@ -64,6 +64,7 @@ function resetForm(){
 
 
 function inserta(data){
+	alert("Los datos del idioma se registraron correctamente");
 	clearErrors();
 	$('#detalleIdioma').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDIDIOMA"] +'>'; //TENGO EL PARCHE XD PA K DURE INFINITO
@@ -114,6 +115,7 @@ function eliminarIdioma(){
 }
 
 function elimina(data){
+	alert("El idioma fue eliminado correctamente");	
 	$('#detalleIdioma').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDIDIOMA"]+'').remove();
@@ -123,6 +125,7 @@ function elimina(data){
 }
 
 function modifica(data){
+	alert("Los datos del idioma fueron modificados correctamente");
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
 	$(campos[0]).html(data["IDIDIOMA"]);
@@ -143,24 +146,33 @@ function guardarCambios(){
 	var callback;
 	
 	if($('#detalleIdioma').hasClass("insertar")){
-		ruta = "../../api/PD_registraIdioma";
-		callback = inserta;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["OBSERVACION"] = $('#OBSERVACION').val();
+		var answer = confirm("Desea registrar el idioma ?")
+		if (answer){
+			ruta = "../../api/PD_registraIdioma";
+			callback = inserta;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["OBSERVACION"] = $('#OBSERVACION').val();
+		}
 	}
 
 	if($('#detalleIdioma').hasClass("modificar")){
-		ruta = "../../api/PD_modificaIdioma";
-		callback = modifica;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["OBSERVACION"] = $('#OBSERVACION').val();
+		var answer = confirm("Desea modificar datos del idioma ?")
+		if (answer){
+			ruta = "../../api/PD_modificaIdioma";
+			callback = modifica;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["OBSERVACION"] = $('#OBSERVACION').val();
+		}
 	}
 
 	if($('#detalleIdioma').hasClass("eliminar")){
-		ruta = "../../api/PD_eliminaIdioma";
-		callback = elimina;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["OBSERVACION"] = $('#OBSERVACION').val();
+		var answer = confirm("Desea eliminar el idioma ?")
+		if (answer){
+			ruta = "../../api/PD_eliminaIdioma";
+			callback = elimina;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["OBSERVACION"] = $('#OBSERVACION').val();
+		}
 	}
 
 	if(!validarIdioma()) return;

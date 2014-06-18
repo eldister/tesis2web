@@ -20,6 +20,7 @@ function cargaElementos(data,ididioma){
 }
 
 function inserta(data){
+	alert("La etiqueta fue registrada correctamente");
 	clearErrors();
 	$('#detalleEtiqueta').modal('hide');
 	/*for (var i = 0; i < data.length; i++) {
@@ -125,6 +126,7 @@ function resetForm(){
 }
 
 function modifica(data){
+	alert("Los datos de la etiqueta fueron modificados correctamente");
 	clearErrors();
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
@@ -137,6 +139,7 @@ function modifica(data){
 }
 
 function elimina(data){
+	alert("La etiqueta fue eliminada correctamente");
 	clearErrors();
 	$('#detalleEtiqueta').modal('hide');	
 	resetForm();
@@ -158,64 +161,73 @@ function guardarCambios(){
 
 
 	if($('#detalleEtiqueta').hasClass("eliminar")){
-		ruta = "../../api/PD_eliminaEtiqueta";
-		callback = elimina;
-		obj["IDETIQUETA"] =idetiqueta;
+		//var answer = confirm("Desea eliminar la etiqueta ?")
+		//if (answer){
+			ruta = "../../api/PD_eliminaEtiqueta";
+			callback = elimina;
+			obj["IDETIQUETA"] =idetiqueta;
 
-		$.ajax({
-			type: 'POST',
-			url : ruta,
-			dataType: "json",
-			data: JSON.stringify(obj),
-			contentType: "application/json; charset=utf-8",
-			success: callback
-		});
+			$.ajax({
+				type: 'POST',
+				url : ruta,
+				dataType: "json",
+				data: JSON.stringify(obj),
+				contentType: "application/json; charset=utf-8",
+				success: callback
+			});
+		//}
 	}
 
 	if($('#detalleEtiqueta').hasClass("insertar")){
-		ruta = "../../api/PD_registraEtiqueta";
-		callback = inserta;
-		for (var i=0; i<idiomas.length; i++) {
-			obj = { nombre:$('#NOMBRE-'+idiomas[i].IDIDIOMA+'').val(),
-					ididioma: idiomas[i].IDIDIOMA,
-					idioma: idiomas[i].NOMBRE
-					};
-			listEtiquetas.push(obj);
-		}
+		var answer = confirm("Desea registrar la etiqueta ?")
+		if (answer){
+			ruta = "../../api/PD_registraEtiqueta";
+			callback = inserta;
+			for (var i=0; i<idiomas.length; i++) {
+				obj = { nombre:$('#NOMBRE-'+idiomas[i].IDIDIOMA+'').val(),
+						ididioma: idiomas[i].IDIDIOMA,
+						idioma: idiomas[i].NOMBRE
+						};
+				listEtiquetas.push(obj);
+			}
 
-		if(!validarEtiqueta(idiomas)){
-			return;
-		}
+			if(!validarEtiqueta(idiomas)){
+				return;
+			}
 
-		$.ajax({
-			type: 'POST',
-			url : ruta,
-			dataType: "json",
-			data: JSON.stringify(listEtiquetas),
-			contentType: "application/json; charset=utf-8",
-			success: callback
-		});
+			$.ajax({
+				type: 'POST',
+				url : ruta,
+				dataType: "json",
+				data: JSON.stringify(listEtiquetas),
+				contentType: "application/json; charset=utf-8",
+				success: callback
+			});
+		}
 	}
 
 	if($('#detalleEtiqueta').hasClass("modificar")){
-		ruta = "../../api/PD_modificaEtiqueta";
-		callback = modifica;
-		obj["IDETIQUETA"] = $('#IDETIQUETA').val();
-		obj["NOMBRE"] = $(nombreEtiqueta).val();
+		var answer = confirm("Desea modificar los datos de la etiqueta ?")
+		if (answer){
+			ruta = "../../api/PD_modificaEtiqueta";
+			callback = modifica;
+			obj["IDETIQUETA"] = $('#IDETIQUETA').val();
+			obj["NOMBRE"] = $(nombreEtiqueta).val();
 
-		if(!validarEtiquetaInd(nombreEtiqueta)){
-			return;
+			if(!validarEtiquetaInd(nombreEtiqueta)){
+				return;
+			}
+
+			$.ajax({
+				type: 'POST',
+				url : ruta,
+				dataType: "json",
+				//data: obj,
+				data: JSON.stringify(obj),
+				contentType: "application/json; charset=utf-8",
+				success: callback
+			});
 		}
-
-		$.ajax({
-			type: 'POST',
-			url : ruta,
-			dataType: "json",
-			//data: obj,
-			data: JSON.stringify(obj),
-			contentType: "application/json; charset=utf-8",
-			success: callback
-		});
 	}
 }
 
