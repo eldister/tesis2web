@@ -27,6 +27,7 @@ function cargaElementos(data){
 }
 
 function inserta(data){
+	alert("El tipo de publicacion fue creado correctamente");			
 	clearErrors();
 	$('#detalleTipoPublicacion').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDTIPOPUBLICACION"] +'>';
@@ -128,6 +129,7 @@ function resetForm(){
 }
 
 function modifica(data){
+	alert("El tipo de publicacion fue modifico correctamente");		
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
 	$(campos[0]).html(data["IDTIPOPUBLICACION"]);
@@ -138,7 +140,7 @@ function modifica(data){
 }
 
 function elimina(data){
-
+	alert("El tipo de publicacion fue eliminado correctamente");	
 	$('#detalleTipoPublicacion').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDTIPOPUBLICACION"]+'').remove();
@@ -156,24 +158,33 @@ function guardarCambios(){
 	var callback;
 
 	if($('#detalleTipoPublicacion').hasClass("eliminar")){
-		ruta = "../../api/PD_eliminaTipoPublicacion";
-		callback = elimina;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea eliminar el tipo de publicacion ?")
+		if (answer){
+			ruta = "../../api/PD_eliminaTipoPublicacion";
+			callback = elimina;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if($('#detalleTipoPublicacion').hasClass("insertar")){
-		ruta = "../../api/PD_registraTipoPublicacion";
-		callback = inserta;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea ingresar el tipo de publicacion ?")
+		if (answer){
+			ruta = "../../api/PD_registraTipoPublicacion";
+			callback = inserta;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if($('#detalleTipoPublicacion').hasClass("modificar")){
-		ruta = "../../api/PD_modificaTipoPublicacion";
-		callback = modifica;
-		obj["NOMBRE"] = $('#NOMBRE').val();
-		obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		var answer = confirm("Desea modificar el tipo de publicacion ?")
+		if (answer){
+			ruta = "../../api/PD_modificaTipoPublicacion";
+			callback = modifica;
+			obj["NOMBRE"] = $('#NOMBRE').val();
+			obj["DESCRIPCION"] = $('#DESCRIPCION').val();
+		}
 	}
 
 	if(!validarTipoPublicacion()) return;

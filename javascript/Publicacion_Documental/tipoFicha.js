@@ -27,7 +27,7 @@ function cargaElementos(data){
 }
 
 function inserta(data){
-	alert("El tipo de publicacion fue creado correctamente");	
+	alert("El tipo de ficha fue creado correctamente");	
 	clearErrors();
 	$('#detalleTipoFicha').modal('hide');
 	var fila = '<tr id=fila-'+ data[0]["IDTIPOFICHA"] +'>';
@@ -118,7 +118,7 @@ function resetForm(){
 }
 
 function modifica(data){
-	alert("El tipo de publicacion fue modificado correctamente");	
+	alert("El tipo de ficha fue modificado correctamente");	
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
 	$(campos[0]).html(data["IDTIPOFICHA"]);
@@ -129,7 +129,7 @@ function modifica(data){
 }
 
 function elimina(data){
-	alert("El tipo de publicacion fue eliminado correctamente");	
+	alert("El tipo de ficha fue eliminado correctamente");	
 	$('#detalleTipoFicha').modal('hide');	
 	resetForm();
 	$('#fila-'+data[0]["IDTIPOFICHA"]+'').remove();
@@ -146,7 +146,7 @@ function guardarCambios(){
 	var callback;
 
 	if($('#detalleTipoFicha').hasClass("eliminar")){
-		var answer = confirm("Desea eliminar el tipo de publicacion ?")
+		var answer = confirm("Desea eliminar el tipo de ficha ?")
 		if (answer){
 			ruta = "../../api/PD_eliminaTipoFicha";
 			callback = elimina;
@@ -156,7 +156,7 @@ function guardarCambios(){
 	}
 
 	if($('#detalleTipoFicha').hasClass("insertar")){
-		var answer = confirm("Desea ingresar el tipo de publicacion ?")
+		var answer = confirm("Desea ingresar el tipo de ficha ?")
 		if (answer){
 			ruta = "../../api/PD_registraTipoFicha";
 			callback = inserta;
@@ -166,7 +166,7 @@ function guardarCambios(){
 	}
 
 	if($('#detalleTipoFicha').hasClass("modificar")){
-		var answer = confirm("Desea modificar el tipo de publicacion ?")
+		var answer = confirm("Desea modificar el tipo de ficha ?")
 		if (answer){
 			ruta = "../../api/PD_modificaTipoFicha";
 			callback = modifica;
