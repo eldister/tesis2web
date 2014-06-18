@@ -126,7 +126,7 @@
 	function enviarCorreo($lista,$tokenlink){
 			
 		$MENSAJE='Estimados participantes:'."\r\n".'Se acaba de crear una nueva lista de publicacion para su revision'."\r\n";
-		$MENSAJE.='Pueden ingresar a esta a travos del siguiente enlace:'."\r\n\n".'http://inv-tool.inf.pucp.edu.pe/tesis2web/listapublicacion.html?id='.$tokenlink;
+		$MENSAJE.='Pueden ingresar a esta a traves del siguiente enlace:'."\r\n\n".'http://inv-tool.inf.pucp.edu.pe/tesis2web/listapublicacion.html?id='.$tokenlink;
 		$MENSAJE.="\r\n\n".'Saludos Cordiales';
 		//pendiente firma del mensaje
 		$MENSAJE.="\r\n\n".'PD: Tildes omitidas intencionalmente';
