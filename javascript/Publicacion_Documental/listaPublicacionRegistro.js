@@ -203,39 +203,43 @@ function eliminarLectura(){
 }
 
 function guardarCambios(){
-	var grupos=[];
-	var ob;
-	for (var i=0; i<seleccionGrupos.length; i++) {
-		ob={id:seleccionGrupos[i]["id"]};
-		grupos.push(ob);
-	}
 
-	var obj={tema:$('#Tema').val(),
-			 lecturas:listaLecturas,
-			 grupos:grupos
-		};
-
-	if(!validarListaPublicacion(grupos,listaLecturas)){
-		return;
-	}
-
-	$.ajax({
-		type: 'POST',
-		url : "../../api/PD_registraListaPublicacion",
-		dataType: "json",
-		data: JSON.stringify(obj),
-		contentType: "application/json; charset=utf-8",
-		success: function(data){
-			if(data["status"]===1){
-				alert("Lista agregada correctamente");
-				window.location.href='ViewGestionListaPublicacion.html';
-			}	
-			else{
-				alert("Hubo un error en el proceso, intente nuevamente");
-				window.location.href='ViewGestionListaPublicacion.html';
-			}		
+	var answer = confirm("Desea crear la lista de publicacion ?")
+	if (answer){
+		var grupos=[];
+		var ob;
+		for (var i=0; i<seleccionGrupos.length; i++) {
+			ob={id:seleccionGrupos[i]["id"]};
+			grupos.push(ob);
 		}
-	});
+
+		var obj={tema:$('#Tema').val(),
+				 lecturas:listaLecturas,
+				 grupos:grupos
+			};
+
+		if(!validarListaPublicacion(grupos,listaLecturas)){
+			return;
+		}
+
+		$.ajax({
+			type: 'POST',
+			url : "../../api/PD_registraListaPublicacion",
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: function(data){
+				if(data["status"]===1){
+					alert("Lista agregada correctamente");
+					window.location.href='ViewGestionListaPublicacion.html';
+				}	
+				else{
+					alert("Hubo un error en el proceso, intente nuevamente");
+					window.location.href='ViewGestionListaPublicacion.html';
+				}		
+			}
+		});
+	}
 }
 
 var seleccionGrupos=[];
