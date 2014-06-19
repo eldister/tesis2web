@@ -209,7 +209,7 @@
 		
 		$pstmt = $con->prepare("SELECT distinct U.nombres, U.apellidos, U.correo_institucional
 								from usuarioxgrupo GU, usuario U
-								where GU.idgrupo in (?) and U.idusuario<>1");
+								where GU.idgrupo in (?) and U.idusuario<>1 and GU.idusuario=U.idusuario");
 		$pstmt->execute(array($cadenaGrupos));
 		$listaUsuarios=array();
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
@@ -229,6 +229,10 @@
 		$data = json_decode($request->getBody(),TRUE);
 
 		$con=getConnection();
+
+		$pstmt = $con->prepare("SELECT TOKENLINK FROM LISTAPUBLICACION WHERE IDLISTAPUBLICACION=?");
+		$pstmt->execute(array($data["idlp"]));
+		$tokenlink = $pstmt->fetch(PDO::FETCH_ASSOC)["TOKENLINK"];
 
 		$pstmt = $con->prepare("UPDATE LISTAPUBLICACION SET NOMBREABR=? WHERE IDLISTAPUBLICACION=?");
 		$pstmt->execute(array($data["tema"],$data["idlp"]));
@@ -292,7 +296,7 @@
 		
 		$pstmt = $con->prepare("SELECT distinct U.nombres, U.apellidos, U.correo_institucional
 								from usuarioxgrupo GU, usuario U
-								where GU.idgrupo in (?) and U.idusuario<>1");
+								where GU.idgrupo in (?) and U.idusuario<>1 and GU.idusuario=U.idusuario");
 		$pstmt->execute(array($cadenaGrupos));
 		$listaUsuarios=array();
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
@@ -300,7 +304,7 @@
 		}
 		enviarCorreo($listaUsuarios,$tokenlink);
 
-
+		print_r($listaUsuarios);
 		if(count($mensajes)>0){
 			echo json_encode(array("status"=>0));
 		}
