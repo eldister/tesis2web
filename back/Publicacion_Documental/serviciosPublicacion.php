@@ -81,7 +81,9 @@
 								  )
 							);
 
-			$array=array('IDPUBLICACION'=>$data->{"IDPUBLICACION"},"status"=>1);
+				
+
+			$array=array('IDPUBLICACION'=>$data->{"IDPUBLICACION"},'IDIDIOMA'=> $data->{"IDIDIOMA"},'TITULO'=>$data->{"TITULO"},"status"=>1);
 			echo json_encode($array);
 
 		}catch (PDOException $e){
@@ -294,9 +296,13 @@
 		try{
 			$con= getConnection();
 			$idpublicacion = $data["idpublicacion"];
-			$pstmt = $con->prepare("DELETE FROM PUBLICACIONXETIQUETAS WHERE IDPUBLICACION=?");
+			$pstmt = $con->prepare("DELETE FROM PUBLICACIONXETIQUETAS WHERE IDPUBLICACION=?");	
 			$pstmt->execute(array($idpublicacion));
+
 			$pstmt=null;
+
+			//modificar etiquetas del título
+			agregaEtiquetasTitulo($data["titulo"],$data["ididioma"],$idpublicacion);
 
 			for($i=0; $i<count($data["etiquetas"]); $i++) {
 			    $pstmt = $con->prepare("INSERT INTO PUBLICACIONXETIQUETAS(IDPUBLICACION,IDETIQUETA)

@@ -350,11 +350,12 @@
 				from
 				    publicacion P,
 				    tipopublicacion T,
-				    idioma I
+				    idioma I,
+				    archivo A
 				where
 				    T.idtipopublicacion = P.idtipopublicacion
 				        and P.ididioma = I.ididioma and p.estado=1
-				        and P.titulo like CONCAT('%',?,'%')";
+				        and P.titulo like CONCAT('%',?,'%') and P.idpublicacion=A.idpublicacion and A.idarchivo is not NULL";
 		
 		$pstmt = $con->prepare($sql);
 		$pstmt->execute(array($data["criterio"]));
