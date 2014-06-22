@@ -195,7 +195,7 @@ function ordenaListaPublicaciones($listaPublicaciones){
 	    
 		$NVECES = $pstmt->fetch(PDO::FETCH_ASSOC)["NVECES"];
 
-		$valor=$listaPublicaciones[$i]["cant"]*10+$NVECES*2;
+		$valor=$listaPublicaciones[$i]["cant"]*10+$NVECES*8;
 		//echo $valor;
 
 		$listaOrdenada=insertaItem($valor,$listaPublicaciones[$i],$listaOrdenada);
@@ -216,7 +216,7 @@ function ordenaListaFicha($listaFichas){
 	    
 		$NVECES = $pstmt->fetch(PDO::FETCH_ASSOC)["NVECES"];
 
-		$valor=$listaFichas[$i]["cant"]*10+$NVECES*2;
+		$valor=$listaFichas[$i]["cant"]*10+$NVECES*8;
 
 		$listaOrdenada=insertaItem($valor,$listaFichas[$i],$listaOrdenada);
 	}

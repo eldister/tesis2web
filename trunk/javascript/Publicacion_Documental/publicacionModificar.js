@@ -82,6 +82,8 @@ function guardarPublicacionxEtiqueta(data){
 	}
 
 	var obj= { idpublicacion:data["IDPUBLICACION"],
+				titulo:data["TITULO"],
+				ididioma:data["IDIDIOMA"],
 				etiquetas:etiquetas };
 
 	$.ajax({
@@ -193,7 +195,7 @@ function guardarCambios(){
 				window.location.href='ViewListaPublicacion.html';
 			}
 			else{
-				alert("Publicación creada correctamente");
+				alert("Publicación modificada correctamente");
 				window.location.href='ViewListaPublicacion.html';
 			}
 		}
@@ -705,7 +707,7 @@ $(document).ready(function(){
 	setTimeout(llenarCampos,20);
 	setTimeout(setCamposGrupos,300);
 	setTimeout(setCamposEtiquetas,100);
-	setTimeout(setCamposAutor,100);
+	setTimeout(setCamposAutor,200);
 
 	$("#guardar").click(guardarCambios);
 	//$("#limpiar").click(cleanInput);

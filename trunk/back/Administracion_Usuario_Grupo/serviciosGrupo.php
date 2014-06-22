@@ -4,14 +4,53 @@
 	include_once '../back/conexion.php';
 
 
-function eliminarGrupoN(){
+function eliminarGrupoB($IDGRUPO){
+	//print_r($IDGRUPO);
+	$con=getConnection();
 
-	$request = \Slim\Slim::getInstance()->request(); //json parameters
-    $data = json_decode($request->getBody());
-    $IDGRUPO=$data->{"IDGRUPO"};
+	//$pstmt = $con->prepare("SELECT COUNT(G.IDGRUPO) as cantidad FROM GRUPO G WHERE G.IDGRUPO_PADRE=? AND G.ESTADO=1");
+	//$pstmt->execute(array($IDGRUPO));
 
-    $con=getConnection();
+	//$cantidad = $pstmt->fetch(PDO::FETCH_ASSOC)["cantidad"]; //MIS HIJOS
+	//echo "cantidad fuera de if"+$cantidad + "/n";
 
+	//if($cantidad>0){
+		//echo "cantidad dentro de if"+$cantidad + "/n";
+		$pstmt = $con->prepare("SELECT G.IDGRUPO AS ID FROM GRUPO G WHERE G.IDGRUPO_PADRE=? AND G.ESTADO=1");
+		$pstmt->execute(array($IDGRUPO));
+		//print_r($pstmt->fetch(PDO::FETCH_ASSOC));
+
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$IDHIJO=$req["ID"];
+			//print_r($IDHIJO);
+			eliminarGrupoB($IDHIJO);
+
+			/*$pstmt = $con->prepare("DELETE FROM USUARIOXGRUPO WHERE IDGRUPO=?");
+			$pstmt->execute(array($IDHIJO));
+
+			$pstmt = $con->prepare("DELETE FROM LISTAPUBXGRUPO WHERE IDGRUPO=?");
+			$pstmt->execute(array($IDHIJO));
+
+			$pstmt = $con->prepare("DELETE FROM GRUXPUBXUSU WHERE IDGRUPO=?");
+			$pstmt->execute(array($IDHIJO));
+			
+			$pstmt = $con->prepare("DELETE FROM GRUXFIXUSU WHERE IDGRUPO=?");
+			$pstmt->execute(array($IDHIJO));
+
+			$pstmt = $con->prepare("DELETE FROM USUXARXGRU WHERE IDGRUPO=?");
+			$pstmt->execute(array($IDHIJO));
+
+			$pstmt = $con->prepare("DELETE FROM USUARIOXGRUPO WHERE IDGRUPO=?");
+			$pstmt->execute(array($IDHIJO));
+
+			$pstmt = $con->prepare("DELETE FROM GRUPO WHERE IDGRUPO=?");
+			$pstmt->execute(array($IDHIJO));*/
+
+		}
+	//}
+
+	//else if($cantidad == null){
+		//echo "Cantidad en hoja" + $cantidad + "/n";
 	$pstmt = $con->prepare("DELETE FROM USUARIOXGRUPO WHERE IDGRUPO=?");
 	$pstmt->execute(array($IDGRUPO));
 
@@ -32,6 +71,20 @@ function eliminarGrupoN(){
 
 	$pstmt = $con->prepare("DELETE FROM GRUPO WHERE IDGRUPO=?");
 	$pstmt->execute(array($IDGRUPO));
+
+	//}
+
+	//echo json_encode(array("status"=>1));
+}
+
+
+function eliminarGrupoN(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDGRUPO=$data->{"IDGRUPO"};
+
+    eliminarGrupoB($IDGRUPO);
 
 	echo json_encode(array("status"=>1));
 }
