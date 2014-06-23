@@ -223,6 +223,59 @@ function ordenaListaFicha($listaFichas){
 	return $listaOrdenada;
 }
 
+
+function ordenaListaPublicacionesA($listaPublicaciones,$cant){
+
+	//SACO LAS PUBLICACIONES
+
+	$listaOrdenada=array();
+
+	//print_r("entreeeeee aqui !!!");
+	//print_r($listaPublicaciones);
+
+	for($i=0;$i<count($listaPublicaciones);$i++){
+		$con=getConnection();
+		//print_r($listaPublicaciones[$i]["id"]);
+		if($listaPublicaciones[$i]["cant"]==$cant){
+			$pstmt = $con->prepare("SELECT AVG(H.NUMVECES) as NVECES FROM HISTORIALBUSQUEDA H WHERE H.IDPUBLICACION=?");
+			$pstmt->execute(array($listaPublicaciones[$i]["id"]));
+		    
+			$NVECES = $pstmt->fetch(PDO::FETCH_ASSOC)["NVECES"];
+
+			$valor=$listaPublicaciones[$i]["cant"]*10+$NVECES*8;
+			//echo $valor;
+
+			$listaOrdenada=insertaItem($valor,$listaPublicaciones[$i],$listaOrdenada);
+		}
+	}
+	return $listaOrdenada;
+}
+
+function ordenaListaFichaA($listaFichas,$cant){
+
+	$listaOrdenada=array();
+
+	for($i=0;$i<count($listaFichas);$i++){
+		$con=getConnection();
+		//echo $listaPublicaciones[$i]["id"];
+		if($listaFichas[$i]["cant"]==$cant){
+			$pstmt = $con->prepare("SELECT AVG(H.NUMVECES) as NVECES FROM HISTORIALBUSQUEDA H WHERE H.IDFICHABIB=?");
+			$pstmt->execute(array($listaFichas[$i]["id"]));
+		    
+			$NVECES = $pstmt->fetch(PDO::FETCH_ASSOC)["NVECES"];
+
+			$valor=$listaFichas[$i]["cant"]*10+$NVECES*8;
+
+			$listaOrdenada=insertaItem($valor,$listaFichas[$i],$listaOrdenada);
+		}
+	}
+	return $listaOrdenada;
+}
+
+
+
+
+
 function busquedaBasica(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -237,6 +290,7 @@ function busquedaBasica(){
 
     $listaPublicacionesConCoindicencia = array();
 	$words = explode(' ', $CRITERIO);
+	$cantWordsB=count($words);
 	//echo 'The sentence has ' . count($words) . ' words.<br />'; 
 	for ($i = 0; $i < count($words); $i++)
 	{
@@ -397,6 +451,7 @@ function busquedaAsistida(){
     //PUBLICACIONES
 
     $listaPublicacionesConCoindicencia = array();
+    $cantWords=count($data[0]);
 	//$words = explode(' ', $CRITERIO);
 	//echo 'The sentence has ' . count($words) . ' words.<br />'; 
 	//for ($i = 0; $i < count($words); $i++)
@@ -442,7 +497,7 @@ function busquedaAsistida(){
 	$listaPubliFinal=damePublicacionesQueVeo($listaPublicacionesConCoindicencia,$IDUSUARIO);
 	//echo json_encode($listaPubliFinal);
 
-	$final=ordenaListaPublicaciones($listaPubliFinal);
+	$final=ordenaListaPublicacionesA($listaPubliFinal,$cantWords);
 
 	//echo json_encode($final);
 	$listaPublicacionesOrdenadas=array();	
@@ -514,7 +569,7 @@ function busquedaAsistida(){
 
 	$listaFichaFinal=dameFichasQueVeo($listaFichasConCoindicencia,$IDUSUARIO);
 
-	$final=ordenaListaFicha($listaFichaFinal);
+	$final=ordenaListaFichaA($listaFichaFinal,$cantWords);
 
 	//echo json_encode($final);
 	$listaFichasOrdenadas2=array();	
@@ -563,11 +618,13 @@ function busquedaAvanzada(){
 
 
 	
-	$QUERYMEDIO="WHERE ";
-	$QUERFIN=" AND P.ESTADO=1 ";
+	
 	
 
 		if($TIPOBUSQUEDA==1){ //BUSCO PUBLICACIONES
+			$QUERYMEDIO="WHERE ";
+			$QUERFIN=" AND P.ESTADO=1 ";
+
 			$QUERYPRINCIPIO="SELECT distinct(P.IDPUBLICACION) as id FROM PUBLICACION P ";
 			$entroAutor=false;
 			$entroTipo=false;
@@ -662,7 +719,8 @@ function busquedaAvanzada(){
 			}
 		}
 		else{
-
+			$QUERYMEDIO="WHERE ";
+			$QUERFIN=" AND F.ESTADO=1 ";
 			$QUERYPRINCIPIO="SELECT distinct(F.IDFICHABIB) as id FROM FICHABIB F ";
 			$entroAutor=false;
 			$entroTipo=false;
