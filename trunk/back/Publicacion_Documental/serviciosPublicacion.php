@@ -64,7 +64,7 @@
 			$con= getConnection();
 			$pstmt = $con->prepare("UPDATE PUBLICACION P 
 									SET P.TITULO=?,P.FUENTE=?,P.OBTENIDO=?,P.PAGINAS=?, 
-										P.VOLUMEN=?,P.DOI=?,P.ISSN=?,P.IDIDIOMA=?,P.FECHAREGISTRO=?,P.IDTIPOPUBLICACION=?
+										P.VOLUMEN=?,P.DOI=?,P.ISSN=?,P.IDIDIOMA=?,P.MES=?,P.IDTIPOPUBLICACION=?
 									WHERE P.IDPUBLICACION=?");
 			
 			$pstmt->execute(array($data->{"TITULO"},
@@ -117,16 +117,16 @@
 			$con= getConnection();
 			$pstmt = $con->prepare("INSERT INTO PUBLICACION (TITULO,FUENTE,OBTENIDO,ANIO,MES,PAGINAS,
 									VOLUMEN,DOI,ISSN,ESTADO,FECHAREGISTRO,IDIDIOMA,IDTIPOPUBLICACION) 
-									VALUES (?,?,?,'1990','Set',?,?,?,?,1,?,?,?)");
+									VALUES (?,?,?,'1990',?,?,?,?,?,1,curdate(),?,?)");
 
 			$pstmt->execute(array($data->{"TITULO"},
 								  $data->{"FUENTE"},
 								  $data->{"OBTENIDO"},
+								  $data->{"FECHAPUB"},
 								  $data->{"PAGINAS"},
 								  $data->{"VOLUMEN"},
 								  $data->{"DOI"},
-								  $data->{"ISSN"},
-								  $data->{"FECHAPUB"},
+								  $data->{"ISSN"},								  
 								  $data->{"IDIDIOMA"},
 								  $data->{"IDTIPOPUBLICACION"}
 								  )
