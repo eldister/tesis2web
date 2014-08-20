@@ -4,7 +4,7 @@ function cargaElementos(data){
 		var fila = '<tr id=fila-'+ data[i]["IDPUBLICACION"] +'>';
 		fila +='<td style="display:none;">';
 		fila += '<td class="text-center">'+data[i]["TITULO"]+'</td>';
-		fila += '<td class="text-center">'+data[i]["FECHAREGISTRO"]+'</td>';
+		fila += '<td class="text-center">'+data[i]["MES"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["TIPO"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["IDIOMA"]+'</td>';
 		fila+= '<td class="text-center"><a class="agregar-ficha table-link" href="ViewCrearFicha.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-file-o fa-stack-1x fa-inverse"></i></span></a></td>';
