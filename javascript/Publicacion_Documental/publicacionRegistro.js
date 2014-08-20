@@ -559,11 +559,11 @@ function cambioIdiomaCombo(){
 }
 
 $(document).ready(function(){
-	$('#FECHAPUB').datepicker({
-	  format: 'yyyy-mm-dd'
-	});
-	$("#DOI").mask("999.9999/9999999.9999999");
-	$("#ISSN").mask("9999-9999");
+	//$('#FECHAPUB').datepicker({
+	 // format: 'yyyy-mm-dd'
+	//});
+	$("#FECHAPUB").mask("99/9999");
+	//$("#ISSN").mask("9999-9999");
 	cargaHora();
 	cambioIdiomaCombo();
 	configurarDropzone();

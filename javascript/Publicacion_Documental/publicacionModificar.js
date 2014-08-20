@@ -320,7 +320,7 @@ function llenarCampos(){
 			$('#TITULO').val(data["TITULO"]);
 			$('#FUENTE').val(data["FUENTE"]);
 			$('#OBTENIDO').val(data["OBTENIDO"]);
-			$('#FECHAPUB').val(data["FECHAREGISTRO"]);
+			$('#FECHAPUB').val(data["MES"]);
 			$('#PAGINAS').val(data["PAGINAS"]);
 			$('#VOLUMEN').val(data["VOLUMEN"]);
 			$('#DOI').val(data["DOI"]);
@@ -687,11 +687,11 @@ function cambioIdiomaCombo(){
 
 $(document).ready(function(){
 	idpublicacion = getUrlParameters("idpublicacion","", true);	
-	$('#FECHAPUB').datepicker({
-	  format: 'yyyy-mm-dd'
-	});
-	$("#DOI").mask("999.9999/9999999.9999999");
-	$("#ISSN").mask("9999-9999");
+	//$('#FECHAPUB').datepicker({
+	  //format: 'yyyy-mm-dd'
+	//});
+	//$("#FECHAPUB").mask("99/9999");
+	//$("#ISSN").mask("9999-9999");
 	cargaHora();
 	cambioIdiomaCombo();
 	configurarDropzone();

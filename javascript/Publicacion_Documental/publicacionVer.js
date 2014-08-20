@@ -47,7 +47,7 @@ function llenarDatosPublicacion(){
 			$('#OBTENIDO').val(data["OBTENIDO"]);
 			$('#IDIOMA').val(data["IDIOMA"]);
 			$('#TIPOPUBLICACION').val(data["TIPO"]);
-			$('#FECHAPUB').val(data["FECHAREGISTRO"]);
+			$('#FECHAPUB').val(data["MES"]);
 			$('#PAGINAS').val(data["PAGINAS"]);
 			$('#VOLUMEN').val(data["VOLUMEN"]);
 			$('#DOI').val(data["DOI"]);
