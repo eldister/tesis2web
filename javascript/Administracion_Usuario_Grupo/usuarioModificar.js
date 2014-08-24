@@ -47,6 +47,7 @@ function modificarUsuario(data){
 	//$('#IDPERMISO').prop('readOnly',true);
 	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
 	alert("Los datos del usuario fueron modificados correctamente");
+	window.location.href='../Administracion_Usuario_Grupo/ViewListaUsuario.html';
 }
 
 function guardarCambios(){

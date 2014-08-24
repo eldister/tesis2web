@@ -24,6 +24,7 @@ function regristrarUsuario(data){
 	//$('#COMPROMISO').prop('readOnly',true);
 	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
 	alert("El usuario se creo correctamente");
+	window.location.href='../Administracion_Usuario_Grupo/ViewListaUsuario.html';
 }
 
 function guardarCambios(){
