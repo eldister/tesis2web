@@ -8,8 +8,8 @@ function regristrarUsuario(data){
 	$('#NUMERO_TEL_ALTERNO').html(data["NUMERO_TEL_ALTERNO"]);
 	$('#CUENTA_SKYPE').html(data["CUENTA_SKYPE"]);
 	$('#IDINSTITUCION').html(data["IDINSTITUCION"]);
-	$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
-	$('#COMPROMISO').html(data["COMPROMISO"]);
+	//$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
+	//$('#COMPROMISO').html(data["COMPROMISO"]);
 	$('#IDPERMISO').html(data["IDPERMISO"]);
 
 	$('#NOMBRES').prop('readOnly',true);
@@ -20,8 +20,8 @@ function regristrarUsuario(data){
 	$('#NUMERO_TEL_ALTERNO').prop('readOnly',true);
 	$('#CUENTA_SKYPE').prop('readOnly',true);
 	$('#IDINSTITUCION').not(":selected").attr("disabled", "disabled");
-	$('#MESES_TERMINAR').prop('readOnly',true);
-	$('#COMPROMISO').prop('readOnly',true);
+	//$('#MESES_TERMINAR').prop('readOnly',true);
+	//$('#COMPROMISO').prop('readOnly',true);
 	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
 	alert("El usuario se creo correctamente");
 }
@@ -52,8 +52,8 @@ function guardarCambios(){
 		obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
 		obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
 		obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
-		obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
-		obj["COMPROMISO"] = $('#COMPROMISO').val();
+		//obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
+		//obj["COMPROMISO"] = $('#COMPROMISO').val();
 		obj["IDPERMISO"] = $('#IDPERMISO').val();	
 		
 		$.ajax({

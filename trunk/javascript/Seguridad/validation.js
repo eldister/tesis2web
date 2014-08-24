@@ -121,7 +121,7 @@ function validarUsuario(){
 	/*if (camposValidos)
 		camposValidos = validateEmail("CORREO_ALTERNO","El formato de correo es inválido") && camposValidos;*/
 	
-	camposValidos = validateInteger("MESES_TERMINAR",1,Number.POSITIVE_INFINITY,"Debe ingresar un número positivo","Debe ingresar un número entero") && camposValidos;
+	//camposValidos = validateInteger("MESES_TERMINAR",1,Number.POSITIVE_INFINITY,"Debe ingresar un número positivo","Debe ingresar un número entero") && camposValidos;
 	
 	return camposValidos;
 }
