@@ -27,8 +27,8 @@ function modificarUsuario(data){
 	$('#NUMERO_TEL_ALTERNO').html(data["NUMERO_TEL_ALTERNO"]);
 	$('#CUENTA_SKYPE').html(data["CUENTA_SKYPE"]);
 	$('#IDINSTITUCION').val(data["IDINSTITUCION"]);
-	$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
-	$('#COMPROMISO').html(data["COMPROMISO"]);
+	//$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
+	//$('#COMPROMISO').html(data["COMPROMISO"]);
 	$('#IDPERMISO').val(data["IDPERMISO"]);
 	$('#USERNAME').html(data["USERNAME"]);
 
@@ -41,8 +41,8 @@ function modificarUsuario(data){
 	$('#CUENTA_SKYPE').prop('readOnly',true);
 	//$('#IDINSTITUCION').prop('readOnly',true);
 	$('#IDINSTITUCION').not(":selected").attr("disabled", "disabled");
-	$('#MESES_TERMINAR').prop('readOnly',true);
-	$('#COMPROMISO').prop('readOnly',true);
+	//$('#MESES_TERMINAR').prop('readOnly',true);
+	//$('#COMPROMISO').prop('readOnly',true);
 	$('#USERNAME').prop('readOnly',true);
 	//$('#IDPERMISO').prop('readOnly',true);
 	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
@@ -76,8 +76,8 @@ function guardarCambios(){
 		obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
 		obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
 		obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
-		obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
-		obj["COMPROMISO"] = $('#COMPROMISO').val();
+		//obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
+		//obj["COMPROMISO"] = $('#COMPROMISO').val();
 		obj["IDPERMISO"] = $('#IDPERMISO').val();	
 		obj["USERNAME"] = $('#USERNAME').val();
 
@@ -152,8 +152,8 @@ function verUsuario(){
 			$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
 			$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
 			$('#IDINSTITUCION').val(data["IDINSTITUCION"]);
-			$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
-			$('#COMPROMISO').val(data["COMPROMISO"]);
+			//$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
+			//$('#COMPROMISO').val(data["COMPROMISO"]);
 			$('#IDPERMISO').val(data["IDPERMISO"]);
 			$('#USERNAME').val(data["USERNAME"]);
 		}

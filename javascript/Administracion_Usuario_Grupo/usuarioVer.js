@@ -37,8 +37,8 @@ function verUsuario(){
 			$('#NUMERO_TEL_ALTERNO').val(data["NUMERO_TEL_ALTERNO"]);
 			$('#CUENTA_SKYPE').val(data["CUENTA_SKYPE"]);
 			$('#NOMBRE_INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
-			$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
-			$('#COMPROMISO').val(data["COMPROMISO"]);
+			//$('#MESES_TERMINAR').val(data["MESES_TERMINAR"]);
+			//$('#COMPROMISO').val(data["COMPROMISO"]);
 			$('#NOMBRE').val(data["NOMBRE"]);
 		}
 	});

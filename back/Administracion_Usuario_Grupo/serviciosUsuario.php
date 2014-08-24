@@ -104,7 +104,7 @@ function getUsuario($id){
     $con=getConnection();	
  
 	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS,U.CORREO_INSTITUCIONAL,U.CORREO_ALTERNO,U.NUMERO_CELULAR,
-							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,I.NOMBRE_INSTITUCION,U.MESES_TERMINAR,U.COMPROMISO,P.NOMBRE,U.USERNAME
+							U.NUMERO_TEL_ALTERNO,U.CUENTA_SKYPE,I.NOMBRE_INSTITUCION,P.NOMBRE,U.USERNAME
 							FROM USUARIO U, PERMISO P, INSTITUCION I WHERE U.ESTADO =1 AND U.IDPERMISO=P.IDPERMISO AND 
 							I.IDINSTITUCION=U.IDINSTITUCION AND U.IDUSUARIO=?");
 	$pstmt->execute(array($id));
@@ -118,11 +118,11 @@ function modificaUsuario(){
 
 	$con= getConnection();
 	$pstmt = $con->prepare("UPDATE USUARIO U SET U.NOMBRES=?,U.APELLIDOS=?,U.CORREO_INSTITUCIONAL=?,U.CORREO_ALTERNO=?,U.NUMERO_CELULAR=?,
-							U.NUMERO_TEL_ALTERNO=?,U.CUENTA_SKYPE=?,U.IDINSTITUCION=?,U.MESES_TERMINAR=?,U.COMPROMISO=?,U.IDPERMISO=?,U.USERNAME=?
+							U.NUMERO_TEL_ALTERNO=?,U.CUENTA_SKYPE=?,U.IDINSTITUCION=?,U.IDPERMISO=?,U.USERNAME=?
 							WHERE U.IDUSUARIO=?");
 	$pstmt->execute(array($data->{"NOMBRES"},$data->{"APELLIDOS"},$data->{"CORREO_INSTITUCIONAL"},$data->{"CORREO_ALTERNO"},$data->{"NUMERO_CELULAR"},
-						$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"IDINSTITUCION"},$data->{"MESES_TERMINAR"},
-						$data->{"COMPROMISO"},$data->{"IDPERMISO"},$data->{"USERNAME"},$data->{"IDUSUARIO"}));
+						$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"IDINSTITUCION"},
+						$data->{"IDPERMISO"},$data->{"USERNAME"},$data->{"IDUSUARIO"}));
 
 	echo $request->getBody();
 }
@@ -156,18 +156,19 @@ function registraUsuario(){
 
 	$USERNAME1= substr($data->{"NOMBRES"}, 0, 1);
 	$USER='.';
-	$USERNAME2= $data->{"APELLIDOS"};
+	$extra=explode(" ", $data->{"APELLIDOS"});
+	$USERNAME2= $extra[0];
 	$USERN=$USERNAME1.$USER.$USERNAME2;
 	$USERNAME= strtolower(str_replace(' ', '', $USERN));
 
 	$PASSWORD=Encrypter::encrypt($USERNAME);
 
 	$pstmt = $con->prepare("INSERT INTO USUARIO (NOMBRES,APELLIDOS,CORREO_INSTITUCIONAL,CORREO_ALTERNO,NUMERO_CELULAR,NUMERO_TEL_ALTERNO,
-										CUENTA_SKYPE,IDINSTITUCION,MESES_TERMINAR,COMPROMISO,IDPERMISO,USERNAME,PASSWORD,ESTADO) 
-							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,1)");
+										CUENTA_SKYPE,IDINSTITUCION,IDPERMISO,USERNAME,PASSWORD,ESTADO) 
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
 	$pstmt->execute(array($data->{"NOMBRES"},$data->{"APELLIDOS"},$data->{"CORREO_INSTITUCIONAL"},$data->{"CORREO_ALTERNO"},
 					$data->{"NUMERO_CELULAR"},$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"IDINSTITUCION"},
-					$data->{"MESES_TERMINAR"},$data->{"COMPROMISO"},$data->{"IDPERMISO"},$USERNAME,$PASSWORD));
+					$data->{"IDPERMISO"},$USERNAME,$PASSWORD));
 
 	$lastInsertId = $con->lastInsertId();
 
@@ -181,8 +182,8 @@ function registraUsuario(){
 			array('NUMERO_TEL_ALTERNO'=> $data->{"NUMERO_TEL_ALTERNO"}),
 			array('CUENTA_SKYPE'=>$data->{"CUENTA_SKYPE"}),
 			array('IDINSTITUCION'=> $data->{"IDINSTITUCION"}),
-			array('MESES_TERMINAR'=> $data->{"MESES_TERMINAR"}),
-			array('COMPROMISO'=>$data->{"COMPROMISO"}),
+			//array('MESES_TERMINAR'=> $data->{"MESES_TERMINAR"}),
+			//array('COMPROMISO'=>$data->{"COMPROMISO"}),
 			array('IDPERMISO'=> $data->{"IDPERMISO"}),
 			array('USERNAME'=> $USERNAME),
 			array('PASSWORD'=> $PASSWORD)
