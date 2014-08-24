@@ -48,13 +48,13 @@ function verUsuario(){
 			$('#NUMERO_TEL_ALTERNO').val(data[6]["NUMERO_TEL_ALTERNO"]);
 			$('#CUENTA_SKYPE').val(data[7]["CUENTA_SKYPE"]);
 			$('#IDINSTITUCION').val(data[8]["IDINSTITUCION"]);
-			$('#MESES_TERMINAR').val(data[9]["MESES_TERMINAR"]);
-			$('#COMPROMISO').val(data[10]["COMPROMISO"]);
-			$('#IDPERMISO').val(data[11]["IDPERMISO"]);
+			//$('#MESES_TERMINAR').val(data[9]["MESES_TERMINAR"]);
+			//$('#COMPROMISO').val(data[10]["COMPROMISO"]);
+			$('#IDPERMISO').val(data[9]["IDPERMISO"]);
 			$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
-			$('#USERNAME').val(data[12]["USERNAME"]);
-			$('#NOMBRE').html(data[13]["NOMBRE"]);
-			$('#PASSWORD').val(data[14]["PASSWORD"]);
+			$('#USERNAME').val(data[10]["USERNAME"]);
+			$('#NOMBRE').html(data[11]["NOMBRE"]);
+			$('#PASSWORD').val(data[12]["PASSWORD"]);
 		}
 	});
 
@@ -105,8 +105,8 @@ function modificarUsuario(data){
 	$('#NUMERO_TEL_ALTERNO').html(data["NUMERO_TEL_ALTERNO"]);
 	$('#CUENTA_SKYPE').html(data["CUENTA_SKYPE"]);
 	$('#IDINSTITUCION').val(data["IDINSTITUCION"]);
-	$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
-	$('#COMPROMISO').html(data["COMPROMISO"]);
+	//$('#MESES_TERMINAR').html(data["MESES_TERMINAR"]);
+	//$('#COMPROMISO').html(data["COMPROMISO"]);
 	$('#IDPERMISO').val(data["IDPERMISO"]);
 	$('#USERNAME').html(data["USERNAME"]);
 	$('#PASSWORD').html(data["PASSWORD"]);
@@ -122,8 +122,8 @@ function modificarUsuario(data){
 	$('#CUENTA_SKYPE').prop('readOnly',true);
 	//$('#IDINSTITUCION').prop('readOnly',true);
 	$('#IDINSTITUCION').not(":selected").attr("disabled", "disabled");
-	$('#MESES_TERMINAR').prop('readOnly',true);
-	$('#COMPROMISO').prop('readOnly',true);
+	//$('#MESES_TERMINAR').prop('readOnly',true);
+	//$('#COMPROMISO').prop('readOnly',true);
 	$('#USERNAME').prop('readOnly',true);
 	//$('#IDPERMISO').prop('readOnly',true);
 	$('#IDPERMISO').not(":selected").attr("disabled", "disabled");
@@ -148,8 +148,8 @@ function guardarCambios(){
 	obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
 	obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
 	obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
-	obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
-	obj["COMPROMISO"] = $('#COMPROMISO').val();
+	//obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
+	//obj["COMPROMISO"] = $('#COMPROMISO').val();
 	obj["IDPERMISO"] = $('#IDPERMISO').val();	
 	obj["USERNAME"] = $('#USERNAME').val();
 	obj["PASSWORD"] = $('#PASSWORD').val();
