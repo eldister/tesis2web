@@ -5,7 +5,8 @@ function cargaElementos(data){
 		var fila = '<tr id=fila-'+ data[i]["idlistapublicacion"] +'>';
 		fila +='<td style="display:none;">';
 		fila += '<td class="text-center">'+data[i]["nombreabr"]+'</td>';
-		fila += '<td class="text-center">'+data[i]["fecharegistro"]+'</td>';		
+		fila += '<td class="text-center">'+data[i]["fecharegistro"]+'</td>';
+		fila += '<td class="text-center">'+'http://inv-tool.inf.pucp.edu.pe/tesis2web/listapublicacion.html?id='+data[i]["tokenlink"]+'</td>';		
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
 		fila+= '<a class="ver-publicacion table-link" href="ViewVerListaPublicacion.html?idlp='+data[i]["idlistapublicacion"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
 		fila+= '<a class="modificar-listapublicacion table-link" href="ViewModificarListaPublicacion.html?idlp='+data[i]["idlistapublicacion"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
