@@ -33,10 +33,35 @@ function guardarCambios(){
 	if (answer){
 		var data = $(".form-control");
 		var obj = {};
+		var obj2 = {}
 		
 		obj["IDUSUARIO"]= "";
 		var ruta = "";
 		var callback;
+
+		// CODIGO QUE SE AGREGO
+
+			ruta = "../../api/AU_verificaUsuarioRepetido";
+			obj2["NOMBRES"] = $('#NOMBRES').val();
+			obj2["APELLIDOS"] = $('#APELLIDOS').val();
+			$.ajax({
+				type: 'POST',
+				url : ruta,
+				dataType: "json",
+				data: JSON.stringify(obj2),
+				contentType: "application/json; charset=utf-8",
+				success: function(data2){
+						//alert("mmmm");
+						for (var i=0; i<data2.length; i++) {
+							if(data2[0]*1>0){
+								alert("Error: El usuario ya fue ingresado anteriormente");
+								return;
+							}
+						}	
+				}
+			});
+
+		//
 
 		if (!validarUsuario()){
 			//alert("Uno o más errores en los campos de entrada");

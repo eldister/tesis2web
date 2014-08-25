@@ -12,5 +12,8 @@
 	$app->get('/AU_getUsuario3/:id','getUsuario3');
 	$app->post('/AU_modificaUsuario2','modificaUsuario2');
 
+	$app->post('/AU_verificaUsuarioRepetido','verificarRepeticion');
+	
+
 	$app->post('/encripta','encriptaAdmin');
 ?>

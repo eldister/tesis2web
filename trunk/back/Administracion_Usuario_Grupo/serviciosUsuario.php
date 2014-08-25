@@ -262,4 +262,24 @@ function getInstituciones(){
 		}
 	echo json_encode($listaInstitucion);
 }
+
+
+function verificarRepeticion(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+	$data = json_decode($request->getBody());
+	$con= getConnection();
+
+	$NOMBRES=$data->{"NOMBRES"};
+	$APELLIDOS=$data->{"APELLIDOS"};
+
+	$pstmt = $con->prepare("SELECT count(P.IDUSUARIO) as CANTIDAD FROM USUARIO P WHERE P.ESTADO=1 AND 
+							P.NOMBRES LIKE CONCAT('%',?,'%') AND P.APELLIDOS LIKE CONCAT('%',?,'%')");
+	$pstmt->execute(array($NOMBRES,$APELLIDOS));
+	$req = $pstmt->fetch(PDO::FETCH_ASSOC)["CANTIDAD"];
+
+	echo json_encode($req);
+}
+
+
 ?>
