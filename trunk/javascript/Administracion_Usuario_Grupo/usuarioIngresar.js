@@ -32,67 +32,78 @@ function guardarCambios(){
 	var answer = confirm("Desea crear el usuario?")
 	if (answer){
 		var data = $(".form-control");
-		var obj = {};
+		
 		var obj2 = {}
 		
 		obj["IDUSUARIO"]= "";
 		var ruta = "";
 		var callback;
 
+		if (!validarUsuario()){
+			//alert("Uno o más errores en los campos de entrada");
+			return;
+		}
+
 		// CODIGO QUE SE AGREGO
 
-			ruta = "../../api/AU_verificaUsuarioRepetido";
+	
+			ruta2 = "../../api/AU_verificaUsuarioRepetido";
 			obj2["NOMBRES"] = $('#NOMBRES').val();
 			obj2["APELLIDOS"] = $('#APELLIDOS').val();
 			$.ajax({
 				type: 'POST',
-				url : ruta,
+				url : ruta2,
 				dataType: "json",
 				data: JSON.stringify(obj2),
 				contentType: "application/json; charset=utf-8",
 				success: function(data2){
 						//alert("mmmm");
-						for (var i=0; i<data2.length; i++) {
+						//for (var i=0; i<data2.length; i++) {
 							if(data2[0]*1>0){
 								alert("Error: El usuario ya fue ingresado anteriormente");
-								return;
+								//break;
+								
+								return 0;
 							}
-						}	
+							else{
+								creaUsuario();
+							}
+						//}	
 				}
 			});
 
 		//
 
-		if (!validarUsuario()){
-			//alert("Uno o más errores en los campos de entrada");
-			return;
-		}
-		
-		ruta = "../../api/AU_registraUsuario";
-		callback = regristrarUsuario;
-		obj["NOMBRES"] = $('#NOMBRES').val();
-		obj["APELLIDOS"] = $('#APELLIDOS').val();
-		obj["CORREO_INSTITUCIONAL"] = $('#CORREO_INSTITUCIONAL').val();
-		obj["CORREO_ALTERNO"] = $('#CORREO_ALTERNO').val();
-		obj["NUMERO_CELULAR"] = $('#NUMERO_CELULAR').val();
-		obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
-		obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
-		obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
-		//obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
-		//obj["COMPROMISO"] = $('#COMPROMISO').val();
-		obj["IDPERMISO"] = $('#IDPERMISO').val();	
-		
-		$.ajax({
-			type: 'POST',
-			url : ruta,
-			dataType: "json",
-			data: JSON.stringify(obj),
-			contentType: "application/json; charset=utf-8",
-			success: callback
-		});
+
 	}
 }
 
+function creaUsuario(){
+	var obj = {};
+	obj["IDUSUARIO"]= "";
+	ruta = "../../api/AU_registraUsuario";
+	callback = regristrarUsuario;
+	obj["NOMBRES"] = $('#NOMBRES').val();
+	obj["APELLIDOS"] = $('#APELLIDOS').val();
+	obj["CORREO_INSTITUCIONAL"] = $('#CORREO_INSTITUCIONAL').val();
+	obj["CORREO_ALTERNO"] = $('#CORREO_ALTERNO').val();
+	obj["NUMERO_CELULAR"] = $('#NUMERO_CELULAR').val();
+	obj["NUMERO_TEL_ALTERNO"] = $('#NUMERO_TEL_ALTERNO').val();
+	obj["CUENTA_SKYPE"] = $('#CUENTA_SKYPE').val();
+	obj["IDINSTITUCION"]= $('#IDINSTITUCION').val();
+	//obj["MESES_TERMINAR"] = $('#MESES_TERMINAR').val();
+	//obj["COMPROMISO"] = $('#COMPROMISO').val();
+	obj["IDPERMISO"] = $('#IDPERMISO').val();	
+	
+	$.ajax({
+		type: 'POST',
+		url : ruta,
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: callback
+	});
+}
 
 function cargarComboTipoUsuario(){
 	$.ajax({
