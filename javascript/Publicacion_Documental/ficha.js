@@ -3,6 +3,7 @@ function cargaElementos(data){
 	for(var i=0; i < data.length ; i++){
 		var fila = '<tr id=fila-'+ data[i]["IDFICHABIB"] +'>';
 		fila +='<td style="display:none;">';
+		fila += '<td class="text-center">'+data[i]["TITULO_PUBLICACION"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["ENCABEZADO"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["TIPO"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["USUARIO"]+'</td>';		

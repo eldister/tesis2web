@@ -194,7 +194,7 @@
 		$con=getConnection();
 		$pstmt = $con->prepare("SELECT DISTINCT G.IDGRUPO, G.NOMBRE 
 			  					from fichabib F,grupo G,gruxfixusu GFU 
-			 					where GFU.IDFICHABIB=F.IDFICHABIB and G.idgrupo=GFU.idgrupo
+			 					where GFU.IDFICHABIB=F.IDFICHABIB and G.idgrupo=GFU.idgrupo and G.idgrupo<>1
 										and GFU.IDFICHABIB=?");
 		$listaGrupo = array();
 		$pstmt->execute(array($id));
