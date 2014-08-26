@@ -281,5 +281,22 @@ function verificarRepeticion(){
 	echo json_encode($req);
 }
 
+function verificarRepeticion2(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+	$data = json_decode($request->getBody());
+	$con= getConnection();
+
+	$NOMBRES=$data->{"NOMBRES"};
+	$APELLIDOS=$data->{"APELLIDOS"};
+	$IDPERSONA=$data->{"IDUSUARIO"};
+
+	$pstmt = $con->prepare("SELECT count(P.IDUSUARIO) as CANTIDAD FROM USUARIO P WHERE P.ESTADO=1 AND 
+							P.NOMBRES LIKE CONCAT('%',?,'%') AND P.APELLIDOS LIKE CONCAT('%',?,'%') AND P.IDUSUARIO NOT IN (?)");
+	$pstmt->execute(array($NOMBRES,$APELLIDOS,$IDPERSONA));
+	$req = $pstmt->fetch(PDO::FETCH_ASSOC)["CANTIDAD"];
+
+	echo json_encode($req);
+}
 
 ?>

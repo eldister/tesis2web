@@ -13,7 +13,7 @@
 	$app->post('/AU_modificaUsuario2','modificaUsuario2');
 
 	$app->post('/AU_verificaUsuarioRepetido','verificarRepeticion');
-	
+	$app->post('/AU_verificaUsuarioRepetido2','verificarRepeticion2');
 
 	$app->post('/encripta','encriptaAdmin');
 ?>

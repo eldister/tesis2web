@@ -50,24 +50,12 @@ function modificarUsuario(data){
 	window.location.href='../Administracion_Usuario_Grupo/ViewListaUsuario.html';
 }
 
-function guardarCambios(){
 
-	var answer = confirm("Desea modificar los datos del usuario?")
-	if (answer){
-		var data = $(".form-control");
-		var obj = {};
-		
+function modificaUsuario(){
+	var obj = {};		
 		//obj["IDUSUARIO"]=this.getAttribute("IDUSUARIO");
 		obj["IDUSUARIO"]=getUrlParameters("id","",true);
-		var ruta = "";
-		var callback;
-
-		if (!validarUsuario()){
-			//alert("Uno o más errores en los campos de entrada");
-			return;
-		}
-		
-		ruta = "../../api/AU_modificaUsuario";
+	ruta = "../../api/AU_modificaUsuario";
 		callback = modificarUsuario;
 		obj["NOMBRES"] = $('#NOMBRES').val();
 		obj["APELLIDOS"] = $('#APELLIDOS').val();
@@ -90,6 +78,55 @@ function guardarCambios(){
 			contentType: "application/json; charset=utf-8",
 			success: callback
 		});
+
+
+}
+
+function guardarCambios(){
+
+	var answer = confirm("Desea modificar los datos del usuario?")
+	if (answer){
+		var data = $(".form-control");
+		var obj = {};
+		var obj2 = {};
+		
+		//obj["IDUSUARIO"]=this.getAttribute("IDUSUARIO");
+		obj["IDUSUARIO"]=getUrlParameters("id","",true);
+		var ruta = "";
+		var callback;
+
+
+		if (!validarUsuario()){
+			//alert("Uno o más errores en los campos de entrada");
+			return;
+		}
+
+		// CODIGO QUE SE AGREGO
+
+			ruta = "../../api/AU_verificaUsuarioRepetido2";
+			obj2["NOMBRES"] = $('#NOMBRES').val();
+			obj2["APELLIDOS"] = $('#APELLIDOS').val();
+			obj2["IDUSUARIO"] = getUrlParameters("id","",true);
+			$.ajax({
+				type: 'POST',
+				url : ruta,
+				dataType: "json",
+				data: JSON.stringify(obj2),
+				contentType: "application/json; charset=utf-8",
+				success: function(data2){
+						
+							if(data2[0]*1>0){
+								alert("Error: El usuario ya fue ingresado anteriormente");
+								//break;
+								
+								return 0;
+							}
+							else{
+								modificaUsuario();
+							}
+						
+				}
+			});
 	}
 }
 
