@@ -99,6 +99,21 @@ function verificarUsuarioLogueado(){
 		$(location).attr('href','../../login.html');
 }
 
+function expandDropdown(it){
+
+	var $item = $(it).parent();
+
+	if (!$item.hasClass('open')) {
+		$item.parent().find('.open .submenu').slideUp('fast');
+		$item.parent().find('.open').toggleClass('open');
+	}
+
+	$item.addClass('open');
+	
+	$item.children('.submenu').slideDown('fast');
+	
+}
+
 $(document).ready(function(){
 
 	//IMPORTANTE

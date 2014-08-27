@@ -101,42 +101,17 @@
 					<div class="modal fade" id="agregarElemento" tabindex="-1" role="dialog" aria-labelledby="agregarElemento" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h3 class="modal-title" id="tituloModal">Datos Básicos</h3>
-									</div>
-								<div class="modal-body">
-									<form role="form" id="form-lectura">
-										<input type="hidden" id="IDLECTURAASIGNADA" class="form-control" />							<div class="form-group" id="select_div">
-											<label for="PALABRACLAVE">Palabras Clave</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-book"></i></span>
-												<input type="PALABRACLAVE" class="form-control" id="PALABRACLAVE">
-											</div>
-										</div>
-										<label for="NOTASLECTURA">Notas de Lecturas</label>
-											<a class="btn btn-primary pull-right" id="agregarNota">Agregar Nota</a>												
-										<div class="form-group" id="notasLectura">
-																						
-										</div>
-										<div class="form-group">
-											<label for="OBSERVACIONES">Observaciones</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-												<textarea type="OBSERVACIONES" class="form-control" id="OBSERVACIONES" rows="2"></textarea>
-											</div>
-										</div>									    
-									</form>											
-								</div>
+								
 								<div class="modal-header" id="headerElemento">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 									<h3 class="modal-title" id="tituloModal">Agregar Lectura</h3>
 							    </div>
 							    <div class="modal-body" id="bodyElemento">
 							    	<div class="row">
-							    		<div class"col-lg-12">
-							    			<div class="filter-block pull-right">
-												<div class="form-group pull-left">
-													<input type="text" class="form-control" placeholder="Enter para buscar..." id="criterioBusqueda2">
+							    		<div class"col-lg-3">
+							    			<div class="filter-block">
+												<div class="form-group">
+													<input type="text" class="form-control" placeholder="Presionar Enter para iniciar la búsqueda..." id="criterioBusqueda2">
 													<i class="fa fa-search search-icon"></i>
 												</div>
 											</div>
@@ -167,6 +142,29 @@
 										</tbody>											
 									</table>
 									</div>																	
+								</div>
+								<div class="modal-body">
+									<form role="form" id="form-lectura">
+										<input type="hidden" id="IDLECTURAASIGNADA" class="form-control" />							<div class="form-group" id="select_div">
+											<label for="PALABRACLAVE">Palabras Clave</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-book"></i></span>
+												<input type="PALABRACLAVE" class="form-control" id="PALABRACLAVE">
+											</div>
+										</div>
+										<label for="NOTASLECTURA">Notas de Lecturas</label>
+											<a class="btn btn-primary pull-right" id="agregarNota">Agregar Nota</a>												
+										<div class="form-group" id="notasLectura">
+																						
+										</div>
+										<div class="form-group">
+											<label for="OBSERVACIONES">Observaciones</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+												<textarea type="OBSERVACIONES" class="form-control" id="OBSERVACIONES" rows="2"></textarea>
+											</div>
+										</div>									    
+									</form>											
 								</div>								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

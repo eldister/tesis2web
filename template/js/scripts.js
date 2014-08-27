@@ -1,7 +1,7 @@
 $(function($) {
 	
 	$('#sidebar-nav .dropdown-toggle').click(function (e) {
-		e.preventDefault();
+		/*e.preventDefault();
 		
 		var $item = $(this).parent();
 
@@ -17,7 +17,7 @@ $(function($) {
 		} 
 		else {
 			$item.children('.submenu').slideUp('fast');
-		}
+		}*/
 	});
 	
 	$('.mobile-search').click(function(e) {
