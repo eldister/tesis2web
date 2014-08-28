@@ -910,4 +910,56 @@ function dameEtiquetasBQ(){
 	echo json_encode($etiquetas);
 }
 
+
+function getListaIdiomaB(){
+	$request = \Slim\Slim::getInstance()->request();
+		$con=getConnection();
+		
+		$pstmt = $con->prepare("SELECT I.IDIDIOMA,I.NOMBRE,I.OBSERVACION FROM IDIOMA I WHERE I.ESTADO =1");
+		$pstmt->execute();
+
+		$listaIdioma = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaIdioma[] = $req;
+		}
+		echo json_encode($listaIdioma);
+}
+
+
+function getListaIdiomaBPopularIdioma(){
+	$request = \Slim\Slim::getInstance()->request();
+		$con=getConnection();
+		
+		$pstmt = $con->prepare("SELECT I.IDIDIOMA,I.NOMBRE,I.OBSERVACION FROM IDIOMA I WHERE I.ESTADO =1");
+		$pstmt->execute();
+		$IDIDIOMA=$pstmt->fetch(PDO::FETCH_ASSOC)["IDIDIOMA"];
+
+		$pstmt = $con->prepare("SELECT I.IDETIQUETA,I.NOMBRE FROM ETIQUETA I WHERE I.ESTADO =1 AND I.IDIDIOMA=?");
+		$pstmt->execute(array($IDIDIOMA));
+
+		$listaIdioma = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaIdioma[] = $req;
+		}
+		echo json_encode($listaIdioma);
+}
+
+function getListaEtiquetaCombo(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDIDIOMA=$data->{"IDIDIOMA"};
+
+    $con=getConnection();
+	$pstmt = $con->prepare("SELECT I.IDETIQUETA,I.NOMBRE FROM ETIQUETA I WHERE I.ESTADO =1 AND I.IDIDIOMA=?");
+	$pstmt->execute(array($IDIDIOMA));
+
+	$listaEtiqueta = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaEtiqueta[] = $req;
+		}
+		echo json_encode($listaEtiqueta);
+
+}
+
 ?>

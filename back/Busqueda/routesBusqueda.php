@@ -11,4 +11,9 @@
 	$app->post('/BQ_getListaMisBusquedas','dameMisBusquedas');
 	$app->get('/BQ_eliminaMiBusqueda/:id','eliminaMiBusqueda');
 	$app->post('/AU_getEtiquetaBQ','dameEtiquetasBQ');
+
+	$app->post('/PD_getListaIdiomaB','getListaIdiomaB');
+	$app->post('/BQ_damelistaEtiquetasPopularIdioma','getListaIdiomaBPopularIdioma');
+	$app->post('/BQ_getListaEtiquetaCombo','getListaEtiquetaCombo');
+	
 ?>
