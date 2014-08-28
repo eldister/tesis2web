@@ -252,7 +252,7 @@ function validarAutor(){
 	clearErrors(); 
 	var camposValidos = true;
 	camposValidos = validateMandatory("NOM_APE","El campo es obligatorio") && camposValidos;
-	camposValidos = validateMandatory("PAGINA_WEB","El campo es obligatorio") && camposValidos;
+	//camposValidos = validateMandatory("PAGINA_WEB","El campo es obligatorio") && camposValidos;
 
 	return camposValidos;
 }
