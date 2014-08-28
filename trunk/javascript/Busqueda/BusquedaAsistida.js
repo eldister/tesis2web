@@ -338,12 +338,84 @@ function verEtiquetaBusqueda(){
 }
 
 
+function armarModalBody(data){
+	$.ajax({
+		type: 'POST',
+		url : '../../api/BQ_damelistaEtiquetasPopularIdioma',
+		dataType: "json",
+		//data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(obj){
+			for (var i=0; i<obj.length; i++) {
+				$("#sel2Multi1").append('<option value="' + obj[i].IDETIQUETA + '">' + obj[i].NOMBRE + '</option>');
+			}
+
+		}
+	});
+}
+
+
+var idiomas;
+function popularSelectIdiomaB(){
+	$.ajax({
+		type: 'POST',
+	    url:'../../api/PD_getListaIdiomaB',
+	    dataType: "json",
+	    contentType: "application/json; charset=utf-8",
+	    success: function(data) {
+	     //  $('#bodyEtiquetas').empty();		   
+		   idiomas=data;
+		   armarModalBody(idiomas);
+		 //  armarModalBody(idiomas);
+		   for(obj in data){
+				var opt = $("<option></option>");
+				opt.val(data[obj]["IDIDIOMA"]);
+				opt.html(data[obj]["NOMBRE"]);
+				$("#selectIdioma").append(opt);
+		    }
+	    }
+	});
+}
+
+var ididioma="1";
+function cambioIdiomaCombo(){
+	$("#selectIdioma").change(function(){
+		ididioma=$(this).val();
+		cargaListaEtiqueta(ididioma);
+	});
+}
+
+function cargaListaEtiqueta(ididioma){
+
+	var obj={};
+
+	obj["IDIDIOMA"]=ididioma;
+
+	$.ajax({
+
+		type: 'POST',
+		url : '../../api/BQ_getListaEtiquetaCombo',
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(obj2){
+			$("#sel2Multi1").empty();
+			for (var i=0; i<obj2.length; i++) {
+				$("#sel2Multi1").append('<option value="' + obj2[i].IDETIQUETA + '">' + obj2[i].NOMBRE + '</option>');
+			}
+
+		}
+	});
+}
 
 $(document).ready(function(){
 	//detectaBuscar();
 
 	iniciarNiceSelectBoxesBQ();
-	cargarListaEtiquetas();
+	popularSelectIdiomaB();
+	cambioIdiomaCombo();
+	cargaListaEtiqueta(ididioma);
+	//cargarListaEtiquetas();
 	setTimeout(verEtiquetaBusqueda,50);
 	$("#busquedaAsistida").click(realizarBusqueda);
 	$("#guardaBusqueda").click(guardaBQ);
