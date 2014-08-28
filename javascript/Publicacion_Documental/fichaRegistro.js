@@ -376,6 +376,48 @@ function cargarListaPersonas2(){
 	});
 }
 
+function cargaGruposPublicacion(){
+	var idpub=getUrlParameters("idpublicacion","",true);
+	$.ajax({
+		type: 'GET',
+	    url:'../../api/PD_getGrupoPublicacion/'+ idpub,
+	    dataType: "json",
+	    contentType: "application/json; charset=utf-8",
+	    success: function(data) {
+	    	var gruposFicha = $("#sel2Grupo").select2("val");
+	    	for (var i=0; i<data.length; i++) {
+	    		//var etiquetasPublicacion = $("#sel2Multi3").select2("val");
+				gruposFicha.push(data[i].IDGRUPO);
+				//$("#sel2Multi3").select2("val", null);
+				//$("#sel2Multi3").select2("val", etiquetasPublicacion);
+	    	}
+	    	$("#sel2Grupo").select2("val", gruposFicha);
+			seleccionGrupos = $("#sel2Grupo").select2("data");
+	    }	
+	});
+}
+
+function cargaEtiquetasPublicacion(){
+	var idpub=getUrlParameters("idpublicacion","",true);
+	$.ajax({
+		type: 'GET',
+	    url:'../../api/PD_getEtiquetaPublicacion/'+ idpub,
+	    dataType: "json",
+	    contentType: "application/json; charset=utf-8",
+	    success: function(data) {
+	    	var etiquetasFicha = $("#sel2Multi3").select2("val");
+	    	for (var i=0; i<data.length; i++) {
+	    		//var etiquetasPublicacion = $("#sel2Multi3").select2("val");
+				etiquetasFicha.push(data[i].IDETIQUETA);
+				//$("#sel2Multi3").select2("val", null);
+				//$("#sel2Multi3").select2("val", etiquetasPublicacion);
+	    	}
+	    	$("#sel2Multi3").select2("val", etiquetasFicha);
+			seleccionEtiquetas = $("#sel2Multi3").select2("data");
+	    }	
+	});
+}
+
 function iniciarNiceSelectBoxes(){
 
     $('#sel2Multi3').select2({
@@ -439,6 +481,8 @@ $(document).ready(function(){
 	llenarDatosPublicacion();
 	iniciarNiceSelectBoxes();
 	popularEtiquetas(ididioma);
+	setTimeout(cargaGruposPublicacion,300);
+	setTimeout(cargaEtiquetasPublicacion,300);
 	$("#guardar").click(guardarCambios);
 	$("#limpiar").click(cleanInput);
 	$("#guardarEtiqueta").click(guardarEtiqueta);
