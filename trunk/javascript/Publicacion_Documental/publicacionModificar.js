@@ -529,6 +529,11 @@ function guardarAutor(){
 			$("#sel2Multi2").append('<option value="' + obj[0].IDAUTOR + '">' + obj[1].NOM_APE + '</option>');
 		}
 	});
+
+	$('#NOM_APE').val("");
+	$('#PAGINA_WEB').val("");
+	$('#INSTITUCION').val("");
+	$('#TRABAJO').val("");
 }
 
 function guardarGrupo(){

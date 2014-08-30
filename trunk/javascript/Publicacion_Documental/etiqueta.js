@@ -88,19 +88,24 @@ function modificarEtiqueta(){
 	$('#bodyEtiquetas').empty();
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getEtiqueta/'+ idtipo,
+		url : '../../api/PD_getEtiquetaRel/'+ idtipo,
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
-			var fila ='<input type="hidden" id="IDETIQUETA" class="form-control" />';
-			fila += '<span id="ididioma-'+data["IDIDIOMA"]+'">'+data["IDIOMA"]+'</span>';
-			fila += '<div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-book"></i></span>';
-			fila += '<input type="NOMBRE" class="form-control" id="NOMBRE-'+data["IDIDIOMA"]+'"></div></div>';
-			$('#bodyEtiquetas').empty();			
-			$('#bodyEtiquetas').append(fila);
-			nombreEtiqueta=$('#NOMBRE-'+data["IDIDIOMA"]+'');
-			$(nombreEtiqueta).val(data["NOMBRE"]);
-			$('#IDETIQUETA').val(data["IDETIQUETA"]);
+			//var fila ='<input type="hidden" id="IDETIQUETA" class="form-control" />';
+			//fila += '<span id="ididioma-'+data["IDIDIOMA"]+'">'+data["IDIOMA"]+'</span>';
+			//fila += '<div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-book"></i></span>';
+			//fila += '<input type="NOMBRE" class="form-control" id="NOMBRE-'+data["IDIDIOMA"]+'"></div></div>';		
+			//$('#bodyEtiquetas').append(fila);
+			$('#bodyEtiquetas').empty();
+			armarModalBody(idiomas);
+			for (var i=0; i<idiomas.length; i++) {
+				$('#NOMBRE-'+idiomas[i].IDIDIOMA+'').val(data[i].NOMBRE);
+				$('#IDETIQUETA-'+idiomas[i].IDIDIOMA+'').val(data[i].IDETIQUETA);
+			}
+			//nombreEtiqueta=$('#NOMBRE-'+data["IDIDIOMA"]+'');
+			//$(nombreEtiqueta).val(data["NOMBRE"]);
+			//$('#IDETIQUETA').val(data["IDETIQUETA"]);
 		}
 	});
 	$('#NOMBRE').attr('readOnly',false);
@@ -130,9 +135,9 @@ function modifica(data){
 	clearErrors();
 	var fila = $(".selected")[0];
 	var campos = $(fila).children();
-	$(campos[0]).html(data["IDETIQUETA"]);
-	$(campos[1]).html(data["NOMBRE"]);
-	$(campos[2]).html(data["IDIOMA"]);
+	$(campos[0]).html(data[ididioma-1]["idet"]);
+	$(campos[1]).html(data[ididioma-1]["nombre"]);
+	$(campos[2]).html(data[ididioma-1]["idioma"]);
 	$('#detalleEtiqueta').modal('hide');
 	$('#listaEtiqueta').trigger("update");
 	resetForm();
@@ -183,12 +188,16 @@ function guardarCambios(){
 		if (answer){
 			ruta = "../../api/PD_registraEtiqueta";
 			callback = inserta;
+
 			for (var i=0; i<idiomas.length; i++) {
-				obj = { nombre:$('#NOMBRE-'+idiomas[i].IDIDIOMA+'').val(),
-						ididioma: idiomas[i].IDIDIOMA,
-						idioma: idiomas[i].NOMBRE
-						};
-				listEtiquetas.push(obj);
+				var elem = $('#NOMBRE-'+idiomas[i].IDIDIOMA+'').val();
+				//if(elem!=""){
+					obj = { nombre:elem,
+							ididioma: idiomas[i].IDIDIOMA,
+							idioma: idiomas[i].NOMBRE
+							};
+					listEtiquetas.push(obj);
+				//}
 			}
 
 			if(!validarEtiqueta(idiomas)){
@@ -202,6 +211,7 @@ function guardarCambios(){
 				data: JSON.stringify(listEtiquetas),
 				contentType: "application/json; charset=utf-8",
 				success: callback
+
 			});
 		}
 	}
@@ -211,10 +221,28 @@ function guardarCambios(){
 		if (answer){
 			ruta = "../../api/PD_modificaEtiqueta";
 			callback = modifica;
-			obj["IDETIQUETA"] = $('#IDETIQUETA').val();
+
+			/*obj["IDETIQUETA"] = $('#IDETIQUETA').val();
 			obj["NOMBRE"] = $(nombreEtiqueta).val();
 
 			if(!validarEtiquetaInd(nombreEtiqueta)){
+				return;
+			}*/
+
+			for (var i=0; i<idiomas.length; i++) {
+				var elem = $('#NOMBRE-'+idiomas[i].IDIDIOMA+'').val();
+				var idet = $('#IDETIQUETA-'+idiomas[i].IDIDIOMA+'').val();
+				//if(elem!=""){
+					obj = { nombre:elem,
+							idet:idet,
+							ididioma: idiomas[i].IDIDIOMA,
+							idioma: idiomas[i].NOMBRE
+							};
+					listEtiquetas.push(obj);
+				//}
+			}
+
+			if(!validarEtiqueta(idiomas)){
 				return;
 			}
 
@@ -223,7 +251,7 @@ function guardarCambios(){
 				url : ruta,
 				dataType: "json",
 				//data: obj,
-				data: JSON.stringify(obj),
+				data: JSON.stringify(listEtiquetas),
 				contentType: "application/json; charset=utf-8",
 				success: callback
 			});
@@ -267,7 +295,7 @@ function insertaCambiosFront(){
 function armarModalBody(data){
 
 	for (var i=0; i<data.length; i++) {
-		var fila ='<input type="hidden" id="IDETIQUETA" class="form-control" />';
+		var fila ='<input type="hidden" id="IDETIQUETA-'+data[i].IDIDIOMA+'" class="form-control" />';
 		fila += '<span id="ididioma-'+data[i].IDIDIOMA+'">'+data[i].NOMBRE+'</span>';
 		fila += '<div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-book"></i></span>';
 		fila += '<input type="NOMBRE" class="form-control" id="NOMBRE-'+data[i].IDIDIOMA+'"></div></div>';

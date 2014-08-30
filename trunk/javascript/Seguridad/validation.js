@@ -158,9 +158,10 @@ function validarEtiqueta(idiomas){
 	clearErrors(); 
 	var camposValidos = true;
 
-	for (var i=0; i<idiomas.length; i++) {
-		camposValidos = validateMandatory("NOMBRE-"+idiomas[i].IDIDIOMA+"","El campo es obligatorio") && camposValidos;
-	}
+	//CAMBIO 27/08 solo el primer idioma (español)
+	//for (var i=0; i<idiomas.length; i++) {
+	camposValidos = validateMandatory("NOMBRE-"+idiomas[0].IDIDIOMA+"","El campo es obligatorio") && camposValidos;
+	//}
 
 	return camposValidos;
 }
@@ -242,7 +243,7 @@ function validarPublicacion(grupos,autores){
 	camposValidos = validateMandatory("FUENTE","El campo es obligatorio") && camposValidos;
 	camposValidos = validateMandatory("OBTENIDO","El campo es obligatorio") && camposValidos;
 	camposValidos = validateMandatory("FECHAPUB","El campo es obligatorio") && camposValidos;
-	camposValidos = validateLengthCampoSelect("s2id_sel2Grupo",grupos,"Debe seleccionar al menos un grupo") && camposValidos;
+	//camposValidos = validateLengthCampoSelect("s2id_sel2Grupo",grupos,"Debe seleccionar al menos un grupo") && camposValidos;
 	camposValidos = validateLengthCampoSelect("s2id_sel2Multi2",autores,"Debe seleccionar al menos un autor") && camposValidos;
 
 	return camposValidos;
