@@ -16,21 +16,21 @@
 
 	    if($permiso["IDPERMISO"]!=1){
 	    	$pstmt = $con->prepare("SELECT DISTINCT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
-									P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
+									P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,A.URL,
 									I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
-							FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T, gruxpubxusu GPU, LOG L
+							FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T, gruxpubxusu GPU, LOG L, ARCHIVO A
 							WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA AND L.PUBLICACION_IDPUBLICACION=P.IDPUBLICACION
 									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION AND (L.USUARIO_IDUSUARIO=? OR GPU.IDGRUPO=?)
-									AND GPU.IDPUBLICACION=P.IDPUBLICACION AND GPU.ESTADO=1");
+									AND GPU.IDPUBLICACION=P.IDPUBLICACION AND GPU.ESTADO=1 AND P.IDPUBLICACION=A.IDPUBLICACION");
 			$pstmt->execute(array($data["idUsuario"],$data["idMiGrupo"]));
 		}
 	    else{
-			$pstmt = $con->prepare("SELECT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
-											P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
+			$pstmt = $con->prepare("SELECT distinct P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
+											P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,A.URL,
 											I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
-									FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T 
+									FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T, ARCHIVO A
 									WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA 
-									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION");
+									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION AND P.IDPUBLICACION=A.IDPUBLICACION");
 			$pstmt->execute();
 		}
 		$listaPublicacion = array();
@@ -145,10 +145,11 @@
 								  $lastInsertId));
 
 			//agregando en gruxpubxusu
+			//modificacion 27/08: se guarda en grupo padre ProCalProSer originalmente
 			$pstmt=null;
 			$pstmt = $con->prepare("INSERT INTO GRUXPUBXUSU (IDUSUARIO,IDGRUPO,IDPUBLICACION,VISIBILIDAD,ESTADO) 
-									VALUES (?,?,?,1,1)");
-			$pstmt->execute(array($data->{"IDCREADOR"},$data->{"IDGRUPO"},$lastInsertId));
+									VALUES (?,1,?,1,1)");
+			$pstmt->execute(array($data->{"IDCREADOR"},$lastInsertId));
 
 			$array=array('IDPUBLICACION'=>$lastInsertId,"status"=>1);
 			echo json_encode($array);

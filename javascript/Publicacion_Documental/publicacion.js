@@ -7,6 +7,7 @@ function cargaElementos(data){
 		fila += '<td class="text-center">'+data[i]["MES"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["TIPO"]+'</td>';
 		fila += '<td class="text-center">'+data[i]["IDIOMA"]+'</td>';
+		fila+= '<td class="text-center"><a class="ver-archivo table-link" url='+data[i]["URL"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-book fa-stack-1x fa-inverse"></i></span></a></td>';
 		fila+= '<td class="text-center"><a class="agregar-ficha table-link" href="ViewCrearFicha.html?idpublicacion='+data[i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-file-o fa-stack-1x fa-inverse"></i></span></a></td>';
 		fila+= '<td style="width: 23%;padding-left: 30px;">'
 		//fila+= '<a class="table-link" href="ViewModificarIdioma.html?ididioma='+data[i]["IDIDIOMA"]+'""><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a>';
@@ -21,6 +22,7 @@ function cargaElementos(data){
 		$('#listaPublicacion').trigger("update");
 	}
 	$(document).on('click', '.eliminar-publicacion', eliminarPublicacion);
+	$(document).on('click', '.ver-archivo', verArchivo);
 }
 
 function eliminarPublicacion(){
@@ -73,6 +75,27 @@ function resetForm(){
 	$('#MESPUB').attr('readOnly',false);
 	$("input.form-control").val("");
 	$(".alert").remove();
+}
+
+function verArchivo(){
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	var url=this.getAttribute("url");
+	var newurl='../'+url;
+	var myPDF = new PDFObject({
+	  url: newurl,
+	  id: "archPDF",
+	  width: "700px",
+  	  height: "900px",
+	  pdfOpenParams: {
+	  	toolbar: 0,
+	    navpanes: 0,
+	    statusbar: 0,
+	    view: "FitH",
+	  }
+	}).embed("modalDiv");
+	$('#detalleArchivo').modal("show");
+
 }
 
 function guardarCambios(){

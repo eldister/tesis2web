@@ -76,6 +76,9 @@
 														<span>Idioma</span>
 													</th>
 													<th class="text-center">
+														<span>Ver Documento</span>
+													</th>
+													<th class="text-center">
 														<span>Agregar Ficha</span>
 													</th>
 												</tr>
@@ -139,6 +142,23 @@
 								</div><!-- /.modal-content -->
 							</div><!-- /.modal-dialog -->
 						</div><!-- /.modal -->
+						<!--MODAL VER Archivos-->   	                     
+						<div class="modal fade" id="detalleArchivo" tabindex="-1" role="dialog" aria-labelledby="detalleArchivo" aria-hidden="true">
+								<div class="modal-dialog" style="width:743px;">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h3 class="modal-title" id="tituloModal">Archivo</h3>
+										</div>
+									<div class="modal-body embedded" id="modalDiv">														
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->		                     	
+						<!--FIN MODAL Archivos-->
 										<div class="row pagination pager pull-right" id="pager">									 
 											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
 											<input type="hidden" class="pagedisplay"></input>
@@ -178,6 +198,7 @@
 	<!-- this page specific scripts -->
 	<script src="../../javascript/Publicacion_Documental/publicacion.js"></script>
 	<script src="../../javascript/Seguridad/interfazPublicacionListar.js"></script>
+	<script src="../../template/js/pdfobject.js"></script>
 
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>
