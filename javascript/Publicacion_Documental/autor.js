@@ -1,4 +1,29 @@
 
+var seleccionResponsable=[];
+
+var test = $('#sel2Multi1');
+$(test).change(function() {
+    seleccionResponsable = $(test).select2('data');
+    dameResponsable();
+});
+
+
+function dameResponsable(){
+	//juntando los json
+	
+	var data = [];
+
+	for (var i=0; i<seleccionResponsable.length; i++) {
+		data.push(seleccionResponsable[i]["id"]);
+	}
+	
+	console.log(data);
+	console.log(JSON.stringify(data));
+	return data;
+}
+
+
+
 function cargaListaAutor(data){
 	
 	for(var i=0; i < data.length ; i++){
@@ -38,13 +63,13 @@ function verAutor(){
 	}
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getAutor/'+obj["IDAUTOR"],
+		url : '../../api/PD_getAutor2/'+obj["IDAUTOR"],
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			$('#NOM_APE').val(data["NOM_APE"]);
 			$('#PAGINA_WEB').val(data["PAGINA_WEB"]);
-			$('#INSTITUCION').val(data["INSTITUCION"]);
+			$('#INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
 			$('#TRABAJO').val(data["TRABAJO"]);
 		}
 	});
@@ -72,25 +97,36 @@ function modificarAutor(){
 	}
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getAutor/'+obj["IDAUTOR"],
+		url : '../../api/PD_getAutor3/'+obj["IDAUTOR"],
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
-			$('#IDAUTOR').val(obj["IDAUTOR"]);
-			$('#NOM_APE').val(data["NOM_APE"]);
-			$('#PAGINA_WEB').val(data["PAGINA_WEB"]);
-			$('#INSTITUCION').val(data["INSTITUCION"]);
-			$('#TRABAJO').val(data["TRABAJO"]);
+			$('#IDAUTOR2').val(obj["IDAUTOR"]);
+			$('#NOM_APE2').val(data["NOM_APE"]);
+			$('#PAGINA_WEB2').val(data["PAGINA_WEB"]);
+			//$('#INSTITUCION').val(data["INSTITUCION"]);
+			$('#TRABAJO2').val(data["TRABAJO"]);
+
+
+			var responsable = $("#sel2Multi1").select2("val");
+			var lista1=data["IDINSTITUCION"];
+
+	    	//for (var i=0; i<lista1.length; i++) {
+				responsable.push(lista1);
+	    	//}
+	    	$("#sel2Multi1").select2("val", responsable);
+			seleccionResponsable = $("#sel2Multi1").select2("data");
+
 		}
 	});
 
-	$('#detalleAutor').removeClass('insertar');
-	$('#detalleAutor').removeClass('modificar');
-	$('#detalleAutor').removeClass('eliminar');
-	$('#tituloModal').html("Modificar Autor");
-	$('#tituloBoton').html("Modificar");
-	$('#detalleAutor').addClass('modificar');
-	$('#detalleAutor').modal('show');
+	$('#detalleAutor2').removeClass('insertar');
+	$('#detalleAutor2').removeClass('modificar');
+	$('#detalleAutor2').removeClass('eliminar');
+	$('#tituloModal2').html("Modificar Autor");
+	$('#tituloBoton2').html("Modificar");
+	$('#detalleAutor2').addClass('modificar');
+	$('#detalleAutor2').modal('show');
 }
 
 
@@ -138,14 +174,14 @@ function eliminarAutor(){
 	}
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getAutor/'+obj["IDAUTOR"],
+		url : '../../api/PD_getAutor2/'+obj["IDAUTOR"],
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			$('#IDAUTOR').val(obj["IDAUTOR"]);
 			$('#NOM_APE').val(data["NOM_APE"]);
 			$('#PAGINA_WEB').val(data["PAGINA_WEB"]);
-			$('#INSTITUCION').val(data["INSTITUCION"]);
+			$('#INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
 			$('#TRABAJO').val(data["TRABAJO"]);
 		}
 	});
@@ -187,6 +223,58 @@ function modifica(data){
 	resetForm();
 }
 
+function modificar_datos_autor(){
+
+	var data = $(".form-control");
+	var obj = {};
+	
+	obj["IDAUTOR"]= $('#IDAUTOR2').val();//hardcode!
+	var ruta = "";
+
+	obj["NOM_APE"] = $('#NOM_APE2').val();
+	obj["PAGINA_WEB"] = $('#PAGINA_WEB2').val();
+	//obj["INSTITUCION"] = $('#INSTITUCION').val();
+	obj["TRABAJO"] = $('#TRABAJO2').val();
+
+	//var data = $(".form-control");
+	//var obj = {};
+	
+	//obj["IDAUTOR"]= $('#IDAUTOR').val();//hardcode!
+	//var ruta = ""
+
+		var answer = confirm("Desea modificar los datos del autor ?")
+		if (answer){
+
+			if(!validarAutor3(dameResponsable())){
+				return;
+			}
+			var parent= [];
+			parent.push(dameResponsable());
+			var obj2 = $.extend({},obj,parent);
+
+			console.log(obj2);
+			console.log(JSON.stringify(obj2));
+
+			ruta = "../../api/PD_modificaAutor2";
+			
+		}
+
+	$.ajax({
+		type: 'POST',
+		url : ruta,
+		dataType: "json",
+		//data: obj,
+		data: JSON.stringify(obj2),
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			$('#detalleAutor2').modal('hide');
+			alert("Los datos del autor fueron modificados correctamente");
+			window.location.href='../Publicacion_Documental/ViewListaAutores.html';
+		}
+	});
+
+}
+
 function guardarCambios(){
 	var data = $(".form-control");
 	var obj = {};
@@ -200,18 +288,6 @@ function guardarCambios(){
 		if (answer){
 			ruta = "../../api/PD_registraAutor";
 			callback = inserta;
-			obj["NOM_APE"] = $('#NOM_APE').val();
-			obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
-			obj["INSTITUCION"] = $('#INSTITUCION').val();
-			obj["TRABAJO"] = $('#TRABAJO').val();
-		}
-	}
-
-	if($('#detalleAutor').hasClass("modificar")){
-		var answer = confirm("Desea modificar los datos del autor ?")
-		if (answer){
-			ruta = "../../api/PD_modificaAutor";
-			callback = modifica;
 			obj["NOM_APE"] = $('#NOM_APE').val();
 			obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
 			obj["INSTITUCION"] = $('#INSTITUCION').val();
@@ -272,13 +348,57 @@ function initTableSorter(){
        .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
 }
 
+
+function cargarListaPersonas1(){
+
+	//var IDUSUARIO=getId();
+		var obj = {};
+		//obj["IDUSUARIO"]=IDUSUARIO;
+		//obj["IDGRUPO"]=getUrlParameters("id","",true);
+
+
+		$.ajax({
+			type: 'POST',
+			url : '../../api/PD_listaInstitucion',
+			dataType: "json",
+			data: JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+			success: function(obj){
+				for (var i=0; i<obj.length; i++) {
+					$("#sel2Multi1").append('<option value="' + obj[i].IDINSTITUCION + '">' + obj[i].NOMBRE_INSTITUCION + '</option>');
+				}
+			}
+		});
+}
+
+function iniciarNiceSelectBoxes(){
+	
+	$('#sel2Multi1').select2({
+		placeholder: 'Seleccione solo una institucion',
+		maximumSelectionSize: 1,
+		allowClear: true
+	});
+}
+
+function cerrar2(){
+	//$('#sel2Multi1').children().removeProp('selected');
+	$('#sel2Multi1').empty();
+	cargarListaPersonas1();
+}
+
 $(document).ready(function(){
+	iniciarNiceSelectBoxes();
 	initTableSorter();	
 	cargaElementos();
+	cargarListaPersonas1();
 
 	$("#guardar").click(guardarCambios);
 
 	$("#cerrar").click(resetForm);
 
 	$("#agregar").click(insertaCambiosFront);
+
+	$('#cerrar2').click(cerrar2);
+
+	$("#guardar2").click(modificar_datos_autor);
 });

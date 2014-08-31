@@ -30,6 +30,29 @@ function getAutor($id){
 	echo json_encode($AUTOR);
 }
 
+function getAutor2($id){
+
+    $con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT A.IDAUTOR,A.NOM_APE,A.PAGINA_WEB,I.NOMBRE_INSTITUCION,A.TRABAJO FROM AUTOR A, INSTITUCION I WHERE A.IDAUTOR=?
+							AND I.IDINSTITUCION=A.IDINSTITUCION");
+	$pstmt->execute(array($id));
+	$AUTOR = $pstmt->fetch(PDO::FETCH_ASSOC);
+	echo json_encode($AUTOR);
+}
+
+
+function getAutor3($id){
+
+    $con=getConnection();
+ 
+	$pstmt = $con->prepare("SELECT A.IDAUTOR,A.NOM_APE,A.PAGINA_WEB,I.IDINSTITUCION,A.TRABAJO FROM AUTOR A, INSTITUCION I WHERE A.IDAUTOR=?
+							AND I.IDINSTITUCION=A.IDINSTITUCION");
+	$pstmt->execute(array($id));
+	$AUTOR = $pstmt->fetch(PDO::FETCH_ASSOC);
+	echo json_encode($AUTOR);
+}
+
 function modificaAutor(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -151,6 +174,24 @@ function registraInstitucion2(){
 		);
 
 	echo json_encode($array);
+
+}
+
+function modificaAutor2_institucion(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody(),TRUE);
+	$con=getConnection();
+		
+    $IDINSTITUCION=$data[0][0];
+    $NOM_APE=$data["NOM_APE"];
+    $PAGINA_WEB=$data["PAGINA_WEB"];
+    $TRABAJO=$data["TRABAJO"];
+    //printf($IDINSTITUCION);
+    $pstmt = $con->prepare("UPDATE AUTOR set nom_ape=?,pagina_web=?,idinstitucion=?,trabajo=? where IDAUTOR=?");
+	$pstmt->execute(array($NOM_APE,$PAGINA_WEB,$IDINSTITUCION,$TRABAJO,$data["IDAUTOR"]));
+
+	echo json_encode($NOM_APE);
 
 }
 

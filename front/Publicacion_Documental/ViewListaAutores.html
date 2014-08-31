@@ -15,6 +15,8 @@
 	<!-- global styles -->
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
+
 
 	<!-- this page specific styles -->
 
@@ -121,6 +123,7 @@
 											<input type="INSTITUCION" class="form-control" id="INSTITUCION"  >
 									</div>
 								</div>
+								
 
 								<div class="row">
 									<label for="TRABAJO">Trabajo</label>
@@ -143,6 +146,62 @@
 		</div><!-- /.modal -->
 
 
+		<div class="modal fade" id="detalleAutor2" tabindex="-1" role="dialog" aria-labelledby="detalleAutor2" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title" id="tituloModal2"></h3>
+							<h6>Datos Obligatorios (*)</h6>
+						</div>
+					<div class="modal-body">
+						<div class="container">
+							<form action="" id="form-autor">
+								
+								<input type="hidden" id="IDAUTOR2" class="form-control" />
+							
+								<div class="row">
+									<label for="NOM_APE2">Autor (*)</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											<input type="NOM_APE2" class="form-control" id="NOM_APE2"  >
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="PAGINA_WEB2">Pagina Web</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-laptop"></i></span>
+											<input type="PAGINA_WEB2" class="form-control" id="PAGINA_WEB2"  >
+									</div>
+								</div>
+
+								<div class="form-group form-group-select2">
+                                        <label>Agregar Institucion (*)</label>
+										<select style="width:520px" id="sel2Multi1" multiple>
+										</select>
+                                </div>
+								
+
+								<div class="row">
+									<label for="TRABAJO2">Trabajo</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+											<input type="TRABAJO2" class="form-control" id="TRABAJO2"  >
+									</div>
+								</div>
+							</form>		
+						</div>													
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="cerrar2" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button type="button" id="guardar2" class="btn btn-primary">
+							<span id="tituloBoton2"></span>
+						</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 										<div class="row pagination pager pull-right" id="pager">									 
 											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
@@ -184,6 +243,7 @@
 	<!-- this page specific scripts -->
 	<script src="../../javascript/Publicacion_Documental/autor.js"></script>
 	<script src="../../javascript/Seguridad/interfazAutorListar.js"></script>
+	<script src="../../template/js/select2.min.js"></script>
 	
 	<!-- theme scripts -->
 	<script src="../../template/js/scripts.js"></script>

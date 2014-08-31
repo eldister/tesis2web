@@ -317,3 +317,13 @@ function validarInstitucionAU(){
 	camposValidos = validateMandatory("INSTITUCION","El campo es obligatorio") && camposValidos;
 	return camposValidos;
 }
+
+function validarAutor3(responsable){
+	clearErrors(); //limpiar los errores anteriores
+	var camposValidos = true;//comenzar a validar campos 
+	//la variable camposValidos siempre debe ir al final para evitar lazy evaluation
+	camposValidos = validateMandatory("NOM_APE2","El campo es obligatorio") && camposValidos;
+	camposValidos = validateLengthCampoSelect("s2id_sel2Multi1",responsable,"Debe seleccionar una institucion") && camposValidos;
+	
+	return camposValidos;
+}
