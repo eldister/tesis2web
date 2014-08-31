@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ProCal-ProSer</title>
+	
+	<!-- bootstrap -->
+	<link href="../../template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+
+	<!-- libraries -->
+	<link href="../../template/css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+
+	<!-- this page specific styles -->
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
+	<![endif]-->
+</head>
+	<script src="../../template/js/jquery.js"></script>
+	
+<body>
+	<script src="../../javascript/Seguridad/header.js"></script>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2" id="nav-col">
+				<script src="../../javascript/Seguridad/section.js"> </script>
+			</div>
+			<div class="col-md-10 col-sm-11" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1>Autores</h1>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="main-box clearfix">
+									<div class"clearfix">
+										<h2 class="pull-left">Lista de Autores</h1>
+										<div class="filter-block pull-right">
+											<!--<div class="form-group pull-left">
+												<input type="text" class="form-control" placeholder="Buscar autores...">
+												<i class="fa fa-search search-icon"></i>
+											</div>-->										
+											<!--<a class="btn btn-primary pull-right" id="agregar">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Autor</span>
+											</a>-->
+
+											<a href="ViewCrearAutor.html" class="btn btn-primary pull-right" id="creaAutor">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Autor</span>
+											</a>
+
+
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table tablesorter" id="tabla">
+											<thead>	
+												<tr>
+													<th class="text-center">
+														<span>Autor</span>
+													</th>
+													<th class="text-center">
+														<span>Institución</span>
+													</th>
+													<th class="text-center">
+														<span>Trabajo</span>
+													</th>
+												</tr>
+											</thead>
+											
+											<tbody id="listaAutor"></tbody>									
+										</table>
+
+
+			<div class="modal fade" id="detalleAutor" tabindex="-1" role="dialog" aria-labelledby="detalleAutor" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title" id="tituloModal"></h3>
+						</div>
+					<div class="modal-body">
+						<div class="container">
+							<form action="" id="form-autor">
+								
+								<input type="hidden" id="IDAUTOR" class="form-control" />
+							
+								<div class="row">
+									<label for="NOM_APE">Autor</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											<input type="NOM_APE" class="form-control" id="NOM_APE"  >
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="PAGINA_WEB">Pagina Web</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-laptop"></i></span>
+											<input type="PAGINA_WEB" class="form-control" id="PAGINA_WEB"  >
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="INSTITUCION">Institucion</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+											<input type="INSTITUCION" class="form-control" id="INSTITUCION"  >
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="TRABAJO">Trabajo</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+											<input type="TRABAJO" class="form-control" id="TRABAJO"  >
+									</div>
+								</div>
+							</form>		
+						</div>													
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button type="button" id="guardar" class="btn btn-primary">
+							<span id="tituloBoton"></span>
+						</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+
+										<div class="row pagination pager pull-right" id="pager">									 
+											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
+											<input type="hidden" class="pagedisplay"></input>
+											<div class="col-md-5"><select class="form-control pagenum input-mini" style="height:32px"></select></div>
+								            <div class="col-md-2"><li><a href="" class=" next"><i class="fa fa-chevron-right"></i></a></li></div>
+								            
+								            <li><select style="display:none;" class="pagesize" >
+								                <option selected="selected" value="5">5</option>
+								                <option value="10">10</option>
+								                <option value="20">20</option>
+								                <option value="30">30</option>
+								                <option value="40">40</option>
+								            </select></li>							             
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2014 INV-TOOL. Powered by Nadya - Albert
+		</p>
+	</footer>
+	
+	<!-- global scripts -->
+	<script src="../../javascript/Busqueda/Busqueda.js"></script>
+	<script src="../../javascript/Seguridad/interfaz.js"></script>
+	<script src="../../template/js/bootstrap.js"></script>
+	<script src="../../javascript/Seguridad/validation.js"></script>
+	
+	<!-- this page specific scripts -->
+	<script src="../../javascript/Publicacion_Documental/autor.js"></script>
+	<script src="../../javascript/Seguridad/interfazAutorListar.js"></script>
+	
+	<!-- theme scripts -->
+	<script src="../../template/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+	<!-- Tablesorter: required for bootstrap -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+
+    <!-- Tablesorter: optional -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.pager.js"></script>
+
+    <!-- Tablesorter: Config bootstrap -->
+    <script src="../../javascript/tablesorter/js/config.js"></script>
+    
+    <!-- Tablesorter: Config filtros -->
+    <script src="../../javascript/tablesorter/js/filtros.js"></script>
+	
+	<!-- this page specific inline scripts -->
+	
+</body>
+</html>

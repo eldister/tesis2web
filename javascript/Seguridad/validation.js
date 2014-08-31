@@ -296,3 +296,24 @@ function validarBuscar(etiquetas){
 	camposValidos = validateLengthCampoSelect("s2id_sel2Multi1",etiquetas,"Debe seleccionar al menos una etiqueta") && camposValidos;
 	return camposValidos;
 }
+
+function validarAutor2(responsable){
+	clearErrors(); //limpiar los errores anteriores
+	var camposValidos = true;//comenzar a validar campos 
+	//la variable camposValidos siempre debe ir al final para evitar lazy evaluation
+	camposValidos = validateMandatory("NOM_APE","El campo es obligatorio") && camposValidos;
+	camposValidos = validateLengthCampoSelect("s2id_sel2Multi1",responsable,"Debe seleccionar una institucion") && camposValidos;
+	/*if (camposValidos)
+		camposValidos = validateEmail("CORREO_ALTERNO","El formato de correo es inválido") && camposValidos;*/
+	
+	//camposValidos = validateInteger("MESES_TERMINAR",1,Number.POSITIVE_INFINITY,"Debe ingresar un número positivo","Debe ingresar un número entero") && camposValidos;
+	
+	return camposValidos;
+}
+
+function validarInstitucionAU(){
+	clearErrors(); //limpiar los errores anteriores
+	var camposValidos = true;//comenzar a validar campos 
+	camposValidos = validateMandatory("INSTITUCION","El campo es obligatorio") && camposValidos;
+	return camposValidos;
+}
