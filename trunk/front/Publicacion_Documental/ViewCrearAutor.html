@@ -15,6 +15,7 @@
 	<!-- global styles -->
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
 
 	<!-- this page specific styles -->
 
@@ -30,7 +31,6 @@
 	<![endif]-->
 </head>
 	<script src="../../template/js/jquery.js"></script>
-	
 <body>
 	<script src="../../javascript/Seguridad/header.js"></script>
 	<div class="container">
@@ -45,48 +45,104 @@
 
 						<div class="row">
 							<div class="col-lg-12">
-								<div class="main-box" style="min-height: 740px;">
+								<div class="main-box" style="min-height: 600px;">
 									<h2><span>Crear Autor</span></h2>
-									    <div class="col-lg-6">	
+									<h6>Datos obligatorios (*) </h6>
+									    <div class="col-lg-12">	
 											<h3><span>Datos de Autor</span></h3>
-											<div class="form-group">
-												<label for="autor">Autor (Nombre y Apellidos)</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-													<input type="autor" class="form-control" id="autor">
+
+
+											<div class="col-lg-6">	
+
+												<div class="form-group">
+														<label for="NOM_APE">Autor (*)</label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="fa fa-group"></i></span>
+															<input type="NOM_APE" class="form-control" id="NOM_APE" >
+														</div>
+													</div>	
+
+												<div class="form-group">
+													<label for="PAGINA_WEB">Página Web</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+														<input type="PAGINA_WEB" class="form-control" id="PAGINA_WEB">
+													</div>
 												</div>
-											</div>												
-											<div class="form-group">
-												<label for="pagweb">Página Web</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-													<input type="pagweb" class="form-control" id="pagweb">
+
+												<div class="form-group form-group-select2">
+			                                            <label>Agregar Institucion (*)</label>
+														<select style="width:520px" id="sel2Multi1" multiple>
+														</select>
+			                                    </div>
+
+												<div class="form-group">
+													<label for="TRABAJO">Trabajo</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+														<input type="TRABAJO" class="form-control" id="TRABAJO">
+													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<label for="institucion">Institución</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-													<input type="institucion" class="form-control" id="institucion">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="trabajo">Trabajo</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-													<input type="trabajo" class="form-control" id="trabajo">
-												</div>
+										</div>
+
+									<div class="col-lg-6">	
+                                		<div class="filter-block pull-left">								
+											<a href="#detalleInstitucion" class="btn btn-primary pull-left" style="margin-top:170px" data-toggle="modal">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Institucion</span>
+											</a>
+										</div>
+			                        </div>
+
+									
+					<div class="modal fade" id="detalleInstitucion" tabindex="-1" role="dialog" aria-labelledby="detalleInstitucion" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title" id="tituloModal">Agregar Institucion</h3>
+								</div>
+							<div class="modal-body">
+								<div class="container">
+									<form action="" id="form-autor">										
+																		
+										<div class="row">
+											<label for="INSTITUCION">Institucion</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+													<input type="INSTITUCION" class="form-control" id="INSTITUCION">
 											</div>
 										</div>
 
-										<div class="col-lg-12" style="padding-left: 360px;">
-											<button type="button" class="btn btn-default" id="guardarAutor">
-												Registrar Autor
+										<div class="row">
+											<label for="NOM_INSTITUCION">Descripcion</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+													<input type="NOM_INSTITUCION" class="form-control" id="NOM_INSTITUCION">
+											</div>
+										</div>
+									</form>		
+								</div>													
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<button type="button" id="guardarInstitucion" class="btn btn-primary">
+									<span id="tituloBoton">Grabar</span>
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+
+
+										<div class="col-lg-12" style="padding-left: 400px;">
+											<button type="button" class="btn btn-default"  onclick="location.href='ViewListaAutores.html' ">Regresar</button>
+											<button type="button" class="btn btn-default" id="guardarCambios">
+												Grabar
 											</button>
-											<button type="button" class="btn btn-default" >
-												Limpiar
-											</button>
+											
 										</div>	
+
 									</div>
 							</div>
 						</div>
@@ -97,6 +153,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 	<footer id="footer-bar">
 		<p id="footer-copyright">
 			&copy; 2014 INV-TOOL. Powered by Nadya - Albert
@@ -104,15 +161,21 @@
 	</footer>
 	
 	<!-- global scripts -->
-	<script src="../../javascript/Busqueda/Busqueda.js"></script>
-	<script src="../../javascript/Seguridad/interfaz.js"></script>
+	
+	<!-- this page specific scripts 
+	<script src="javascript/pruebaArqui/principal.js"></script>-->
+	
+	<!-- theme scripts 
+	<script src="../../template/js/scripts.js"></script>-->
+
 	<script src="../../template/js/bootstrap.js"></script>
-	
-	<!-- this page specific scripts -->
-	<script src="javascript/pruebaArqui/principal.js"></script>
-	
-	<!-- theme scripts -->
+	<script src="../../javascript/Seguridad/interfaz.js"></script>
 	<script src="../../template/js/scripts.js"></script>
+	<script src="../../javascript/Publicacion_Documental/crearAutor.js"></script>
+	<!-- this page specific scripts -->
+	<script src="../../template/js/select2.min.js"></script>
+	<script src="../../javascript/Busqueda/Busqueda.js"></script>
+	<script src="../../javascript/Seguridad/validation.js"></script>
 	
 	<!-- this page specific inline scripts -->
 	
