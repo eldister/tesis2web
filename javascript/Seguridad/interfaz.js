@@ -7,7 +7,9 @@ function validarVisibilidadPanelIzquierdo(data){
 	if (result1.length === 0) $("#ver-publicacion").hide(); else $("#ver-publicacion").show();
 	result2 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "3"; });
 	if (result2.length === 0) $("#reg-publicacion").hide(); else $("#reg-publicacion").show();
-	if (result1.length === 0 && result2.length === 0) $("#publicacion").hide(); else $("#publicacion").show();
+	result3 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "55"; });
+	if (result3.length === 0) $("#reg-publicacion-txt").hide(); else $("#reg-publicacion-txt").show();
+	if (result1.length === 0 && result2.length === 0 && result3.length === 0) $("#publicacion").hide(); else $("#publicacion").show();
 
 	//fichas
 	result1 = $.grep(data, function(e){ return e.IDFUNCIONALIDAD === "6"; });

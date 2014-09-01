@@ -15,6 +15,8 @@
 	$app->post('/PD_modificaPublicacionxAutor','modificaPublicacionxAutor');
 	$app->post('/PD_modificaPublicacionxGrupo','modificaPublicacionxGrupo');
 	$app->post('/PD_subirArchivos','subirArchivos');
+	$app->post('/PD_subirArchivoTexto','subirArchivoTexto');
+	$app->post('/PD_subirArchivosPDF','subirArchivosPDF');
 	$app->get('/PD_getArchivosPublicacion/:id','getArchivosPublicacion');
 	$app->get('/PD_getGrupoPublicacion/:id','getGrupoPublicacion');
 	$app->post('/PD_getListaFichaPublicacion','getListaFichaPublicacion');
