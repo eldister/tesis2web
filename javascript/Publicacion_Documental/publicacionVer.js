@@ -202,6 +202,48 @@ function llenarArchivos(){
 	});
 }
 
+function cargarComboTipoCitacion(){
+	$.ajax({
+		type: 'POST',
+		url : '../../api/PD_getListaTipoCitacion',
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		async:false,
+		success: function(data){
+			for(obj in data){
+				var opt = $("<option></option>");
+				opt.val(data[obj]["IDTIPO_CITACION"]);
+				opt.html(data[obj]["NOMBRE_CITACION"]);
+				$("#selectTipoCitacion").append(opt);
+			}
+		}
+	});
+}
+
+var idtipo_citacion="1";
+function cambioTipoCitacionCombo(){
+	$("#selectTipoCitacion").change(function(){
+		idtipo_citacion=$(this).val();
+		cargaBibliografia(idtipo_citacion);
+	});
+}
+
+function cargaBibliografia(idtipo_citacion){
+	obj={}
+	obj["IDTIPO_CITACION"]=idtipo_citacion;
+	obj["IDPUBLICACION"]=idpub;
+	$.ajax({
+		type: 'POST',
+		url : '../../api/PD_getBibliografia',
+		dataType: "json",
+		data:JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			$('#BIBLIOGRAFIA').val(data["BIBLIOGRAFIA"]);
+		}
+	});
+}
+
 var idpub;
 $(document).ready(function(){
 	idpub=getUrlParameters("idpublicacion","",true);
@@ -210,5 +252,9 @@ $(document).ready(function(){
 	llenarEtiquetas();
 	llenarArchivos();
 	llenarFichas();
+
+	cargarComboTipoCitacion();
+	cambioTipoCitacionCombo();
+	cargaBibliografia(idtipo_citacion);
 
 });
