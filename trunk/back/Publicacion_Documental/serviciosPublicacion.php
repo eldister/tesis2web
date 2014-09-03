@@ -570,9 +570,28 @@
 		}
 	}
 
-	function verificaTipo($tipo){
-		$con= getConnection();
 
+function getListaTipoCitacion(){
+
+    $con=getConnection();
+    $pstmt = $con->prepare("SELECT G.IDTIPO_CITACION,G.NOMBRE_CITACION FROM  TIPO_CITACION G");
+	$pstmt->execute(array());
+
+	$listaCitacion = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+
+		$grupo= [
+			'IDTIPO_CITACION'=> $req["IDTIPO_CITACION"],
+			'NOMBRE_CITACION'=> $req["NOMBRE_CITACION"]
+		];
+		$listaCitacion[] = $grupo;
+	}
+
+	echo json_encode($listaCitacion);
+}
+
+function verificaTipo($tipo){
+		$con= getConnection();
 		$pstmt = $con->prepare("SELECT count(P.IDTIPOPUBLICACION) as CANTIDAD, P.IDTIPOPUBLICACION FROM 
 								TIPOPUBLICACION P WHERE P.ESTADO=1 AND 
 								P.NOMBRE LIKE CONCAT('%',?,'%')");
@@ -589,6 +608,77 @@
 			return $con->lastInsertId();
 		}
 	}
+}
+
+function getBibliografia(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    $IDTIPO_CITACION=$data->{"IDTIPO_CITACION"};
+    $IDPUBLICACION=$data->{"IDPUBLICACION"};
+
+    $con=getConnection();
+    //CANTIDAD DE AUTORES
+    $pstmt = $con->prepare("SELECT count(p.idautor) as cantidad from publicacionxautor p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$cantidadAutor = $pstmt->fetch(PDO::FETCH_ASSOC)["cantidad"];
+
+	//LISTA DE AUTORES
+    $pstmt = $con->prepare("SELECT A.NOM_APE FROM AUTOR A WHERE A.IDAUTOR IN 
+    						(SELECT p.idautor from publicacionxautor p where p.idpublicacion=?)");
+	$pstmt->execute(array($IDPUBLICACION));
+
+	$listaAutores = "";
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$grupo= [
+			'NOM_APE'=> $req["NOM_APE"]
+		];
+		$listaCitacion[] = $grupo;
+	}
+
+    if($IDTIPO_CITACION==1){$uneAutor=";"; $ultimoAutor="&";$finAutor="";$ultimo=".";}
+    else if ($IDTIPO_CITACION==2){$uneAutor=","; $ultimoAutor="and";$finAutor="";$ultimo=".";}
+    else if ($IDTIPO_CITACION==3){$uneAutor=","; $ultimoAutor="&";$finAutor=".";$ultimo="";}
+    else if ($IDTIPO_CITACION==4){$uneAutor=","; $ultimoAutor="&";$finAutor="";$ultimo=".";}
+    else if ($IDTIPO_CITACION==5){$uneAutor=","; $ultimoAutor="&";$finAutor=".";$ultimo="";}
+
+    $stringAutores="";
+
+    if($cantidadAutor==1){
+    	$stringAutores=$stringAutores.$listaCitacion[0]["NOM_APE"].".";
+    }
+    else{
+
+		for($i=1;$i<=$cantidadAutor-1;$i++){
+			$stringAutores=$stringAutores.$listaCitacion[$i]["NOM_APE"];
+			$stringAutores=$stringAutores.$uneAutor;
+		}	
+		$stringAutores=$stringAutores." ".$ultimoAutor." ".$listaCitacion[$cantidadAutor-1]["NOM_APE"].$finAutor.$ultimo;
+	}
+
+	$pstmt = $con->prepare("SELECT p.titulo from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$TITULO = $pstmt->fetch(PDO::FETCH_ASSOC)["titulo"];
+
+	$nombreLibro="";
+	if($IDTIPO_CITACION==1){$nombreLibro="<b>NEGRITO</b>";}
+    else if ($IDTIPO_CITACION==2){}
+    else if ($IDTIPO_CITACION==3){}
+    else if ($IDTIPO_CITACION==4){}
+    else if ($IDTIPO_CITACION==5){}
+
+   // $orig = "<b>Este texto debería ser negrita</b>";
+    $a = htmlentities($nombreLibro);
+	//$b = html_entity_decode($a);
+	$b = htmlspecialchars_decode($a);
+
+	$BIBLIOGRAFIA= [
+			'BIBLIOGRAFIA'=> $stringAutores." ".$b
+	];
+
+	echo json_encode($BIBLIOGRAFIA);
+
+}
 
 	function verificaAutores($autores){
 		$con= getConnection();
@@ -755,5 +845,4 @@
 			//echo json_encode(array("status" => 0));
 		//}
 	}
-
 ?>

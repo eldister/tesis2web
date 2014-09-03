@@ -22,4 +22,8 @@
 	$app->post('/PD_getListaFichaPublicacion','getListaFichaPublicacion');
 
 	$app->post('/PU_getListaGrupo','getListaGrupoN');
+	$app->post('/PD_getListaTipoCitacion','getListaTipoCitacion');
+	$app->post('/PD_getBibliografia','getBibliografia');
+
+
 ?>
