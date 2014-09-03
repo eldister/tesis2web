@@ -608,7 +608,7 @@ function verificaTipo($tipo){
 			return $con->lastInsertId();
 		}
 	}
-}
+
 
 function getBibliografia(){
 
