@@ -239,7 +239,8 @@ function cargaBibliografia(idtipo_citacion){
 		data:JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
-			$('#BIBLIOGRAFIA').val(data["BIBLIOGRAFIA"]);
+			$('#BIBLIOGRAFIA').html(data["BIBLIOGRAFIA"]);
+			
 		}
 	});
 }
