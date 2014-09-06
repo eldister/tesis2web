@@ -660,17 +660,77 @@ function getBibliografia(){
 	$pstmt->execute(array($IDPUBLICACION));
 	$TITULO = $pstmt->fetch(PDO::FETCH_ASSOC)["titulo"];
 
+	$pstmt = $con->prepare("SELECT p.volumen from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$VOLUMEN = $pstmt->fetch(PDO::FETCH_ASSOC)["volumen"];
+
+	$pstmt = $con->prepare("SELECT count(p.fuente) as c1 from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$c1 = $pstmt->fetch(PDO::FETCH_ASSOC)["c1"];
+
+	$pstmt = $con->prepare("SELECT count(p.obtenido) as c2 from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$c2 = $pstmt->fetch(PDO::FETCH_ASSOC)["c2"];
+
+	$pstmt = $con->prepare("SELECT p.fuente from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$FUENTE = $pstmt->fetch(PDO::FETCH_ASSOC)["fuente"];
+
+	$pstmt = $con->prepare("SELECT p.obtenido from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$OBTENIDO = $pstmt->fetch(PDO::FETCH_ASSOC)["obtenido"];
+
+	$pstmt = $con->prepare("SELECT p.anio from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$ANIO = $pstmt->fetch(PDO::FETCH_ASSOC)["anio"];
+
 	$nombreLibro="";
-	if($IDTIPO_CITACION==1){$nombreLibro="<b>NEGRITO</b>";}
-    else if ($IDTIPO_CITACION==2){}
-    else if ($IDTIPO_CITACION==3){}
-    else if ($IDTIPO_CITACION==4){}
-    else if ($IDTIPO_CITACION==5){}
+	if($IDTIPO_CITACION==1 or $IDTIPO_CITACION==3 or $IDTIPO_CITACION==4 or $IDTIPO_CITACION==5){
+		$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";
+	}
+    else if ($IDTIPO_CITACION==2){$nombreLibro="«".$TITULO.", ".$VOLUMEN." Edition,"."»";}
+   // else if ($IDTIPO_CITACION==3){$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";}
+   // else if ($IDTIPO_CITACION==4){$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";}
+   // else if ($IDTIPO_CITACION==5){$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";}
+
+    $fuenteLibro="";
+    if($IDTIPO_CITACION==1){
+    	if($c1>0){$fuenteLibro=$FUENTE;}
+    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
+    	if($ANIO>0){$fuenteLibro=$fuenteLibro.", ".$ANIO;}
+    	$fuenteLibro=$fuenteLibro."."; //+ LINK
+    }
+    elseif($IDTIPO_CITACION==2){
+    	if($c1>0){$fuenteLibro=$FUENTE;}
+    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
+    	if($ANIO>0){$fuenteLibro=$fuenteLibro.", ".$ANIO;}//FALTARIA CIUDAD,PAIS+LINK
+    	$fuenteLibro=$fuenteLibro.".";
+    }
+    elseif ($IDTIPO_CITACION==3) {
+    	$fuenteLibro="Retrieved ".$ANIO;
+    	if($c1>0){$fuenteLibro=$fuenteLibro.", from the ".$FUENTE;}
+    	if($c2>0 and $c1>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}//FALTARIA CIUDAD,PAIS+LINK
+    	if($c2>0 and $c1=0){$fuenteLibro=$fuenteLibro.", from the ".$OBTENIDO;}
+    	$fuenteLibro=$fuenteLibro.".";		    
+   	}
+   	elseif($IDTIPO_CITACION==4){
+   		//+FALTA CIUDAD,PAIS: ...
+    	if($c1>0){$fuenteLibro=$FUENTE;}
+    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
+    	if($ANIO>0){$fuenteLibro=$fuenteLibro.", ".$ANIO;}//FALTARIA CIUDAD,PAIS+LINK
+    	$fuenteLibro=$fuenteLibro.".";
+    }
+    elseif($IDTIPO_CITACION==5){
+   		//+FALTA CIUDAD: ...
+    	if($c1>0){$fuenteLibro=$FUENTE;}
+    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
+    	$fuenteLibro=$fuenteLibro.".";
+    }
 
    // $orig = "<b>Este texto debería ser negrita</b>";
-    $a = htmlentities($nombreLibro);
-	//$b = html_entity_decode($a);
-	$b = htmlspecialchars_decode($a);
+    $a = htmlentities($nombreLibro." ".$fuenteLibro);
+	$b = html_entity_decode($a);
+	//$b = htmlspecialchars_decode($a);
 
 	$BIBLIOGRAFIA= [
 			'BIBLIOGRAFIA'=> $stringAutores." ".$b
