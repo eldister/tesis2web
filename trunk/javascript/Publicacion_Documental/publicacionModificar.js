@@ -4,6 +4,7 @@ var idpublicacion=getUrlParameters("idpublicacion", "", true);
 var seleccionGrupos=[];
 var seleccionResponsable=[];
 var seleccionMiembros=[];
+var seleccionInstituciones=[];
 
 var idiomas;
 function popularSelectIdioma(){
@@ -202,6 +203,18 @@ function guardarCambios(){
 	});
 }
 
+function dameAutor(){
+	//juntando los json
+	
+	var data = [];
+
+	for (var i=0; i<seleccionInstituciones.length; i++) {
+		data.push(seleccionInstituciones[i]["id"]);
+	}
+	
+	return data;
+}
+
 function dameResponsable(){
 	//juntando los json
 	
@@ -221,6 +234,28 @@ function dameMiembros(){
 		data.push(seleccionMiembros[i]["id"]);
 	}	
 	return data;
+}
+
+function cargarListaInstituciones(){
+
+	//var IDUSUARIO=getId();
+	var obj = {};
+	//obj["IDUSUARIO"]=IDUSUARIO;
+	//obj["IDGRUPO"]=getUrlParameters("id","",true);
+
+
+	$.ajax({
+		type: 'POST',
+		url : '../../api/PD_listaInstitucion',
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(obj){
+			for (var i=0; i<obj.length; i++) {
+				$("#sel2Institucion").append('<option value="' + obj[i].IDINSTITUCION + '">' + obj[i].NOMBRE_INSTITUCION + '</option>');
+			}
+		}
+	});
 }
 
 function cargarListaPersonas1(){
@@ -304,6 +339,12 @@ function iniciarNiceSelectBoxes(){
 
 	$('#sel2Miembros').select2({
 		placeholder: 'Seleccione los miembros del grupo',
+		allowClear: true
+	});
+
+	$('#sel2Institucion').select2({
+		placeholder: 'Seleccione solo una institucion',
+		maximumSelectionSize: 1,
 		allowClear: true
 	});
 
@@ -508,31 +549,42 @@ function guardarEtiqueta(){
 
 function guardarAutor(){
 	var obj = {};
-
+	var ruta = "";
+	var callback;
+	
+	ruta = "../../api/AU_registraAutorIns2";
 	obj["NOM_APE"] = $('#NOM_APE').val();
 	obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
-	obj["INSTITUCION"] = $('#INSTITUCION').val();
-	obj["TRABAJO"] = $('#TRABAJO').val();
+	obj["TRABAJO"] = $('#TRABAJO').val();	
 
-	if(!validarAutor()){
+	var parent= [];
+
+	if(!validarAutor4(dameAutor())){
 		return;
 	}
 
+	parent.push(dameAutor());
+	var obj2 = $.extend({},obj,parent);
+
+	console.log(obj2);
+	console.log(JSON.stringify(obj2));
 	$.ajax({
 		type: 'POST',
-		url : "../../api/PD_registraAutor",
-		dataType: "json", 
-		data: JSON.stringify(obj),
+		url : ruta,
+		dataType: "json",
+		data: JSON.stringify(obj2),
 		contentType: "application/json; charset=utf-8",
-		success: function(obj){
+		success: function (data){
+			/*alert("El autor se agrego correctamente");
+			window.location.href='../Publicacion_Documental/ViewListaAutores.html';*/
 			$('#detalleAutor').modal('hide');
-			$("#sel2Multi2").append('<option value="' + obj[0].IDAUTOR + '">' + obj[1].NOM_APE + '</option>');
+			$("#sel2Multi2").append('<option value="' + data.IDAUTOR + '">' + data.NOM_APE + '</option>');
 		}
 	});
-
+	
 	$('#NOM_APE').val("");
 	$('#PAGINA_WEB').val("");
-	$('#INSTITUCION').val("");
+	//$('#INSTITUCION').val("");
 	$('#TRABAJO').val("");
 }
 
@@ -588,6 +640,33 @@ function configurarDropzone(){
 
 }
 
+function guardarInstitucion(){
+	var obj = {};
+
+	obj["INSTITUCION"] = $('#INSTITUCION').val();
+	obj["NOM_INSTITUCION"] = $('#NOM_INSTITUCION').val();
+
+	if(!validarInstitucionAU()){
+		return;
+	}
+
+	$.ajax({
+		type: 'POST',
+		url : "../../api/AU_registraInstitucion2",
+		dataType: "json",
+		data: JSON.stringify(obj),
+		contentType: "application/json; charset=utf-8",
+		success: function(obj){
+			$('#detalleInstitucion').modal('hide');
+			$("#sel2Institucion").append('<option value="' + obj[0].IDINSTITUCION + '">' + obj[1].NOMBRE_INSTITUCION + '</option>');
+		}
+	});
+
+	$('#INSTITUCION').val("");
+	$('#NOM_INSTITUCION').val("");
+
+}
+
 var test = $('#sel2Multi3');
 $(test).change(function() {
     seleccionEtiquetas = ($(test).select2('data'));
@@ -611,6 +690,11 @@ $(test4).change(function() {
 var test5 = $('#sel2Miembros');
 $(test5).change(function() {
     seleccionMiembros = ($(test5).select2('data'));
+});
+
+var test6 = $('#sel2Institucion');
+$(test6).change(function() {
+    seleccionInstituciones = ($(test6).select2('data'));
 });
 
 
@@ -700,6 +784,7 @@ $(document).ready(function(){
 	cargaHora();
 	cambioIdiomaCombo();
 	configurarDropzone();
+	cargarListaInstituciones();
 	cargarListaPersonas1();
 	cargarListaPersonas2();
 	cargaGrupos();
@@ -718,6 +803,7 @@ $(document).ready(function(){
 	//$("#limpiar").click(cleanInput);
 	$("#guardarEtiqueta").click(guardarEtiqueta);
 	$("#guardarAutor").click(guardarAutor);
+	$("#guardarInstitucion").click(guardarInstitucion);
 	$("#guardarGrupo").click(guardarGrupo);
 
 });
