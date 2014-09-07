@@ -323,10 +323,15 @@
 
 										<div class="row">
 											<label for="INSTITUCION">Institucion</label>
-											<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-													<input type="INSTITUCION" class="form-control" id="INSTITUCION"  >
-											</div>
+											<div class="form-group form-group-select2">
+		                                            <label>Agregar Institucion (*)</label>
+													<select style="width:520px" id="sel2Institucion" multiple>
+													</select>
+			                                </div>
+			                                <a href="#detalleInstitucion" class="btn btn-primary pull-left" data-toggle="modal">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Institucion</span>
+											</a>
 										</div>
 
 										<div class="row">
@@ -349,6 +354,46 @@
 					</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->							
 				<!--FIN MODAL AUTOR-->
+				<!--MODAL INSTITUCION-->
+				<div class="modal fade" id="detalleInstitucion" tabindex="-1" role="dialog" aria-labelledby="detalleInstitucion" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title" id="tituloModal">Agregar Institucion</h3>
+								</div>
+							<div class="modal-body">
+								<div class="container">
+									<form action="" id="form-autor">										
+																		
+										<div class="row">
+											<label for="INSTITUCION">Institucion</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+													<input type="INSTITUCION" class="form-control" id="INSTITUCION">
+											</div>
+										</div>
+
+										<div class="row">
+											<label for="NOM_INSTITUCION">Descripcion</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+													<input type="NOM_INSTITUCION" class="form-control" id="NOM_INSTITUCION">
+											</div>
+										</div>
+									</form>		
+								</div>													
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<button type="button" id="guardarInstitucion" class="btn btn-primary">
+									<span id="tituloBoton">Grabar</span>
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!--FIN MODAL INSTITUCION>
 				<!--MODAL SUBIR ARCHIVOS-->
 				<div class="modal fade" id="myModalSubirArchivos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
