@@ -34,6 +34,7 @@ function guardarCambios(){
 		var callback;
 		
 		ruta = "../../api/AU_registraAutorIns";
+		obj["NOMBRE"] = $('#NOMBRE').val();
 		obj["NOM_APE"] = $('#NOM_APE').val();
 		obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
 		obj["TRABAJO"] = $('#TRABAJO').val();	
