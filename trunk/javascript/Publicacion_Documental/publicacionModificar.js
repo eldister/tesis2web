@@ -405,7 +405,7 @@ function popularAutores(){
 	    contentType: "application/json; charset=utf-8",
 	    success: function(data) {
 		   for (var i=0; i<data.length; i++) {
-		     	$("#sel2Multi2").append('<option value="' + data[i].IDAUTOR + '">' + data[i].NOM_APE + '</option>');
+		     	$("#sel2Multi2").append('<option value="' + data[i].IDAUTOR + '">' + data[i].NOMBRE+" "+ data[i].NOM_APE + '</option>');
 		   }
 	    }
 	});
@@ -552,7 +552,8 @@ function guardarAutor(){
 	var ruta = "";
 	var callback;
 	
-	ruta = "../../api/AU_registraAutorIns2";
+	ruta = "../../api/AU_registraAutorIns3";
+	obj["NOMBRE"] = $('#NOMBRE').val();
 	obj["NOM_APE"] = $('#NOM_APE').val();
 	obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
 	obj["TRABAJO"] = $('#TRABAJO').val();	
