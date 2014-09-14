@@ -424,11 +424,15 @@ function busquedaBasica(){
 		}
 	}
 
+	$cantp="Cantidad de Publicaciones encontradas: ".count($listaPublicacionesOrdenadas);
+	$cantf="Cantidad de Fichas encontradas: ".count($listaFichasOrdenadas2);
 
 	$RESULTADO=[
-			'CANTIDADP'=>count($listaPublicacionesOrdenadas),
+			//'CANTIDADP'=>count($listaPublicacionesOrdenadas),
+			'CANTIDADP'=>$cantp,
 			'PUBLICACIONES'=>$listaPublicacionesOrdenadas,
-			'CANTIDADF'=>count($listaFichasOrdenadas2),
+			//'CANTIDADF'=>count($listaFichasOrdenadas2),
+			'CANTIDADF'=>$cantf,
 			'FICHAS'=>$listaFichasOrdenadas2
 		];
 

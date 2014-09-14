@@ -11,8 +11,9 @@ function getId(){
 
 function llenaTabla(data){
 
-	$('#CANTIDADP').val(data["CANTIDADP"]);
-	$('#CANTIDADF').val(data["CANTIDADF"]);
+	$('#CANTIDADP').html(data["CANTIDADP"]);
+	//$('#CANTIDADP').val(data["CANTIDADP"]);
+	$('#CANTIDADF').html(data["CANTIDADF"]);
 
 	for(var i=0; i < data["PUBLICACIONES"].length ; i++){
 		var fila = '<tr id=fila-'+ data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'>';
