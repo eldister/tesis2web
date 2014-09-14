@@ -40,8 +40,8 @@ function dameEtiquetas(){
 
 function llenaTabla(data){
 
-	$('#CANTIDADP').val(data["CANTIDADP"]);
-	$('#CANTIDADF').val(data["CANTIDADF"]);
+	$('#CANTIDADP').html(data["CANTIDADP"]);
+	$('#CANTIDADF').html(data["CANTIDADF"]);
 
 	for(var i=0; i < data["PUBLICACIONES"].length ; i++){
 		var fila = '<tr id=fila-'+ data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'>';
@@ -411,6 +411,8 @@ function cargaListaEtiqueta(ididioma){
 $(document).ready(function(){
 	//detectaBuscar();
 
+	$('#CANTIDADP').html("Cantidad de publicaciones encontradas: ");
+	$('#CANTIDADF').html("Cantidad de fichas encontradas: ");
 	iniciarNiceSelectBoxesBQ();
 	popularSelectIdiomaB();
 	cambioIdiomaCombo();
