@@ -3,8 +3,8 @@ var listaLecturas=[];
 
 function llenaTabla(data){
 
-	$('#CANTIDADP').val(data["CANTIDADP"]);
-	$('#CANTIDADF').val(data["CANTIDADF"]);
+	$('#CANTIDADP').html(data["CANTIDADP"]);
+	$('#CANTIDADF').html(data["CANTIDADF"]);
 
 	for(var i=0; i < data["PUBLICACIONES"].length ; i++){
 		var fila = '<tr id=fila-'+ data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'>';
@@ -300,6 +300,9 @@ function buscar(){
 
 var indice=0;
 $(document).ready(function(){
+
+	$('#CANTIDADP').html("Cantidad de publicaciones encontradas: ");
+	$('#CANTIDADF').html("Cantidad de fichas encontradas: ");
 
 	generaSelectPublicacion();
 	generaSelectFicha();
