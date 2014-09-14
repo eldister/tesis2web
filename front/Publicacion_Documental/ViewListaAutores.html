@@ -72,7 +72,10 @@
 											<thead>	
 												<tr>
 													<th class="text-center">
-														<span>Autor</span>
+														<span>Nombres</span>
+													</th>
+													<th class="text-center">
+														<span>Apellidos</span>
 													</th>
 													<th class="text-center">
 														<span>Institución</span>
@@ -99,9 +102,17 @@
 							<form action="" id="form-autor">
 								
 								<input type="hidden" id="IDAUTOR" class="form-control" />
+
+								<div class="row">
+									<label for="NOMBRE">Nombres</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											<input type="NOMBRE" class="form-control" id="NOMBRE"  >
+									</div>
+								</div>
 							
 								<div class="row">
-									<label for="NOM_APE">Autor</label>
+									<label for="NOM_APE">Apellidos</label>
 									<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-user"></i></span>
 											<input type="NOM_APE" class="form-control" id="NOM_APE"  >
@@ -161,7 +172,15 @@
 								<input type="hidden" id="IDAUTOR2" class="form-control" />
 							
 								<div class="row">
-									<label for="NOM_APE2">Autor (*)</label>
+									<label for="NOMBRE2">Nombres (*)</label>
+									<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											<input type="NOMBRE2" class="form-control" id="NOMBRE2"  >
+									</div>
+								</div>
+
+								<div class="row">
+									<label for="NOM_APE2">Apellidos (*)</label>
 									<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-user"></i></span>
 											<input type="NOM_APE2" class="form-control" id="NOM_APE2"  >

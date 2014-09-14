@@ -9,6 +9,8 @@
 	
 
 	$app->get('/PD_getAutor2/:id','getAutor2');
+	$app->get('/PD_getAutorN/:id','getAutorN');
+	$app->get('/PD_getAutorM/:id','getAutorM');
 	$app->get('/PD_getAutor3/:id','getAutor3');
 	$app->post('/PD_listaInstitucion','listaPublicacionAU');
 	$app->post('/AU_registraAutorIns','registraAutorIns');

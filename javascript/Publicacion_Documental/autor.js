@@ -63,16 +63,18 @@ function verAutor(){
 	}
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getAutor2/'+obj["IDAUTOR"],
+		url : '../../api/PD_getAutorN/'+obj["IDAUTOR"],
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
+			$('#NOMBRE').val(data["NOMBRE"]);
 			$('#NOM_APE').val(data["NOM_APE"]);
 			$('#PAGINA_WEB').val(data["PAGINA_WEB"]);
 			$('#INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
 			$('#TRABAJO').val(data["TRABAJO"]);
 		}
 	});
+	$('#NOMBRE').prop('readOnly',true);
 	$('#NOM_APE').prop('readOnly',true);
 	$('#PAGINA_WEB').prop('readOnly',true);
 	$('#INSTITUCION').prop('readOnly',true);
@@ -97,11 +99,12 @@ function modificarAutor(){
 	}
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getAutor3/'+obj["IDAUTOR"],
+		url : '../../api/PD_getAutorM/'+obj["IDAUTOR"],
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			$('#IDAUTOR2').val(obj["IDAUTOR"]);
+			$('#NOMBRE2').val(data["NOMBRE"]);
 			$('#NOM_APE2').val(data["NOM_APE"]);
 			$('#PAGINA_WEB2').val(data["PAGINA_WEB"]);
 			//$('#INSTITUCION').val(data["INSTITUCION"]);
@@ -174,17 +177,19 @@ function eliminarAutor(){
 	}
 	$.ajax({
 		type: 'GET',
-		url : '../../api/PD_getAutor2/'+obj["IDAUTOR"],
+		url : '../../api/PD_getAutorN/'+obj["IDAUTOR"],
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(data){
 			$('#IDAUTOR').val(obj["IDAUTOR"]);
+			$('#NOMBRE').val(data["NOMBRE"]);
 			$('#NOM_APE').val(data["NOM_APE"]);
 			$('#PAGINA_WEB').val(data["PAGINA_WEB"]);
 			$('#INSTITUCION').val(data["NOMBRE_INSTITUCION"]);
 			$('#TRABAJO').val(data["TRABAJO"]);
 		}
 	});
+	$('#NOMBRE').prop('readOnly',true);
 	$('#NOM_APE').prop('readOnly',true);
 	$('#PAGINA_WEB').prop('readOnly',true);
 	$('#INSTITUCION').prop('readOnly',true);
@@ -231,6 +236,7 @@ function modificar_datos_autor(){
 	obj["IDAUTOR"]= $('#IDAUTOR2').val();//hardcode!
 	var ruta = "";
 
+	obj["NOMBRE"] = $('#NOMBRE2').val();
 	obj["NOM_APE"] = $('#NOM_APE2').val();
 	obj["PAGINA_WEB"] = $('#PAGINA_WEB2').val();
 	//obj["INSTITUCION"] = $('#INSTITUCION').val();
@@ -300,6 +306,7 @@ function guardarCambios(){
 		if (answer){
 			ruta = "../../api/PD_eliminaAutor";
 			callback = elimina;
+			obj["NOMBRE"] = $('#NOMBRE').val();
 			obj["NOM_APE"] = $('#NOM_APE').val();
 			obj["PAGINA_WEB"] = $('#PAGINA_WEB').val();
 			obj["INSTITUCION"] = $('#INSTITUCION').val();
