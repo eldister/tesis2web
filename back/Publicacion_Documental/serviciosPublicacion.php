@@ -25,7 +25,7 @@
 									and I.ESTADO=1 and T.ESTADO=1");
 			$pstmt->execute(array($data["idUsuario"],$data["idMiGrupo"]));
 		}
-	    else{
+	   else{
 			$pstmt = $con->prepare("SELECT distinct P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
 											P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,A.URL,
 											I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
