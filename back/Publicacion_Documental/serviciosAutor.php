@@ -191,6 +191,21 @@ function registraAutorIns2(){
 	echo json_encode(array("IDAUTOR"=>$lastInsertId,"NOM_APE"=>$data["NOM_APE"]));
 }
 
+function registraAutorIns3(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody(),TRUE);
+	$con=getConnection();
+		
+    $IDINSTITUCION=$data[0][0];
+    //printf($IDINSTITUCION);
+    $pstmt = $con->prepare("INSERT INTO AUTOR(nombre,nom_ape,pagina_web,idinstitucion,trabajo,estado) VALUES (?,?,?,?,?,1)");
+	$pstmt->execute(array($data["NOMBRE"],$data["NOM_APE"],$data["PAGINA_WEB"],$IDINSTITUCION,$data["TRABAJO"]));
+
+	$lastInsertId = $con->lastInsertId();
+	echo json_encode(array("IDAUTOR"=>$lastInsertId,"NOM_APE"=>$data["NOM_APE"]));
+}
+
 function registraInstitucion2(){
 
 	$request = \Slim\Slim::getInstance()->request(); //json parameters
