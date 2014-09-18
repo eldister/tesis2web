@@ -70,7 +70,7 @@
 											</div>
 										</div>
 										<div class="table-responsive">
-											<table class="table tablesorter" id="tabla">
+											<table class="table tablesorter" id="tabla2">
 												<thead>	
 													<tr>
 														<th class="text-center">
@@ -95,11 +95,19 @@
 		                                        <div class="form-group form-group-select2">
 													<select style="width:525px" id="sel2grupo" multiple>							</select>
 		                                        </div>
-		                                    </div>	                                    
+		                                    </div>
+		                                    <div class="col-md-6">
+	                                    		<div class="filter-block pull-left" >								
+													<a href="#detalleGrupo" class="btn btn-primary pull-left" style="width: 155px;" data-toggle="modal">
+														<i class="fa fa-plus-circle fa-lg"></i> 
+														<span>Crear Grupo</span>
+													</a>
+												</div>
+	                                    	</div>	                                    
 	                            		</div>
 	                <!--MODAL AGREGAR ELEMENTO-->   	                     
 					<div class="modal fade" id="agregarElemento" tabindex="-1" role="dialog" aria-labelledby="agregarElemento" aria-hidden="true">
-							<div class="modal-dialog">
+							<div class="modal-dialog" style="width:900px">
 								<div class="modal-content">
 									<div class="modal-header" id="headerElemento">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -137,9 +145,23 @@
 													</th>
 												</tr>
 											</thead>
-											<tbody id="listaPublicaciones">																							
-											</tbody>											
+											<tbody id="listaPublicaciones">																					
+											</tbody>
 										</table>
+											<div class="row pagination pager pull-right" id="pager">									 <div class="col-md-3"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
+												<input type="hidden" class="pagedisplay"></input>
+												<div class="col-md-5"><select class="form-control pagenum input-mini" style="height:32px"></select></div>
+									            <div class="col-md-3"><li><a href="" class=" next"><i class="fa fa-chevron-right"></i></a></li></div>
+								            
+									            <li><select style="display:none;" class="pagesize" >
+									                <option selected="selected" value="5">5</option>
+									                <option value="10">10</option>
+									                <option value="20">20</option>
+									                <option value="30">30</option>
+									                <option value="40">40</option>
+									            </select></li>							             
+											</div>											
+										
 										</div>																	
 									</div>
 									<div class="modal-body">
@@ -174,7 +196,61 @@
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->		                     	
-					<!--FIN MODAL AGREGAR ELEMENTO--> 
+					<!--FIN MODAL AGREGAR ELEMENTO-->
+					<!--MODAL GRUPOS-->   	                     
+					<div class="modal fade" id="detalleGrupo" tabindex="-1" role="dialog" aria-labelledby="detalleGrupo" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title" id="tituloModal">Crear Grupo</h3>
+									</div>
+								<div class="modal-body">
+									<form role="form" id="form-etiqueta">
+										<div class="form-group">
+										<label for="NOMBRES">Nombre del Grupo</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-group"></i></span>
+												<input type="NOMBRES" class="form-control" id="NOMBRES" >
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="FECHA_CREACION">Fecha de creacion</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+												<input type="FECHA_CREACION" class="form-control" id="FECHA_CREACION" readonly>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="DESCRIPCION">Descripcion</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-file"></i></span>
+												<textarea type="DESCRIPCION" class="form-control" id="DESCRIPCION" rows="2"></textarea>
+											</div>
+										</div>
+										<h3>Agregar Usuarios</h3>
+										<div class="form-group form-group-select2">
+                                            <label>Agregar Responsable</label>
+											<select style="width:520px" id="sel2Responsable" multiple>
+											</select>
+                                        </div>
+										<div class="form-group form-group-select2">
+                                            <label> Integrantes del Grupo</label>
+											<select style="width:520px" id="sel2Miembros" multiple>
+											</select>
+                                        </div>		                                        
+									</form>											
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardarGrupo" class="btn btn-primary" >
+										<span id="tituloBoton">Agregar</span>
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->		                     	
+					<!--FIN MODAL GRUPOS-->  
 		                     <br><br>
 		                    <div class="row pull-center">
 		                    	<div class="col-md-4"></div>
@@ -216,6 +292,19 @@
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
+
+	<!-- Tablesorter: required for bootstrap -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.widgets.js"></script>
+
+    <!-- Tablesorter: optional -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.pager.js"></script>
+
+    <!-- Tablesorter: Config bootstrap -->
+    <script src="../../javascript/tablesorter/js/config.js"></script>
+    
+    <!-- Tablesorter: Config filtros -->
+    <script src="../../javascript/tablesorter/js/filtros.js"></script>
 
 </body>
 </html>

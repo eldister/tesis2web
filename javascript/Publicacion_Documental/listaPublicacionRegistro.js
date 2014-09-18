@@ -1,4 +1,7 @@
 var listaLecturas=[];
+var seleccionGrupos2=[];
+var seleccionResponsable=[];
+var seleccionMiembros=[];
 
 function getId(){
 	if( localStorage.uid ){
@@ -30,12 +33,104 @@ function cargaGrupos(){
 	});
 }
 
+function dameResponsable(){
+	//juntando los json
+	
+	var data = [];
+
+	for (var i=0; i<seleccionResponsable.length; i++) {
+		data.push(seleccionResponsable[i]["id"]);
+	}	
+	return data;
+}
+
+function dameMiembros(){
+	//juntando los json
+	var data = [];
+
+	for (var i=0; i<seleccionMiembros.length; i++) {
+		data.push(seleccionMiembros[i]["id"]);
+	}	
+	return data;
+}
+
+
+function cargarListaPersonas1(){
+
+	var IDUSUARIO=getId();
+
+	$.ajax({
+		type: 'GET',
+		url : '../../api/AU_getListaPersonas/'+IDUSUARIO,
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		success: function(obj){
+			for (var i=0; i<obj.length; i++) {
+				$("#sel2Responsable").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
+			}
+		}
+	});
+}
+
+function cargarListaPersonas2(){
+
+	var IDUSUARIO=getId();
+
+	$.ajax({
+		type: 'GET',
+		url : '../../api/AU_getListaPersonas/'+IDUSUARIO,
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
+		success: function(obj){
+			for (var i=0; i<obj.length; i++) {
+				$("#sel2Miembros").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
+			}
+		}
+	});
+}
+
+function guardarGrupo(){
+	var obj = {};
+	
+	obj["IDGRUPO_PADRE"]= localStorage.getItem('idMiGrupo');
+	var ruta = "";
+	var callback;
+	
+	ruta = "../../api/AU_registraGrupo";
+	obj["NOMBRES"] = $('#NOMBRES').val();
+	obj["FECHA_CREACION"] = $('#FECHA_CREACION').val();
+	obj["DESCRIPCION"] = $('#DESCRIPCION').val();	
+
+	var parent= [];
+
+	if(!validarGrupo2(dameResponsable(),dameMiembros())){
+		return;
+	}
+
+	parent.push(dameResponsable());
+	parent.push(dameMiembros());
+
+	var obj2 = $.extend({},obj,parent);
+
+	$.ajax({
+		type: 'POST',
+		url : ruta,
+		dataType: "json",
+		data: JSON.stringify(obj2),
+		contentType: "application/json; charset=utf-8",
+		success: function (data){
+			$('#detalleGrupo').modal('hide');
+			$("#sel2grupo").append('<option value="' + data.IDGRUPO + '">' + data.NOMBRE + '</option>');
+		}
+	});
+}
+
 function borrarCampos(){
 	$("#PALABRACLAVE").val('');
 	$("#notasLectura").empty();
 	$("#OBSERVACIONES").val('');
 	$('#listaPublicaciones').empty();
-	$('#criterioBusqueda').val('');
+	$('#criterioBusqueda2').val('');
 	indiceNota=1;
 	indice=null;
 	addNotaLectura();
@@ -91,9 +186,9 @@ function agregarFila(){
 	}
 	else{
 
-		if(!validarModificarLectura()){			
+		/*if(!validarModificarLectura()){			
 			return;
-		}
+		}*/
 
 		var idpub=indice[0].index;
 		$("#listaLecturas tr#f-"+idpub+" td.palcla").html($("#PALABRACLAVE").val());
@@ -120,16 +215,24 @@ function agregarFila(){
 }
 
 function llenaTabla(data){
-	for(var i=0; i < data.length ; i++){
-		var fila = '<tr id=fila-'+ data[i]["IDPUBLICACION"] +'>';
-		fila +='<td style="display:none;">';
-		fila += '<td class="text-center titulo">'+data[i]["TITULO"]+'</td>';		
-		fila += '<td class="text-center tipo">'+data[i]["TIPO"]+'</td>';
-		fila += '<td class="text-center idioma">'+data[i]["IDIOMA"]+'</td>';
-		fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
-		fila += '<td class="text-center"><input id="opcion'+data[i]["IDPUBLICACION"]+'" type="radio" name="radio" value="'+data[i]["IDPUBLICACION"]+'"></td>'	
-		fila += '</tr>';
-		$('#listaPublicaciones').append(fila);		
+	if(data.length>0){
+		for(var i=0; i < data.length ; i++){
+			var fila = '<tr id=fila-'+ data[i]["IDPUBLICACION"] +'>';
+			fila +='<td style="display:none;">';
+			fila += '<td class="text-center titulo">'+data[i]["TITULO"]+'</td>';		
+			fila += '<td class="text-center tipo">'+data[i]["TIPO"]+'</td>';
+			fila += '<td class="text-center idioma">'+data[i]["IDIOMA"]+'</td>';
+			fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
+			fila += '<td class="text-center"><input id="opcion'+data[i]["IDPUBLICACION"]+'" type="radio" name="radio" value="'+data[i]["IDPUBLICACION"]+'"></td>'	
+			fila += '</tr>';
+			$('#listaPublicaciones').append(fila);
+			$('#listaPublicaciones').trigger("update");		
+		}
+	}
+	else{
+		$('#tabla').hide();
+		$('#listaPublicaciones').trigger("update");
+		$('#pager').hide();	
 	}	
 }
 
@@ -151,7 +254,10 @@ function realizarBusqueda(){
 function detectaBuscar(){
 	
 	$('#criterioBusqueda2').bind("enterKey",function(e){
-		$('#listaPublicaciones').empty();		
+		$('#tabla').show();
+		$('#pager').show();	
+		$('#listaPublicaciones').empty();
+		$('#listaPublicaciones').trigger("update");
 		realizarBusqueda();
 	});
 	$('#criterioBusqueda2').keyup(function(e){
@@ -204,7 +310,7 @@ function eliminarLectura(){
 
 function guardarCambios(){
 
-	var answer = confirm("Desea crear la lista de publicacion ?")
+	var answer = confirm("¿Desea modificar la lista de publicación? Se enviará un correo a los miembros de los grupos seleccionados")
 	if (answer){
 		var grupos=[];
 		var ob;
@@ -248,18 +354,57 @@ $(test3).change(function() {
     seleccionGrupos = ($(test3).select2('data'));
 });
 
+var test4 = $('#sel2Grupo2');
+$(test4).change(function() {
+    seleccionGrupos2 = ($(test4).select2('data'));
+});
+
+var test5 = $('#sel2Responsable');
+$(test5).change(function() {
+    seleccionResponsable = ($(test5).select2('data'));
+});
+
+var test6 = $('#sel2Miembros');
+$(test6).change(function() {
+    seleccionMiembros = ($(test6).select2('data'));
+});
+
 function iniciarNiceSelectBoxes(){
 	$('#sel2grupo').select2({
 		placeholder: 'Seleccione un grupo',
 		allowClear: true
 	});
+
+	$('#sel2Grupo2').select2({
+		placeholder: 'Seleccione un grupo',
+		allowClear: true
+	});
+
+	$('#sel2Responsable').select2({
+		placeholder: 'Seleccione un responsable',
+		maximumSelectionSize: 1,
+		allowClear: true
+	});
+
+	$('#sel2Miembros').select2({
+		placeholder: 'Seleccione miembros para el grupo',
+		allowClear: true
+	});
+
+	$("table#tabla").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+       .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
+       $("#pager").hide();
+       $('#tabla').hide();
 }
 
 function cambiarTituloBoton(){
 	borrarCampos();
+	clearErrors();
 	$('#tituloBoton').html('Agregar');
 	$('#headerElemento').show();
 	$('#bodyElemento').show();
+	$("#pager").hide();
+    $('#tabla').hide();
 }
 
 function addNotaLecturaModificar(indice,nota){
@@ -288,10 +433,13 @@ $(document).ready(function(){
 	cargaGrupos();
 	detectaBuscar();
 	addNotaLectura(indiceNota);
+	cargarListaPersonas1();
+	cargarListaPersonas2();
 	$("#guardarLectura").click(agregarFila);
 	$("#guardar").click(guardarCambios);
 	$("#agregar").click(cambiarTituloBoton);
 	$("#agregarNota").click(addNotaLectura);
+	$("#guardarGrupo").click(guardarGrupo);
 	$(document).on('click', '.modificar-lectura', modificarLectura);
 	$(document).on('click', '.eliminar-lectura', eliminarLectura);
 });
