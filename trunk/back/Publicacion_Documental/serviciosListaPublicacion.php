@@ -140,7 +140,7 @@
 
 	    $recipients = implode(", ",$correos);
 
-	    $headers['From']    = 'eli03nage@gmail.com';
+	    $headers['From']    = 'ProCal-ProSer'; //procal.proser@pucp.pe
 	    $headers['To']      = $recipients;
 	    $headers['Subject'] = 'ProCal-ProSer - Nueva Lista de Publicación';
 
@@ -149,8 +149,8 @@
 	    $smtpinfo["host"] = "smtp.gmail.com";
 	    $smtpinfo["port"] = "587";
 	    $smtpinfo["auth"] = true;
-	    $smtpinfo["username"] = "eli03nage";
-	    $smtpinfo["password"] = "nadyab90";
+	    $smtpinfo["username"] = "eli03nage"; //procal.proser@pucp.pe
+	    $smtpinfo["password"] = "nadyab90"; //p.fincyt
 
 	    $mail_object =& Mail::factory("smtp", $smtpinfo); 
 	    $mail_object->send($recipients, $headers, $body);
@@ -304,7 +304,7 @@
 		}
 		enviarCorreo($listaUsuarios,$tokenlink);
 
-		print_r($listaUsuarios);
+		//print_r($listaUsuarios);
 		if(count($mensajes)>0){
 			echo json_encode(array("status"=>0));
 		}

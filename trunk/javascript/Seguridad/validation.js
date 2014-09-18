@@ -202,7 +202,7 @@ function validarListaPublicacion(grupos,listaLecturas){
 	var camposValidos = true;
 
 	camposValidos = validateMandatory("Tema","El campo es obligatorio") && camposValidos;
-	camposValidos = validateLengthCampoSelect("s2id_sel2grupo",grupos,"Debe seleccionar al menos un grupo") && camposValidos;
+	//camposValidos = validateLengthCampoSelect("s2id_sel2grupo",grupos,"Debe seleccionar al menos un grupo") && camposValidos;
 	camposValidos = validateLengthData("lectAsig",listaLecturas,"Debe agregar al menos una lectura") && camposValidos;
 
 	return camposValidos;
@@ -221,7 +221,7 @@ function validateSeleccionLectura(checkedradio){
 function validarAgregarLectura(checkedradio){
 	clearErrors(); 
 	var camposValidos = true;
-	camposValidos = validateMandatory("PALABRACLAVE","El campo es obligatorio") && camposValidos;
+	//camposValidos = validateMandatory("PALABRACLAVE","El campo es obligatorio") && camposValidos;
 	camposValidos = validateSeleccionLectura(checkedradio) && camposValidos;
 
 	return camposValidos;
