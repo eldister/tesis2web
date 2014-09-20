@@ -1,6 +1,33 @@
-﻿
-$(document).ready(function(){
+﻿function getUrlParameters(parameter, staticURL, decode){
+   /*
+    Function: getUrlParameters
+    Description: Get the value of URL parameters either from 
+                 current URL or static URL
+    Author: Tirumal
+    URL: www.code-tricks.com
+   */
+   currLocation = (staticURL.length)? staticURL : window.location.search;
+   if(currLocation=="") return false;
 
+   var parArr = currLocation.split("?")[1].split("&"),
+       returnBool = true;
+   
+   for(var i = 0; i < parArr.length; i++){
+        parr = parArr[i].split("=");
+        if(parr[0] == parameter){
+            return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+            returnBool = true;
+        }else{
+            returnBool = false;            
+        }
+   }
+   
+   if(!returnBool) return false;  
+}
+
+var idtipologin,currLocation;
+$(document).ready(function(){
+	idtipologin=getUrlParameters("a","",true);
 	$("#ingresar").click(ingresar);
 
 });
@@ -32,12 +59,13 @@ function ingresar(){
 				localStorage.setItem('idGrupo',idActual);
 				//uid codigo de usuario en BD
 				//redirigir a pagina correspondiente
-
-				$(location).attr('href','../tesis2web/front/Administracion_Usuario_Grupo/viewPerfil.html');
+				if(idtipologin!=false) $(location).attr('href','../tesis2web/front/Publicacion_Documental/ViewGestionListaPublicacion.html');
+				else $(location).attr('href','../tesis2web/front/Administracion_Usuario_Grupo/viewPerfil.html');
 			}
 			else {
 				alert("Usuario o Contraseña Incorrectas");
-				$(location).attr('href','../tesis2web/login.html');
+				if(idtipologin!=false) $(location).attr('href','../tesis2web/login.html?a=lp');
+				else $(location).attr('href','../tesis2web/login.html');
    			}
 		}
 	});
