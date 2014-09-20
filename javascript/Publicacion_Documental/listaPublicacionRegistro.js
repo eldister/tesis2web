@@ -214,19 +214,29 @@ function agregarFila(){
 
 }
 
+function lecturaEnLista(idpublicacion){
+	for (var i = 0; i < listaLecturas.length; i++) {
+		if(listaLecturas[i].idpublicacion==idpublicacion) return true;
+	};
+	return false;
+}
+
 function llenaTabla(data){
 	if(data.length>0){
 		for(var i=0; i < data.length ; i++){
-			var fila = '<tr id=fila-'+ data[i]["IDPUBLICACION"] +'>';
-			fila +='<td style="display:none;">';
-			fila += '<td class="text-center titulo">'+data[i]["TITULO"]+'</td>';		
-			fila += '<td class="text-center tipo">'+data[i]["TIPO"]+'</td>';
-			fila += '<td class="text-center idioma">'+data[i]["IDIOMA"]+'</td>';
-			fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
-			fila += '<td class="text-center"><input id="opcion'+data[i]["IDPUBLICACION"]+'" type="radio" name="radio" value="'+data[i]["IDPUBLICACION"]+'"></td>'	
-			fila += '</tr>';
-			$('#listaPublicaciones').append(fila);
-			$('#listaPublicaciones').trigger("update");		
+
+			if(!lecturaEnLista(data[i]["IDPUBLICACION"])){
+				var fila = '<tr id=fila-'+ data[i]["IDPUBLICACION"] +'>';
+				fila +='<td style="display:none;">';
+				fila += '<td class="text-center titulo">'+data[i]["TITULO"]+'</td>';		
+				fila += '<td class="text-center tipo">'+data[i]["TIPO"]+'</td>';
+				fila += '<td class="text-center idioma">'+data[i]["IDIOMA"]+'</td>';
+				fila += '<td class="text-center autores">'+data[i]["AUTORES"]+'</td>';
+				fila += '<td class="text-center"><input id="opcion'+data[i]["IDPUBLICACION"]+'" type="radio" name="radio" value="'+data[i]["IDPUBLICACION"]+'"></td>'	
+				fila += '</tr>';
+				$('#listaPublicaciones').append(fila);
+				$('#listaPublicaciones').trigger("update");
+			}		
 		}
 	}
 	else{

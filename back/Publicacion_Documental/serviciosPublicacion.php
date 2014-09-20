@@ -1,6 +1,6 @@
 <?php
 	//IMPORTS NECESARIOS
-    header("Content-type: text/html; charset=utf8");
+    header("Content-type: text/html; charset=utf16");
 	include('routesPublicacion.php');
 	include ('modelPublicacion.php');
 	include_once '../back/conexion.php';
@@ -252,7 +252,7 @@
 		$pstmt = $con->prepare("SELECT  E.IDETIQUETA, E.NOMBRE 
 			  					from publicacion P,etiqueta E,publicacionxetiquetas PE 
 			 					where PE.idpublicacion=P.idpublicacion and E.idetiqueta=PE.idetiqueta
-										and PE.idpublicacion=?");
+										and PE.idpublicacion=? and E.estado<>2");
 		$listaEtiquetas = array();
 		$pstmt->execute(array($id));
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
@@ -555,7 +555,7 @@
 
 		$pstmt = $con->prepare("SELECT count(P.IDIDIOMA) as CANTIDAD, P.IDIDIOMA FROM IDIOMA P WHERE P.ESTADO=1 AND 
 								P.NOMBRE LIKE CONCAT('%',?,'%')");
-		$pstmt->execute(array($idioma));
+		$pstmt->execute(array(utf8_encode($idioma)));
 		$req = $pstmt->fetch(PDO::FETCH_ASSOC);
 		
 		if($req["CANTIDAD"]>0){
@@ -565,7 +565,7 @@
 		else
 		{
 			$pstmt = $con->prepare("INSERT INTO IDIOMA (NOMBRE,OBSERVACION,ESTADO) VALUES (?,'',1)");
-			$pstmt->execute(array($idioma));
+			$pstmt->execute(array(utf8_encode($idioma)));
 			return $con->lastInsertId();
 		}
 	}
@@ -595,7 +595,7 @@ function verificaTipo($tipo){
 		$pstmt = $con->prepare("SELECT count(P.IDTIPOPUBLICACION) as CANTIDAD, P.IDTIPOPUBLICACION FROM 
 								TIPOPUBLICACION P WHERE P.ESTADO=1 AND 
 								P.NOMBRE LIKE CONCAT('%',?,'%')");
-		$pstmt->execute(array($tipo));
+		$pstmt->execute(array(utf8_encode($tipo)));
 		$req = $pstmt->fetch(PDO::FETCH_ASSOC);
 		
 		if($req["CANTIDAD"]>0){
@@ -604,7 +604,7 @@ function verificaTipo($tipo){
 		else
 		{
 			$pstmt = $con->prepare("INSERT INTO TIPOPUBLICACION (NOMBRE,DESCRIPCION,ESTADO) VALUES (?,'',1)");
-			$pstmt->execute(array($tipo));
+			$pstmt->execute(array(utf8_encode($tipo)));
 			return $con->lastInsertId();
 		}
 	}
@@ -833,20 +833,26 @@ function getBibliografia(){
 		$listaGrupo = array();
 
 		for($i=0; $i<count($autoresGrupo);$i++){
+
+			$autornomape=explode(" ",$autoresGrupo[$i]);
+			$strape="";
+			for($j=1;$j<count($autornomape);$j++){
+				$strape.=$autornomape[$j]." ";
+			}
 		
 			$pstmt = $con->prepare("SELECT count(P.IDAUTOR) as CANTIDAD, P.IDAUTOR FROM 
 									AUTOR P WHERE P.ESTADO=1 AND 
 									P.NOM_APE LIKE CONCAT('%',?,'%')");
-			$pstmt->execute(array($autoresGrupo[$i]));
+			$pstmt->execute(array(utf8_encode($strape)));
 			$req = $pstmt->fetch(PDO::FETCH_ASSOC);
 			
 			if($req["CANTIDAD"]>0){
 				$listaGrupo[] = $req["IDAUTOR"];
 			}
 			else
-			{
-				$pstmt = $con->prepare("INSERT INTO AUTOR (NOM_APE,IDINSTITUCION,ESTADO) VALUES (?,1,1)");
-				$pstmt->execute(array($autoresGrupo[$i]));
+			{									
+				$pstmt = $con->prepare("INSERT INTO AUTOR (NOMBRE,NOM_APE,IDINSTITUCION,ESTADO) VALUES (?,?,1,1)");
+				$pstmt->execute(array($autornomape[0],utf8_encode($strape)));
 				$listaGrupo[] = $con->lastInsertId();
 			}
 		}
@@ -855,7 +861,7 @@ function getBibliografia(){
 	}
 
 	function procesarLinea($line){
-		$publicacion = explode("|", $line);
+		$publicacion = explode("	", $line);
 		$titulo=$publicacion[0];
 		$fuente=$publicacion[1];
 		$referencia=$publicacion[2];
@@ -868,6 +874,8 @@ function getBibliografia(){
 		$issn=$publicacion[9];
 		$autores=$publicacion[10];
 		$archivo=$publicacion[11];
+		$pais=$publicacion[12];
+		$ciudad=$publicacion[13];
 
 		//verificamos el idioma, tipo de publicacion, y autores si ya existen, de lo contrario se crea, la funcion
 		//devuelve el ID (nuevo o antiguo) para agregar en BD
@@ -878,33 +886,34 @@ function getBibliografia(){
 			$con=getConnection();
 
 			$pstmt = $con->prepare("INSERT INTO PUBLICACION (TITULO,FUENTE,OBTENIDO,ANIO,MES,PAGINAS,
-									VOLUMEN,DOI,ISSN,ESTADO,FECHAREGISTRO,IDIDIOMA,IDTIPOPUBLICACION) 
-									VALUES (?,?,?,'1990',?,?,?,?,?,1,curdate(),?,?)");
+									VOLUMEN,DOI,ISSN,ESTADO,FECHAREGISTRO,IDIDIOMA,IDTIPOPUBLICACION,PAIS_PUBLI,CIUDAD_PUBLI) 
+									VALUES (?,?,?,'1990',?,?,?,?,?,1,curdate(),?,?,?,?)");
 
-			$pstmt->execute(array($titulo,
-								  $fuente,
-								  $referencia,
+			$pstmt->execute(array(utf8_encode($titulo),
+								  utf8_encode($fuente),
+								  utf8_encode($referencia),
 								  $fechapub,
 								  $paginas,
 								  $volumen,
 								  $doi,
 								  $issn,								  
 								  $ididioma,
-								  $idtipo
+								  $idtipo,
+								  utf8_encode($pais),
+								  utf8_encode($ciudad)
 								  )
 							);
 			$lastInsertId = $con->lastInsertId();
 
 			//agregar etiquetas del título
-			agregaEtiquetasTitulo($titulo,$ididioma,$lastInsertId);			
+			agregaEtiquetasTitulo(utf8_encode($titulo),$ididioma,$lastInsertId);			
 
 			$pstmt=null;
 			$pstmt = $con->prepare("INSERT INTO LOG (FECHA_REGISTRO,USUARIO_IDUSUARIO,PUBLICACION_IDPUBLICACION) 
 									VALUES (now(),?,?)");
 
 			//agregando en log
-			$pstmt->execute(array(1,
-								  $lastInsertId));
+			$pstmt->execute(array(1,$lastInsertId));
 
 			//agregando en gruxpubxusu
 			//modificacion 27/08: se guarda en grupo padre ProCalProSer originalmente
@@ -956,10 +965,11 @@ function getBibliografia(){
 				$lines = file($nuevoNombre);
 				$top200 = array_slice(array_reverse($lines),0,200);
 				$listaArchivos=array();
-
-				foreach($top200 as $line)
+				//print_r($top200);
+				for($i=0; $i<count($top200);$i++)
 				{
-				    $listaArchivos[]=procesarLinea($line);
+				    if($i!=count($top200)-1)
+				    	$listaArchivos[]=procesarLinea($top200[$i]);
 				}
 			}						
 			echo json_encode($listaArchivos);
