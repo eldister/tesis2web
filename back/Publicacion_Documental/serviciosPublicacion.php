@@ -624,36 +624,60 @@ function getBibliografia(){
 	$cantidadAutor = $pstmt->fetch(PDO::FETCH_ASSOC)["cantidad"];
 
 	//LISTA DE AUTORES
-    $pstmt = $con->prepare("SELECT A.NOM_APE FROM AUTOR A WHERE A.IDAUTOR IN 
+    $pstmt = $con->prepare("SELECT A.NOMBRE,A.NOM_APE FROM AUTOR A WHERE A.IDAUTOR IN 
     						(SELECT p.idautor from publicacionxautor p where p.idpublicacion=?)");
 	$pstmt->execute(array($IDPUBLICACION));
 
 	$listaAutores = "";
 	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
 		$grupo= [
+			'NOMBRE'=> $req["NOMBRE"],
 			'NOM_APE'=> $req["NOM_APE"]
 		];
 		$listaCitacion[] = $grupo;
 	}
 
-    if($IDTIPO_CITACION==1){$uneAutor=";"; $ultimoAutor="&";$finAutor="";$ultimo=".";}
-    else if ($IDTIPO_CITACION==2){$uneAutor=","; $ultimoAutor="and";$finAutor="";$ultimo=".";}
-    else if ($IDTIPO_CITACION==3){$uneAutor=","; $ultimoAutor="&";$finAutor=".";$ultimo="";}
-    else if ($IDTIPO_CITACION==4){$uneAutor=","; $ultimoAutor="&";$finAutor="";$ultimo=".";}
-    else if ($IDTIPO_CITACION==5){$uneAutor=","; $ultimoAutor="&";$finAutor=".";$ultimo="";}
+    if($IDTIPO_CITACION==1){$uneNombre=", ";$uneAutor=";"; $ultimoAutor="&";$finAutor="";$ultimo=". ";}
+    else if ($IDTIPO_CITACION==2){$uneNombre=". ";$uneAutor=","; $ultimoAutor="and";$finAutor="";$ultimo=", ";}
+    else if ($IDTIPO_CITACION==3){$uneNombre=", ";$uneAutor=","; $ultimoAutor="&";$finAutor=".";$ultimo="";}
+    else if ($IDTIPO_CITACION==4){$uneNombre=" ";$uneAutor=","; $ultimoAutor="&";$finAutor="";$ultimo=".";}
+    else if ($IDTIPO_CITACION==5){$uneNombre=", ";$uneAutor=","; $ultimoAutor="&";$finAutor=".";$ultimo="";}
 
     $stringAutores="";
 
     if($cantidadAutor==1){
-    	$stringAutores=$stringAutores.$listaCitacion[0]["NOM_APE"].".";
+    	if(($IDTIPO_CITACION==1) OR ($IDTIPO_CITACION==3) OR ($IDTIPO_CITACION==5))
+    		{$stringAutores=$stringAutores.$listaCitacion[0]["NOM_APE"].", ".$listaCitacion[0]["NOMBRE"].".";}
+    	elseif(($IDTIPO_CITACION==2))
+    		{$stringAutores=$stringAutores.$listaCitacion[0]["NOM_APE"].". ".$listaCitacion[0]["NOMBRE"].".";}
+    	elseif(($IDTIPO_CITACION==4))
+    		{$stringAutores=$stringAutores.$listaCitacion[0]["NOMBRE"]." ".$listaCitacion[0]["NOM_APE"].".";}
     }
     else{
+		for($i=0;$i<$cantidadAutor-1;$i++){
+			$N_AUTOR=$listaCitacion[$i]["NOMBRE"];
+			$A_AUTOR=$listaCitacion[$i]["NOM_APE"];
 
-		for($i=1;$i<=$cantidadAutor-1;$i++){
-			$stringAutores=$stringAutores.$listaCitacion[$i]["NOM_APE"];
+			if(($IDTIPO_CITACION==1) OR ($IDTIPO_CITACION==3) OR ($IDTIPO_CITACION==5) OR ($IDTIPO_CITACION==2))
+    			{$PRIMERO=$A_AUTOR;$SEGUNDO=$N_AUTOR;}
+    		elseif(($IDTIPO_CITACION==4))
+    			{$PRIMERO=$N_AUTOR;$SEGUNDO=$A_AUTOR;}
+
+			$stringAutores=$stringAutores.$PRIMERO;
+			$stringAutores=$stringAutores.$uneNombre;
+			$stringAutores=$stringAutores.$SEGUNDO;
 			$stringAutores=$stringAutores.$uneAutor;
 		}	
-		$stringAutores=$stringAutores." ".$ultimoAutor." ".$listaCitacion[$cantidadAutor-1]["NOM_APE"].$finAutor.$ultimo;
+		//$stringAutores=$stringAutores." ".$ultimoAutor." ".$listaCitacion[$cantidadAutor-1]["NOM_APE"].$finAutor.$ultimo;
+		$N_AUTOR=$listaCitacion[$cantidadAutor-1]["NOMBRE"];
+		$A_AUTOR=$listaCitacion[$cantidadAutor-1]["NOM_APE"];
+
+		if(($IDTIPO_CITACION==1) OR ($IDTIPO_CITACION==3) OR ($IDTIPO_CITACION==5) OR ($IDTIPO_CITACION==2))
+			{$PRIMERO=$A_AUTOR;$SEGUNDO=$N_AUTOR;}
+		elseif(($IDTIPO_CITACION==4))
+			{$PRIMERO=$N_AUTOR;$SEGUNDO=$A_AUTOR;}
+
+		$stringAutores=$stringAutores." ".$ultimoAutor." ".$PRIMERO.$uneNombre.$SEGUNDO.$finAutor.$ultimo;
 	}
 
 	$pstmt = $con->prepare("SELECT p.titulo from publicacion p where p.idpublicacion=?");
@@ -664,66 +688,127 @@ function getBibliografia(){
 	$pstmt->execute(array($IDPUBLICACION));
 	$VOLUMEN = $pstmt->fetch(PDO::FETCH_ASSOC)["volumen"];
 
-	$pstmt = $con->prepare("SELECT count(p.fuente) as c1 from publicacion p where p.idpublicacion=?");
-	$pstmt->execute(array($IDPUBLICACION));
-	$c1 = $pstmt->fetch(PDO::FETCH_ASSOC)["c1"];
-
-	$pstmt = $con->prepare("SELECT count(p.obtenido) as c2 from publicacion p where p.idpublicacion=?");
-	$pstmt->execute(array($IDPUBLICACION));
-	$c2 = $pstmt->fetch(PDO::FETCH_ASSOC)["c2"];
-
 	$pstmt = $con->prepare("SELECT p.fuente from publicacion p where p.idpublicacion=?");
 	$pstmt->execute(array($IDPUBLICACION));
-	$FUENTE = $pstmt->fetch(PDO::FETCH_ASSOC)["fuente"];
+	$EDITORIAL = $pstmt->fetch(PDO::FETCH_ASSOC)["fuente"];
 
 	$pstmt = $con->prepare("SELECT p.obtenido from publicacion p where p.idpublicacion=?");
 	$pstmt->execute(array($IDPUBLICACION));
-	$OBTENIDO = $pstmt->fetch(PDO::FETCH_ASSOC)["obtenido"];
+	$LINK = $pstmt->fetch(PDO::FETCH_ASSOC)["obtenido"];
+
+	$pstmt = $con->prepare("SELECT p.mes from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$MESANIO = $pstmt->fetch(PDO::FETCH_ASSOC)["mes"];
 
 	$pstmt = $con->prepare("SELECT p.anio from publicacion p where p.idpublicacion=?");
 	$pstmt->execute(array($IDPUBLICACION));
 	$ANIO = $pstmt->fetch(PDO::FETCH_ASSOC)["anio"];
 
+	$pstmt = $con->prepare("SELECT p.pais_publi from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$PAIS = $pstmt->fetch(PDO::FETCH_ASSOC)["pais_publi"];
+
+	$pstmt = $con->prepare("SELECT p.ciudad_publi from publicacion p where p.idpublicacion=?");
+	$pstmt->execute(array($IDPUBLICACION));
+	$CIUDAD = $pstmt->fetch(PDO::FETCH_ASSOC)["ciudad_publi"];
+
+	$terminacion="";
+	$ultimoCaracter = substr($VOLUMEN, -1);
+	switch ($ultimoCaracter) {
+				case "0": $terminacion=" th";break;
+			    case "1": $terminacion=" st";break;
+			    case "2": $terminacion=" nd";break;
+			    case "3": $terminacion=" rd";break;
+			    case "4": $terminacion=" th";break;
+			    case "5": $terminacion=" th";break;
+			    case "6": $terminacion=" th";break;
+			    case "7": $terminacion=" th";break;
+			    case "8": $terminacion=" th";break;
+			    case "9": $terminacion=" th";break;
+			    }
+
+
 	$nombreLibro="";
 	if($IDTIPO_CITACION==1 or $IDTIPO_CITACION==3 or $IDTIPO_CITACION==4 or $IDTIPO_CITACION==5){
-		$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";
+		if($IDTIPO_CITACION==5){
+			if($ANIO<>""){$nombreLibro=$nombreLibro." ".$ANIO.".";}
+		}
+		if($IDTIPO_CITACION==3){
+			if($ANIO<>""){$nombreLibro=$nombreLibro." (".$ANIO.").";}
+		}
+		$nombreLibro=$nombreLibro." <em>".$TITULO;
+		if($VOLUMEN<>""){$nombreLibro=$nombreLibro.", ".$VOLUMEN." ".$terminacion." Edition";}
+		$nombreLibro=$nombreLibro." </em>".".";	
 	}
-    else if ($IDTIPO_CITACION==2){$nombreLibro="«".$TITULO.", ".$VOLUMEN." Edition,"."»";}
-   // else if ($IDTIPO_CITACION==3){$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";}
-   // else if ($IDTIPO_CITACION==4){$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";}
-   // else if ($IDTIPO_CITACION==5){$nombreLibro="<em>".$TITULO.", ".$VOLUMEN." Edition."."</em>";}
-
+    else if ($IDTIPO_CITACION==2){
+    	$nombreLibro=$nombreLibro." «".$TITULO;
+    	$nombreLibro=$nombreLibro.", ".$VOLUMEN." ".$terminacion." Edition";
+    	$nombreLibro=$nombreLibro." ,»";
+    }
+   
     $fuenteLibro="";
+    
     if($IDTIPO_CITACION==1){
-    	if($c1>0){$fuenteLibro=$FUENTE;}
-    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
-    	if($ANIO>0){$fuenteLibro=$fuenteLibro.", ".$ANIO;}
-    	$fuenteLibro=$fuenteLibro."."; //+ LINK
+    	if($EDITORIAL<>""){$fuenteLibro=$EDITORIAL;}
+    	if($ANIO<>""){$fuenteLibro=$fuenteLibro.", ".$ANIO;}
+    	if($LINK<>""){$fuenteLibro=$fuenteLibro.". ".$LINK;}
+    	
+    	$fuenteLibro=$fuenteLibro.""; 
     }
+    
     elseif($IDTIPO_CITACION==2){
-    	if($c1>0){$fuenteLibro=$FUENTE;}
-    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
-    	if($ANIO>0){$fuenteLibro=$fuenteLibro.", ".$ANIO;}//FALTARIA CIUDAD,PAIS+LINK
-    	$fuenteLibro=$fuenteLibro.".";
+    	if($EDITORIAL<>""){$fuenteLibro=$EDITORIAL;}
+    	if($CIUDAD<>""){$fuenteLibro=$fuenteLibro.", ".$CIUDAD;}
+    	if($PAIS<>""){$fuenteLibro=$fuenteLibro.", ".$PAIS;}
+    	if($ANIO>0){$fuenteLibro=$fuenteLibro.", ".$ANIO;}
+    	if($LINK<>""){$fuenteLibro=$fuenteLibro.". ".$LINK;}
+    	$fuenteLibro=$fuenteLibro."";
     }
+    
     elseif ($IDTIPO_CITACION==3) {
-    	$fuenteLibro="Retrieved ".$ANIO;
-    	if($c1>0){$fuenteLibro=$fuenteLibro.", from the ".$FUENTE;}
-    	if($c2>0 and $c1>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}//FALTARIA CIUDAD,PAIS+LINK
-    	if($c2>0 and $c1=0){$fuenteLibro=$fuenteLibro.", from the ".$OBTENIDO;}
+    	//MESANIO
+
+
+    	if($ANIO<>""){
+	    	$porciones = explode("/", $MESANIO);
+			$mes0=$porciones[0];
+			switch ($mes0) {
+			    case "01": $mes="January";break;
+			    case "02": $mes="February";break;
+			    case "03": $mes="March";break;
+			    case "04": $mes="April";break;
+			    case "05": $mes="May";break;
+			    case "06": $mes="June";break;
+			    case "07": $mes="July";break;
+			    case "08": $mes="August";break;
+			    case "09": $mes="September";break;
+			    case "10": $mes="October";break;
+			    case "11": $mes="November";break;
+			    case "12": $mes="December";break;
+			}
+	    	$fuenteLibro="Retrieved ".$mes.", ".$ANIO;
+    	}
+    	if($EDITORIAL<>""){$fuenteLibro=$fuenteLibro.", from the ".$EDITORIAL;}
+    	//if($c2>0 and $c1>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}//FALTARIA CIUDAD,PAIS+LINK
+    	if($LINK<>""){$fuenteLibro=$fuenteLibro.", website: ".$LINK;}
     	$fuenteLibro=$fuenteLibro.".";		    
    	}
+   	
    	elseif($IDTIPO_CITACION==4){
    		//+FALTA CIUDAD,PAIS: ...
-    	if($c1>0){$fuenteLibro=$FUENTE;}
-    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
-    	if($ANIO>0){$fuenteLibro=$fuenteLibro.", ".$ANIO;}//FALTARIA CIUDAD,PAIS+LINK
+   		if($CIUDAD<>""){$fuenteLibro=$fuenteLibro." ".$CIUDAD;}
+    	if($PAIS<>""){$fuenteLibro=$fuenteLibro.", ".$PAIS;}
+    	if($EDITORIAL<>""){$fuenteLibro=$fuenteLibro." : ".$EDITORIAL;}
+    	if($ANIO<>""){$fuenteLibro=$fuenteLibro.", ".$ANIO;}
+    	if($LINK){$fuenteLibro=$fuenteLibro.", ".$LINK;}
     	$fuenteLibro=$fuenteLibro.".";
     }
+    
     elseif($IDTIPO_CITACION==5){
    		//+FALTA CIUDAD: ...
-    	if($c1>0){$fuenteLibro=$FUENTE;}
-    	if($c2>0){$fuenteLibro=$fuenteLibro.", ".$OBTENIDO;}
+   		if($CIUDAD<>""){$fuenteLibro=$fuenteLibro." ".$CIUDAD;}
+    	if($EDITORIAL<>""){$fuenteLibro=$fuenteLibro." : ".$EDITORIAL;}
+    	if($LINK<>""){$fuenteLibro=$fuenteLibro.". ".$LINK;}
     	$fuenteLibro=$fuenteLibro.".";
     }
 
