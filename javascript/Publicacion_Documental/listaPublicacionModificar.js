@@ -531,6 +531,15 @@ $('#sel2Responsable').on('select2-open',function(){
 	cargarListaPersonas1();
 });
 
+$('#sel2Miembros').on('select2-open',function(){
+	cargarListaPersonas2();
+});
+
+$('#sel2grupo').on('select2-open',function(){
+	cargaGrupos();
+});
+
+
 var idlp=getUrlParameters("idlp","",true);
 var indiceNota = 1;
 $(document).ready(function(){

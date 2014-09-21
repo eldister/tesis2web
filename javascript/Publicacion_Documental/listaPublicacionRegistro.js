@@ -26,6 +26,7 @@ function cargaGrupos(){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function (data){
+			$("#sel2grupo").empty();
 			for (var i=0; i<data.length; i++) {
 				$("#sel2grupo").append('<option value="' + data[i].IDGRUPO + '">' + data[i].NOMBRE + '</option>');
 			}
@@ -65,6 +66,7 @@ function cargarListaPersonas1(){
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
+			$("#sel2Responsable").empty();
 			for (var i=0; i<obj.length; i++) {
 				$("#sel2Responsable").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
 			}
@@ -82,6 +84,7 @@ function cargarListaPersonas2(){
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
+			$("#sel2Miembros").empty();
 			for (var i=0; i<obj.length; i++) {
 				$("#sel2Miembros").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
 			}
@@ -436,6 +439,18 @@ function addNotaLectura(){
 	indiceNota+=1;
 	$('#notasLectura').append(fila);
 }
+
+$('#sel2Responsable').on('select2-open',function(){
+	cargarListaPersonas1();
+});
+
+$('#sel2Miembros').on('select2-open',function(){
+	cargarListaPersonas2();
+});
+
+$('#sel2grupo').on('select2-open',function(){
+	cargaGrupos();
+});
 
 var indiceNota = 1;
 $(document).ready(function(){

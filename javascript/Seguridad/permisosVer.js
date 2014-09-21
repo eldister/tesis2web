@@ -25,29 +25,6 @@ function getUrlParameters(parameter, staticURL, decode){
    if(!returnBool) return false;  
 }
 
-function armarPermisos(){
-	var padre=[];
-	var n1,n2,n3,input,checked;
-	$("li.dd-item").each(function(index){
-		n2=[];
-		$("li.dd-item-list",this).each(function(index){
-			input=$(this).find("input").first();
-			if(input.prop("checked")) checked="true"; else checked="";
-			n3={ id: $(this).attr("data-id"),
-				 checked: checked
-			}
-			n2.push(n3);
-		});
-		if(n2.length!=0){
-			n1={ id:$(this).attr("data-id"),
-				 children:n2
-				}
-			padre.push(n1);
-		}
-	});
-	return padre;
-}
-
 function llenarInfo(data){
 	var input;
 	$("li.dd-item-list").each(function(index){
