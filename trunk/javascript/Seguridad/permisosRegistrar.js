@@ -50,142 +50,188 @@ function guardarCambios(){
 function cambiosCheckbox(){
 
 	//publicaciones
-	$("#pub-list-cb").change(function(e) {
-	    if(this.checked) { $("#pub-ver-cb").prop('checked',true); $("#pub-mod-cb").prop('checked',true);
-	        $("#pub-del-cb").prop('checked',true); $("#pub-list-cb").val('off');
-	    }else{ $("#pub-ver-cb").prop("checked",false); $("#pub-mod-cb").prop("checked",false);
-	        $("#pub-del-cb").prop("checked",false); $("#pub-list-cb").val('on');
-	    }
+	$("#pub-all-cb").change(function(e) {
+		if(this.checked) {
+		    $("#pub-ver-cb").prop("checked",true); $("#pub-mod-cb").prop("checked",true);
+		    $("#pub-del-cb").prop("checked",true); $("#pub-list-cb").prop("checked",true);
+		    $("#pub-reg-cb").prop("checked",true); $("#pub-all-cb").val('off');
+		}
+		else{
+			$("#pub-ver-cb").prop('checked',false); $("#pub-mod-cb").prop('checked',false);
+		    $("#pub-del-cb").prop('checked',false); $("#pub-list-cb").prop('checked',false);
+		    $("#pub-reg-cb").prop('checked',false); $("#pub-all-cb").val('on');
+		}
 	});
-	$("#pub-ver-cb").change(function() { if(this.checked) $("#pub-list-cb").prop("checked",true);});
-	$("#pub-mod-cb").change(function() { if(this.checked) $("#pub-list-cb").prop("checked",true);});
-	$("#pub-del-cb").change(function() { if(this.checked) $("#pub-list-cb").prop("checked",true);});
+	//$("#pub-ver-cb").change(function() { if(this.checked) $("#pub-list-cb").prop("checked",true);});
+	//$("#pub-mod-cb").change(function() { if(this.checked) $("#pub-list-cb").prop("checked",true);});
+	//$("#pub-del-cb").change(function() { if(this.checked) $("#pub-list-cb").prop("checked",true);});
 
 	//fichas
-	$("#fib-list-cb").change(function(e) {
-	    if(this.checked) { $("#fib-ver-cb").prop('checked',true); $("#fib-mod-cb").prop('checked',true);
-	        $("#fib-del-cb").prop('checked',true); $("#fib-list-cb").val('off');
-	    }else{ $("#fib-ver-cb").prop("checked",false); $("#fib-mod-cb").prop("checked",false);
-	        $("#fib-del-cb").prop("checked",false); $("#fib-list-cb").val('on');
-	    }
+	$("#fib-all-cb").change(function(e) {
+		if(this.checked) {
+		    $("#fib-ver-cb").prop("checked",true); $("#fib-mod-cb").prop("checked",true);
+		    $("#fib-del-cb").prop("checked",true); $("#fib-list-cb").prop("checked",true);
+		    $("#fib-reg-cb").prop("checked",true); $("#fib-all-cb").val('off');
+		}
+		else{
+			$("#fib-ver-cb").prop('checked',false); $("#fib-mod-cb").prop('checked',false);
+		    $("#fib-del-cb").prop('checked',false); $("#fib-list-cb").prop('checked',false);
+		    $("#fib-reg-cb").prop('checked',false); $("#fib-all-cb").val('on');
+		}
 	});
-	$("#fib-ver-cb").change(function() { if(this.checked) $("#fib-list-cb").prop("checked",true);});
-	$("#fib-mod-cb").change(function() { if(this.checked) $("#fib-list-cb").prop("checked",true);});
-	$("#fib-del-cb").change(function() { if(this.checked) $("#fib-list-cb").prop("checked",true);});
+	// $("#fib-ver-cb").change(function() { if(this.checked) $("#fib-list-cb").prop("checked",true);});
+	// $("#fib-mod-cb").change(function() { if(this.checked) $("#fib-list-cb").prop("checked",true);});
+	// $("#fib-del-cb").change(function() { if(this.checked) $("#fib-list-cb").prop("checked",true);});
 
 	//Usuarios
-	$("#usr-list-cb").change(function(e) {
-	    if(this.checked) { $("#usr-ver-cb").prop('checked',true); $("#usr-mod-cb").prop('checked',true);
-	        $("#usr-del-cb").prop('checked',true); $("#usr-list-cb").val('off');
-	    }else{ $("#usr-ver-cb").prop("checked",false); $("#usr-mod-cb").prop("checked",false);
-	        $("#usr-del-cb").prop("checked",false); $("#usr-list-cb").val('on');
-	    }
+	$("#usr-all-cb").change(function(e) {
+	    if(this.checked) {
+		    $("#usr-ver-cb").prop("checked",true); $("#usr-mod-cb").prop("checked",true);
+		    $("#usr-del-cb").prop("checked",true); $("#usr-list-cb").prop("checked",true);
+		    $("#usr-reg-cb").prop("checked",true); $("#usr-all-cb").val('off');
+		}
+		else{
+			$("#usr-ver-cb").prop('checked',false); $("#usr-mod-cb").prop('checked',false);
+		    $("#usr-del-cb").prop('checked',false); $("#usr-list-cb").prop('checked',false);
+		    $("#usr-reg-cb").prop('checked',false); $("#usr-all-cb").val('on');
+		}
 	});
-	$("#usr-ver-cb").change(function() { if(this.checked) $("#usr-list-cb").prop("checked",true);});
-	$("#usr-mod-cb").change(function() { if(this.checked) $("#usr-list-cb").prop("checked",true);});
-	$("#usr-del-cb").change(function() { if(this.checked) $("#usr-list-cb").prop("checked",true);});
+	//$("#usr-ver-cb").change(function() { if(this.checked) $("#usr-list-cb").prop("checked",true);});
+	//$("#usr-mod-cb").change(function() { if(this.checked) $("#usr-list-cb").prop("checked",true);});
+	//$("#usr-del-cb").change(function() { if(this.checked) $("#usr-list-cb").prop("checked",true);});
 
 	//Grupos
-	$("#grp-list-cb").change(function(e) {
-	    if(this.checked) { $("#grp-ver-cb").prop('checked',true); $("#grp-mod-cb").prop('checked',true);
-	        $("#grp-del-cb").prop('checked',true); $("#grp-list-cb").val('off');
-	    }else{ $("#grp-ver-cb").prop("checked",false); $("#grp-mod-cb").prop("checked",false);
-	        $("#grp-del-cb").prop("checked",false); $("#grp-list-cb").val('on');
-	    }
+	$("#grp-all-cb").change(function(e) {
+	    if(this.checked) {
+		    $("#grp-ver-cb").prop("checked",true); $("#grp-mod-cb").prop("checked",true);
+		    $("#grp-del-cb").prop("checked",true); $("#grp-list-cb").prop("checked",true);
+		    $("#grp-reg-cb").prop("checked",true); $("#grp-all-cb").val('off');
+		}
+		else{
+			$("#grp-ver-cb").prop('checked',false); $("#grp-mod-cb").prop('checked',false);
+		    $("#grp-del-cb").prop('checked',false); $("#grp-list-cb").prop('checked',false);
+		    $("#grp-reg-cb").prop('checked',false); $("#grp-all-cb").val('on');
+		}
 	});
-	$("#grp-ver-cb").change(function() { if(this.checked) $("#grp-list-cb").prop("checked",true);});
-	$("#grp-mod-cb").change(function() { if(this.checked) $("#grp-list-cb").prop("checked",true);});
-	$("#grp-del-cb").change(function() { if(this.checked) $("#grp-list-cb").prop("checked",true);});
+	// $("#grp-ver-cb").change(function() { if(this.checked) $("#grp-list-cb").prop("checked",true);});
+	// $("#grp-mod-cb").change(function() { if(this.checked) $("#grp-list-cb").prop("checked",true);});
+	// $("#grp-del-cb").change(function() { if(this.checked) $("#grp-list-cb").prop("checked",true);});
 
 	//Autores
-	$("#aut-list-cb").change(function(e) {
-	    if(this.checked) {  $("#aut-mod-cb").prop('checked',true);
-	        $("#aut-del-cb").prop('checked',true); $("#aut-list-cb").val('off');
-	    }else{ $("#aut-mod-cb").prop("checked",false);
-	        $("#aut-del-cb").prop("checked",false); $("#aut-list-cb").val('on');
-	    }
+	$("#aut-all-cb").change(function(e) {
+	    if(this.checked) {
+		    $("#aut-mod-cb").prop("checked",true);
+		    $("#aut-del-cb").prop("checked",true); $("#aut-list-cb").prop("checked",true);
+		    $("#aut-reg-cb").prop("checked",true); $("#aut-all-cb").val('off');
+		}
+		else{
+			$("#aut-mod-cb").prop('checked',false);
+		    $("#aut-del-cb").prop('checked',false); $("#aut-list-cb").prop('checked',false);
+		    $("#aut-reg-cb").prop('checked',false); $("#aut-all-cb").val('on');
+		}
 	});
-	$("#aut-mod-cb").change(function() { if(this.checked) $("#aut-list-cb").prop("checked",true);});
-	$("#aut-del-cb").change(function() { if(this.checked) $("#aut-list-cb").prop("checked",true);});
+	//$("#aut-mod-cb").change(function() { if(this.checked) $("#aut-list-cb").prop("checked",true);});
+	//s$("#aut-del-cb").change(function() { if(this.checked) $("#aut-list-cb").prop("checked",true);});
 
 	//Idiomas
-	$("#idi-list-cb").change(function(e) {
-	    if(this.checked) { $("#idi-mod-cb").prop('checked',true);
-	        $("#idi-del-cb").prop('checked',true); $("#idi-list-cb").val('off');
-	    }else{ $("#idi-mod-cb").prop("checked",false);
-	        $("#idi-del-cb").prop("checked",false); $("#idi-list-cb").val('on');
-	    }
+	$("#idi-all-cb").change(function(e) {
+	    if(this.checked) {
+		    $("#idi-mod-cb").prop("checked",true);
+		    $("#idi-del-cb").prop("checked",true); $("#idi-list-cb").prop("checked",true);
+		    $("#idi-reg-cb").prop("checked",true); $("#idi-all-cb").val('off');
+		}
+		else{
+			$("#idi-mod-cb").prop('checked',false);
+		    $("#idi-del-cb").prop('checked',false); $("#idi-list-cb").prop('checked',false);
+		    $("#idi-reg-cb").prop('checked',false); $("#idi-all-cb").val('on');
+		}
 	});	
 	$("#idi-mod-cb").change(function() { if(this.checked) $("#idi-list-cb").prop("checked",true);});
 	$("#idi-del-cb").change(function() { if(this.checked) $("#idi-list-cb").prop("checked",true);});
 
 	//Etiquetas
-	$("#eti-list-cb").change(function(e) {
-	    if(this.checked) { $("#eti-mod-cb").prop('checked',true);
-	        $("#eti-del-cb").prop('checked',true); $("#eti-list-cb").val('off');
-	    }else{ $("#eti-mod-cb").prop("checked",false);
-	        $("#eti-del-cb").prop("checked",false); $("#eti-list-cb").val('on');
-	    }
+	$("#eti-all-cb").change(function(e) {
+	    if(this.checked) {
+		    $("#eti-mod-cb").prop("checked",true);
+		    $("#eti-del-cb").prop("checked",true); $("#eti-list-cb").prop("checked",true);
+		    $("#eti-reg-cb").prop("checked",true); $("#eti-all-cb").val('off');
+		}
+		else{
+			$("#eti-mod-cb").prop('checked',false);
+		    $("#eti-del-cb").prop('checked',false); $("#eti-list-cb").prop('checked',false);
+		    $("#eti-reg-cb").prop('checked',false); $("#eti-all-cb").val('on');
+		}
 	});
-	$("#eti-mod-cb").change(function() { if(this.checked) $("#eti-list-cb").prop("checked",true);});
-	$("#eti-del-cb").change(function() { if(this.checked) $("#eti-list-cb").prop("checked",true);});
+	//$("#eti-mod-cb").change(function() { if(this.checked) $("#eti-list-cb").prop("checked",true);});
+	//$("#eti-del-cb").change(function() { if(this.checked) $("#eti-list-cb").prop("checked",true);});
 
-	//TipoPublicacion
-	$("#mtr-pub-ver-cb").change(function(e) {
-	    if(this.checked) { $("#mtr-pub-mod-cb").prop('checked',true);
-	        $("#mtr-pub-del-cb").prop('checked',true); $("#mtr-pub-ver-cb").val('off');
-	    }else{  $("#mtr-pub-mod-cb").prop("checked",false);
-	        $("#mtr-pub-del-cb").prop("checked",false); $("#mtr-pub-ver-cb").val('on');
-	    }
+	//Maestros
+	$("#mtr-all-cb").change(function(e) {
+		if(this.checked) {
+			$("#mtr-all-cb").val('off');
+		    $("#mtr-pub-mod-cb").prop("checked",true);
+		    $("#mtr-pub-del-cb").prop("checked",true); $("#mtr-pub-ver-cb").prop("checked",true);
+		    $("#mtr-pub-reg-cb").prop("checked",true); 
+		    $("#mtr-fib-mod-cb").prop("checked",true);
+		    $("#mtr-fib-del-cb").prop("checked",true); $("#mtr-fib-ver-cb").prop("checked",true);
+		    $("#mtr-fib-reg-cb").prop("checked",true); 
+		    $("#mtr-inst-mod-cb").prop("checked",true);
+		    $("#mtr-inst-del-cb").prop("checked",true); $("#mtr-inst-ver-cb").prop("checked",true);
+		    $("#mtr-inst-reg-cb").prop("checked",true); 
+		}
+		else{
+			$("#mtr-all-cb").val('on');
+			$("#mtr-pub-mod-cb").prop('checked',false);
+		    $("#mtr-pub-del-cb").prop('checked',false); $("#mtr-pub-ver-cb").prop('checked',false);
+		    $("#mtr-pub-reg-cb").prop('checked',false);  
+		    $("#mtr-fib-mod-cb").prop("checked",false);
+		    $("#mtr-fib-del-cb").prop("checked",false); $("#mtr-fib-ver-cb").prop("checked",false);
+		    $("#mtr-fib-reg-cb").prop("checked",false); 
+		    $("#mtr-inst-mod-cb").prop("checked",false);
+		    $("#mtr-inst-del-cb").prop("checked",false); $("#mtr-inst-ver-cb").prop("checked",false);
+		    $("#mtr-inst-reg-cb").prop("checked",false);
+		}
 	});
-	$("#mtr-pub-mod-cb").change(function() { if(this.checked) $("#mtr-pub-ver-cb").prop("checked",true);});
-	$("#mtr-pub-del-cb").change(function() { if(this.checked) $("#mtr-pub-ver-cb").prop("checked",true);});
-
-	//TipoFicha
-	$("#mtr-fib-ver-cb").change(function(e) {
-	    if(this.checked) { $("#mtr-fib-mod-cb").prop('checked',true);
-	        $("#mtr-fib-del-cb").prop('checked',true); $("#mtr-fib-ver-cb").val('off');
-	    }else{ $("#mtr-fib-mod-cb").prop("checked",false);
-	        $("#mtr-fib-del-cb").prop("checked",false); $("#mtr-fib-ver-cb").val('on');
-	    }
-	});
-	$("#mtr-fib-mod-cb").change(function() { if(this.checked) $("#mtr-fib-ver-cb").prop("checked",true);});
-	$("#mtr-fib-del-cb").change(function() { if(this.checked) $("#mtr-fib-ver-cb").prop("checked",true);});
-
-	//Institucion
-	$("#mtr-inst-ver-cb").change(function(e) {
-	    if(this.checked) { $("#mtr-inst-mod-cb").prop('checked',true);
-	        $("#mtr-inst-del-cb").prop('checked',true); $("#mtr-inst-ver-cb").val('off');
-	    }else{ $("#mtr-inst-mod-cb").prop("checked",false);
-	        $("#mtr-inst-del-cb").prop("checked",false); $("#mtr-inst-ver-cb").val('on');
-	    }
-	});
-	$("#mtr-inst-mod-cb").change(function() { if(this.checked) $("#mtr-inst-ver-cb").prop("checked",true);});
-	$("#mtr-inst-del-cb").change(function() { if(this.checked) $("#mtr-inst-ver-cb").prop("checked",true);});
+	//$("#mtr-pub-mod-cb").change(function() { if(this.checked) $("#mtr-pub-ver-cb").prop("checked",true);});
+	//$("#mtr-pub-del-cb").change(function() { if(this.checked) $("#mtr-pub-ver-cb").prop("checked",true);});
+	//$("#mtr-fib-mod-cb").change(function() { if(this.checked) $("#mtr-fib-ver-cb").prop("checked",true);});
+	//$("#mtr-fib-del-cb").change(function() { if(this.checked) $("#mtr-fib-ver-cb").prop("checked",true);});
+	//$("#mtr-inst-mod-cb").change(function() { if(this.checked) $("#mtr-inst-ver-cb").prop("checked",true);});
+	//$("#mtr-inst-del-cb").change(function() { if(this.checked) $("#mtr-inst-ver-cb").prop("checked",true);});
 
 	//Generar Enlace
-	$("#enl-list-cb").change(function(e) {
-	    if(this.checked) { $("#enl-ver-cb").prop('checked',true); $("#enl-mod-cb").prop('checked',true);
-	        $("#enl-del-cb").prop('checked',true); $("#enl-list-cb").val('off');
-	    }else{ $("#enl-ver-cb").prop("checked",false); $("#enl-mod-cb").prop("checked",false);
-	        $("#enl-del-cb").prop("checked",false); $("#enl-list-cb").val('on');
-	    }
+	$("#enl-all-cb").change(function(e) {
+	    if(this.checked) {
+		    $("#enl-mod-cb").prop("checked",true); $("#enl-ver-cb").prop("checked",true);
+		    $("#enl-del-cb").prop("checked",true); $("#enl-list-cb").prop("checked",true);
+		    $("#enl-reg-cb").prop("checked",true); $("#enl-all-cb").val('off');
+		}
+		else{
+			$("#enl-mod-cb").prop('checked',false); $("#enl-ver-cb").prop('checked',false);
+		    $("#enl-del-cb").prop('checked',false); $("#enl-list-cb").prop('checked',false);
+		    $("#enl-reg-cb").prop('checked',false); $("#enl-all-cb").val('on');
+		}
 	});
-	$("#enl-ver-cb").change(function() { if(this.checked) $("#enl-list-cb").prop("checked",true);});
-	$("#enl-mod-cb").change(function() { if(this.checked) $("#enl-list-cb").prop("checked",true);});
-	$("#enl-del-cb").change(function() { if(this.checked) $("#enl-list-cb").prop("checked",true);});
+	//$("#enl-ver-cb").change(function() { if(this.checked) $("#enl-list-cb").prop("checked",true);});
+	//$("#enl-mod-cb").change(function() { if(this.checked) $("#enl-list-cb").prop("checked",true);});
+	//$("#enl-del-cb").change(function() { if(this.checked) $("#enl-list-cb").prop("checked",true);});
 
 	//Permisos
-	$("#per-list-cb").change(function(e) {
-	    if(this.checked) { $("#per-ver-cb").prop('checked',true); $("#per-mod-cb").prop('checked',true);
-	        $("#per-del-cb").prop('checked',true); $("#per-list-cb").val('off');
-	    }else{ $("#per-ver-cb").prop("checked",false); $("#per-mod-cb").prop("checked",false);
-	        $("#per-del-cb").prop("checked",false); $("#per-list-cb").val('on');
-	    }
+	$("#per-all-cb").change(function(e) {
+	   if(this.checked) {
+		    $("#per-mod-cb").prop("checked",true); $("#per-ver-cb").prop("checked",true);
+		    $("#per-del-cb").prop("checked",true); $("#per-list-cb").prop("checked",true);
+		    $("#per-reg-cb").prop("checked",true); $("#per-all-cb").val('off');
+		}
+		else{
+			$("#per-mod-cb").prop('checked',false); $("#per-ver-cb").prop('checked',false);
+		    $("#per-del-cb").prop('checked',false); $("#per-list-cb").prop('checked',false);
+		    $("#per-reg-cb").prop('checked',false); $("#per-all-cb").val('on');
+		}
 	});
-	$("#per-ver-cb").change(function() { if(this.checked) $("#per-list-cb").prop("checked",true);});
-	$("#per-mod-cb").change(function() { if(this.checked) $("#per-list-cb").prop("checked",true);});
-	$("#per-del-cb").change(function() { if(this.checked) $("#per-list-cb").prop("checked",true);});
+	//$("#per-ver-cb").change(function() { if(this.checked) $("#per-list-cb").prop("checked",true);});
+	//$("#per-mod-cb").change(function() { if(this.checked) $("#per-list-cb").prop("checked",true);});
+	//$("#per-del-cb").change(function() { if(this.checked) $("#per-list-cb").prop("checked",true);});
 }
 
 function nestableContraerExpandir(){
