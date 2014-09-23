@@ -129,6 +129,20 @@
 		                                        	<input type="text" id="ISSN" name="ISSN" class="form-control" placeholder="Número internacional normalizado de publicaciones seriadas">
 		                                    	</div>
 		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>País</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+		                                        	<input type="text" id="PAIS" name="PAIS" class="form-control">
+		                                    	</div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>Ciudad</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+		                                        	<input type="text" id="CIUDAD" name="CIUDAD" class="form-control">
+		                                    	</div>
+		                                    </div>
 		                                </div>
 		                            </div>
 		                            <h3><span>Grupos que tendrán acceso a la publicación</span></h3>	                            
@@ -428,6 +442,23 @@
 					</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 				<!--FIN MODAL SUBIR ARCHIVOS-->
+				<!--MODAL VER Archivos-->   	                     
+				<div class="modal fade" id="detalleArchivo" tabindex="-1" role="dialog" aria-labelledby="detalleArchivo" aria-hidden="true">
+						<div class="modal-dialog" style="width:743px;">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title" id="tituloModal">Archivo</h3>
+								</div>
+							<div class="modal-body embedded" id="modalDiv">														
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->		                     	
+				<!--FIN MODAL Archivos-->
 		                     <br><br>
 		                    <div class="row pull-center">
 		                    	<div class="col-md-4"></div>
@@ -464,6 +495,7 @@
 	<script src="../../template/js/dropzone.js"></script>
 	<script src="../../template/js/bootstrap-datepicker.js"></script>
 	<script src="../../template/js/jquery.maskedinput.min.js"></script>
+	<script src="../../template/js/pdfobject.js"></script>
 	<script src="../../javascript/Publicacion_Documental/publicacionModificar.js"></script>
 	<script src="../../javascript/Busqueda/Busqueda.js"></script>
 

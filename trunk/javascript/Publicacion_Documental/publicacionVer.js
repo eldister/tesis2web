@@ -52,6 +52,8 @@ function llenarDatosPublicacion(){
 			$('#VOLUMEN').val(data["VOLUMEN"]);
 			$('#DOI').val(data["DOI"]);
 			$('#ISSN').val(data["ISSN"]);
+			$('#PAIS').val(data["PAIS_PUBLI"]);
+			$('#CIUDAD').val(data["CIUDAD_PUBLI"]);
 		}
 	});
 }
@@ -93,6 +95,11 @@ function cargaArchivos(data){
 		if(data[i]["FORMATO"]==="application/force-download" || data[i]["FORMATO"]==="application/pdf" ){
 			fila = '<li class="list-group-item"><span class="badge badge-primary"><a class="ver-archivo btn-link danger" url="'+data[i]["URL"]+'">';
 			fila += '<span class="fa-stack"><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a></span><h6 id="nomArchivo">'+data[i]["NOMBRE"]+'<h6></li>';	
+			$('#listaArchivos').append(fila);
+		}
+		else{
+			fila = '<li class="list-group-item"><span class="badge badge-primary"><a href="../'+data[i]["URL"]+'" target="_blank">';
+			fila += '<span class="fa-stack"><i class="fa fa-download fa-stack-1x fa-inverse"></i></span></a></span><h6 id="nomArchivo">'+data[i]["NOMBRE"]+'<h6></li>';	
 			$('#listaArchivos').append(fila);
 		}
 	}
