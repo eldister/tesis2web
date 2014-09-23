@@ -150,8 +150,8 @@ function borrar()
 $(document).ready(function(){
 	cargarComboInstitucion();
 	cargarComboTipoUsuario();
-	$("#NUMERO_CELULAR").mask("(999) 9999-9999");
-	$("#NUMERO_TEL_ALTERNO").mask("(999) 9999-9999");
+	//$("#NUMERO_CELULAR").mask("(999) 9999-9999");
+	//$("#NUMERO_TEL_ALTERNO").mask("(999) 9999-9999");
 	$("#guardar").click(guardarCambios);
 	$("#clear").click(borrar);
 });

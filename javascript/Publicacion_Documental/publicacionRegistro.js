@@ -4,7 +4,7 @@ var seleccionGrupos=[];
 var seleccionResponsable=[];
 var seleccionMiembros=[];
 var seleccionInstituciones=[];
-
+var myDropzone;
 var idiomas;
 function popularSelectIdioma(){
 	$.ajax({
@@ -200,7 +200,13 @@ function guardarArchivos(data){
 	  formData.append('GRUPOS',JSON.stringify(gruposArchivo));
 	});
 	myDropzone.processQueue();
+	myDropzone.on("successmultiple",function(file,response){
+		alert("Publicación creada correctamente");
+		window.location.href='ViewListaPublicacion.html';		
+	});
 }
+
+
 
 function getId(){
 	if( localStorage.uid ){
@@ -255,6 +261,8 @@ function guardarCambios(){
 		obj["FECHAPUB"]=$('#FECHAPUB').val();
 		obj["IDCREADOR"]=getId();
 		obj["IDGRUPO"]=localStorage.idMiGrupo;
+		obj["PAIS"]=$("#PAIS").val();
+		obj["CIUDAD"]=$("#CIUDAD").val();
 
 		if(!validarPublicacion(seleccionGrupos,seleccionAutores)){
 			return;
@@ -271,15 +279,12 @@ function guardarCambios(){
 				var status1=guardarPublicacionxEtiqueta(data); 
 				var status2=guardarPublicacionxAutor(data);			
 				var status3=guardarPublicacionxGrupo(data);
-				var status4=guardarArchivos(data);
-
-				if(data["status"]===0){
-					alert("Ocurrió un error interno");
-					window.location.href='ViewListaPublicacion.html';
-				}
-				else{
-					alert("Publicación creada correctamente");
-					window.location.href='ViewListaPublicacion.html';
+				if(myDropzone.getQueuedFiles()==0){
+						alert("Publicación creada correctamente");
+						window.location.href='ViewListaPublicacion.html';
+				} 
+				else {
+					guardarArchivos(data);
 				}
 			}
 		});
@@ -609,6 +614,7 @@ function configurarDropzone(){
 	    uploadMultiple:true,
 	    maxFiles:10,
 	    parallelUploads:10000,
+	    //acceptedFiles:'application/pdf',
 	    dictRemoveFile:'Remover archivo'
 	});
 
@@ -644,7 +650,7 @@ $(test6).change(function() {
     seleccionInstituciones = ($(test6).select2('data'));
 });
 
-var myDropzone;
+
 Dropzone.options.subidaArchivos = {
   init: function() {
     myDropzone = this;

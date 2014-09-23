@@ -5,6 +5,7 @@ var seleccionGrupos=[];
 var seleccionResponsable=[];
 var seleccionMiembros=[];
 var seleccionInstituciones=[];
+var myDropzone;
 
 var idiomas;
 function popularSelectIdioma(){
@@ -132,6 +133,10 @@ function guardarArchivos(data){
 	  formData.append('GRUPOS',JSON.stringify(gruposArchivo));
 	});
 	myDropzone.processQueue();
+	myDropzone.on("successmultiple",function(file,response){
+		alert("Publicación modificada correctamente");
+		window.location.href='ViewListaPublicacion.html';
+	});
 }
 
 var gruposArchivo;
@@ -190,14 +195,12 @@ function guardarCambios(){
 			var status1=guardarPublicacionxEtiqueta(data); 
 			var status2=guardarPublicacionxAutor(data);			
 			var status3=guardarPublicacionxGrupo(data);
-			var status4=guardarArchivos(data);
-			if(data["status"]===0){
-				alert("Ocurrió un error interno");
-				window.location.href='ViewListaPublicacion.html';
-			}
-			else{
-				alert("Publicación modificada correctamente");
-				window.location.href='ViewListaPublicacion.html';
+			if(myDropzone.getQueuedFiles()==0){
+					alert("Publicación modificada correctamente");
+					window.location.href='ViewListaPublicacion.html';
+			} 
+			else {
+				guardarArchivos(data);
 			}
 		}
 	});
@@ -368,6 +371,8 @@ function llenarCampos(){
 			$('#ISSN').val(data["ISSN"]);
 			$('#IDIOMA_SELECT').val(data["IDIDIOMA"]);
 			$('#TIPOPUBLICACION_SELECT').val(data["IDTIPOPUBLICACION"]);
+			$('#PAIS').val(data["PAIS_PUBLI"]);
+			$('#CIUDAD').val(data["CIUDAD_PUBLI"]);
 		}
 	});
 }
@@ -699,7 +704,7 @@ $(test6).change(function() {
 });
 
 
-var myDropzone;
+
 Dropzone.options.subidaArchivos = {
   init: function() {
     myDropzone = this;
@@ -727,12 +732,25 @@ function cargaArchivos(data){
 		var fila = '';
 		if(data[i]["FORMATO"]==="application/force-download" || data[i]["FORMATO"]==="application/pdf"){ 
 			fila = '<li class="list-group-item" id="fila-'+data[i]["IDARCHIVO"]+'"><span class="badge badge-danger"><a class="eliminar-archivo btn-link danger" idarchivo="'+data[i]["IDARCHIVO"]+'" url="'+data[i]["URL"]+'">';
-			fila += '<span class="fa-stack"><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a></span><h6 id="nomArchivo"><span>'+data[i]["NOMBRE"]+'</span></h6></li>';	
+			fila += '<span class="fa-stack"><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a></span>';				
+			fila += '<span class="badge badge-primary"><a class="ver-archivo btn-link danger" url="'+data[i]["URL"]+'">';
+			fila += '<span class="fa-stack"><i class="fa fa-search fa-stack-1x fa-inverse"></i></span></a></span><h6 id="nomArchivo">'+data[i]["NOMBRE"]+'<h6></li>';	
+
+			$('#listaArchivos').append(fila);
+		}
+		else{
+			fila = '<li class="list-group-item" id="fila-'+data[i]["IDARCHIVO"]+'">';
+			fila +='<span class="badge badge-danger"><a class="eliminar-archivo btn-link danger" idarchivo="'+data[i]["IDARCHIVO"]+'" url="'+data[i]["URL"]+'">';
+			fila +='<span class="fa-stack"><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span></a></span>';
+			fila +='<span class="badge badge-primary"><a href="../'+data[i]["URL"]+'" target="_blank">';
+			fila +='<span class="fa-stack"><i class="fa fa-download fa-stack-1x fa-inverse"></i></span></a></span>';
+			fila +='<h6 id="nomArchivo">'+data[i]["NOMBRE"]+'<h6></li>';	
 			$('#listaArchivos').append(fila);
 		}
 	}
 
 	$(document).on('click', '.eliminar-archivo', eliminarArchivo);
+	$(document).on('click', '.ver-archivo', verArchivo);
 }
 
 function eliminarArchivo(){
@@ -755,6 +773,27 @@ function eliminarArchivo(){
 				alert("Ocurrió un error al eliminar");
 		}
 	});
+}
+
+function verArchivo(){
+	$(".selected").removeClass("selected");
+	$(this).parent().parent().addClass("selected");
+	var url=this.getAttribute("url");
+	var newurl='../'+url;
+	var myPDF = new PDFObject({
+	  url: newurl,
+	  id: "archPDF",
+	  width: "700px",
+  	  height: "900px",
+	  pdfOpenParams: {
+	  	toolbar: 0,
+	    navpanes: 0,
+	    statusbar: 0,
+	    view: "FitH",
+	  }
+	}).embed("modalDiv");
+	$('#detalleArchivo').modal("show");
+
 }
 
 function llenarArchivos(){

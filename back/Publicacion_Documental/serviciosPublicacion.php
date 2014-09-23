@@ -16,27 +16,42 @@
 
 	    if($permiso["IDPERMISO"]!=1){
 	    	$pstmt = $con->prepare("SELECT DISTINCT P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
-									P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,A.URL,
+									P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
 									I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
-							FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T, gruxpubxusu GPU, LOG L, ARCHIVO A
+							FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T, gruxpubxusu GPU, LOG L
 							WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA AND L.PUBLICACION_IDPUBLICACION=P.IDPUBLICACION
 									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION AND (L.USUARIO_IDUSUARIO=? OR GPU.IDGRUPO=?)
-									AND GPU.IDPUBLICACION=P.IDPUBLICACION AND GPU.ESTADO=1 AND P.IDPUBLICACION=A.IDPUBLICACION 
+									AND GPU.IDPUBLICACION=P.IDPUBLICACION AND GPU.ESTADO=1 
 									and I.ESTADO=1 and T.ESTADO=1");
 			$pstmt->execute(array($data["idUsuario"],$data["idMiGrupo"]));
 		}
 	   else{
 			$pstmt = $con->prepare("SELECT distinct P.IDPUBLICACION, P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
-											P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,A.URL,
+											P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
 											I.NOMBRE as IDIOMA,T.NOMBRE as TIPO
-									FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T, ARCHIVO A
+									FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T
 									WHERE P.ESTADO=1 AND I.IDIDIOMA=P.IDIDIOMA 
-									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION AND P.IDPUBLICACION=A.IDPUBLICACION 
+									AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION 
 									and I.ESTADO=1 and T.ESTADO=1");
 			$pstmt->execute();
 		}
 		$listaPublicacion = array();
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$pstmt2 = $con->prepare("SELECT A.URL,A.FORMATO FROM PUBLICACION P, ARCHIVO A 
+									WHERE P.IDPUBLICACION=? AND A.IDPUBLICACION=P.idpublicacion 
+									and (A.FORMATO='application/pdf' or A.formato = 'application/force-download')
+									ORDER BY P.IDPUBLICACION LIMIT 1");
+			$pstmt2->execute(array($element["IDPUBLICACION"]));
+			$url=$pstmt2->fetch(PDO::FETCH_ASSOC);			
+			
+			if($url["URL"]==null){
+				$element["URL"]="0";
+			}
+			else{
+				$element["URL"]=$url["URL"];
+				
+				$element["FORMATO"]=$url["FORMATO"];				
+			}
 			$listaPublicacion[] = $element;
 		}
 		echo json_encode($listaPublicacion);
@@ -48,7 +63,7 @@
 	 
 		$pstmt = $con->prepare("SELECT  P.TITULO, P.FUENTE, P.OBTENIDO, P.ANIO,
 										P.MES,P.PAGINAS,P.VOLUMEN,P.DOI, P.ISSN,P.FECHAREGISTRO,
-										I.NOMBRE as IDIOMA,T.NOMBRE as TIPO, P.IDIDIOMA, P.IDTIPOPUBLICACION
+										I.NOMBRE as IDIOMA,T.NOMBRE as TIPO, P.IDIDIOMA, P.IDTIPOPUBLICACION, P.PAIS_PUBLI, P.CIUDAD_PUBLI	
 								FROM PUBLICACION P,IDIOMA I, TIPOPUBLICACION T 
 								WHERE P.IDPUBLICACION=? AND I.IDIDIOMA=P.IDIDIOMA 
 								AND P.IDTIPOPUBLICACION=T.IDTIPOPUBLICACION");
@@ -118,19 +133,23 @@
 	    try{
 			$con= getConnection();
 			$pstmt = $con->prepare("INSERT INTO PUBLICACION (TITULO,FUENTE,OBTENIDO,ANIO,MES,PAGINAS,
-									VOLUMEN,DOI,ISSN,ESTADO,FECHAREGISTRO,IDIDIOMA,IDTIPOPUBLICACION) 
-									VALUES (?,?,?,'1990',?,?,?,?,?,1,curdate(),?,?)");
+									VOLUMEN,DOI,ISSN,ESTADO,FECHAREGISTRO,IDIDIOMA,IDTIPOPUBLICACION,PAIS_PUBLI,CIUDAD_PUBLI) 
+									VALUES (?,?,?,'1990',?,?,?,?,?,1,curdate(),?,?,?,?)");
 
+			$volumen=$data->{"VOLUMEN"}=="" ? 1: $data->{"VOLUMEN"};
+			
 			$pstmt->execute(array($data->{"TITULO"},
 								  $data->{"FUENTE"},
 								  $data->{"OBTENIDO"},
 								  $data->{"FECHAPUB"},
 								  $data->{"PAGINAS"},
-								  $data->{"VOLUMEN"},
+								  $volumen,
 								  $data->{"DOI"},
 								  $data->{"ISSN"},								  
 								  $data->{"IDIDIOMA"},
-								  $data->{"IDTIPOPUBLICACION"}
+								  $data->{"IDTIPOPUBLICACION"},
+								  $data->{"PAIS"},
+								  $data->{"CIUDAD"}
 								  )
 							);
 			$lastInsertId = $con->lastInsertId();
