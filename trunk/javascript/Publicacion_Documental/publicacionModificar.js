@@ -254,6 +254,7 @@ function cargarListaInstituciones(){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
+			$("#sel2Institucion").empty();
 			for (var i=0; i<obj.length; i++) {
 				$("#sel2Institucion").append('<option value="' + obj[i].IDINSTITUCION + '">' + obj[i].NOMBRE_INSTITUCION + '</option>');
 			}
@@ -271,6 +272,7 @@ function cargarListaPersonas1(){
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
+			$("#sel2Responsable").empty();
 			for (var i=0; i<obj.length; i++) {
 				$("#sel2Responsable").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
 			}
@@ -288,6 +290,7 @@ function cargarListaPersonas2(){
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		success: function(obj){
+			$("#sel2Miembros").empty();
 			for (var i=0; i<obj.length; i++) {
 				$("#sel2Miembros").append('<option value="' + obj[i].IDUSUARIO + '">' + obj[i].NOMBRE + '</option>');
 			}
@@ -310,6 +313,7 @@ function cargaGrupos(){
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		success: function (data){
+			$("#sel2Grupo").empty();
 			for (var i=0; i<data.length; i++) {
 				$("#sel2Grupo").append('<option value="' + data[i].IDGRUPO + '">' + data[i].NOMBRE + '</option>');
 			}
@@ -409,6 +413,7 @@ function popularAutores(){
 	    dataType: "json",
 	    contentType: "application/json; charset=utf-8",
 	    success: function(data) {
+	    	$("#sel2Multi2").empty();
 		   for (var i=0; i<data.length; i++) {
 		     	$("#sel2Multi2").append('<option value="' + data[i].IDAUTOR + '">' + data[i].NOMBRE+" "+ data[i].NOM_APE + '</option>');
 		   }
@@ -683,9 +688,17 @@ $(test2).change(function() {
     seleccionAutores = ($(test2).select2('data'));
 });
 
+$('#sel2Multi2').on('select2-open',function(){
+	popularAutores();
+});
+
 var test3 = $('#sel2Grupo');
 $(test3).change(function() {
     seleccionGrupos = ($(test3).select2('data'));
+});
+
+$('#sel2Grupo').on('select2-open',function(){
+	cargaGrupos();
 });
 
 var test4 = $('#sel2Responsable');
@@ -693,9 +706,17 @@ $(test4).change(function() {
     seleccionResponsable = ($(test4).select2('data'));
 });
 
+$('#sel2Responsable').on('select2-open',function(){
+	cargarListaPersonas1();
+});
+
 var test5 = $('#sel2Miembros');
 $(test5).change(function() {
     seleccionMiembros = ($(test5).select2('data'));
+});
+
+$('#sel2Miembros').on('select2-open',function(){
+	cargarListaPersonas2();
 });
 
 var test6 = $('#sel2Institucion');
@@ -703,7 +724,9 @@ $(test6).change(function() {
     seleccionInstituciones = ($(test6).select2('data'));
 });
 
-
+$('#sel2Institucion').on('select2-open',function(){
+	cargarListaInstituciones();
+});
 
 Dropzone.options.subidaArchivos = {
   init: function() {
