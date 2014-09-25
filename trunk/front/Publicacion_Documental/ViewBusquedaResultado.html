@@ -17,6 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
 
 	<!-- this page specific styles -->
+	<link rel="stylesheet" href="../../javascript/tablesorter/css/jquery.tablesorter.pager.css">
 
 	<!-- google font libraries -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
@@ -45,9 +46,10 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-box clearfix">
+									<div class ="clearfix">
 									<h3 class="pull-left">Resultados para publicaciones</h3>
 
-									<div class="form-grou">									
+									<div class="form-group">									
 										<!--<a href="ViewCrearUsuario.html" class="btn btn-primary pull-right">
 											<i class="fa fa-crosshairs fa-lg"></i> 
 											<span>Búsqueda Basica</span>
@@ -57,8 +59,9 @@
 									</div>
 										
 									</div>
+									</div>
 									<div class="table-responsive">
-										<table class="table user-list">
+										<table class="table tablesorter" id="tabla">
 											<thead>	
 												<tr>
 													<th class="text-center">
@@ -75,37 +78,37 @@
 													</th>
 													<th class="text-center">
 														<span>Ver Publicacion</span>
-													</th>
-												</tr>
+													</th>												
 												</tr>
 											</thead>
 											<tbody id="listaPublicaciones">
 												
 											</tbody>	
 										</table>
-										<ul class="pagination pull-right">
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-left"></i>
-													</a>
-												</li>
-												<li>
-													<a href="#">1</a>
-												</li>
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-right"></i>
-													</a>
-												</li>
-										</ul>
+										<!--<div class="row pagination pager pull-right" id="pager">									 
+											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
+											<input type="hidden" class="pagedisplay"></input>
+											<div class="col-md-5"><select class="form-control pagenum input-mini" style="height:32px"></select></div>
+								            <div class="col-md-2"><li><a href="" class=" next"><i class="fa fa-chevron-right"></i></a></li></div>
+								            
+								            <li><select style="display:none;" class="pagesize" >
+								                <option selected="selected" value="5">5</option>
+								                <option value="10">10</option>
+								                <option value="20">20</option>
+								                <option value="30">30</option>
+								                <option value="40">40</option>
+								            </select></li>							             
+										</div>-->
 									</div>
+									<div class ="clearfix">
 									<h3 class="pull-left">Resultados para fichas bibliográficas</h3>
 
 									<div class="pull-left">
 										<p style="width: 1050px;" id="CANTIDADF">"CANTIDADF".</p>
 									</div>
+									</div>
 									<div class="table-responsive">
-										<table class="table user-list">
+										<table class="table" id="tabla2">
 											<thead>	
 												<tr>
 													<th class="text-center">
@@ -120,29 +123,27 @@
 												
 												    <th class="text-center">
 														<span>Ver Ficha </span>
-													</th>
-												</tr>
+													</th>												
 												</tr>
 											</thead>
 											<tbody id="listaFichas">
 												
 											</tbody>	
 										</table>
-										<ul class="pagination pull-right">
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-left"></i>
-													</a>
-												</li>
-												<li>
-													<a href="#">1</a>
-												</li>
-												<li>
-													<a href="#">
-														<i class="fa fa-chevron-right"></i>
-													</a>
-												</li>
-										</ul>
+										<!--<div class="row pagination pager pull-right" id="pager2">									 
+											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
+											<input type="hidden" class="pagedisplay"></input>
+											<div class="col-md-5"><select class="form-control pagenum input-mini" style="height:32px"></select></div>
+								            <div class="col-md-2"><li><a href="" class=" next"><i class="fa fa-chevron-right"></i></a></li></div>
+								            
+								            <li><select style="display:none;" class="pagesize2" >
+								                <option selected="selected" value="5">5</option>
+								                <option value="10">10</option>
+								                <option value="20">20</option>
+								                <option value="30">30</option>
+								                <option value="40">40</option>
+								            </select></li>							             
+										</div>-->
 										<div style="padding-left: 430px;">
 											<button type="button" class="btn btn-default" onclick="history.back();">Regresar</button>	
 										</div>
@@ -175,7 +176,18 @@
 	<script src="../../template/js/scripts.js"></script>
 	
 	<!-- this page specific inline scripts -->
+	<!-- Tablesorter: required for bootstrap -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.js"></script>
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.widgets.js"></script>
 
+    <!-- Tablesorter: optional -->
+    <script src="../../javascript/tablesorter/js/jquery.tablesorter.pager.js"></script>
+
+    <!-- Tablesorter: Config bootstrap -->
+    <script src="../../javascript/tablesorter/js/config.js"></script>
+    
+    <!-- Tablesorter: Config filtros -->
+    <script src="../../javascript/tablesorter/js/filtros.js"></script>
 	
 </body>
 </html>
