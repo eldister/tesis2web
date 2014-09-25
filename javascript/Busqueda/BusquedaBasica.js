@@ -27,8 +27,10 @@ function llenaTabla(data){
 		//fila += '<a class="ver-publicacion table-link" href="ViewVerPublicacion.html?idpublicacion='+data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
 		fila += '<a class="ver-publicacion table-link" IDPUBLICACION='+data["PUBLICACIONES"][i][i]["IDPUBLICACION"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
 		fila += '</tr>';
-		$('#listaPublicaciones').append(fila);		
-	}	
+		$('#listaPublicaciones').append(fila);
+			
+	}
+	//$('#listaPublicaciones').trigger("update");	
 
 	for(var i=0; i < data["FICHAS"].length ; i++){
 		var fila = '<tr id=fila-'+ data["FICHAS"][i][i]["IDFICHABIB"]+'>';
@@ -42,7 +44,8 @@ function llenaTabla(data){
 		//fila += '<a class="ver-publicacion table-link" href="ViewVerFicha.html?idficha='+data["FICHAS"][i][i]["IDFICHABIB"]+'"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';
 		fila += '<a class="ver-ficha table-link" IDFICHA='+data["FICHAS"][i][i]["IDFICHABIB"]+'><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a>';		
 		fila += '</tr>';
-		$('#listaFichas').append(fila);		
+		$('#listaFichas').append(fila);	
+		//$('#listaFichas').trigger("update");	
 	}	
 
 	$(document).on('click', '.ver-publicacion', verPublicacion);
@@ -123,6 +126,7 @@ function realizarBusqueda(){
 	obj["criterio"]=getUrlParameters("id","",true);
 
 	
+	
 	$.ajax({
 		type: 'POST',
 		url : '../../api/BQ_buscarPublicacionBasico',
@@ -134,8 +138,8 @@ function realizarBusqueda(){
 			llenaTabla(data);
 		}
 	});
-}
 
+}
 
 
 $(document).ready(function(){
@@ -160,10 +164,5 @@ $(document).ready(function(){
 		 else{
 		 }
 	});
-	
-	
-	
-
-
 	
 });
