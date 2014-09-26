@@ -30,7 +30,6 @@ function llenaTabla(data){
 		$('#listaPublicaciones').append(fila);
 			
 	}
-	//$('#listaPublicaciones').trigger("update");	
 
 	for(var i=0; i < data["FICHAS"].length ; i++){
 		var fila = '<tr id=fila-'+ data["FICHAS"][i][i]["IDFICHABIB"]+'>';
@@ -46,7 +45,7 @@ function llenaTabla(data){
 		fila += '</tr>';
 		$('#listaFichas').append(fila);	
 		//$('#listaFichas').trigger("update");	
-	}	
+	}
 
 	$(document).on('click', '.ver-publicacion', verPublicacion);
 	$(document).on('click', '.ver-ficha', verFicha);
@@ -138,6 +137,8 @@ function realizarBusqueda(){
 			llenaTabla(data);
 		}
 	});
+
+
 
 }
 

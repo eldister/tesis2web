@@ -60,8 +60,8 @@
 										
 									</div>
 									</div>
-									<div class="table-responsive">
-										<table class="table tablesorter" id="tabla">
+									<div class="table-responsive" style="overflow:auto;height:400px;">
+										<table class="table" id="tabla">
 											<thead>	
 												<tr>
 													<th class="text-center">
@@ -81,9 +81,11 @@
 													</th>												
 												</tr>
 											</thead>
-											<tbody id="listaPublicaciones">
+											
+											<tbody id="listaPublicaciones" >
 												
-											</tbody>	
+											</tbody>
+											
 										</table>
 										<!--<div class="row pagination pager pull-right" id="pager">									 
 											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
@@ -107,7 +109,7 @@
 										<p style="width: 1050px;" id="CANTIDADF">"CANTIDADF".</p>
 									</div>
 									</div>
-									<div class="table-responsive">
+									<div class="table-responsive" style="overflow:auto;height:300px;">
 										<table class="table" id="tabla2">
 											<thead>	
 												<tr>
@@ -126,9 +128,11 @@
 													</th>												
 												</tr>
 											</thead>
+											
 											<tbody id="listaFichas">
 												
-											</tbody>	
+											</tbody>
+											
 										</table>
 										<!--<div class="row pagination pager pull-right" id="pager2">									 
 											<div class="col-md-4"><li><a href="" class=" prev"><i class="fa fa-chevron-left"></i></a></li></div>
@@ -144,10 +148,10 @@
 								                <option value="40">40</option>
 								            </select></li>							             
 										</div>-->
+									</div>
 										<div style="padding-left: 430px;">
 											<button type="button" class="btn btn-default" onclick="history.back();">Regresar</button>	
 										</div>
-									</div>
 								</div>
 								</div>
 							</div>
@@ -173,21 +177,9 @@
 	<!-- this page specific scripts -->
 	
 	<!-- theme scripts -->
-	<script src="../../template/js/scripts.js"></script>
+	<script src="../../template/js/scripts.js"></script>	
 	
 	<!-- this page specific inline scripts -->
-	<!-- Tablesorter: required for bootstrap -->
-    <script src="../../javascript/tablesorter/js/jquery.tablesorter.js"></script>
-    <script src="../../javascript/tablesorter/js/jquery.tablesorter.widgets.js"></script>
-
-    <!-- Tablesorter: optional -->
-    <script src="../../javascript/tablesorter/js/jquery.tablesorter.pager.js"></script>
-
-    <!-- Tablesorter: Config bootstrap -->
-    <script src="../../javascript/tablesorter/js/config.js"></script>
-    
-    <!-- Tablesorter: Config filtros -->
-    <script src="../../javascript/tablesorter/js/filtros.js"></script>
 	
 </body>
 </html>
