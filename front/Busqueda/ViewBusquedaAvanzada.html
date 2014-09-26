@@ -73,13 +73,14 @@
 											<div class="col-md-4">
 												<button type="button" class="btn btn-default" id="nuevoElemento">Agregar elemento</button>
 												<button type="button" class="btn btn-default" id="buscar">Buscar</button>
+												<button type="button" class="btn btn-default" onclick="history.back();">Regresar</button>
 											</div>
 											<div class="col-md-4"></div>
 										</div>
 									</div>
 								
-									<div class="main-box clearfix">
-									<div class="clearfix">
+									<div class="main-box clearfix" id="mainbox">
+									<div class="clearfix" id="clearpub">
 									<h3>Resultados para publicaciones</h3>
 
 									<div class="pull-left">									
@@ -93,7 +94,7 @@
 
 									</div>
 									</div>
-									<div class="table-responsive">
+									<div class="table-responsive" style="overflow:auto;height:400px;" id="clearpubtab">
 										<table class="table user-list">
 											<thead>	
 												<tr>
@@ -135,15 +136,15 @@
 												</li>
 										</ul>-->
 									</div>
-									<div class="clearfix">
+									<div class="clearfix" id="clearfib">
 									<h3 >Resultados para fichas bibliográficas</h3>
 									<div class="pull-left">
 									<p  id="CANTIDADF">"CANTIDADF".</p></div>
 								</div>
 									<!--<label  style="width: 1050px;" >Cantidad de Fichas encontradas:<input readOnly type="CANTIDADF"  id="CANTIDADF"></input></label >-->
 
-									<div class="table-responsive">
-										<table class="table user-list">
+									<div class="table-responsive" style="overflow:auto;height:400px;" id="clearfibtab">
+										<table class="table user-list" >
 											<thead>	
 												<tr>
 													<th class="text-center">
@@ -181,9 +182,6 @@
 													</a>
 												</li>
 										</ul>-->
-										<div style="padding-left: 430px;">
-											<button type="button" class="btn btn-default" onclick="history.back();">Regresar</button>	
-										</div>
 									</div>
 								</div>
 								

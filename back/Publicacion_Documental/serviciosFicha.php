@@ -62,6 +62,23 @@
 		echo json_encode($publicacion);
 	}
 
+	function agregaEtiquetasTitulo2($titulo,$ididioma,$idpublicacion){
+		$palabras = str_word_count($titulo, 1);
+		$con2= getConnection();
+		for ($i=0; $i < count($palabras); $i++) { 
+			$pstmt = $con2->prepare("INSERT INTO ETIQUETARELACIONADA VALUES(NULL,'Vacio por mientras')");
+			$pstmt->execute();
+			$lastInsertId = $con2->lastInsertId();
+
+			$pstmt = $con2->prepare("INSERT INTO ETIQUETA VALUES(NULL,?,'No importa',2,?,?)");
+			$pstmt->execute(array($palabras[$i],$ididioma,$lastInsertId));
+			$lastInsertEtiqueta = $con2->lastInsertId();
+
+			$pstmt = $con2->prepare("INSERT INTO FICHAXETIQUETA VALUES(?,?)");
+			$pstmt->execute(array($idpublicacion,$lastInsertEtiqueta));
+		}
+	}
+
 	function registraFicha(){
 
 		$request = \Slim\Slim::getInstance()->request(); //json parameters
@@ -69,6 +86,7 @@
 
 	    try{
 	    	$idgrupo=$data->{"IDGRUPO"};
+	    	if($idgrupo==null)$idgrupo=1;
 			$con= getConnection();
 			$pstmt = $con->prepare("INSERT INTO FICHABIB (ENCABEZADO,TITULO_ABREVIADO,CONTENIDO,ESTADO,IDPUBLICACION,
 									IDTIPOFICHA,FECHAREGISTRO,IDCREADOR) VALUES (?,?,?,1,?,?,CURDATE(),?)");
@@ -83,6 +101,8 @@
 							);
 
 			$lastInsertId = $con->lastInsertId();
+
+			agregaEtiquetasTitulo2($data->{"ENCABEZADO"},1,$lastInsertId);
 
 			$pstmt = $con->prepare("INSERT INTO gruxfixusu(IDUSUARIO,IDGRUPO,IDFICHABIB,IDPUBLICACION,VISIBILIDAD,ESTADO)
 			    						VALUES(?,?,?,?,1,1)");
@@ -210,7 +230,7 @@
 		$pstmt = $con->prepare("SELECT  E.IDETIQUETA, E.NOMBRE 
 			  					from FICHABIB F,ETIQUETA E,FICHAXETIQUETA FE 
 			 					where FE.IDFICHABIB=F.IDFICHABIB and E.IDETIQUETA=FE.IDETIQUETA
-										and FE.IDFICHABIB=?");
+										and FE.IDFICHABIB=? and E.ESTADO=1");
 		$listaEtiquetas = array();
 		$pstmt->execute(array($id));
 		while($element = $pstmt->fetch(PDO::FETCH_ASSOC)){

@@ -149,7 +149,7 @@ function validarFicha(grupo){
 	clearErrors(); 
 	var camposValidos = true;
 	camposValidos = validateMandatory("ENCABEZADO","El campo es obligatorio") && camposValidos;
-	camposValidos = validateLengthCampoSelect("s2id_sel2Grupo",grupo,"Debe seleccionar un grupo al menos") && camposValidos;
+	//camposValidos = validateLengthCampoSelect("s2id_sel2Grupo",grupo,"Debe seleccionar un grupo al menos") && camposValidos;
 
 	return camposValidos;
 }

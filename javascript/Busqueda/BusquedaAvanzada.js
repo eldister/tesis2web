@@ -294,6 +294,15 @@ function buscar(){
 			//data["CANTIDAD"];
 			//alert(valor);
 			llenaTabla(data);
+			$('#mainbox.main-box').show();
+			if(flag==1){
+				$('#clearpub').show(); $('#clearpubtab').show();
+				$('#clearfib').hide(); $('#clearfibtab').hide();
+			}
+			else{
+				$('#clearpub').hide(); $('#clearpubtab').hide();
+				$('#clearfib').show(); $('#clearfibtab').show();
+			}
 		}
 	});
 }
@@ -303,6 +312,7 @@ $(document).ready(function(){
 
 	$('#CANTIDADP').html("Cantidad de publicaciones encontradas: ");
 	$('#CANTIDADF').html("Cantidad de fichas encontradas: ");
+	$('#mainbox.main-box').hide();
 
 	generaSelectPublicacion();
 	generaSelectFicha();
