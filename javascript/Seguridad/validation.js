@@ -344,3 +344,16 @@ function validarAutor3(responsable){
 	
 	return camposValidos;
 }
+
+function validarUsuarioGU(){
+	clearErrors(); //limpiar los errores anteriores
+	var camposValidos = true;//comenzar a validar campos 
+	//la variable camposValidos siempre debe ir al final para evitar lazy evaluation
+	camposValidos = validateMandatory("NOMBRES_USUARIO","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("APELLIDOS","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("CORREO_INSTITUCIONAL","El campo es obligatorio") && camposValidos;
+
+	camposValidos = validateEmail("CORREO_INSTITUCIONAL","El formato de correo es inválido") && camposValidos;
+
+	return camposValidos;
+}

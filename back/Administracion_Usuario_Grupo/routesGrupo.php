@@ -19,4 +19,11 @@
 	$app->post('/AU_dameResponsable','dameResponsableN');
 	$app->post('/AU_eliminaPublicacionXGrupo','eliminaPublicacionXGrupo');
 	$app->post('/AU_eliminaGrupo','eliminarGrupoN');
+
+
+	$app->post('/AU_getGPersonas5','damePersonas5');
+	$app->post('/GU_reistrarUsuarioGrupo','registrarUsuarioGrupo');
+	$app->post('/AU_getInstitucionGU','getInstitucionesGU');
+	$app->post('/AU_getTipoUsuarioGU','getTipoUsuarioGU');
+	$app->post('/GU_verificaUsuarioRepetido','verificarRepeticionGU');
 ?>

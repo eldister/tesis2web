@@ -2,7 +2,7 @@
    // header("Content-type: text/html; charset=utf8");
 	include('routesGrupo.php');
 	include_once '../back/conexion.php';
-
+	//include ('modelEncriptacion.php');
 
 function eliminarGrupoB($IDGRUPO){
 	//print_r($IDGRUPO);
@@ -517,8 +517,12 @@ function dameListaIntegrantes(){
     $IDUSUARIO=$data->{"IDUSUARIO"};
 
     $con=getConnection();
-    $pstmt = $con->prepare("SELECT U.NOMBRES,U.APELLIDOS, U.CORREO_INSTITUCIONAL, U.NUMERO_CELULAR
-    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO");
+
+    $pstmt = $con->prepare("SELECT A.NOMBRES,A.APELLIDOS,A.CORREO_INSTITUCIONAL,A.NUMERO_CELULAR FROM(
+							SELECT DISTINCT(U.IDUSUARIO), U.NOMBRES,U.APELLIDOS, U.CORREO_INSTITUCIONAL, U.NUMERO_CELULAR
+							FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO) A");
+    //$pstmt = $con->prepare("SELECT DISTINCT(U.IDUSUARIO), U.NOMBRES,U.APELLIDOS, U.CORREO_INSTITUCIONAL, U.NUMERO_CELULAR
+    //						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO");
 	$pstmt->execute(array($IDGRUPO));
 
 	$listaGrupo = array();
@@ -940,6 +944,157 @@ function dameGrupo2(){
 }
 
 
+function damePersonas5(){
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+    //$IDGRUPO=$data->{"IDGRUPO"};
+    $IDUSUARIO=$data->{"IDUSUARIO"};
 
+    $con=getConnection();
+
+	//$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    //						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND U.IDUSUARIO NOT IN (?)
+    //						AND UG.IDUSUARIO=U.IDUSUARIO");
+	//$pstmt->execute(array($IDGRUPO,$IDUSUARIO));
+
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM USUARIO U  WHERE U.ESTADO=1 ");
+	$pstmt->execute(array());
+
+	$listaGrupo = array();
+	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+		$gr=[
+			'IDUSUARIO'=>$req["IDUSUARIO"],
+			'NOMBRES'=>$req["NOMBRES"]. ' '.$req["APELLIDOS"]
+		];
+
+		array_push($listaGrupo, $gr);
+	}
+	echo json_encode($listaGrupo);
+
+}
+
+function getInstitucionesGU(){
+	$con= getConnection();
+	$pstmt = $con->prepare("SELECT P.IDINSTITUCION, P.NOMBRE_INSTITUCION FROM INSTITUCION P WHERE P.ESTADO=1");
+	$pstmt->execute(array());
+
+	$listaInstitucion = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaInstitucion[] = $req;
+		}
+	echo json_encode($listaInstitucion);
+}
+
+function getTipoUsuarioGU(){
+	$con= getConnection();
+	$pstmt = $con->prepare("SELECT P.IDPERMISO, P.NOMBRE FROM PERMISO P WHERE P.ESTADO=1");
+	$pstmt->execute(array());
+
+	$listaTipoUsuario = array();
+		while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
+			$listaTipoUsuario[] = $req;
+		}
+	echo json_encode($listaTipoUsuario);
+}
+
+function verificarRepeticionGU(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+	$data = json_decode($request->getBody());
+	$con= getConnection();
+
+	$NOMBRES=$data->{"NOMBRES_USUARIO"};
+	$APELLIDOS=$data->{"APELLIDOS"};
+
+	$pstmt = $con->prepare("SELECT count(P.IDUSUARIO) as CANTIDAD FROM USUARIO P WHERE P.ESTADO=1 AND 
+							P.NOMBRES LIKE CONCAT('%',?,'%') AND P.APELLIDOS LIKE CONCAT('%',?,'%')");
+	$pstmt->execute(array($NOMBRES,$APELLIDOS));
+	$req = $pstmt->fetch(PDO::FETCH_ASSOC)["CANTIDAD"];
+
+	echo json_encode($req);
+}
+
+function registrarUsuarioGrupo(){
+
+	$request = \Slim\Slim::getInstance()->request(); //json parameters
+    $data = json_decode($request->getBody());
+
+	$con= getConnection();
+
+	//DEBO CREAR EL USERNAME Y PASSWORD
+	$correo1=$data->{"APELLIDOS"};
+	$USERNAME1= substr($data->{"NOMBRES"}, 0, 1);
+	$USER='.';
+	$extra=explode(" ", $data->{"APELLIDOS"});
+	$USERNAME2= $extra[0];
+	$USERN=$USERNAME1.$USER.$USERNAME2;
+	$USERNAME= strtolower(str_replace(' ', '', $USERN));
+
+	$PASSWORD=Encrypter::encrypt($USERNAME);
+
+	$pstmt = $con->prepare("INSERT INTO USUARIO (NOMBRES,APELLIDOS,CORREO_INSTITUCIONAL,CORREO_ALTERNO,NUMERO_CELULAR,NUMERO_TEL_ALTERNO,
+										CUENTA_SKYPE,IDINSTITUCION,IDPERMISO,USERNAME,PASSWORD,ESTADO) 
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
+	$pstmt->execute(array($data->{"NOMBRES"},$data->{"APELLIDOS"},$data->{"CORREO_INSTITUCIONAL"},$data->{"CORREO_ALTERNO"},
+					$data->{"NUMERO_CELULAR"},$data->{"NUMERO_TEL_ALTERNO"},$data->{"CUENTA_SKYPE"},$data->{"IDINSTITUCION"},
+					$data->{"IDPERMISO"},$USERNAME,$PASSWORD));
+
+	$lastInsertId = $con->lastInsertId();
+
+	$uniondepalabras=$data->{"NOMBRES"}." ".$data->{"APELLIDOS"};
+
+	$array=array(
+			array('IDUSUARIO'=>$lastInsertId),
+			array('NOMBRESU'=>$uniondepalabras),
+			array('APELLIDOS'=> $data->{"APELLIDOS"}),
+			array('CORREO_INSTITUCIONAL'=>$data->{"CORREO_INSTITUCIONAL"}),
+			array('CORREO_ALTERNO'=> $data->{"CORREO_ALTERNO"}),
+			array('NUMERO_CELULAR'=>$data->{"NUMERO_CELULAR"}),
+			array('NUMERO_TEL_ALTERNO'=> $data->{"NUMERO_TEL_ALTERNO"}),
+			array('CUENTA_SKYPE'=>$data->{"CUENTA_SKYPE"}),
+			array('IDINSTITUCION'=> $data->{"IDINSTITUCION"}),
+			//array('MESES_TERMINAR'=> $data->{"MESES_TERMINAR"}),
+			//array('COMPROMISO'=>$data->{"COMPROMISO"}),
+			array('IDPERMISO'=> $data->{"IDPERMISO"}),
+			array('USERNAME'=> $USERNAME),
+			array('PASSWORD'=> $PASSWORD)
+		);
+
+	$CORREO_INSTITUCIONAL=$data->{"CORREO_INSTITUCIONAL"};
+	$CORREO_ALTERNO=$data->{"CORREO_ALTERNO"};
+	$NOMBRES=$data->{"NOMBRES"};
+	$APELLIDOS=$data->{"APELLIDOS"};
+
+	enviarMensajeGU($USERNAME,$PASSWORD,$CORREO_INSTITUCIONAL,$NOMBRES,$APELLIDOS,$CORREO_ALTERNO);
+	echo json_encode($array);
+}
+
+function enviarMensajeGU($username,$password,$CORREO_INSTITUCIONAL,$NOMBRES,$APELLIDOS,$CORREO_ALTERNO){
+	$PASS=Encrypter::decrypt($password);
+	$ESPACIO=' ';
+	$USER=$NOMBRES.$ESPACIO.$APELLIDOS;
+	$MENSAJE='Estimado '.$USER."\r\n".' Acaba de ser registrado como un nuevo miembro del Proyecto ProCal-ProSer'."\r\n".' Para poder ingresar al sistema debera hacer uso de los siguientes datos:'."\r\n".'  USUARIO:  '.$username."\r\n".'  PASSWORD:  '.$PASS;
+
+	
+	include('Mail.php');
+
+    $recipients = $CORREO_INSTITUCIONAL;
+
+    $headers['From']    = 'eli03nage@gmail.com';
+    $headers['To']      = $recipients;
+    $headers['Subject'] = 'ProCal-ProSer - Registro de Nuevo Miembro';
+
+    $body = $MENSAJE;
+
+    $smtpinfo["host"] = "smtp.gmail.com";
+    $smtpinfo["port"] = "587";
+    $smtpinfo["auth"] = true;
+    $smtpinfo["username"] = "eli03nage";
+    $smtpinfo["password"] = "nadyab90";
+
+    $mail_object =& Mail::factory("smtp", $smtpinfo); 
+    $mail_object->send($recipients, $headers, $body);
+}
 
 ?>
