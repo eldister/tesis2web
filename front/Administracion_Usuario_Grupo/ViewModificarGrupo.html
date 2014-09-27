@@ -78,17 +78,148 @@
 
 		                                        <h3>Miembros del Grupo</h3>
 
-		                                        <div class="form-group form-group-select2">
-		                                            <label>Responsable (*)</label>
-													<select style="width:520px" id="sel2Multi1" multiple >
-													</select>
-		                                        </div>
+		                                        <div class="row">
+	                                     			<div class="col-md-12">
+		                                     			<label>Responsable (*)</label>
+		                                     				<div class="row">
+					                            				<div class="col-md-6">
+			                                       					 <div class="form-group form-group-select2">
+																		<select style="width:520px" id="sel2Multi1" multiple>
+																		</select>
+		                                       						 </div>
+		                                       					</div>
+		                                       					<div class="col-md-6">								
+																	<a href="#detalleUsuario" class="btn btn-primary pull-left" 
+																		style="width: 155px;margin-left: 260px;" 
+																		data-toggle="modal">
+																		<i class="fa fa-plus-circle fa-lg"></i> 
+																		<span>Crea Usuario</span>
+																	</a>
+																</div>
+	                                    					</div>
+                                						</div>
+	                                			</div>
 
 		                                        <div class="form-group form-group-select2">
 		                                            <label>Integrantes del grupo (*)</label>
 													<select style="width:520px" id="sel2Multi2" multiple> 
 													</select>
 		                                        </div>
+
+
+					<div class="modal fade" id="detalleUsuario" tabindex="-1" role="dialog" aria-labelledby="detalleUsuario" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title" id="tituloModal">Agregar Usuario</h3>
+								</div>
+							<div class="modal-body">
+								<div class="container">
+									<form action="" id="form-autor">										
+										<input type="hidden" id="IDAUTOR" class="form-control" />									
+										
+
+											<h6><span>Datos obligatorios (*)<span></h6>
+											<div class="col-lg-6">	
+
+												<div class="row">
+													<label for="NOMBRES_USUARIO">Nombres Completos (*)</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-user"></i></span>
+														<input type="NOMBRES_USUARIO" class="form-control" id="NOMBRES_USUARIO">
+													</div>
+												</div>
+												
+												<div class="row">
+													<label for="APELLIDOS">Apellidos Completos (*)</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-user"></i></span>
+														<input type="APELLIDOS" class="form-control" id="APELLIDOS">
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="CORREO_INSTITUCIONAL">Correo Institucional (*) 	</label>
+													<div class="input-group">
+														<span class="input-group-addon">@</span>
+														<input type="CORREO_INSTITUCIONAL" class="form-control" id="CORREO_INSTITUCIONAL">
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="CORREO_ALTERNO">Correo Alterno</label>
+													<div class="input-group">
+														<span class="input-group-addon">@</span>
+														<input type="CORREO_ALTERNO" class="form-control" id="CORREO_ALTERNO">
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="NUMERO_CELULAR">Numero Celular</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+														<input type="NUMERO_CELULAR" class="form-control" id="NUMERO_CELULAR">
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="NUMERO_TEL_ALTERNO">Numero Telefonico Alterno</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+														<input type="NUMERO_TEL_ALTERNO" class="form-control" id="NUMERO_TEL_ALTERNO">
+													</div>
+												</div>
+
+												<div class="row">
+													<label for="CUENTA_SKYPE">Cuenta Skype</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-cloud"></i></span>
+														<input type="CUENTA_SKYPE" class="form-control" id="CUENTA_SKYPE">
+													</div>
+												</div>
+										</div>
+
+										<div class="col-lg-6">	
+
+											<div class="row" style="margin-left: 15px;">
+												<label for="">Institucion Educativa (*)</label>
+												<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-home"></i></span>
+													<select class="form-control" type="IDINSTITUCION" id="IDINSTITUCION">
+													</select>
+												</div>
+											</div>
+
+											<div class="row" style="margin-left: 15px;">
+												<label for="">Tipo Participante (*)</label>
+												<div class="input-group" >
+													<span class="input-group-addon"><i class="fa fa-home"></i></span>
+													<select type="IDPERMISO" class="form-control" id="IDPERMISO">
+													</select>
+												</div>
+											</div>
+										</div>
+
+
+									</form>		
+								</div>													
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="cerrarGU" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<button type="button" id="guardarUsuarioGrupo" class="btn btn-primary">
+									<span id="tituloBoton">Grabar</span>
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->							
+				<!--FIN MODAL AUTOR-->
+
+
+
+
+
 
 		                                        <div style="padding-left: 262px;">
 		                                        	<button type="button" class="btn btn-default"  onclick="location.href='ViewListaGrupo.html' ">Regresar</button>
@@ -125,6 +256,9 @@
 	<script src="../../javascript/Seguridad/validation.js"></script>
 	
 	<!-- this page specific inline scripts -->
+	<script src="../../template/js/bootstrap-datepicker.js"></script>
+	<script src="../../template/js/dropzone.js"></script>
+	<script src="../../template/js/jquery.maskedinput.min.js"></script>
 	
 </body>
 </html>
