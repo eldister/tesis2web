@@ -179,7 +179,8 @@ function cargarListaPersonas1(){
 
 	$.ajax({
 		type: 'POST',
-		url : '../../api/AU_getGPersonas2',
+		//url : '../../api/AU_getGPersonas2',
+		url : '../../api/AU_getGPersonas5',
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
@@ -200,7 +201,8 @@ function cargarListaPersonas2(){
 
 	$.ajax({
 		type: 'POST',
-		url : '../../api/AU_getGPersonas2',
+		//url : '../../api/AU_getGPersonas2',
+		url : '../../api/AU_getGPersonas5',
 		dataType: "json",
 		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
