@@ -467,10 +467,15 @@ function dameGrupo(){
 
 
 	//SACO INFORMACION DE LOS INTEGRANTES
-    $pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    /*$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
     						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO AND 
     						U.IDUSUARIO NOT IN (?,?)");
-	$pstmt->execute(array($IDGRUPO,$IDUSUARIO,$IDRESPONSABLE2));
+	$pstmt->execute(array($IDGRUPO,$IDUSUARIO,$IDRESPONSABLE2));*/
+
+	$pstmt = $con->prepare("SELECT U.IDUSUARIO,U.NOMBRES,U.APELLIDOS
+    						FROM USUARIOXGRUPO UG, USUARIO U  WHERE UG.IDGRUPO=? AND UG.ESTADO=1 AND UG.IDUSUARIO=U.IDUSUARIO
+    						AND U.IDUSUARIO NOT IN (?) ");
+	$pstmt->execute(array($IDGRUPO,$IDRESPONSABLE2));
 
 	$listaGrupo = array();
 	while($req = $pstmt->fetch(PDO::FETCH_ASSOC)){
