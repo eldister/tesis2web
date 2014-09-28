@@ -357,3 +357,15 @@ function validarUsuarioGU(){
 
 	return camposValidos;
 }
+
+function validarPublicacionGrupo(autores){
+	clearErrors(); 
+	var camposValidos = true;
+	camposValidos = validateMandatory("TITULO","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("FUENTE","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("OBTENIDO","El campo es obligatorio") && camposValidos;
+	camposValidos = validateMandatory("FECHAPUB","El campo es obligatorio") && camposValidos;
+	camposValidos = validateLengthCampoSelect("s2id_sel2Multi2",autores,"Debe seleccionar al menos un autor") && camposValidos;
+
+	return camposValidos;
+}	

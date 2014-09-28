@@ -1019,4 +1019,7 @@ function getBibliografia(){
 			//echo json_encode(array("status" => 0));
 		//}
 	}
+
+
+	
 ?>

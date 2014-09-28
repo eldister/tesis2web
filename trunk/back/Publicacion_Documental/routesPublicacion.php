@@ -25,5 +25,4 @@
 	$app->post('/PD_getListaTipoCitacion','getListaTipoCitacion');
 	$app->post('/PD_getBibliografia','getBibliografia');
 
-
 ?>
