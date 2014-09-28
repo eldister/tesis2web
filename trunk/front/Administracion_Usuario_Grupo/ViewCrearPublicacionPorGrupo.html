@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ProCal-ProSer</title>
+	
+	<!-- bootstrap -->
+	<link href="../../template/css/bootstrap/bootstrap.css" rel="stylesheet" />
+
+	<!-- libraries -->
+	<link href="../../template/css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../template/css/compiled/elements.css">
+	<link rel="stylesheet" href="../../template/css/libs/select2.css" type="text/css" />
+	<link rel="stylesheet" href="../../template/css/libs/datepicker.css" type="text/css" />
+
+	<!-- this page specific styles -->
+	<link rel="stylesheet" type="text/css" href="../../template/css/libs/dropzone.css">
+
+	<!-- google font libraries -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 8]>
+		<link href="css/libs/font-awesome-ie7.css" type="text/css" rel="stylesheet" />
+	<![endif]-->
+</head>
+	<script src="../../template/js/jquery.js"></script>
+	
+<body>
+	<script src="../../javascript/Seguridad/header.js"></script>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2" id="nav-col">
+				<script src="../../javascript/Seguridad/section.js"> </script>
+			</div>
+			<div class="col-md-10 col-sm-11" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1>Publicaciones</h1>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="main-box clearfix">
+								<!--<form role="form"  action="" id="form">-->
+									<h2>Crear Publicación</h2>
+									<h3><span>Datos Básicos</span></h3>
+									<h6>Datos obligatorios (*)</h6>
+		                            <div class="row">		                            	
+		                                <div class="col-lg-6">		                                    
+	                                        <div class="form-group">	                                        	
+	                                            <label>Título (*)</label>
+	                                            <div class="input-group">
+	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
+	                                           		<textarea class="form-control" id="TITULO" rows="3"></textarea>
+	                                        	</div>
+	                                        </div>
+	                                        <div class="form-group">
+	                                            <label>Fuente (*)</label>
+	                                            <div class="input-group">
+	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
+	                                            	<textarea class="form-control" id="FUENTE" rows="3" placeholder="Nombre y/o descripción del congreso, revista, editorial u otra fuente"></textarea>
+	                                        	</div>
+	                                        </div>
+	                                      	<div class="form-group">
+	                                            <label>Referencia(s) (*)</label>
+	                                            <div class="input-group">
+	                                            	<span class="input-group-addon"><i class="fa fa-book"></i></span>
+	                                            	<textarea class="form-control" id="OBTENIDO" rows="3" placeholder="Nombre y/o descripción de ACM, IEEE u otra base de datos"></textarea>
+	                                        	</div>
+	                                        </div>
+	                                        <div class="form-group">
+												<label for="IDIOMA_SELECT">Idioma (*)</label>
+												<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+													<select class="form-control" id="IDIOMA_SELECT" >
+										                
+										            </select>
+									            </div>	
+											</div>
+											<div class="form-group">
+												<label for="TIPOPUBLICACION_SELECT">Tipo (*)</label>
+												<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-book"></i></span>
+													<select class="form-control" id="TIPOPUBLICACION_SELECT" >
+										                
+										            </select>
+									            </div>	
+											</div>		                                    
+		                                </div>
+		                                <div class="col-lg-6">	
+		                                	<div class="form-group">
+		                                        <label>Fecha de Publicación (MM/AAAA) (*)</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                        	<input type="text" id="FECHAPUB" class="form-control" >
+		                                        </div>
+		                                    </div>
+											<div class="form-group">
+		                                        <label>Páginas (página inicial - página final)</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-book"></i></span>
+		                                        	<input type="text" id="PAGINAS" name="PAGINAS" class="form-control">
+		                                    	</div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>Volumen</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-bookmark-o"></i></span>
+		                                        	<input type="text" id="VOLUMEN" name="VOLUMEN" class="form-control">
+		                                    	</div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>DOI</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-bookmark-o"></i></span>
+		                                        	<input type="text" id="DOI" name="DOI" class="form-control"  placeholder=" Identificación de material digital">
+		                                    	</div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>ISSN</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-bookmark-o"></i></span>
+		                                        	<input type="text" id="ISSN" name="ISSN" class="form-control" placeholder="Número internacional normalizado de publicaciones seriadas">
+		                                    	</div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>País</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+		                                        	<input type="text" id="PAIS" name="PAIS" class="form-control">
+		                                    	</div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>Ciudad</label>
+		                                        <div class="input-group">
+		                                        	<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+		                                        	<input type="text" id="CIUDAD" name="CIUDAD" class="form-control">
+		                                    	</div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <h3><span>Grupos que tendrán acceso a la publicación</span></h3>	                            
+	                                <div class="row">
+	                                     <div class="col-md-12">
+		                                     <label>Selección de grupos (*)</label>
+		                                     <div class="row">
+					                            <div class="col-md-6">
+			                                        <div class="form-group form-group-select2">
+														<select style="width:525px" id="sel2Grupo" multiple>
+														</select>
+			                                        </div>
+		                                   		</div>
+		                                    	<div class="col-md-6">
+		                                    		<div class="filter-block pull-left" >								
+														<a href="#detalleGrupo" class="btn btn-primary pull-left" style="width: 155px;" data-toggle="modal">
+															<i class="fa fa-plus-circle fa-lg"></i> 
+															<span>Crear Grupo</span>
+														</a>
+													</div>
+		                                    	</div>
+	                                		</div>
+	                                	</div>
+	                                </div>
+		                            <h3><span>Autores y etiquetas</span></h3>		                            
+	                                <div class="row">
+	                                     <div class="col-md-12">
+		                                     <label>Autores (*)</label>
+		                                     <div class="row">
+					                            <div class="col-md-6">
+			                                        <div class="form-group form-group-select2">
+														<select style="width:525px" id="sel2Multi2" multiple>
+														</select>
+			                                        </div>
+		                                   		</div>
+		                                    	<div class="col-md-6">
+		                                    		<div class="filter-block pull-left" >								
+														<a href="#detalleAutor" class="btn btn-primary pull-left" style="width: 155px;" data-toggle="modal">
+															<i class="fa fa-plus-circle fa-lg"></i> 
+															<span>Agregar Autor</span>
+														</a>
+													</div>
+		                                    	</div>
+	                                		</div>
+	                                	</div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="col-md-12">
+	                                    	<label>Idioma de Etiquetas</label>
+	                                    	<div class="row">
+	                                    		<div class="col-md-3">
+	                                    			<select class="form-control" id="selectIdiomaEtiqueta"></select>
+	                                    		</div>
+	                                    	</div>
+	                                    	<br>
+	                                    	<label>Etiquetas</label>
+	                                    	<div class="row">
+	                                    		<div class="col-md-6">
+			                                        <div class="form-group form-group-select2">
+														<select style="width:525px" id="sel2Multi3" multiple> 
+														</select>
+			                                        </div>
+			                                    </div>
+			                                    <div class="col-md-6">
+													<div class="filter-block pull-left" >								
+														<a href="#detalleEtiqueta" class="btn btn-primary pull-left"  data-toggle="modal">
+															<i class="fa fa-plus-circle fa-lg"></i> 
+															<span>Agregar Etiqueta</span>
+														</a>
+													</div>
+												</div>
+                                    		</div>
+                                    	</div>
+		                            </div>				                     	
+			                        <h3><span>Subida de Archivos</span></h3>
+			                        <div id="dropzone">
+										<form id="subidaArchivos" class="dropzone dz-clickable" style="min-height: 250px;"enctype="multipart/form-data" >
+											<div class="dz-message">
+												<h4>Arrastre los archivos de las publicaciones, o de click en este espacio</h4>
+											</div>
+										</form>
+									</div>
+					<!--MODAL GRUPOS-->   	                     
+					<div class="modal fade" id="detalleGrupo" tabindex="-1" role="dialog" aria-labelledby="detalleGrupo" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title" id="tituloModal">Crear Grupo</h3>
+									</div>
+								<div class="modal-body">
+									<form role="form" id="form-etiqueta">
+										<div class="form-group">
+										<label for="NOMBRES">Nombre del Grupo</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-group"></i></span>
+												<input type="NOMBRES" class="form-control" id="NOMBRES" >
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="FECHA_CREACION">Fecha de creacion</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+												<input type="FECHA_CREACION" class="form-control" id="FECHA_CREACION" readonly>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="DESCRIPCION">Descripcion</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-file"></i></span>
+												<textarea type="DESCRIPCION" class="form-control" id="DESCRIPCION" rows="2"></textarea>
+											</div>
+										</div>
+										<h3>Agregar Usuarios</h3>
+										<div class="form-group form-group-select2">
+                                            <label>Agregar Responsable</label>
+											<select style="width:520px" id="sel2Responsable" multiple>
+											</select>
+                                        </div>
+										<div class="form-group form-group-select2">
+                                            <label> Integrantes del Grupo</label>
+											<select style="width:520px" id="sel2Miembros" multiple>
+											</select>
+                                        </div>		                                        
+									</form>											
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardarGrupo" class="btn btn-primary" >
+										<span id="tituloBoton">Agregar</span>
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->		                     	
+					<!--FIN MODAL GRUPOS-->
+	                <!--MODAL ETIQUETA-->   	                     
+					<div class="modal fade" id="detalleEtiqueta" tabindex="-1" role="dialog" aria-labelledby="detalleEtiqueta" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title" id="tituloModal">Agregar Etiqueta</h3>
+									</div>
+								<div class="modal-body" id="bodyEtiquetas">
+																																										
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="button" id="guardarEtiqueta" class="btn btn-primary" >
+										<span id="tituloBoton">Grabar</span>
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->		                     	
+					<!--FIN MODAL ETIQUETA--> 
+					<!--MODAL AUTOR--> 
+					<div class="modal fade" id="detalleAutor" tabindex="-1" role="dialog" aria-labelledby="detalleAutor" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title" id="tituloModal">Agregar Autor</h3>
+								</div>
+							<div class="modal-body">
+								<div class="container">
+									<form action="" id="form-autor">										
+										<input type="hidden" id="IDAUTOR" class="form-control" />									
+										
+										<div class="row">
+											<label for="NOMBRE">Nombres (*)</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-user"></i></span>
+													<input type="NOMBRE" class="form-control" id="NOMBRE"  >
+											</div>
+										</div>
+
+										<div class="row">
+											<label for="NOM_APE">Apellidos (*)</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-user"></i></span>
+													<input type="NOM_APE" class="form-control" id="NOM_APE"  >
+											</div>
+										</div>	
+										<div class="row">
+											<label for="PAGINA_WEB">Pagina Web</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-laptop"></i></span>
+													<input type="PAGINA_WEB" class="form-control" id="PAGINA_WEB"  >
+											</div>
+										</div>
+
+										<div class="row">
+											<label for="INSTITUCION">Institucion</label>
+											<div class="form-group form-group-select2">
+		                                            <label>Agregar Institucion (*)</label>
+													<select style="width:520px" id="sel2Institucion" multiple>
+													</select>
+			                                </div>
+			                                <a href="#detalleInstitucion" class="btn btn-primary pull-left" data-toggle="modal">
+												<i class="fa fa-plus-circle fa-lg"></i> 
+												<span>Agregar Institucion</span>
+											</a>
+										</div>
+
+										<div class="row">
+											<label for="TRABAJO">Trabajo</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+													<input type="TRABAJO" class="form-control" id="TRABAJO"  >
+											</div>
+										</div>
+									</form>		
+								</div>													
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<button type="button" id="guardarAutor" class="btn btn-primary">
+									<span id="tituloBoton">Grabar</span>
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->							
+				<!--FIN MODAL AUTOR-->
+				<!--MODAL INSTITUCION-->
+				<div class="modal fade" id="detalleInstitucion" tabindex="-1" role="dialog" aria-labelledby="detalleInstitucion" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title" id="tituloModal">Agregar Institucion</h3>
+								</div>
+							<div class="modal-body">
+								<div class="container">
+									<form action="" id="form-autor">										
+																		
+										<div class="row">
+											<label for="INSTITUCION">Institucion</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+													<input type="INSTITUCION" class="form-control" id="INSTITUCION">
+											</div>
+										</div>
+
+										<div class="row">
+											<label for="NOM_INSTITUCION">Descripcion</label>
+											<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+													<input type="NOM_INSTITUCION" class="form-control" id="NOM_INSTITUCION">
+											</div>
+										</div>
+									</form>		
+								</div>													
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<button type="button" id="guardarInstitucion" class="btn btn-primary">
+									<span id="tituloBoton">Grabar</span>
+								</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!--FIN MODAL INSTITUCION>
+				<!--MODAL SUBIR ARCHIVOS-->
+				<div class="modal fade" id="myModalSubirArchivos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h3 class="modal-title"><span>Subir Archivos para publicación</span></h3>
+								</div>
+							<div class="modal-body">
+								<!--<div id="dropzone">
+									<form id="demo-upload" class="dropzone dz-clickable" action="#">
+										<div class="dz-default dz-message">
+											<span>Arrastre los archivos de las publicaciones</span>
+										</div>
+									</form>
+								</div>-->
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary">Grabar</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!--FIN MODAL SUBIR ARCHIVOS-->
+		                     <br><br>
+		                    <div class="row pull-center">
+		                    	<div class="col-md-4"></div>
+			                    <div class="col-md-4">   
+			                    	<button type="button" class="btn btn-default" value="regresar" onClick="location.href='ViewListaPublicacion.html'">Regresar</button>   	
+	                    			<button type="button" class="btn btn-default" id="guardar">Grabar</button>
+	                    			<button type="button" class="btn btn-default" id="limpiar">Limpiar</button>
+	                    			
+                    			</div>
+                    			<div class="col-md-4"></div>
+                    		</div>
+                        	<!--</form>-->							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer-bar">
+		<p id="footer-copyright">
+			&copy; 2014 INV-TOOL. Powered by Nadya - Albert
+		</p>
+	</footer>
+	
+	<!-- global scripts -->
+	<script src="../../javascript/Busqueda/Busqueda.js"></script>
+	<script src="../../template/js/bootstrap.js"></script>
+	<script src="../../javascript/Seguridad/interfaz.js"></script>
+	<script src="../../javascript/Seguridad/validation.js"></script>
+
+	
+	<!-- this page specific scripts -->
+	<script src="../../template/js/select2.min.js"></script>
+	<script src="../../template/js/bootstrap-datepicker.js"></script>
+	<script src="../../template/js/dropzone.js"></script>
+	<script src="../../template/js/bootstrap-datepicker.js"></script>
+	<script src="../../template/js/jquery.maskedinput.min.js"></script>
+	<script src="../../javascript/Publicacion_Documental/publicacionRegistro.js"></script>
+
+	<!-- theme scripts -->
+	<script src="../../template/js/scripts.js"></script>
+	
+	<!-- this page specific inline scripts -->
+
+</body>
+</html>
