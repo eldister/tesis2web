@@ -163,6 +163,11 @@ function initTableSorter(){
        .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val()});
 }
 
+function crearPublicacion(){
+	var IDGRUPO=getUrlParameters("id","",true);
+	window.location.href = "../Administracion_Usuario_Grupo/ViewCrearPublicacionPorGrupo.html?id=" + IDGRUPO;
+}
+
 $(document).ready(function(){
 	initTableSorter();	
 	idpermiso = damePermiso();
@@ -171,6 +176,6 @@ $(document).ready(function(){
 	//cargaListaPublicacion();
 	setTimeout(cargaListaPublicacion,250);
 	//$("#guardar").click(guardarCambios);
-	//$("#cerrar").click(resetForm);
+	$("#crearPublicacion").click(crearPublicacion);
 
 });

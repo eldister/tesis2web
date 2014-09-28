@@ -55,6 +55,7 @@ function ingresar(){
 				var idActual=1;
 				if(data["grupoid"]===null)
 					localStorage.setItem('idMiGrupo',idActual);
+					//localStorage.setItem('idGrupoPadre',idActual);
 				else localStorage.setItem('idMiGrupo',data["grupoid"]);
 				localStorage.setItem('idGrupo',idActual);
 				//uid codigo de usuario en BD
